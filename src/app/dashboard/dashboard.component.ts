@@ -7,6 +7,7 @@ import { ApiService } from '../api.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
-  userType: string | undefined = this.apiService.tempUserType;
+  // Testing to hold the data of the logged in user
+  userData: any = this.apiService.tempUser;
   constructor(private apiService: ApiService) { }
 }

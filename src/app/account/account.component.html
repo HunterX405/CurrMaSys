@@ -1,0 +1,49 @@
+<div class="container">
+    <h1>Accounts</h1>
+    <!-- Form for adding users. Must be hidden -->
+    <div>
+        <form [formGroup]="registerForm" (ngSubmit)="registerUser(registerForm)">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" formControlName="name" class="form-control" placeholder="Name" id="name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" formControlName="email" class="form-control" placeholder="Email" id="email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" formControlName="password" class="form-control" placeholder="Password"
+                    id="password">
+            </div>
+            <div class="form-group">
+                <label for="userType"></label>
+                <select formControlName="userType" id="userType">
+                    <option value="chair">Committee Chair</option>
+                    <option value="member">Committee Member</option>
+                    <option value="stakeholder">Stakeholder</option>
+                </select>
+            </div>
+            <button class="btn btn-primary">Add User</button>
+        </form>
+    </div>
+    <!-- Table for displaying the list of users -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>User Type</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users">
+                <td> {{ user.name }} </td>
+                <td> {{ user.email }} </td>
+                <td> {{ user.userType }} </td>
+                <td> <button>Disable</button> </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

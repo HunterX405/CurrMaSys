@@ -1,6 +1,9 @@
 <div class="container">
     <h1>Dashboard</h1>
-    <div *ngIf="userType === 'admin'">
-        <a>Account Mangement</a>
+    <div *ngIf="userData.userType === 'admin'">
+        <a routerLink="/account">Account Management</a>
     </div>
+    {{ userData.id }}
+    {{ userData.name }}
+    {{ userData.userType }}
 </div>

@@ -2,11 +2,12 @@
     <h1>Login Page</h1>
     <!-- formGroup - based from the form @ the Component -->
     <!-- ngSubmit - to call the function when the button is submitted in this formGroup -->
-    <form [formGroup]="loginForm" (ngSubmit)="userLogin(loginForm)">
+    <form [formGroup]="loginForm" (ngSubmit)="loginUser(loginForm)">
         <div class="form-group">
             <label for="email">Email</label>
             <!-- formControlName - must be assigned same in the Component -->
             <input type="text" formControlName="email" class="form-control" placeholder="Email" id="email">
+            <!-- Scuffed and fast method of displaying errors -->
             <div class="error" *ngIf="email?.invalid && isFormSubmitted">
                 Invalid Email format
             </div>

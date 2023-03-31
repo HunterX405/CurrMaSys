@@ -16,6 +16,7 @@ export class LoginComponent {
     password: ["", [Validators.required]]
   })
 
+  // For error messages
   isFormSubmitted: boolean = false;
   isLoginFailed: boolean = false;
 
@@ -27,10 +28,10 @@ export class LoginComponent {
   // Current Issues: Copied, Deprecated Code 
   // Still does not understand the purpose of all contents in this function
   // 1st Param - to access the keys or values of form
-  userLogin(loginForm: FormGroup) {
+  loginUser(loginForm: FormGroup) {
     // Accessing the inputted value on the loginForm
     const { email, password } = loginForm.value;
-    this.apiService.userLogin(email, password).subscribe({
+    this.apiService.loginUser(email, password).subscribe({
       next: (data) => {
         // User represent an object that contains all data from the DB.
         // User is an array so accessing the 1st element is used then accessing the other properties in the array.
@@ -39,6 +40,7 @@ export class LoginComponent {
         console.log('Login Successful');
       },
       error: (err) => {
+        // To display the error message on the template
         this.isLoginFailed = true;
         console.log('Login Failed. Incorrect email or password');
       },

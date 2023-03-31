@@ -13,11 +13,13 @@ export class ApiService {
   // Currently unused
   // @Output() getLoggedInName: EventEmitter<any> = new EventEmitter();
 
-  tempUserType: string | undefined;
+  // Testing to hold the logged in user data and accessible to other components through the service.
+  tempUser: any;
 
   constructor(private httpClient: HttpClient) { }
 
-  userLogin(email: string, password: string) {
+  // Loggin in the user
+  loginUser(email: string, password: string) {
     // The data that will be sent on the PHP file
     const credentials = { email, password };
 
@@ -30,13 +32,35 @@ export class ApiService {
       // Used for validating the inputted email and password
       // If setToken is not used, all input will be accepted and successful
       this.setToken(data[0].name);
-      this.tempUserType = data[0].userType;
+
+      // Setting the logged in user in the tempUser
+      this.tempUser = data[0];
+
       // Unused
       // this.getLoggedInName.emit(true);
 
       return data;
     })
     );
+  }
+
+  // Registering the user
+  registerUser(name: string, email: string, password: string, userType: string) {
+    const newCredentials = { name, email, password, userType };
+
+    return this.httpClient.post<any>(this.baseUrl + "/register.php", newCredentials)
+      .pipe(map(data => {
+        return data;
+      }));
+  }
+
+  // Getting the list of users
+  displayUsers() {
+    return this.httpClient.get<any>(this.baseUrl + "/displayUsers.php").pipe(
+      map(data => {
+        return data["data"];
+      })
+    )
   }
 
   // Token
