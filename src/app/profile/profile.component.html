@@ -1,0 +1,30 @@
+<div class="container">
+    <h1>Profile</h1>
+    <h3> {{ "Logged in User: " + tempUser.name }}</h3>
+
+    <form [formGroup]="editProfileForm" (ngSubmit)="editProfile(editProfileForm)">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" formControlName="name" class="form-control" placeholder="Name" id="name">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" formControlName="email" class="form-control" placeholder="Email" id="email">
+        </div>
+
+        <h3>Change Password</h3>
+        <div class="form-group">
+            <label for="newPassword">New Password</label>
+            <input type="password" formControlName="newPassword" class="form-control" placeholder="New Password" id="New Password">
+        </div>
+
+        <div class="form-group">
+            <label for="conPassword">Confirm Password</label>
+            <input type="password" formControlName="conPassword" class="form-control" placeholder="Confirm Password" id="conPassword">
+        </div>
+
+        <button class="btn btn-primary">Submit</button>
+    </form>
+
+</div>

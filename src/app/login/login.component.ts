@@ -33,16 +33,19 @@ export class LoginComponent {
     const { email, password } = loginForm.value;
     this.apiService.loginUser(email, password).subscribe({
       next: (data) => {
+        console.log('Login Successful');
+        console.log(data);
         // User represent an object that contains all data from the DB.
         // User is an array so accessing the 1st element is used then accessing the other properties in the array.
         const redirect = this.apiService.redirectUrl ?? '/dashboard';
         this.router.navigate([redirect]);
-        console.log('Login Successful');
+        
       },
       error: (err) => {
+        console.log('Login Failed. Incorrect email or password');
+        console.log(err)
         // To display the error message on the template
         this.isLoginFailed = true;
-        console.log('Login Failed. Incorrect email or password');
       },
     });
     this.isFormSubmitted = true;

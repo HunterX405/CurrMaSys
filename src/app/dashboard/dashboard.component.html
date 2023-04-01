@@ -3,7 +3,8 @@
     <div *ngIf="userData.userType === 'admin'">
         <a routerLink="/account">Account Management</a>
     </div>
-    {{ userData.id }}
-    {{ userData.name }}
-    {{ userData.userType }}
+    <div>
+        <a routerLink="/profile">Profile</a>
+        <h5>{{ userData.name }}</h5>
+    </div>
 </div>

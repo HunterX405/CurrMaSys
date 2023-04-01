@@ -11,7 +11,7 @@ if (isset($postdata) && !empty($postdata)) {
     $isActive = 1;
     
     $sql = "INSERT INTO users(name,email,password, userType, isActive) VALUES ('$name', '$email', '$password', '$userType', '$isActive')";
-    if ($mysqli->query($sql) === TRUE) {
+    if ($result = mysqli_query($mysqli, $sql)) {
         // The data that will be returned to component
         $authdata = [
             'name' => $name,

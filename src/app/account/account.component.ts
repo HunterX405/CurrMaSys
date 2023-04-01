@@ -10,11 +10,12 @@ import { ApiService } from '../api.service';
 export class AccountComponent implements OnInit {
   // Variable that holds the list of users
   users: any;
+  successMessage: string = "";
+  isFormSubmitted: boolean = false;
 
   registerForm = this.fb.group({
     name: ["", [Validators.required]],
     email: ["", [Validators.required, Validators.email]],
-    password: ["", [Validators.required]],
     userType: ["", [Validators.required]]
   })
 
@@ -28,33 +29,55 @@ export class AccountComponent implements OnInit {
 
   // Registering the user
   registerUser(registerForm: FormGroup) {
-    const { name, email, password, userType } = registerForm.value;
-    this.apiService.registerUser(name, email, password, userType).subscribe({
-      next: (data) => {
-        console.log("Registration Successful");
-      },
-      error: (err) => {
-        console.log("Registration Failed");
-      }
-    })
+    const { name, email, userType } = registerForm.value;
+    let generatedPassword = this.generatePassword(8);
+
+    if (registerForm.valid) {
+      this.apiService.registerUser(name, email, generatedPassword, userType).subscribe({
+        next: (data) => {
+          this.successMessage = "Registration Successful" + "Email: " + email + "Password: " + generatedPassword;
+          console.log("Registration Successful");
+          console.log(data);
+        },
+        error: (err) => {
+          console.log("Registration Failed");
+          console.log(err);
+        }
+      })
+    }
+    this.isFormSubmitted = true;
+  }
+
+  test() {
+    this.isFormSubmitted = true;
+    console.log(this.registerForm.valid)
+  }
+
+  generatePassword(length: number): string {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return result;
   }
 
   // Getting the list of users
   displayUsers() {
     this.apiService.displayUsers().subscribe({
       next: (data) => {
-        this.users = data;
-        console.log(typeof data)
         console.log("Display Successful");
+        console.log(data);
+        this.users = data;
       },
       error: (err) => {
         console.log("Display Failed");
+        console.log(err);
       }
     })
   }
 
   get name() { return this.registerForm.value.name };
   get email() { return this.registerForm.value.email };
-  get password() { return this.registerForm.value.password };
   get userType() { return this.registerForm.value.userType };
 }

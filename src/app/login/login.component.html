@@ -6,7 +6,7 @@
         <div class="form-group">
             <label for="email">Email</label>
             <!-- formControlName - must be assigned same in the Component -->
-            <input type="text" formControlName="email" class="form-control" placeholder="Email" id="email">
+            <input type="text" formControlName="email" class="form-control" placeholder="Email" id="email" value="">
             <!-- Scuffed and fast method of displaying errors -->
             <div class="error" *ngIf="email?.invalid && isFormSubmitted">
                 Invalid Email format
@@ -16,13 +16,16 @@
         <div class="form-group">
             <label for="password">Password</label>
             <!-- formControlName - must be assigned same in the Component -->
-            <input type="password" formControlName="password" class="form-control" placeholder="Password" id="password" >
+            <input type="password" formControlName="password" class="form-control" placeholder="Password" id="password">
         </div>
 
         <button class="btn btn-primary">Login</button>
-        <a>Forgot password?</a>
+
         <div class="error" *ngIf="isLoginFailed">
             <h3>Incorect username or password</h3>
         </div>
     </form>
+    <button class="btn" routerLink="/forgot-password">
+        Forgot password?
+    </button>
 </div>

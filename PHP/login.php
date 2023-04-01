@@ -9,7 +9,6 @@ $request = json_decode($postData);
 // To check the $postData
 if (isset($postData) && !empty($postData)) {
     // The $request->email or $request->password depends on the HttpRequest from the service. This is based on the credentials variable on api.service.ts 
-    
     $email = mysqli_real_escape_string($mysqli, trim($request->email));
     $password = mysqli_real_escape_string($mysqli, trim($request->password));
 
@@ -18,12 +17,12 @@ if (isset($postData) && !empty($postData)) {
 
     if ($result = mysqli_query($mysqli, $sql)) {
         // Successful query that returns an array
-        $rows = array();
+        $resultData = array();
         while ($row = mysqli_fetch_assoc($result)) {
-            $rows[] = $row;
+            $resultData[] = $row;
         }
         // Encodes the array in JSON and sent response to the client
-        echo json_encode($rows);
+        echo json_encode($resultData);
     } else {
         http_response_code(404);
     }

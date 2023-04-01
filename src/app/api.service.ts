@@ -48,10 +48,9 @@ export class ApiService {
   registerUser(name: string, email: string, password: string, userType: string) {
     const newCredentials = { name, email, password, userType };
 
-    return this.httpClient.post<any>(this.baseUrl + "/register.php", newCredentials)
-      .pipe(map(data => {
-        return data;
-      }));
+    return this.httpClient.post<any>(this.baseUrl + "/register.php", newCredentials).pipe(map(data => {
+      return data;
+    }));
   }
 
   // Getting the list of users
@@ -63,6 +62,23 @@ export class ApiService {
     )
   }
 
+  editProfile(name: string, email: string, newPassword: string) {
+    const credentials = { name, email, newPassword }
+    return this.httpClient.post<any>(this.baseUrl + "/editProfile.php", credentials).pipe(map(data => {
+      console.log("@ Service editProfile")
+      console.log(data);
+      return data;
+    }));
+  }
+
+  resetPassword(email: string, newPassword: string) {
+    const credentials = { email, newPassword };
+    return this.httpClient.post<any>(this.baseUrl + "/forgotPassword.php", credentials).pipe(map(data => {
+      console.log("@ Service")
+      console.log(data);
+      return data;
+    }));
+  }
   // Token
   // The main purpose of tokens are still unidentified
   // Used for logging in the user

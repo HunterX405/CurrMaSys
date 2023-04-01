@@ -1,30 +1,30 @@
 <?php
 include_once("database.php");
 
-$users = [];
+$resultData = [];
 // Selecting all properties of the table users
 $sql = "SELECT * FROM users";
 
 if ($result = mysqli_query($mysqli, $sql)) {
     $i = 0;
     // The data that will be returned
-    while ($row = mysqli_fetch_assoc($result)) {
-        $users[$i]["name"] = $row["name"];
-        $users[$i]["email"] = $row["email"];
+    while ($dbRow = mysqli_fetch_assoc($result)) {
+        $resultData[$i]["name"] = $dbRow["name"];
+        $resultData[$i]["email"] = $dbRow["email"];
         // Transforming the data for display
-        if ($row["userType"] === "admin") {
-            $users[$i]["userType"] = "Admin";
-        } elseif ($row["userType"] === "chair") {
-            $users[$i]["userType"] = "Committee Chair";
-        } elseif ($row["userType"] === "member") {
-            $users[$i]["userType"] = "Committee Member";
-        } elseif ($row["userType"] === "stakeholder") {
-            $users[$i]["userType"] = "Stakeholder";
+        if ($dbRow["userType"] === "admin") {
+            $resultData[$i]["userType"] = "Admin";
+        } elseif ($dbRow["userType"] === "chair") {
+            $resultData[$i]["userType"] = "Committee Chair";
+        } elseif ($dbRow["userType"] === "member") {
+            $resultData[$i]["userType"] = "Committee Member";
+        } elseif ($dbRow["userType"] === "stakeholder") {
+            $resultData[$i]["userType"] = "Stakeholder";
         }
         $i++;
     }
     // Returns an array
-    echo json_encode(["data" => $users]);
+    echo json_encode(["data" => $resultData]);
 } else {
     http_response_code(404);
 }
