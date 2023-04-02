@@ -5,6 +5,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AccountComponent } from './account/account.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ProfileComponent } from './profile/profile.component';
+//import { SidenavComponent } from './sidenav/sidenav.component';
 
 const routes: Routes = [
   {path: "login", component: LoginComponent, title: "Login"},
@@ -12,6 +13,7 @@ const routes: Routes = [
   {path: "dashboard", component: DashboardComponent, title: "Dashboard"},
   {path: "account", component: AccountComponent, title: "Accounts"},
   {path: "profile", component: ProfileComponent, title: "Profile"},
+  //{path: "sidenav", component: SidenavComponent, title: "Side Navigation"},
   {path: "", redirectTo: "login", pathMatch: 'full'},
 ];
 

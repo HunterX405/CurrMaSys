@@ -1,31 +1,51 @@
-<div class="container">
-    <h1>Login Page</h1>
-    <!-- formGroup - based from the form @ the Component -->
-    <!-- ngSubmit - to call the function when the button is submitted in this formGroup -->
-    <form [formGroup]="loginForm" (ngSubmit)="loginUser(loginForm)">
-        <div class="form-group">
-            <label for="email">Email</label>
-            <!-- formControlName - must be assigned same in the Component -->
-            <input type="text" formControlName="email" class="form-control" placeholder="Email" id="email" value="">
-            <!-- Scuffed and fast method of displaying errors -->
-            <div class="error" *ngIf="email?.invalid && isFormSubmitted">
-                Invalid Email format
+<div class="loginBg">
+    <div class="d-inline-flex p-5 bd-highlight bg-white formHeight">
+        <div class="container-fluid my-5">
+
+            <div class="d-flex flex-row my-3">
+                <img class="logoImg " src="../../assets/images/logoBSU.png" alt="BULSU LOGO">
+                <img class="logoImg" src="../../assets/images/logoCICT.png" alt="CICT LOGO">
             </div>
-        </div>
 
-        <div class="form-group">
-            <label for="password">Password</label>
-            <!-- formControlName - must be assigned same in the Component -->
-            <input type="password" formControlName="password" class="form-control" placeholder="Password" id="password">
-        </div>
+            <h1 class="my-1">CurrMaSys</h1>
+            <h5> <strong> College of Information and Communications Technology </strong>
+                <br> Curriculum Management System </h5>
 
-        <button class="btn btn-primary">Login</button>
+            <!-- formGroup - based from the form @ the Component -->
+            <!-- ngSubmit - to call the function when the button is submitted in this formGroup -->
+            <form class="mt-4" [formGroup]="loginForm" (ngSubmit)="loginUser(loginForm)">
 
-        <div class="error" *ngIf="isLoginFailed">
-            <h3>Incorect username or password</h3>
+                <!-- ERROR TRACING -->
+                <div class="error" *ngIf="isLoginFailed">
+                    <div class="d-flex flex-row bd-highlight mb-1">
+                        <div class="bd-highlight"><img src="../../assets/images/icon_danger.png" style="width: 25px; height: 25px; margin-right: 5px;" alt="WARNING"></div>
+                        <div class="bd-highlight"><h5><strong>Incorect username or password</strong></h5></div>
+                    </div>    
+                </div>
+
+                <div class="form-group  mb-2">
+                    <label for="email">Email</label>
+                    <!-- formControlName - must be assigned same in the Component -->
+                    <input type="text" formControlName="email" class="form-control" placeholder="Email" id="email" value="">
+                    <!-- Scuffed and fast method of displaying errors -->
+                    <div class="error" *ngIf="email?.invalid && isFormSubmitted">
+                        Invalid Email format
+                    </div>
+                </div>
+        
+                <div class="form-group mb-3">
+                    <label for="password">Password</label>
+                    <!-- formControlName - must be assigned same in the Component -->
+                    <input type="password" formControlName="password" class="form-control" placeholder="Password" id="password">
+                </div>
+
+                <button class="btn btn-primary mt-2 mb-2 w-100">Login</button>
+                
+                
+            </form>
+            <button class="btn p-0" routerLink="/forgot-password">
+                Forgot password?
+            </button>
         </div>
-    </form>
-    <button class="btn" routerLink="/forgot-password">
-        Forgot password?
-    </button>
+    </div>
 </div>
