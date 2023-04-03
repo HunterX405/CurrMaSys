@@ -1,5 +1,36 @@
-<div class="container">
-    <h1>Accounts</h1>
+<app-sidenav></app-sidenav>
+
+<div class="content">
+    
+    <div class="d-flex flex-column"> 
+        <div class="container-fluid topNav"> <h1 class="p-3">Account</h1> </div> 
+    </div>
+
+    <div class="mainContent">
+        <!-- Table for displaying the list of users -->
+    <div class="container-fluid mainTable">
+        <div class="mx-3">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>User Type</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of users">
+                        <td> {{ user.name }} </td>
+                        <td> {{ user.email }} </td>
+                        <td> {{ user.userType }} </td>
+                        <td> <button class="btn btn-danger text-white">Disable</button> </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     <!-- Form for adding users. Must be hidden -->
     <div>
         <form [formGroup]="registerForm" (ngSubmit)="registerUser(registerForm)">
@@ -41,24 +72,8 @@
     <div *ngIf="successMessage">
         {{ successMessage }}
     </div>
-
-    <!-- Table for displaying the list of users -->
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>User Type</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let user of users">
-                <td> {{ user.name }} </td>
-                <td> {{ user.email }} </td>
-                <td> {{ user.userType }} </td>
-                <td> <button>Disable</button> </td>
-            </tr>
-        </tbody>
-    </table>
+    </div>
+  
 </div>
+    
+

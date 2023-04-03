@@ -1,0 +1,23 @@
+*{
+    font-family: 'Lato';
+}
+
+h1{
+    font-family: 'Outfit';
+}
+
+$theme-colors: (
+    "primary": #182850,
+    "secondary": #212121,
+    "info": #182850,
+    "danger": #ee404c,
+    "dark": #182850,
+);
+
+h1{
+    color: map-get($theme-colors, "primary");
+}
+
+//@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Outfit:wght@700&display=swap');
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
