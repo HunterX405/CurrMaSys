@@ -1,0 +1,100 @@
+/* NOTE: COMMENTED LINES ARE FOR SCREEN ADAPTABILITY*/
+
+.l-navbar{
+    position: fixed;
+    top: 0; 
+    height: 100vh;
+    transition: .5s;
+    /*left: -30%;*/
+    /*padding: .3rem 1rem 0 0;*/
+    width: 25vh;
+
+    background-color: #182850;
+    left: 0;
+    padding: 0.2rem 0 0 0
+
+    /* z-index: var(--z-fixed); */
+    /*background-color: var(--first-color); */
+    /* width: var(--nav-width); */
+}
+
+.nav{
+    display: flex;  
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+#navbar-settings{
+    flex-direction: column;
+    height: 100%;
+}
+
+.nav_logo, .nav_link{
+    display: grid;
+    grid-template-columns: max-content max-content;
+    align-items: center;
+    column-gap: 0.5rem;
+    padding: .3rem 0 .3rem 1rem
+}
+    
+.nav_logo{
+    margin-bottom: 0.8rem
+}
+
+.nav_logo-name{
+    color: #FFFFFF;
+    font-weight: 700;
+    padding-right: 50px;
+}
+
+.nav_link{
+    position: relative;
+    color: #FFFFFF; 
+    margin-bottom: .8rem;
+    transition: .3s
+}
+
+/* ===IF THE SIDEBAR IS ACTIVE=== */ 
+/*
+.sidebar-active{
+    color: var(--white-color);
+}
+
+.sidebar-active::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 3px;
+    height: 35px;
+    background-color: var(--white-color)
+} */
+
+.sidebar-hovered:hover{
+    width: 100%;
+    background-color: #0c2140;
+}
+
+#text_link{
+    text-decoration: none;
+}
+
+/*
+@media screen and (min-width: 576px){
+
+    .l-navbar{
+        background-color: #182850;
+        left: 0;
+        padding: 0.2rem 0 0 0
+    }
+    
+    
+    .show_sidebar{
+        width: calc(var(--nav-width) + 156px)
+    }
+
+    .sidebar_hovered{
+        width: calc(var(--nav-width) + 156px);  
+    }
+}  
+*/
+

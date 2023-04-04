@@ -12,10 +12,22 @@ export class ApiService {
   baseUrl: string = "http://localhost/CurrMaSys/php";
   // Will be used to store use details.
 
+
   constructor(
     private httpClient: HttpClient,
     private cookieService: CookieService
   ) { }
+  
+  // ern
+  // Testing to hold the logged in user data and accessible to other components through the service.
+  tempUser: any;
+  currentPage: string = "";
+
+  getPageTitle(title: string) {
+    return title;
+  }
+  
+  //ern
 
   // Registering the user
   registerUser(name: string, email: string, password: string, userType: string) {
@@ -71,6 +83,19 @@ export class ApiService {
     return this.httpClient.post<any>(this.baseUrl + "/forgotPassword.php", credentials).pipe(map(data => {
       console.log("@ Service")
       console.log(data);
+      return data;
+    }));
+  }
+
+  addSubject(courseCode: string, title: string, syllabus: string) {
+    console.log("@ addSubject Service");
+    // Removes the C:\fakepath\ on the value of the directory using RegEx
+
+    syllabus = syllabus.replace(/^C:\\fakepath\\/i, '');
+    const subData = { courseCode, title, syllabus };
+    console.log(syllabus);
+
+    return this.httpClient.post<any>(this.baseUrl + "/addSubject.php", subData).pipe(map(data => {
       return data;
     }));
   }

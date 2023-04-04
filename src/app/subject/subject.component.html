@@ -1,0 +1,59 @@
+<div class="container">
+    <h1>Subjects</h1>
+
+    <form [formGroup]="addSubForm" enctype="multipart/form-data" (ngSubmit)="addSubject(addSubForm)">
+        <div class="form-group">
+            <label for="courseCode">Course Code</label>
+            <input type="text" formControlName="courseCode" class="form-control" placeholder="Course Code">
+        </div>
+
+        <div class="form-group">
+            <label for="title">Subject Title</label>
+            <input type="text" formControlName="title" class="form-control" placeholder="Subject Title">
+        </div>
+
+        <div class="form-group">
+            <input type="File" formControlName="syllabus" name="syllabus" accept=".pdf" (change)="onFileSelect($event)">
+        </div>
+
+        <button>Add Subject</button>
+    </form>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Course Code</th>
+                <th>Title</th>
+                <th>Syllabus</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let subject of subjects">
+                <td>{{ subject.courseCode }}</td>
+                <td>{{ subject.title }}</td>
+                <td>{{ subject.syllabus }}</td>
+                <td>Temp</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- <form [formGroup]="addSubForm" enctype="multipart/form-data" (ngSubmit)="addSubject(addSubForm)">
+        <div class="form-group">
+            <label for="courseCode">Course Code</label>
+            <input type="text" formControlName="courseCode" class="form-control" placeholder="Course Code"
+                id="courseCode">
+        </div>
+
+        <div class="form-group">
+            <label for="title">Subject Title</label>
+            <input type="text" formControlName="title" class="form-control" placeholder="Subject Title" id="title">
+        </div>
+
+        <div class="form-group">
+            <input type="File" formControlName="syllabus" name="syllabus" accept=".pdf">
+        </div>
+
+        <button>Add Subject</button>
+    </form> -->
+</div>

@@ -1,3 +1,20 @@
+.topNav{
+    height: 8vh;
+}
+
+.content{
+    margin-left: 25vh;
+}
+
+.mainContent{
+    background-color: #eef1f2;
+    height: 92vh;
+}
+
+.mainTable{
+    background-color: #ffffff;
+}
+
 .error {
-    color: red;
+    color: #ee404c;
 }

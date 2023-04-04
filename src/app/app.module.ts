@@ -10,6 +10,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AccountComponent } from './account/account.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ProfileComponent } from './profile/profile.component';
+import { SubjectComponent } from './subject/subject.component';
+import { SidenavComponent } from './sidenav/sidenav.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { ProfileComponent } from './profile/profile.component';
     DashboardComponent,
     AccountComponent,
     ForgotPasswordComponent,
-    ProfileComponent
+    ProfileComponent,
+    SubjectComponent,
+    SidenavComponent,
   ],
   imports: [
     BrowserModule,
