@@ -7,7 +7,15 @@ import { ApiService } from '../api.service';
   styleUrls: ['./sidenav.component.css']
 })
 export class SidenavComponent {
-    // Testing to hold the data of the logged in user
-    userData: any = this.apiService.tempUser;
+
+    userName: string = '';
+    userType: string = '';
+
+    user = this.apiService.getUserDetails().subscribe(response => {
+      console.log('RSP:' + response.name);
+      this.userName = response.name;
+      this.userType = response.userType;
+    });
+
     constructor(private apiService: ApiService) { }
 }
