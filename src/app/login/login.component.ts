@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../api.service';
-import { Observable, first } from 'rxjs';
 import { Router } from '@angular/router';
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -19,34 +17,31 @@ export class LoginComponent {
   // For error messages
   isFormSubmitted: boolean = false;
   isLoginFailed: boolean = false;
+  message: string = '';
 
   constructor(private fb: FormBuilder,
     private apiService: ApiService,
-    private router: Router) { }
+    private router: Router,
+  ) { }
 
-  // From the Login Project on PHP
-  // Current Issues: Copied, Deprecated Code 
-  // Still does not understand the purpose of all contents in this function
-  // 1st Param - to access the keys or values of form
   loginUser(loginForm: FormGroup) {
     // Accessing the inputted value on the loginForm
     const { email, password } = loginForm.value;
-    this.apiService.loginUser(email, password).subscribe({
-      next: (data) => {
-        console.log('Login Successful');
-        console.log(data);
-        // User represent an object that contains all data from the DB.
-        // User is an array so accessing the 1st element is used then accessing the other properties in the array.
+    this.apiService.loginUser(email, password).subscribe(response => {
+      // Check if the login was successful
+      if (response.success) {
+        // Storing user details in the api service.
+        // const user = response.user;
+        // Redirect to dashboard upon successful login.
+        this.apiService.deleteCookie('jwt_token');
+        this.apiService.setCookie('jwt_token', response.jwt);
         const redirect = this.apiService.redirectUrl ?? '/dashboard';
         this.router.navigate([redirect]);
-        
-      },
-      error: (err) => {
-        console.log('Login Failed. Incorrect email or password');
-        console.log(err)
-        // To display the error message on the template
+      } else {
+        console.log(response.message); // Log the error message
         this.isLoginFailed = true;
-      },
+        this.message = response.message;
+      }
     });
     this.isFormSubmitted = true;
   }
@@ -54,19 +49,4 @@ export class LoginComponent {
   // To get the value of each key in the loginForm
   get email() { return this.loginForm.get('email'); }
   get password() { return this.loginForm.get('password'); }
-
-  // Unused function because it has deprecated code
-  // From the Login Project on PHP
-  // loginUserV2(loginForm: FormGroup) {
-  //   this.apiService.loginUser(loginForm.value.email, loginForm.value.password).pipe(first()).subscribe(
-  //     user => {
-  //       const redirect = this.apiService.redirectUrl ? this.apiService.redirectUrl : '/dashboard';
-  //       this.router.navigate([redirect]);
-  //       console.log("Login Successful")
-  //     },
-  //     error => {
-  //       console.log("Login Failed. Incorrect email or password");
-  //     }
-  //   )
-  // }
 }

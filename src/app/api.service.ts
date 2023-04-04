@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-
+import { Observable, of } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 @Injectable({
   providedIn: 'root'
 })
@@ -10,39 +10,12 @@ export class ApiService {
   redirectUrl: string | undefined;
   // To access files on the PHP folder in this project
   baseUrl: string = "http://localhost/CurrMaSys/php";
-  // Currently unused
-  // @Output() getLoggedInName: EventEmitter<any> = new EventEmitter();
+  // Will be used to store use details.
 
-  // Testing to hold the logged in user data and accessible to other components through the service.
-  tempUser: any;
-
-  constructor(private httpClient: HttpClient) { }
-
-  // Loggin in the user
-  loginUser(email: string, password: string) {
-    // The data that will be sent on the PHP file
-    const credentials = { email, password };
-
-    // 1st Param - finding the PHP file that will process the request
-    // 2nd Param - the data that will be sent on the PHP file
-    // The <any> is needed for the this.setToken
-    return this.httpClient.post<any>(this.baseUrl + "/login.php", credentials).pipe(map(data => {
-      // data represent an object that contains all data from the DB.
-      // data is an array so accessing the 1st element is used then accessing the other properties in the array.
-      // Used for validating the inputted email and password
-      // If setToken is not used, all input will be accepted and successful
-      this.setToken(data[0].name);
-
-      // Setting the logged in user in the tempUser
-      this.tempUser = data[0];
-
-      // Unused
-      // this.getLoggedInName.emit(true);
-
-      return data;
-    })
-    );
-  }
+  constructor(
+    private httpClient: HttpClient,
+    private cookieService: CookieService
+  ) { }
 
   // Registering the user
   registerUser(name: string, email: string, password: string, userType: string) {
@@ -51,6 +24,28 @@ export class ApiService {
     return this.httpClient.post<any>(this.baseUrl + "/register.php", newCredentials).pipe(map(data => {
       return data;
     }));
+  }
+
+  // Logging in the user
+  loginUser(email: string, password: string) {
+    // The data that will be sent on the PHP file
+    const credentials = { email, password };
+    // 1st Param - finding the PHP file that will process the request
+    // 2nd Param - the data that will be sent on the PHP file
+    return this.httpClient.post<any>(this.baseUrl + "/login.php", credentials);
+  }
+
+  // Function to set the authorization header with the JWT token
+  private getAuthHeaders(): HttpHeaders {
+    const token = this.cookieService.get('jwt_token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return headers;
+  }
+
+  // Function to make an authenticated API request
+  getUserDetails() {
+    const headers = this.getAuthHeaders();
+    return this.httpClient.get<any>(`${this.baseUrl}/getUserDetails.php`, { headers });
   }
 
   // Getting the list of users
@@ -79,51 +74,32 @@ export class ApiService {
       return data;
     }));
   }
-  // Token
-  // The main purpose of tokens are still unidentified
-  // Used for logging in the user
-  // Notes: The localStorage is used to save data depending on the value of the token. 
-  setToken(token: string) {
-    localStorage.setItem('token', token);
+
+  checkJwtToken(): boolean {
+    return this.cookieService.check('jwt_token');
   }
 
-  getToken() {
-    return localStorage.getItem('token');
-  }
-
-  deleteToken() {
-    localStorage.removeItem('token');
-  }
-
-  isLoggedIn() {
-    const usertoken = this.getToken();
-    if (usertoken != null) {
-      return true
+  isLoggedIn(): Observable<boolean> {
+    if (this.checkJwtToken()) {
+      return of(true);
     }
-    return false;
+    return of(false);
   }
 
-  // ChatGPT Sample Code for Login Feature
-  // private loggedIn = false;
+  setCookie(name: string, value: string) {
+    // Set cookie with expiry time of 1 hour
+    const expiryTime = new Date();
+    expiryTime.setTime(expiryTime.getTime() + (60 * 60 * 1000)); // 1 hour
+    const options = {
+      expires: expiryTime,
+      secure: true,
+      httpOnly: true
+    };
 
-  // login(username: string, password: string): Observable<any> {
-  //   const credentials = { username, password };
+    this.cookieService.set(name, value, options);
+  }
 
-  //   return this.httpClient.post('/api/login', credentials).pipe(
-  //     tap((response: any) => {
-  //       if (response && response.token) {
-  //         localStorage.setItem('auth_token', response.token);
-  //         this.loggedIn = true;
-  //       }
-  //     })
-  //   );
-  // }
-  // logout() {
-  //   localStorage.removeItem('auth_token');
-  //   this.loggedIn = false;
-  // }
-
-  // isLoggedIn(): boolean {
-  //   return this.loggedIn;
-  // }
+  deleteCookie(name: string) {
+    this.cookieService.delete(name);
+  }
 }

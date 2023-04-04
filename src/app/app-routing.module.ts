@@ -5,11 +5,11 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AccountComponent } from './account/account.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ProfileComponent } from './profile/profile.component';
-
+import { authGuard } from './auth-guard';
 const routes: Routes = [
   {path: "login", component: LoginComponent, title: "Login"},
   {path: "forgot-password", component: ForgotPasswordComponent, title: "Forgot Password"},
-  {path: "dashboard", component: DashboardComponent, title: "Dashboard"},
+  {path: "dashboard", component: DashboardComponent, title: "Dashboard", canActivate: [authGuard]},
   {path: "account", component: AccountComponent, title: "Accounts"},
   {path: "profile", component: ProfileComponent, title: "Profile"},
   {path: "", redirectTo: "login", pathMatch: 'full'},

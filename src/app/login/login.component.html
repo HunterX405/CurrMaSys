@@ -22,7 +22,7 @@
         <button class="btn btn-primary">Login</button>
 
         <div class="error" *ngIf="isLoginFailed">
-            <h3>Incorect username or password</h3>
+            <h3>{{ message }}</h3>
         </div>
     </form>
     <button class="btn" routerLink="/forgot-password">
