@@ -74,6 +74,13 @@
             </div>
         </div>
     
+<div class="container">
+    <h1>Dashboard</h1>
+    <div *ngIf="userData.userType !== 'stakeholder'">
+        <a routerLink="/subject">Subjects</a>
+    </div>
+    <div *ngIf="userData.userType === 'admin'">
+        <a routerLink="/account">Account Management</a>
     </div>
 
 </div>

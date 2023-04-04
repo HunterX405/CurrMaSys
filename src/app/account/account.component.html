@@ -44,12 +44,12 @@
                 <input type="text" formControlName="email" class="form-control" placeholder="Email" id="email">
             </div>
 
-            <div class="error" *ngIf="registerForm.get('name')?.invalid && isFormSubmitted">
+            <div class="error" *ngIf="registerForm.get('email')?.invalid && isFormSubmitted">
                 Invalid Email format
             </div>
 
             <div class="form-group">
-                <label for="userType"></label>
+                <label for="userType">User Type</label>
                 <select formControlName="userType" id="userType">
                     <option value="chair">Committee Chair</option>
                     <option value="member">Committee Member</option>
