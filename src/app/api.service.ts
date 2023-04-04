@@ -15,6 +15,11 @@ export class ApiService {
 
   // Testing to hold the logged in user data and accessible to other components through the service.
   tempUser: any;
+  currentPage: string = "";
+
+  getPageTitle(title: string) {
+    return title;
+  }
 
   constructor(private httpClient: HttpClient) { }
 
@@ -79,6 +84,20 @@ export class ApiService {
       return data;
     }));
   }
+
+  addSubject(courseCode: string, title: string, syllabus: string) {
+    console.log("@ addSubject Service");
+    // Removes the C:\fakepath\ on the value of the directory using RegEx
+
+    syllabus = syllabus.replace(/^C:\\fakepath\\/i, '');
+    const subData = { courseCode, title, syllabus };
+    console.log(syllabus);
+
+    return this.httpClient.post<any>(this.baseUrl + "/addSubject.php", subData).pipe(map(data => {
+      return data;
+    }));
+  }
+
   // Token
   // The main purpose of tokens are still unidentified
   // Used for logging in the user
