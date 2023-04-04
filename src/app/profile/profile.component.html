@@ -1,6 +1,6 @@
 <div class="container">
     <h1>Profile</h1>
-    <h3> {{ "Logged in User: " + tempUser.name }}</h3>
+    <h3> {{ "Logged in User: " + userName }}</h3>
 
     <form [formGroup]="editProfileForm" (ngSubmit)="editProfile(editProfileForm)">
         <div class="form-group">

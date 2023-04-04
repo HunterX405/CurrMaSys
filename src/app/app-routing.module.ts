@@ -7,11 +7,12 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ProfileComponent } from './profile/profile.component';
 import { SubjectComponent } from './subject/subject.component';
 //import { SidenavComponent } from './sidenav/sidenav.component';
+import { authGuard } from './auth-guard';
 
 const routes: Routes = [
   {path: "login", component: LoginComponent, title: "Login"},
   {path: "forgot-password", component: ForgotPasswordComponent, title: "Forgot Password"},
-  {path: "dashboard", component: DashboardComponent, title: "Dashboard"},
+  {path: "dashboard", component: DashboardComponent, title: "Dashboard", canActivate: [authGuard]},
   {path: "subject", component: SubjectComponent, title: "Subjects"},
   {path: "account", component: AccountComponent, title: "Accounts"},
   {path: "profile", component: ProfileComponent, title: "Profile"},
