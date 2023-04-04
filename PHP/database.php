@@ -12,10 +12,10 @@
   $db_name = 'currmasysdb';
 
   // Create connection
-  $conn = new mysqli($db_host, $db_username, $db_password, $db_name);
+  $mysqli = new mysqli($db_host, $db_username, $db_password, $db_name);
 
   // Check connection
-  if ($conn->connect_error) {
-    die('Connection Error : ('. $conn->connect_errno .') '. $conn->connect_error);
+  if ($mysqli->connect_error) {
+    die('Connection Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
   }
 ?>

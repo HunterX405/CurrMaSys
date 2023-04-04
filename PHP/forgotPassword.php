@@ -4,12 +4,12 @@
   $request = json_decode($postData);
 
   if (isset($postData) && !empty($postData)) {
-    $email = mysqli_real_escape_string($conn, trim($request->email));
-    $newPassword = mysqli_real_escape_string($conn, trim($request->newPassword));
+    $email = mysqli_real_escape_string($mysqli, trim($request->email));
+    $newPassword = mysqli_real_escape_string($mysqli, trim($request->newPassword));
 
     $sql = "UPDATE users SET password='$newPassword' WHERE email='$email'";
 
-    if ($result = mysqli_query($conn, $sql)) {
+    if ($result = mysqli_query($mysqli, $sql)) {
       // Unused because of of the HTTP Error 200
       // $rows = array();
       // while ($row = mysqli_fetch_assoc($result)) {

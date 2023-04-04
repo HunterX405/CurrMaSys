@@ -15,12 +15,12 @@
   // To check the $postData
   if (isset($postData) && !empty($postData)) {
     // The $request->email or $request->password depends on the HttpRequest from the service. This is based on the credentials variable on api.service.ts
-    $email = mysqli_real_escape_string($conn, trim($request->email));
-    $password = mysqli_real_escape_string($conn, trim($request->password));
+    $email = mysqli_real_escape_string($mysqli, trim($request->email));
+    $password = mysqli_real_escape_string($mysqli, trim($request->password));
 
     // Prepare the SQL query
     $sql = "SELECT name, email, userType, isActive FROM users WHERE email = ? AND password = ?";
-    $stmt = $conn->prepare($sql);
+    $stmt = $mysqli->prepare($sql);
 
     // Bind the parameters to the statement
     $stmt->bind_param("ss", $email, $password);
@@ -68,7 +68,7 @@
 
     // Close the statement and database connection
     $stmt->close();
-    $conn->close();
+    $mysqli->close();
   } else {
     $response = array('success' => false, 'message' => 'Login credentials are required.');
     echo json_encode($response);

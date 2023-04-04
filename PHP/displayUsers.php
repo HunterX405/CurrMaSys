@@ -5,7 +5,7 @@
   // Selecting all properties of the table users
   $sql = "SELECT * FROM users";
 
-  if ($result = mysqli_query($conn, $sql)) {
+  if ($result = mysqli_query($mysqli, $sql)) {
     $i = 0;
     // The data that will be returned
     while ($dbRow = mysqli_fetch_assoc($result)) {

@@ -13,7 +13,7 @@
 
     // Prepare the SQL query
     $sql = "SELECT name, email, userType FROM users WHERE email = ?";
-    $stmt = $conn->prepare($sql);
+    $stmt = $mysqli->prepare($sql);
 
     // Bind the parameters to the statement
     $stmt->bind_param("s", $user['email']);
