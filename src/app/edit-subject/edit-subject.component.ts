@@ -26,6 +26,9 @@ export class EditSubjectComponent implements OnInit {
     private route: ActivatedRoute,
     private httpClient: HttpClient) { }
 
+
+isFormSubmitted: boolean = false;
+isSuccess: boolean = false;
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.subjectID = params.get('id');
@@ -83,6 +86,7 @@ export class EditSubjectComponent implements OnInit {
           console.log("Subject Editing Successful", data);
           // If the user uploaded a new file it will upload the new file
           if (this.isChanged) {
+            this.isSuccess = true;
             this.uploadFile(data);
           }
         },
@@ -91,6 +95,7 @@ export class EditSubjectComponent implements OnInit {
         }
       });
     }
+    this.isFormSubmitted = true;
   }
 
   get courseCode() { return this.editSubForm.value.courseCode };

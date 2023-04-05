@@ -18,3 +18,16 @@
 .error {
     color: #ee404c;
 }
+
+.invalid {
+    border: 1px solid red;
+}
+
+.success {
+    font: small;
+    color: white;
+    background-color: rgb(4, 182, 4);
+    width: fit-content;
+    padding: 0 10px 0 10px;
+    margin-top: 10px;
+}

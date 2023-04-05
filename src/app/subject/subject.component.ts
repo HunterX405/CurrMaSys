@@ -21,6 +21,9 @@ export class SubjectComponent implements OnInit {
     private apiService: ApiService,
     private httpClient: HttpClient) { }
 
+    isFormSubmitted: boolean = false;
+    isSuccess: boolean = false;
+    
   ngOnInit(): void {
     this.displaySubject();
   }
@@ -45,6 +48,9 @@ export class SubjectComponent implements OnInit {
     );
   }
 
+
+
+
   addSubject(addSubForm: FormGroup) {
     console.log("@ addSubject");
     const { courseCode, title, syllabus } = addSubForm.value;
@@ -52,6 +58,7 @@ export class SubjectComponent implements OnInit {
     if (addSubForm.valid) {
       this.apiService.addSubject(courseCode, title, syllabus).subscribe({
         next: (data) => {
+          this.isSuccess = true;
           console.log("Subject Adding Successful", data);
           // The parameter is the generated number from the addSubject.php
           this.uploadFile(data.randomNumber);
@@ -61,6 +68,7 @@ export class SubjectComponent implements OnInit {
         }
       });
     }
+    this.isFormSubmitted = true;
   }
 
   displaySubject() {

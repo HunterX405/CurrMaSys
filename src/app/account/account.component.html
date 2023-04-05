@@ -41,7 +41,12 @@
         <form [formGroup]="registerForm" (ngSubmit)="registerUser(registerForm)">
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" formControlName="name" class="form-control" placeholder="Name" id="name">
+                <input type="text" formControlName="name" class="form-control" placeholder="Name" id="name"
+                [class.invalid]="registerForm.get('name')?.hasError('required') && (registerForm.get('name')?.dirty || registerForm.get('name')?.touched || isFormSubmitted)">
+            </div>
+
+            <div  class="error" *ngIf="registerForm.get('name')?.hasError('required') && (registerForm.get('name')?.dirty || registerForm.get('name')?.touched || isFormSubmitted)">
+                This field is required.
             </div>
 
             <div class="form-group">
@@ -49,8 +54,12 @@
                 <input type="text" formControlName="email" class="form-control" placeholder="Email" id="email">
             </div>
 
-            <div class="error" *ngIf="registerForm.get('email')?.invalid && isFormSubmitted">
-                Invalid Email format
+            <div  class="error" *ngIf="registerForm.get('email')?.hasError('required') && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched || isFormSubmitted)">
+                This field is required.
+            </div>
+
+            <div class="error" *ngIf="registerForm.get('email')?.hasError('email') && isFormSubmitted">
+                Invalid email format
             </div>
 
             <div class="form-group">
@@ -66,14 +75,14 @@
                 Choose a User Type
             </div>
             
-            <div *ngIf="isFormSubmitted && registerForm.invalid" class="Error">
-                Fill up all the fields with proper format
+            <div *ngIf="isFormSubmitted && registerForm.invalid" class="error">
+                Fill up all the fields!
             </div>
             <button class="btn btn-primary">Add User</button>
         </form>
     </div>
 
-    <div *ngIf="successMessage">
+    <div class="success" *ngIf="successMessage">
         {{ successMessage }}
     </div>
     </div>
