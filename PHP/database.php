@@ -6,9 +6,9 @@
   header("Content-Type: application/json; charset=UTF-8");
 
   // Database Credentials
-  $db_host = '34.143.144.134';
+  $db_host = '34.80.20.40';
   $db_username = 'root';
-  $db_password = 'lE@q2%O|Lj28@=N5';
+  $db_password = 'D<{.{3y5rR+zxm3X';
   $db_name = 'currmasysdb';
 
   // Create connection
