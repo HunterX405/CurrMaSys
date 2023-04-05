@@ -4,14 +4,29 @@
   $request = json_decode($postData);
 
   if (isset($postData) && !empty($postData)) {
-    $name = mysqli_real_escape_string($mysqli, trim($request->name));
-    $email = mysqli_real_escape_string($mysqli, trim($request->email));
-    $newPassword = mysqli_real_escape_string($mysqli, trim($request->newPassword));
+    $id = trim($request->id);
+    $name = trim($request->name);
+    $email = trim($request->email);
+    $newPassword = trim($request->newPassword);
 
-    $sql = "UPDATE users SET name='$name', email='$email', password='$newPassword' WHERE email='$email'";
+    if($newPassword){
+      $query = "UPDATE users SET name=?, email=?, password=? WHERE id=?";
+      $params = [$name, $email, $newPassword, $id];
+    } else {
+      $query = "UPDATE users SET name=?, email=? WHERE id=?";
+      $params = [$name, $email, $id];
+    }
 
-    if ($result = mysqli_query($mysqli, $sql)) {
-      echo json_encode($result);
+    if (executeQuery($query, $params)) {
+      echo json_encode(array(
+        "success" => true,
+        "message" => "User updated successfully.",
+        "user" => array(
+          "id" => $id,
+          "name" => $name,
+          "email" => $email
+        ),
+      ));
     } else {
       http_response_code(404);
     }

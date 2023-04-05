@@ -10,7 +10,6 @@ import { ApiService } from '../api.service';
 export class AccountComponent implements OnInit {
   // Variable that holds the list of users
   users: any;
-  successMessage: string = "";
   isFormSubmitted: boolean = false;
 
   registerForm = this.fb.group({
@@ -35,14 +34,12 @@ export class AccountComponent implements OnInit {
       this.apiService.registerUser(name, email, userType).subscribe({
         next: (data) => {
           alert("Registration Successful\n" + "Email: " + data?.email + "\nPassword: " + data?.password);
-          console.log("Registration Successful");
-          console.log(data);
+          console.log("Registration Successful", data);
           // Reload the page
           location.reload();
         },
         error: (err) => {
-          console.log("Registration Failed");
-          console.log(err);
+          console.log("Registration Failed", err);
         }
       })
     }
@@ -53,13 +50,11 @@ export class AccountComponent implements OnInit {
   displayUsers() {
     this.apiService.displayUsers().subscribe({
       next: (data) => {
-        console.log("Display Successful");
-        console.log(data);
+        console.log("Get Users:", data);
         this.users = data;
       },
       error: (err) => {
-        console.log("Display Failed");
-        console.log(err);
+        console.log("Get Users Failed", err);
       }
     })
   }

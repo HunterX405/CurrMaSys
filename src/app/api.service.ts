@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import { formatDate } from '@angular/common';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -65,13 +67,13 @@ export class ApiService {
   displayUsers() {
     return this.httpClient.get<any>(this.baseUrl + "/displayUsers.php").pipe(
       map(data => {
-        return data["data"];
+        return data['users'];
       })
     )
   }
 
-  editProfile(name: string, email: string, newPassword: string) {
-    const credentials = { name, email, newPassword }
+  editProfile(id: string, name: string, email: string, newPassword: string) {
+    const credentials = { id, name, email, newPassword }
     return this.httpClient.post<any>(this.baseUrl + "/editProfile.php", credentials).pipe(map(data => {
       console.log("@ Service editProfile")
       console.log(data);
@@ -82,8 +84,7 @@ export class ApiService {
   resetPassword(email: string, newPassword: string) {
     const credentials = { email, newPassword };
     return this.httpClient.post<any>(this.baseUrl + "/forgotPassword.php", credentials).pipe(map(data => {
-      console.log("@ Service")
-      console.log(data);
+      console.log("@apiService/resetPassword")
       return data;
     }));
   }
@@ -102,8 +103,7 @@ export class ApiService {
   displaySubjects() {
     return this.httpClient.get<any>(this.baseUrl + "/displaySubjects.php").pipe(
       map(data => {
-        console.log('aa'+data);
-        return data["data"];
+        return data["subjects"];
       })
     )
   }

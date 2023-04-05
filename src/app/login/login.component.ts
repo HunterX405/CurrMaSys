@@ -28,6 +28,7 @@ export class LoginComponent {
     // Accessing the inputted value on the loginForm
     const { email, password } = loginForm.value;
     this.apiService.loginUser(email, password).subscribe(response => {
+      console.log(response);
       // Check if the login was successful
       if (response.success) {
         // Storing user details in the api service.

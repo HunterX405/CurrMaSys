@@ -7,7 +7,7 @@
 
   if ($result) {
       $resultData = $result->fetch_all(MYSQLI_ASSOC);
-      echo json_encode(["data" => $resultData]);
+      echo json_encode(["subjects" => $resultData]);
   } else {
       http_response_code(404);
   }
