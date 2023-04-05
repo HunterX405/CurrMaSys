@@ -16,7 +16,6 @@ import { EditSubjectComponent } from './edit-subject/edit-subject.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DisableUserComponent } from './disable-user/disable-user.component';
 import { EnableUserComponent } from './enable-user/enable-user.component';
-import { EditSubjectComponent } from './edit-subject/edit-subject.component';
 
 @NgModule({
   declarations: [

@@ -26,6 +26,7 @@ export class SubjectComponent {
 
   ngOnInit(): void {
     this.displaySubject();
+  }
 
   onFileSelect(event: any) {
     this.file = event.target.files[0];
