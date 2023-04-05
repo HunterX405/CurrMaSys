@@ -12,7 +12,6 @@ export class SidenavComponent {
     userType: string = '';
 
     user = this.apiService.getUserDetails().subscribe(response => {
-      console.log('RSP:' + response.name);
       this.userName = response.name;
       this.userType = response.userType;
     });

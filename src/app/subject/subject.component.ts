@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class SubjectComponent {
   subjects: any;
+  file!: Blob;
 
   addSubForm = this.fb.group({
     courseCode: ["", [Validators.required]],
@@ -22,9 +23,7 @@ export class SubjectComponent {
     private httpClient: HttpClient) { }
 
   onFileSelect(event: any) {
-    const file = event.target.files[0];
-    console.log("@ onFileSelect", file.name);
-    this.addSubForm.get("syllabus")?.setValue(file);
+    this.file = event.target.files[0];
   }
 
   uploadFile() {
@@ -46,10 +45,25 @@ export class SubjectComponent {
     this.addSubForm.get("syllabus")?.setValue("");
     const { courseCode, title, syllabus } = addSubForm.value;
 
-    this.apiService.addSubject(courseCode, title, syllabus).subscribe({
+    if (addSubForm.valid) {
+      this.apiService.addSubject(courseCode, title, syllabus).subscribe({
+        next: (data) => {
+          console.log("Subject Adding Successful", data);
+          // The parameter is the generated number from the addSubject.php
+          this.apiService.uploadFile(this.file,data.syllabus);
+        },
+        error: (err) => {
+          console.log("Subject Adding Failed", err);
+        }
+      });
+    }
+  }
+
+  displaySubject() {
+    this.apiService.displaySubjects().subscribe({
       next: (data) => {
-        console.log("Subject Adding Successful");
-        console.log(data);
+        console.log("Display Successful", data);
+        this.subjects = data;
       },
       error: (err) => {
         console.log("Subject Adding Failed");
@@ -57,23 +71,4 @@ export class SubjectComponent {
       }
     });
   }
-
-  // addSubject(addSubForm: FormGroup) {
-  //   const { courseCode, title, syllabus } = addSubForm.value;
-
-  //   this.apiService.addSubject(courseCode, title, syllabus).subscribe({
-  //     next: (data) => {
-  //       console.log("Subject Adding Successful");
-  //       console.log(data);
-  //     },
-  //     error: (err) => {
-  //       console.log("Subject Adding Failed");
-  //       console.log(err);
-  //     }
-  //   });
-  // }
-
-  get courseCode() { return this.addSubForm.value.courseCode }
-  get title() { return this.addSubForm.value.title }
-  get syllabus() { return this.addSubForm.value.syllabus }
 }

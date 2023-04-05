@@ -10,19 +10,11 @@ export class ApiService {
   redirectUrl: string | undefined;
   // To access files on the PHP folder in this project
   baseUrl: string = "http://localhost/CurrMaSys/php";
-  // Will be used to store use details.
-
 
   constructor(
     private httpClient: HttpClient,
     private cookieService: CookieService
   ) { }
-  
-  // ern
-  // Testing to hold the logged in user data and accessible to other components through the service.
-  tempUser: any;
-  currentPage: string = "";
-
 
   getUser(id: any): Observable<any> {
     const headers = this.getAuthHeaders();
@@ -30,25 +22,13 @@ export class ApiService {
     return this.httpClient.get<any>(url,{headers});
   }
 
-  activationUser(id:any,formvalues:any) {
-    return this.httpClient.post(this.baseUrl+'/disableUser.php?id='+ id, formvalues);
+  activationUser(id:any, formvalues:any) {
+    return this.httpClient.post(this.baseUrl+'/disableUser.php', formvalues);
   }
-
-  // deactivateUser(userid: number, isActive: number, email:string) {
-  //   const credentials = {userid, isActive, email}
-  //   return this.httpClient.post<any>(this.baseUrl + "/disableUser.php", credentials).pipe(map(data => {
-  //     console.log("@ Deactivate Account")
-  //     console.log(data);
-  //     return data;
-  //   }));
-  // }
-
 
   getPageTitle(title: string) {
     return title;
   }
-  
-  //ern
 
   // Registering the user
   registerUser(name: string, email: string, password: string, userType: string) {
@@ -75,7 +55,6 @@ export class ApiService {
     return headers;
   }
 
-  // Function to make an authenticated API request
   getUserDetails() {
     const headers = this.getAuthHeaders();
     return this.httpClient.get<any>(`${this.baseUrl}/getUserDetails.php`, { headers });
@@ -119,6 +98,48 @@ export class ApiService {
     return this.httpClient.post<any>(this.baseUrl + "/addSubject.php", subData).pipe(map(data => {
       return data;
     }));
+  }
+
+  displaySubjects() {
+    return this.httpClient.get<any>(this.baseUrl + "/displaySubjects.php").pipe(
+      map(data => {
+        return data["data"];
+      })
+    )
+  }
+
+  getSubjectInfo(subjectID: any) {
+    const credentials = { subjectID };
+    return this.httpClient.post<any>(this.baseUrl + "/getSubjectInfo.php", credentials).pipe(map(data => {
+      console.log("@ Service getSubjectInfo")
+      console.log(data);
+      return data;
+    }));
+  }
+
+  editSubject(subjectID: any, courseCode: string, title: string, syllabus: string) {
+    syllabus = syllabus.replace(/^C:\\fakepath\\/i, '');
+    const subData = {subjectID, courseCode, title, syllabus};
+
+    return this.httpClient.post<any>(this.baseUrl + "/editSubject.php", subData).pipe(map(data => {
+      return data;
+    }));
+  }
+
+  uploadFile(file: Blob, fileName: string, oldFileName: string = '') {
+    const formData = new FormData();
+    formData.append("file", file, fileName);
+    if (oldFileName !== '') {
+      formData.append("oldFileName", oldFileName);
+    }
+    this.httpClient.post<any>("http://localhost/CurrMaSys/php/uploadFile.php", formData).subscribe({
+      next: (data) => {
+        console.log("Upload File Successful", data);
+      },
+      error: (err) => {
+        console.log("Upload File Failed", err);
+      }
+    });
   }
 
   checkJwtToken(): boolean {

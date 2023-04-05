@@ -1,0 +1,15 @@
+<div class="container">
+    <h1>Edit Subject</h1>
+    <form [formGroup]="editSubForm" (ngSubmit)="editSubject(editSubForm)" enctype="multipart/form-data">
+        <label for="courseCode">Course Code</label>
+        <input type="text" formControlName="courseCode" id="courseCode">
+
+        <label for="title">Title</label>
+        <input type="text" formControlName="title" id="title">
+
+        <label for="syllabus">Upload New Syllabus File</label>
+        <input type="File" formControlName="syllabus" name="syllabus" accept=".pdf" (change)="onFileSelect($event)">
+
+        <button>Edit</button>
+    </form>
+</div>
