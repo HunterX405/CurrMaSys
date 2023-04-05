@@ -5,6 +5,7 @@ $postData = file_get_contents("php://input");
 $request = json_decode($postData);
 
 if (isset($postData) && !empty($postData)) {
+
   $subjectID = trim($request->subjectID);
   $course_code = trim($request->course_code);
   $title = trim($request->title);

@@ -7,6 +7,7 @@ import { ApiService } from '../api.service';
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.css']
 })
+
 export class AccountComponent implements OnInit {
   // Variable that holds the list of users
   users: any;
@@ -41,11 +42,11 @@ export class AccountComponent implements OnInit {
         error: (err) => {
           console.log("Registration Failed", err);
         }
-      })
+      });
     }
     this.isFormSubmitted = true;
   }
-
+  
   // Getting the list of users
   displayUsers() {
     this.apiService.displayUsers().subscribe({
@@ -56,6 +57,6 @@ export class AccountComponent implements OnInit {
       error: (err) => {
         console.log("Get Users Failed", err);
       }
-    })
+    });
   }
 }

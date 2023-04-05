@@ -11,6 +11,7 @@ import { DisableUserComponent } from './disable-user/disable-user.component';
 import { EnableUserComponent } from './enable-user/enable-user.component';
 import { authGuard } from './auth-guard';
 import { EditSubjectComponent } from './edit-subject/edit-subject.component';
+
 const routes: Routes = [
   {path: "login", component: LoginComponent, title: "Login"},
   {path: "forgot-password", component: ForgotPasswordComponent, title: "Forgot Password"},

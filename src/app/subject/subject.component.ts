@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
@@ -26,14 +26,12 @@ export class SubjectComponent {
 
   ngOnInit(): void {
     this.displaySubject();
-  }
 
   onFileSelect(event: any) {
     this.file = event.target.files[0];
   }
 
   addSubject(addSubForm: FormGroup) {
-    // this.uploadFile();
     console.log("@ addSubject");
     const { course_code, title, syllabus } = addSubForm.value;
 
@@ -44,7 +42,6 @@ export class SubjectComponent {
           // The parameter is the generated number from the addSubject.php
           this.apiService.uploadFile(this.file, data.syllabus);
           location.reload();
-
         },
         error: (err) => {
           console.log("Subject Adding Failed", err);
@@ -60,7 +57,7 @@ export class SubjectComponent {
         this.subjects = data;
       },
       error: (err) => {
-        console.log("Subject Adding Failed");
+        console.log("Display Failed");
         console.log(err);
       }
     });

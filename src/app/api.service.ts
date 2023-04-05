@@ -69,7 +69,7 @@ export class ApiService {
       map(data => {
         return data['users'];
       })
-    )
+    );
   }
 
   editProfile(id: string, name: string, email: string, newPassword: string) {
@@ -93,6 +93,7 @@ export class ApiService {
     console.log("@ addSubject Service");
     // Removes the C:\fakepath\ on the value of the directory using RegEx
     syllabus = syllabus.replace(/^C:\\fakepath\\/i, '');
+    
     const subData = { course_code, title, syllabus };
 
     return this.httpClient.post<any>(this.baseUrl + "/addSubject.php", subData).pipe(map(data => {
@@ -111,7 +112,7 @@ export class ApiService {
   getSubjectInfo(subjectID: any) {
     const credentials = { subjectID };
     return this.httpClient.post<any>(this.baseUrl + "/getSubjectInfo.php", credentials).pipe(map(data => {
-      console.log("@ Service getSubjectInfo")
+      console.log("@ Service getSubjectInfo");
       return data[0];
     }));
   }
@@ -119,7 +120,6 @@ export class ApiService {
   editSubject(subjectID: any, course_code: string, title: string, syllabus: string) {
     syllabus = syllabus.replace(/^C:\\fakepath\\/i, '');
     const subData = {subjectID, course_code, title, syllabus};
-
     return this.httpClient.post<any>(this.baseUrl + "/editSubject.php", subData).pipe(map(data => {
       return data;
     }));

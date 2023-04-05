@@ -42,7 +42,7 @@ export class EditSubjectComponent implements OnInit {
       })
     });
   }
-
+  
   setFormValue(data: any) {
     // Setting-up the value of the form from the specific subject data
     this.editSubForm.get('course_code')?.setValue(data.course_code);
