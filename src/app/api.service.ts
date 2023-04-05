@@ -17,7 +17,7 @@ export class ApiService {
     private httpClient: HttpClient,
     private cookieService: CookieService
   ) { }
-  
+
   // ern
   // Testing to hold the logged in user data and accessible to other components through the service.
   tempUser: any;
@@ -47,7 +47,7 @@ export class ApiService {
   getPageTitle(title: string) {
     return title;
   }
-  
+
   //ern
 
   // Registering the user
@@ -87,7 +87,7 @@ export class ApiService {
       map(data => {
         return data["data"];
       })
-    )
+    );
   }
 
   editProfile(name: string, email: string, newPassword: string) {
@@ -111,12 +111,36 @@ export class ApiService {
   addSubject(courseCode: string, title: string, syllabus: string) {
     console.log("@ addSubject Service");
     // Removes the C:\fakepath\ on the value of the directory using RegEx
-
     syllabus = syllabus.replace(/^C:\\fakepath\\/i, '');
     const subData = { courseCode, title, syllabus };
-    console.log(syllabus);
 
     return this.httpClient.post<any>(this.baseUrl + "/addSubject.php", subData).pipe(map(data => {
+      return data;
+    }));
+  }
+
+  displaySubjects() {
+    return this.httpClient.get<any>(this.baseUrl + "/displaySubjects.php").pipe(
+      map(data => {
+        return data["data"];
+      })
+    )
+  }
+
+  getSubjectInfo(subjectID: any) {
+    const credentials = { subjectID };
+    return this.httpClient.post<any>(this.baseUrl + "/getSubjectInfo.php", credentials).pipe(map(data => {
+      console.log("@ Service getSubjectInfo")
+      console.log(data);
+      return data;
+    }));
+  }
+
+  editSubject(subjectID: any, courseCode: string, title: string, syllabus: string, isChanged: boolean) {
+    syllabus = syllabus.replace(/^C:\\fakepath\\/i, '');
+    const subData = {subjectID, courseCode, title, syllabus, isChanged};
+    
+    return this.httpClient.post<any>(this.baseUrl + "/editSubject.php", subData).pipe(map(data => {
       return data;
     }));
   }
