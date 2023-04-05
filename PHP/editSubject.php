@@ -6,7 +6,7 @@ $request = json_decode($postData);
 
 if (isset($postData) && !empty($postData)) {
   $subjectID = trim($request->subjectID);
-  $courseCode = trim($request->courseCode);
+  $course_code = trim($request->course_code);
   $title = trim($request->title);
   $fileName = trim($request->syllabus);
 
@@ -16,10 +16,10 @@ if (isset($postData) && !empty($postData)) {
     $randomNumber = rand(1000, 10000);
     $fileName = $randomNumber . "-" . $fileName;
     $query = "UPDATE subject SET course_code=?, title=?, syllabus=? WHERE id=?";
-    $params = [$courseCode, $title, $fileName, $subjectID];
+    $params = [$course_code, $title, $fileName, $subjectID];
   } else {
     $query = "UPDATE subject SET course_code=?, title=? WHERE id=?";
-    $params = [$courseCode, $title, $subjectID];
+    $params = [$course_code, $title, $subjectID];
   }
 
   try {
@@ -27,7 +27,7 @@ if (isset($postData) && !empty($postData)) {
       http_response_code(200);
       echo json_encode(array(
         "subjectID" => $subjectID,
-        "courseCode" => $courseCode,
+        "course_code" => $course_code,
         "title" => $title,
         "fileName" => $fileName
       ));

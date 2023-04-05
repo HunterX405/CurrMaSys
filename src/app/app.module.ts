@@ -15,8 +15,7 @@ import { SidenavComponent } from './sidenav/sidenav.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DisableUserComponent } from './disable-user/disable-user.component';
 import { EnableUserComponent } from './enable-user/enable-user.component';
-
-
+import { EditSubjectComponent } from './edit-subject/edit-subject.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +28,8 @@ import { EnableUserComponent } from './enable-user/enable-user.component';
     SubjectComponent,
     SidenavComponent,
     DisableUserComponent,
-    EnableUserComponent
+    EnableUserComponent,
+    EditSubjectComponent,
   ],
   imports: [
     BrowserModule,

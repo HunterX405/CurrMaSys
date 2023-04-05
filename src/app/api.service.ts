@@ -31,10 +31,11 @@ export class ApiService {
   }
 
   // Registering the user
-  registerUser(name: string, email: string, password: string, userType: string) {
-    const newCredentials = { name, email, password, userType };
+  registerUser(name: string, email: string, userType: string) {
+    const newCredentials = { name, email, userType };
 
     return this.httpClient.post<any>(this.baseUrl + "/register.php", newCredentials).pipe(map(data => {
+      console.log(data);
       return data;
     }));
   }
@@ -87,13 +88,11 @@ export class ApiService {
     }));
   }
 
-  addSubject(courseCode: string, title: string, syllabus: string) {
+  addSubject(course_code: string, title: string, syllabus: string) {
     console.log("@ addSubject Service");
     // Removes the C:\fakepath\ on the value of the directory using RegEx
-
     syllabus = syllabus.replace(/^C:\\fakepath\\/i, '');
-    const subData = { courseCode, title, syllabus };
-    console.log(syllabus);
+    const subData = { course_code, title, syllabus };
 
     return this.httpClient.post<any>(this.baseUrl + "/addSubject.php", subData).pipe(map(data => {
       return data;
@@ -103,6 +102,7 @@ export class ApiService {
   displaySubjects() {
     return this.httpClient.get<any>(this.baseUrl + "/displaySubjects.php").pipe(
       map(data => {
+        console.log('aa'+data);
         return data["data"];
       })
     )
@@ -112,14 +112,13 @@ export class ApiService {
     const credentials = { subjectID };
     return this.httpClient.post<any>(this.baseUrl + "/getSubjectInfo.php", credentials).pipe(map(data => {
       console.log("@ Service getSubjectInfo")
-      console.log(data);
-      return data;
+      return data[0];
     }));
   }
 
-  editSubject(subjectID: any, courseCode: string, title: string, syllabus: string) {
+  editSubject(subjectID: any, course_code: string, title: string, syllabus: string) {
     syllabus = syllabus.replace(/^C:\\fakepath\\/i, '');
-    const subData = {subjectID, courseCode, title, syllabus};
+    const subData = {subjectID, course_code, title, syllabus};
 
     return this.httpClient.post<any>(this.baseUrl + "/editSubject.php", subData).pipe(map(data => {
       return data;

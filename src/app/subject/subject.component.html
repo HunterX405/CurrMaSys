@@ -3,8 +3,8 @@
 
     <form [formGroup]="addSubForm" enctype="multipart/form-data" (ngSubmit)="addSubject(addSubForm)">
         <div class="form-group">
-            <label for="courseCode">Course Code</label>
-            <input type="text" formControlName="courseCode" class="form-control" placeholder="Course Code">
+            <label for="course_code">Course Code</label>
+            <input type="text" formControlName="course_code" class="form-control" placeholder="Course Code">
         </div>
 
         <div class="form-group">
@@ -30,19 +30,23 @@
         </thead>
         <tbody>
             <tr *ngFor="let subject of subjects">
-                <td>{{ subject.courseCode }}</td>
+                <td>{{ subject.course_code }}</td>
                 <td>{{ subject.title }}</td>
                 <td>{{ subject.syllabus }}</td>
-                <td>Temp</td>
+                <td>
+                  <button routerLink="/subject-edit/{{subject.id}}">
+                      Edit
+                  </button>
+                </td>
             </tr>
         </tbody>
     </table>
 
     <!-- <form [formGroup]="addSubForm" enctype="multipart/form-data" (ngSubmit)="addSubject(addSubForm)">
         <div class="form-group">
-            <label for="courseCode">Course Code</label>
-            <input type="text" formControlName="courseCode" class="form-control" placeholder="Course Code"
-                id="courseCode">
+            <label for="course_code">Course Code</label>
+            <input type="text" formControlName="course_code" class="form-control" placeholder="Course Code"
+                id="course_code">
         </div>
 
         <div class="form-group">

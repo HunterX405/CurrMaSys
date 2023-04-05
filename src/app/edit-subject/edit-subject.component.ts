@@ -16,7 +16,7 @@ export class EditSubjectComponent implements OnInit {
   oldFileName: string = '';
 
   editSubForm = this.fb.group({
-    courseCode: ["", [Validators.required]],
+    course_code: ["", [Validators.required]],
     title: ["", [Validators.required]],
     syllabus: [""],
   });
@@ -33,8 +33,8 @@ export class EditSubjectComponent implements OnInit {
       this.apiService.getSubjectInfo(this.subjectID).subscribe({
         next: (data) => {
           console.log("Specific Subject Retrieved", data);
-          this.oldFileName = data[0].syllabus;
-          this.setFormValue(data[0]);
+          this.oldFileName = data?.syllabus;
+          this.setFormValue(data);
         },
         error: (err) => {
           console.log("Specific Subject Failed", err);
@@ -45,7 +45,7 @@ export class EditSubjectComponent implements OnInit {
 
   setFormValue(data: any) {
     // Setting-up the value of the form from the specific subject data
-    this.editSubForm.get('courseCode')?.setValue(data.course_code);
+    this.editSubForm.get('course_code')?.setValue(data.course_code);
     this.editSubForm.get('title')?.setValue(data.title);
   }
 
@@ -54,17 +54,17 @@ export class EditSubjectComponent implements OnInit {
   }
 
   editSubject(editSubForm: FormGroup) {
-    let { courseCode, title, syllabus } = editSubForm.value;
+    let { course_code, title, syllabus } = editSubForm.value;
 
     if (this.editSubForm.valid) {
-      this.apiService.editSubject(this.subjectID, courseCode, title, syllabus).subscribe({
+      this.apiService.editSubject(this.subjectID, course_code, title, syllabus).subscribe({
         next: (data) => {
           console.log("Subject Editing Successful", data);
           // If the user uploaded a new file it will upload the new file
           if (data.fileName) {
             this.apiService.uploadFile(this.file, data.fileName, this.oldFileName);
           }
-          alert("Subject " + courseCode +" Edited Successfully");
+          alert("Subject " + course_code +" Edited Successfully");
           this.router.navigate(['/subject']);
         },
         error: (err) => {

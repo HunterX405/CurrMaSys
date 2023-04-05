@@ -30,14 +30,15 @@ export class AccountComponent implements OnInit {
   // Registering the user
   registerUser(registerForm: FormGroup) {
     const { name, email, userType } = registerForm.value;
-    let generatedPassword = this.generatePassword(8);
 
     if (registerForm.valid) {
-      this.apiService.registerUser(name, email, generatedPassword, userType).subscribe({
+      this.apiService.registerUser(name, email, userType).subscribe({
         next: (data) => {
-          this.successMessage = "Registration Successful" + "Email: " + email + "Password: " + generatedPassword;
+          alert("Registration Successful\n" + "Email: " + data?.email + "\nPassword: " + data?.password);
           console.log("Registration Successful");
           console.log(data);
+          // Reload the page
+          location.reload();
         },
         error: (err) => {
           console.log("Registration Failed");
@@ -46,20 +47,6 @@ export class AccountComponent implements OnInit {
       })
     }
     this.isFormSubmitted = true;
-  }
-
-  test() {
-    this.isFormSubmitted = true;
-    console.log(this.registerForm.valid)
-  }
-
-  generatePassword(length: number): string {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let result = '';
-    for (let i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * characters.length));
-    }
-    return result;
   }
 
   // Getting the list of users
@@ -76,7 +63,4 @@ export class AccountComponent implements OnInit {
       }
     })
   }
-  get name() { return this.registerForm.value.name };
-  get email() { return this.registerForm.value.email };
-  get userType() { return this.registerForm.value.userType };
 }
