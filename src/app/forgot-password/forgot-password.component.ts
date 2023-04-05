@@ -26,7 +26,7 @@ export class ForgotPasswordComponent {
         next: (data) => {
           console.log("Reset Password Successful")
           console.log("@Next Component")
-          console.log(data);
+          console.log(data.newPassword);
         },
         error: (err) => {
           console.log("Reset Password Failed")

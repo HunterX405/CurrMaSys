@@ -9,8 +9,18 @@
     $i = 0;
     // The data that will be returned
     while ($dbRow = mysqli_fetch_assoc($result)) {
+      $resultData[$i]["id"] = $dbRow["id"];
       $resultData[$i]["name"] = $dbRow["name"];
       $resultData[$i]["email"] = $dbRow["email"];
+      $resultData[$i]["isActive"] = $dbRow["isActive"];
+
+      if ($dbRow["isActive"] === "1") {
+        $resultData[$i]["isActive"] = "Active";
+      } elseif ($dbRow["isActive"] === "0") {
+        $resultData[$i]["isActive"] = "Inactive";
+      }
+
+
       // Transforming the data for display
       if ($dbRow["userType"] === "admin") {
         $resultData[$i]["userType"] = "Admin";

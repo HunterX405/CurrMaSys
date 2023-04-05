@@ -23,6 +23,27 @@ export class ApiService {
   tempUser: any;
   currentPage: string = "";
 
+
+  getUser(id: any): Observable<any> {
+    const headers = this.getAuthHeaders();
+    const url = `${this.baseUrl+"/disableUser.php"}?id=${id}`;
+    return this.httpClient.get<any>(url,{headers});
+  }
+
+  activationUser(id:any,formvalues:any) {
+    return this.httpClient.post(this.baseUrl+'/disableUser.php?id='+ id, formvalues);
+  }
+
+  // deactivateUser(userid: number, isActive: number, email:string) {
+  //   const credentials = {userid, isActive, email}
+  //   return this.httpClient.post<any>(this.baseUrl + "/disableUser.php", credentials).pipe(map(data => {
+  //     console.log("@ Deactivate Account")
+  //     console.log(data);
+  //     return data;
+  //   }));
+  // }
+
+
   getPageTitle(title: string) {
     return title;
   }

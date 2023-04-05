@@ -1,0 +1,23 @@
+<app-sidenav></app-sidenav>
+<div *ngIf="user">
+<div class="container" style="margin-top: 250px;">
+    <form [formGroup]="deactivateUserForm" (ngSubmit)="deactivateUser()">
+        <div class="row mt-5">
+            <div class="col-md-6 offset-md-3">
+                <div class="border p-4 bg-white">
+                    <h3>Deactivation Confirmation</h3>
+                    <hr>
+                    <div class="alert alert-danger">
+                        <h5 >Are you sure you want to deactivate {{user.name}}?</h5>
+                        <input type="hidden" formControlName="userid" class="form-control" value="{{user.id}}" id="id">
+                        <input type="hidden" formControlName="isActive" class="form-control" value=0 id="isActive">
+                    </div>  
+                    <div style="display: flex; justify-content: flex-end;">
+                        <button class="btn btn-primary">Submit</button>
+                        <a routerLink="/account" class="btn btn-primary">Cancel</a>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
