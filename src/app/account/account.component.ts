@@ -16,7 +16,7 @@ export class AccountComponent implements OnInit {
   registerForm = this.fb.group({
     name: ["", [Validators.required]],
     email: ["", [Validators.required, Validators.email]],
-    userType: ["", [Validators.required]]
+    userType: ["", [Validators.required]],
   })
 
   constructor(private fb: FormBuilder,
@@ -76,7 +76,6 @@ export class AccountComponent implements OnInit {
       }
     })
   }
-
   get name() { return this.registerForm.value.name };
   get email() { return this.registerForm.value.email };
   get userType() { return this.registerForm.value.userType };
