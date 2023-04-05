@@ -13,6 +13,9 @@ import { ProfileComponent } from './profile/profile.component';
 import { SubjectComponent } from './subject/subject.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { EditSubjectComponent } from './edit-subject/edit-subject.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DisableUserComponent } from './disable-user/disable-user.component';
+import { EnableUserComponent } from './enable-user/enable-user.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +28,8 @@ import { EditSubjectComponent } from './edit-subject/edit-subject.component';
     SubjectComponent,
     SidenavComponent,
     EditSubjectComponent,
+    DisableUserComponent,
+    EnableUserComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,6 +37,7 @@ import { EditSubjectComponent } from './edit-subject/edit-subject.component';
     ReactiveFormsModule,
     RouterModule,
     HttpClientModule,
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
