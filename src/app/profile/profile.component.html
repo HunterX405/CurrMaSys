@@ -3,6 +3,7 @@
     <h3> {{ "Logged in User: " + userName }}</h3>
 
     <form [formGroup]="editProfileForm" (ngSubmit)="editProfile(editProfileForm)">
+        <input type="hidden" formControlName="id" class="form-control" id="id">
         <div class="form-group">
             <label for="name">Name</label>
             <input type="text" formControlName="name" class="form-control" placeholder="Name" id="name">

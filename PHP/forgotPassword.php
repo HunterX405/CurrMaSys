@@ -4,20 +4,24 @@
   $request = json_decode($postData);
 
   if (isset($postData) && !empty($postData)) {
-    $email = mysqli_real_escape_string($mysqli, trim($request->email));
-    $newPassword = mysqli_real_escape_string($mysqli, trim($request->newPassword));
+    $email = trim($request->email);
+    $newPassword = trim($request->newPassword);
 
-    $sql = "UPDATE users SET password='$newPassword' WHERE email='$email'";
+    $query = "UPDATE users SET password=? WHERE email=?";
+    $params = [$newPassword, $email];
 
-    if ($result = mysqli_query($mysqli, $sql)) {
-      // Unused because of of the HTTP Error 200
-      // $rows = array();
-      // while ($row = mysqli_fetch_assoc($result)) {
-      //     $rows[] = $row;
-      // }
-      echo json_encode($result);
+    if (executeQuery($query, $params)) {
+      echo json_encode(array(
+        "success" => true,
+        "message" => "Password Reset Successfull.",
+        "email" => $email
+      ));
     } else {
-      http_response_code(404);
+      echo json_encode(array(
+        "success" => false,
+        "message" => "Email does not exist or password is correct and does not need to be reset.",
+        "email" => $email
+      ));
     }
   }
 ?>

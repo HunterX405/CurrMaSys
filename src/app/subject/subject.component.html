@@ -3,8 +3,8 @@
 
     <form [formGroup]="addSubForm" (ngSubmit)="addSubject(addSubForm)">
         <div class="form-group">
-            <label for="courseCode">Course Code</label>
-            <input type="text" formControlName="courseCode" class="form-control" placeholder="Course Code">
+            <label for="course_code">Course Code</label>
+            <input type="text" formControlName="course_code" class="form-control" placeholder="Course Code">
         </div>
 
         <div class="form-group">
@@ -34,9 +34,9 @@
                 <td>{{ subject.title }}</td>
                 <td>{{ subject.syllabus }}</td>
                 <td>
-                    <button routerLink="/subject-edit/{{subject.id}}">
-                        Edit
-                    </button>
+                  <button routerLink="/subject-edit/{{subject.id}}">
+                      Edit
+                  </button>
                 </td>
             </tr>
         </tbody>

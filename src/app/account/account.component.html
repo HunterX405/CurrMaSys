@@ -1,83 +1,82 @@
 <app-sidenav></app-sidenav>
 
 <div class="content">
-    
-    <div class="d-flex flex-column"> 
-        <div class="container-fluid topNav"> <h1 class="p-3">Account</h1> </div> 
+
+    <div class="d-flex flex-column">
+        <div class="container-fluid topNav"> <h1 class="p-3">Account</h1> </div>
     </div>
 
     <div class="mainContent">
         <!-- Table for displaying the list of users -->
-    <div class="container-fluid mainTable">
-        <div class="mx-3">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>User Type</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let user of users">
-                        <td> {{ user.id }} </td>
-                        <td> {{ user.name }} </td>
-                        <td> {{ user.email }} </td>
-                        <td> {{ user.userType }} </td>
-                        <td> {{ user.isActive }} </td>
-                        <td> <a href="deactivate/{{user.id}}" *ngIf="user.isActive === 'Active'" class="btn btn-primary">Deactivate</a>
-                            <a href="activate/{{user.id}}" *ngIf="user.isActive === 'Inactive'" class="btn btn-primary">Activate</a> </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+      <div class="container-fluid mainTable">
+          <div class="mx-3">
+              <table class="table">
+                  <thead>
+                      <tr>
+                          <th>Id</th>
+                          <th>Name</th>
+                          <th>Email</th>
+                          <th>User Type</th>
+                          <th>Status</th>
+                          <th>Actions</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let user of users">
+                          <td> {{ user.id }} </td>
+                          <td> {{ user.name }} </td>
+                          <td> {{ user.email }} </td>
+
+                          <td *ngIf="user.userType == 'admin'"> Admin </td>
+                          <td *ngIf="user.userType == 'chair'"> Committee Chair </td>
+                          <td *ngIf="user.userType == 'member'"> Committee Member </td>
+                          <td *ngIf="user.userType == 'stakeholder'"> Stakeholder </td>
+
+                          <td *ngIf="user.isActive === 1"> Active </td>
+                          <td *ngIf="user.isActive === 0"> Inactive </td>
+
+                          <td> <a href="deactivate/{{user.id}}" *ngIf="user.isActive === 1" class="btn btn-primary">Deactivate</a>
+                              <a href="activate/{{user.id}}" *ngIf="user.isActive === 0" class="btn btn-primary">Activate</a> </td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+
+      <!-- Form for adding users. Must be hidden -->
+      <div>
+          <form [formGroup]="registerForm" (ngSubmit)="registerUser(registerForm)">
+              <div class="form-group">
+                  <label for="name">Name</label>
+                  <input type="text" formControlName="name" class="form-control" placeholder="Name" id="name">
+              </div>
+
+              <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="text" formControlName="email" class="form-control" placeholder="Email" id="email">
+              </div>
+
+              <div class="error" *ngIf="registerForm.get('email')?.invalid && isFormSubmitted">
+                  Invalid Email format
+              </div>
+
+              <div class="form-group">
+                  <label for="userType">User Type</label>
+                  <select formControlName="userType" id="userType">
+                      <option value="chair">Committee Chair</option>
+                      <option value="member">Committee Member</option>
+                      <option value="stakeholder">Stakeholder</option>
+                  </select>
+              </div>
+
+              <div class="error" *ngIf="registerForm.get('userType')?.hasError('required') && isFormSubmitted">
+                  Choose a User Type
+              </div>
+              <div *ngIf="isFormSubmitted && registerForm.invalid" class="Error">
+                  Fill up all the fields with proper format
+              </div>
+              <button class="btn btn-primary">Add User</button>
+          </form>
+      </div>
     </div>
-
-    <!-- Form for adding users. Must be hidden -->
-    <div>
-        <form [formGroup]="registerForm" (ngSubmit)="registerUser(registerForm)">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" formControlName="name" class="form-control" placeholder="Name" id="name">
-            </div>
-
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="text" formControlName="email" class="form-control" placeholder="Email" id="email">
-            </div>
-
-            <div class="error" *ngIf="registerForm.get('email')?.invalid && isFormSubmitted">
-                Invalid Email format
-            </div>
-
-            <div class="form-group">
-                <label for="userType">User Type</label>
-                <select formControlName="userType" id="userType">
-                    <option value="chair">Committee Chair</option>
-                    <option value="member">Committee Member</option>
-                    <option value="stakeholder">Stakeholder</option>
-                </select>
-            </div>
-
-            <div class="error" *ngIf="registerForm.get('userType')?.hasError('required') && isFormSubmitted">
-                Choose a User Type
-            </div>
-            
-            <div *ngIf="isFormSubmitted && registerForm.invalid" class="Error">
-                Fill up all the fields with proper format
-            </div>
-            <button class="btn btn-primary">Add User</button>
-        </form>
-    </div>
-
-    <div *ngIf="successMessage">
-        {{ successMessage }}
-    </div>
-    </div>
-  
 </div>
-    
-

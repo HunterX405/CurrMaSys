@@ -1,8 +1,8 @@
 <div class="container">
     <h1>Edit Subject</h1>
-    <form [formGroup]="editSubForm" (ngSubmit)="editSubject(editSubForm)">
-        <label for="courseCode">Course Code</label>
-        <input type="text" formControlName="courseCode" id="courseCode">
+    <form [formGroup]="editSubForm" (ngSubmit)="editSubject(editSubForm)" enctype="multipart/form-data">
+        <label for="course_code">Course Code</label>
+        <input type="text" formControlName="course_code" id="course_code">
 
         <label for="title">Title</label>
         <input type="text" formControlName="title" id="title">
