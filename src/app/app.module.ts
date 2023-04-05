@@ -12,6 +12,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ProfileComponent } from './profile/profile.component';
 import { SubjectComponent } from './subject/subject.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
+import { EditSubjectComponent } from './edit-subject/edit-subject.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { SidenavComponent } from './sidenav/sidenav.component';
     ProfileComponent,
     SubjectComponent,
     SidenavComponent,
+    EditSubjectComponent,
   ],
   imports: [
     BrowserModule,

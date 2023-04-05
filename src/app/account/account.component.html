@@ -60,8 +60,7 @@
             <div class="error" *ngIf="registerForm.get('userType')?.hasError('required') && isFormSubmitted">
                 Choose a User Type
             </div>
-
-            <button (click)="test()">Test</button>
+            
             <div *ngIf="isFormSubmitted && registerForm.invalid" class="Error">
                 Fill up all the fields with proper format
             </div>

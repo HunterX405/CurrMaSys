@@ -43,14 +43,9 @@ export class AccountComponent implements OnInit {
           console.log("Registration Failed");
           console.log(err);
         }
-      })
+      });
     }
     this.isFormSubmitted = true;
-  }
-
-  test() {
-    this.isFormSubmitted = true;
-    console.log(this.registerForm.valid)
   }
 
   generatePassword(length: number): string {
@@ -74,7 +69,7 @@ export class AccountComponent implements OnInit {
         console.log("Display Failed");
         console.log(err);
       }
-    })
+    });
   }
 
   get name() { return this.registerForm.value.name };
