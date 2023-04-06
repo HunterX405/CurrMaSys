@@ -18,7 +18,7 @@
 
                 <!-- ERROR TRACING -->
                 <div class="error" *ngIf="isLoginFailed">
-                    <div class="d-flex flex-row bd-highlight mb-1" *ngIf="isFormSubmitted && isLoginFailed && !password?.hasError('required') && !email?.hasError('required')">
+                    <div class="d-flex flex-row bd-highlight mb-1" *ngIf="isFormSubmitted && isLoginFailed ">
                         <div class="bd-highlight"><img src="../../assets/images/icon_danger.png"
                                 style="width: 25px; height: 25px; margin-right: 5px;" alt="WARNING"></div>
                         <div class="bd-highlight" >
