@@ -19,13 +19,27 @@
         </a>
       </div>
 
+      <div *ngIf="userType === 'admin'">
+        <a routerLink="/subject" class="nav_link sidebar-hovered" id="text_link">
+          <img style="width:50px; height:50px;" src="../../assets/images/icon_subject.png" alt="Subjects">
+          <span class="" style="font-weight:500;">&nbsp;&nbsp;Subjects</span>
+        </a>
+      </div>
+
     </div>
   </div>
 
-  <a href="#" class="nav_link sidebar-hovered" id="text_link">
-    <img style="width:50px; height:50px;" src="../../assets/images/icon_accMngt.png" alt="Profile">
-    <span class="" style="font-weight:500;">&nbsp;&nbsp;{{ userName }}</span>
-  </a>
+  <div class="btn-group dropup" style="display: inline-block">
+      <div class="nav_prof sidebar-hovered dropdown-toggle" id="text_link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <img style="width:50px; height:50px;" src="../../assets/images/icon_user.png" alt="Profile">
+        <span class="" style="font-weight:500;">&nbsp;&nbsp;{{ userName }}&nbsp;&nbsp;&nbsp;</span>
+      </div>
+      <div class="dropdown-menu" style=" width: 200px; max-width: 200px;">
+        <a class="dropdown-item" routerLink="/profile"> <img class="mb-1" src="../../assets/images/icon_viewprof.png" style="width: 25px; height: 25px; margin-top: 3px;" alt="View Profile"> &nbsp; View Profile &nbsp; &nbsp; &nbsp;</a>
+        <a class="dropdown-item" href="#"> <img class="mb-1" src="../../assets/images/icon_settings.png" style="width: 25px; height: 25px; margin-top: 3px;" alt="View Profile"> &nbsp; Settings &nbsp; &nbsp; &nbsp;</a>
+        <a class="dropdown-item" href="#"> <img class="mb-1" src="../../assets/images/icon_logout.png" style="width: 25px; height: 25px; margin-top: 3px;" alt="View Profile"> &nbsp; Logout &nbsp; &nbsp; &nbsp;</a> 
+      </div>                                                                                               
+  </div>
 
   </nav>
 </div>

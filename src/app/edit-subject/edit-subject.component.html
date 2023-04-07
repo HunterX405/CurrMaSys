@@ -1,15 +1,44 @@
-<div class="container">
-    <h1>Edit Subject</h1>
-    <form [formGroup]="editSubForm" (ngSubmit)="editSubject(editSubForm)" enctype="multipart/form-data">
-        <label for="course_code">Course Code</label>
-        <input type="text" formControlName="course_code" id="course_code">
+<app-sidenav></app-sidenav>
 
-        <label for="title">Title</label>
-        <input type="text" formControlName="title" id="title">
+<div class="mainContent">
+    <h1 style="padding: 15px 32px; height: 8vh;"> Subjects </h1>
 
-        <label for="syllabus">Upload New Syllabus File</label>
-        <input type="File" formControlName="syllabus" name="syllabus" accept=".pdf" (change)="onFileSelect($event)">
+    <div class="lowerMainContent">
 
-        <button>Edit</button>
-    </form>
+        <div class="mx-5 py-3">
+            <div class="addForm p-5">
+                <h2>Edit Subject</h2>
+                <form [formGroup]="editSubForm" (ngSubmit)="editSubject(editSubForm)" enctype="multipart/form-data">
+        
+                    <div class="form-group pb-3">
+                        <label for="course_code">Course Code</label>
+                        <input type="text" formControlName="course_code" class="form-control" id="course_code">
+                    
+                    </div>
+                    
+                    <div class="form-group pb-3">
+                        <label for="title">Title</label>
+                        <input type="text" formControlName="title" class="form-control" id="title">
+                    </div>
+        
+                    <div class="form-group pb-3">
+                        <label for="syllabus" style="margin-bottom: 5px;">Upload New Syllabus File:</label> <br>
+                        <input type="File" formControlName="syllabus" class="form-control" name="syllabus" accept=".pdf" (change)="onFileSelect($event)">
+                    </div>
+            
+                    <div class="d-flex justify-content-end"  style="margin: 5px 0;">
+                        <button class="btn btn-primary">Edit</button>
+                    </div>
+            
+                </form>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
 </div>
+
+

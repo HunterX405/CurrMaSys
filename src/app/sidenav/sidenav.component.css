@@ -37,6 +37,13 @@
     padding: .3rem 0 .3rem 1rem
 }
     
+.nav_prof{
+    padding: .3rem 0 .3rem 1rem;
+    position: relative;
+    color: #FFFFFF; 
+    margin-bottom: .8rem;
+}
+
 .nav_logo{
     margin-bottom: 0.8rem
 }

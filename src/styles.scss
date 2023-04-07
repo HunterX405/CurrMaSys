@@ -2,7 +2,7 @@
     font-family: 'Lato';
 }
 
-h1{
+h1,h2{
     font-family: 'Outfit';
 }
 
@@ -16,6 +16,27 @@ $theme-colors: (
 
 h1{
     color: map-get($theme-colors, "primary");
+}
+
+h2{
+    color: #ffaa28;
+}
+
+.error {
+    color: map-get($theme-colors, "danger");
+}
+
+.mainContent{
+    margin-left: 25vh;
+}
+
+.lowerMainContent{
+    background-color: #eef1f2;
+    height: 92vh;
+}
+
+.mainTable, .addForm{
+    background-color: #ffffff;
 }
 
 //@import "../../node_modules/bootstrap/scss/bootstrap.scss";

@@ -13,6 +13,15 @@ export class AccountComponent implements OnInit {
   users: any;
   isFormSubmitted: boolean = false;
 
+  isTableVisible: boolean = true;
+  isAddFormVisible: boolean = false;
+  
+  onAdd()
+  {
+    this.isAddFormVisible = !this.isAddFormVisible;
+    this.isTableVisible = !this.isTableVisible;
+  }
+
   registerForm = this.fb.group({
     name: ["", [Validators.required]],
     email: ["", [Validators.required, Validators.email]],
