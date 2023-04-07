@@ -1,28 +1,20 @@
 <?php
-include_once("database.php");
-$postData = file_get_contents("php://input");
+  include_once("database.php");
+  $postData = file_get_contents("php://input");
 
-$resultData = [];
-
-if (isset($postData) && !empty($postData)) {
+  if (isset($postData) && !empty($postData)) {
     $request = json_decode($postData);
-    $subjectID = mysqli_real_escape_string($mysqli, trim($request->subjectID));
+    $subjectID = trim($request->subjectID);
 
-    $sql = "SELECT * FROM subject WHERE id='$subjectID'";
+    $query = "SELECT * FROM subject WHERE id=?";
+    $params = [$subjectID];
 
-    if ($result = mysqli_query($mysqli, $sql)) {
-      $i = 0;
-      // The data that will be returned
-      while ($dbRow = mysqli_fetch_assoc($result)) {
-        $resultData[$i]["id"] = $dbRow["id"];
-        $resultData[$i]["course_code"] = $dbRow["course_code"];
-        $resultData[$i]["title"] = $dbRow["title"];
-        $resultData[$i]["syllabus"] = $dbRow["syllabus"];
-        $i++;
-      }
-      // Returns an array
+    $result = executeQuery($query, $params);
+    if ($result) {
+      $resultData = $result->fetch_all(MYSQLI_ASSOC);
       echo json_encode($resultData);
     } else {
-      http_response_code(404);
+        http_response_code(404);
     }
-}
+  }
+?>

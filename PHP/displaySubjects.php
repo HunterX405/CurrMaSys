@@ -1,22 +1,16 @@
 <?php
   include_once("database.php");
 
-  $resultData = [];
-  // Selecting all properties of the table users
-  $sql = "SELECT * FROM subject";
+  $query = "SELECT id, course_code, title, syllabus FROM subject";
 
-  if ($result = mysqli_query($mysqli, $sql)) {
-    $i = 0;
-    // The data that will be returned
-    while ($dbRow = mysqli_fetch_assoc($result)) {
-      $resultData[$i]["id"] = $dbRow["id"];
-      $resultData[$i]["course_code"] = $dbRow["course_code"];
-      $resultData[$i]["title"] = $dbRow["title"];
-      $resultData[$i]["syllabus"] = $dbRow["syllabus"];
-      $i++;
-    }
-    // Returns an array
-    echo json_encode(["data" => $resultData]);
+  $result = executeQuery($query);
+
+  if ($result) {
+      $resultData = $result->fetch_all(MYSQLI_ASSOC);
+      echo json_encode(["subjects" => $resultData]);
   } else {
-    http_response_code(404);
+      http_response_code(404);
   }
+
+?>
+

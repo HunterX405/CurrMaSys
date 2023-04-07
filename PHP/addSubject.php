@@ -1,26 +1,32 @@
 <?php
-include_once("database.php");
-$postdata = file_get_contents("php://input");
+  include_once("database.php");
+  $postdata = file_get_contents("php://input");
 
-if (isset($postdata) && !empty($postdata)) {
+  if (isset($postdata)) {
     $request = json_decode($postdata);
-    $courseCode = mysqli_real_escape_string($mysqli, trim($request->courseCode));
-    $title = mysqli_real_escape_string($mysqli, trim($request->title));
+    $course_code = trim($request->course_code);
+    $title = trim($request->title);
+    $fileName = trim($request->syllabus);
 
     // $randomNumberr will be returned for the uploadFile function on the SubjectComponent
-    $randomNumber = rand(1000, 10000);
-    $fileName =  $randomNumber . "-" . mysqli_real_escape_string($mysqli, trim($request->syllabus));
+    if($fileName){
+      $randomNumber = rand(1000, 10000);
+      $newFileName =  $randomNumber . "-" . $fileName;
+    }
 
-    $sql = "INSERT INTO subject(course_code, title, syllabus) VALUES ('$courseCode', '$title', '$fileName')";
-    
-    if ($result = mysqli_query($mysqli, $sql)) {
+    if($course_code && $title){
+      $query = "INSERT INTO subject(course_code, title, syllabus) VALUES (?,?,?)";
+      $params = [$course_code, $title, $newFileName];
+      $result = executeQuery($query, $params);
+
+      if ($result) {
         $authdata = [
-            'id' => mysqli_insert_id($mysqli),
-            'courseCode' => $courseCode,
-            'title' => $title,
-            'syllabus' => $fileName,
-            'randomNumber' => $randomNumber
+          'course_code' => $course_code,
+          'title' => $title,
+          'syllabus' => $newFileName,
         ];
         echo json_encode($authdata);
+      }
     }
-}
+  }
+?>

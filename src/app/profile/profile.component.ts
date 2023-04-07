@@ -7,11 +7,20 @@ import { ApiService } from '../api.service';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
+
 export class ProfileComponent {
 
-  userName: string = '';
-  userEmail: string = '';
-  editProfileForm!: FormGroup;
+  userName!: string;
+  email!: string;
+  user!: any;
+
+  editProfileForm = this.fb.group({
+    id: [""],
+    name: ["", [Validators.required]],
+    email: ["", [Validators.required]],
+    newPassword: [""],
+    conPassword: [""],
+  });
 
   constructor(
     private fb: FormBuilder,
@@ -21,13 +30,11 @@ export class ProfileComponent {
   ngOnInit(): void {
     this.apiService.getUserDetails().subscribe(response => {
       this.userName = response.name;
-      this.userEmail = response.email;
-      this.editProfileForm = this.fb.group({
-        name: [this.userName || '', [Validators.required]],
-        email: [this.userEmail || '', [Validators.required, Validators.email]],
-        newPassword: ["", [Validators.required]],
-        conPassword: ["", [Validators.required]]
-      });
+      this.email = response.email;
+
+      this.editProfileForm.get("id")?.setValue(response.id);
+      this.editProfileForm.get("name")?.setValue(response.name);
+      this.editProfileForm.get("email")?.setValue(response.email);
     });
   }
 
@@ -36,33 +43,37 @@ export class ProfileComponent {
   isSuccess: boolean = false;
 
   editProfile(editProfileForm: FormGroup) {
-    let { name, email, newPassword, conPassword } = editProfileForm.value;
-
+    let { id, name, email, newPassword, conPassword } = editProfileForm.value;
     if (editProfileForm.valid) {
-    if (newPassword === conPassword || (newPassword === "" && conPassword === "")) {
-      if ((newPassword !== "" && conPassword !== "")) {
-        
-        this.apiService.editProfile(name, email, newPassword).subscribe({
-          next: (data) => {
-            this.isSuccess = true;
-            console.log("Update Profile Successful")
-            console.log("@Next Component")
-            console.log(data);
-          },
-          error: (err) => {
-            console.log("Update Profile Failed")
-            console.log("@Error Component")
-            console.log(err);
-          }
-        });
+      if (newPassword === conPassword) {
+        if (name !== this.userName || email !== this.email || conPassword !== "") {
+          this.apiService.editProfile(id, name, email, newPassword).subscribe({
+            next: (data) => {
+              console.log("Update Profile Successful", data);
+              this.userName = data.user.name;
+              this.email = data.user.email;
+              this.editProfileForm.get("newPassword")?.setValue("");
+              this.editProfileForm.get("conPassword")?.setValue("");
+              alert("Profile Updated Successfully.");
+            },
+            error: (err) => {
+              console.log("Update Profile Failed", err);
+            }
+          });
+        } 
+        else {
+          console.log("No data updated.");
+        }
+      } 
+      else {
+        console.log("Passwords doesn't match.");
+        alert("Passwords doesn't match.");
       }
-    }
     else {
       this.isMatching = false;
     }
+    this.isFormSubmitted = true;
   }
-  this.isFormSubmitted = true;
-}
   get name() { return this.editProfileForm.value.name }
   get email() { return this.editProfileForm.value.email }
   get newPassword() { return this.editProfileForm.value.newPassword }

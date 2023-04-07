@@ -1,6 +1,7 @@
 <div class="container">
     <h1>Edit Subject</h1>
-    <form [formGroup]="editSubForm" (ngSubmit)="editSubject(editSubForm)">
+    
+    <form [formGroup]="editSubForm" (ngSubmit)="editSubject(editSubForm)" enctype="multipart/form-data">
         <label for="courseCode">Course Code</label>
         <input type="text" formControlName="courseCode" id="courseCode"
             [class.invalid]="editSubForm.get('courseCode')?.hasError('required') && (editSubForm.get('courseCode')?.dirty || editSubForm.get('courseCode')?.touched || isFormSubmitted)">

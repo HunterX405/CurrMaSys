@@ -52,7 +52,6 @@
         $skey = 'CurrMaSys';
         $jwt_token = JWT::encode($payload, $skey, 'HS256');
         // Set the JWT token as a cookie in the response
-        setcookie('jwt_token', $jwt_token, time() + (60 * 60), '/', '', true, true);
 
         $response = array('success' => true,
                           'user' => $user,

@@ -7,10 +7,10 @@ import { ApiService } from '../api.service';
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.css']
 })
+
 export class AccountComponent implements OnInit {
   // Variable that holds the list of users
   users: any;
-  successMessage: string = "";
   isFormSubmitted: boolean = false;
 
   registerForm = this.fb.group({
@@ -30,48 +30,33 @@ export class AccountComponent implements OnInit {
   // Registering the user
   registerUser(registerForm: FormGroup) {
     const { name, email, userType } = registerForm.value;
-    let generatedPassword = this.generatePassword(8);
 
     if (registerForm.valid) {
-      this.apiService.registerUser(name, email, generatedPassword, userType).subscribe({
+      this.apiService.registerUser(name, email, userType).subscribe({
         next: (data) => {
-          this.successMessage = "Registration Successful" + "Email: " + email + "Password: " + generatedPassword;
-          console.log("Registration Successful");
-          console.log(data);
+          alert("Registration Successful\n" + "Email: " + data?.email + "\nPassword: " + data?.password);
+          console.log("Registration Successful", data);
+          // Reload the page
+          location.reload();
         },
         error: (err) => {
-          console.log("Registration Failed");
-          console.log(err);
+          console.log("Registration Failed", err);
         }
       });
     }
     this.isFormSubmitted = true;
   }
-
-  generatePassword(length: number): string {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let result = '';
-    for (let i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * characters.length));
-    }
-    return result;
-  }
-
+  
   // Getting the list of users
   displayUsers() {
     this.apiService.displayUsers().subscribe({
       next: (data) => {
-        console.log("Display Successful");
-        console.log(data);
+        console.log("Get Users:", data);
         this.users = data;
       },
       error: (err) => {
-        console.log("Display Failed");
-        console.log(err);
+        console.log("Get Users Failed", err);
       }
     });
   }
-  get name() { return this.registerForm.value.name };
-  get email() { return this.registerForm.value.email };
-  get userType() { return this.registerForm.value.userType };
 }

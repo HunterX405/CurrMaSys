@@ -26,10 +26,17 @@
                         <td> {{ user.id }} </td>
                         <td> {{ user.name }} </td>
                         <td> {{ user.email }} </td>
-                        <td> {{ user.userType }} </td>
-                        <td> {{ user.isActive }} </td>
-                        <td> <a href="deactivate/{{user.id}}" *ngIf="user.isActive === 'Active'" class="btn btn-primary">Deactivate</a>
-                            <a href="activate/{{user.id}}" *ngIf="user.isActive === 'Inactive'" class="btn btn-primary">Activate</a> </td>
+                        
+                        <td *ngIf="user.userType == 'admin'"> Admin </td>
+                        <td *ngIf="user.userType == 'chair'"> Committee Chair </td>
+                        <td *ngIf="user.userType == 'member'"> Committee Member </td>
+                        <td *ngIf="user.userType == 'stakeholder'"> Stakeholder </td>
+                        
+                        <td *ngIf="user.isActive === 1"> Active </td>
+                        <td *ngIf="user.isActive === 0"> Inactive </td>
+                        
+                        <td> <a href="deactivate/{{user.id}}" *ngIf="user.isActive === 1" class="btn btn-primary">Deactivate</a>
+                            <a href="activate/{{user.id}}" *ngIf="user.isActive === 0" class="btn btn-primary">Activate</a> </td>
                     </tr>
                 </tbody>
             </table>
@@ -85,8 +92,5 @@
     <div class="success" *ngIf="successMessage">
         {{ successMessage }}
     </div>
-    </div>
-  
+  </div>
 </div>
-    
-

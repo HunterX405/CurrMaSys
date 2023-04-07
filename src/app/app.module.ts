@@ -30,6 +30,7 @@ import { EnableUserComponent } from './enable-user/enable-user.component';
     EditSubjectComponent,
     DisableUserComponent,
     EnableUserComponent,
+    EditSubjectComponent,
   ],
   imports: [
     BrowserModule,

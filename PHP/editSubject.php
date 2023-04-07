@@ -1,30 +1,44 @@
 <?php
 include_once("database.php");
+
 $postData = file_get_contents("php://input");
 $request = json_decode($postData);
 
 if (isset($postData) && !empty($postData)) {
-  // For managing the value of the $fileName for either creating new or maintain value
-  $isChanged = $request->isChanged;
 
-  $subjectID = mysqli_real_escape_string($mysqli, trim($request->subjectID));
-  $courseCode = mysqli_real_escape_string($mysqli, trim($request->courseCode));
-  $title = mysqli_real_escape_string($mysqli, trim($request->title));
-  $fileName = mysqli_real_escape_string($mysqli, trim($request->syllabus));
-
-  $randomNumber = rand(1000, 10000);
+  $subjectID = trim($request->subjectID);
+  $course_code = trim($request->course_code);
+  $title = trim($request->title);
+  $fileName = trim($request->syllabus);
 
   // To create a new file based on the $randomNumber
   // If false the $fileName will maintain its value or will not be updated
-  if ($isChanged === true) {
-    $fileName =  $randomNumber . "-" . mysqli_real_escape_string($mysqli, trim($request->syllabus));
+  if ($fileName) {
+    $randomNumber = rand(1000, 10000);
+    $fileName = $randomNumber . "-" . $fileName;
+    $query = "UPDATE subject SET course_code=?, title=?, syllabus=? WHERE id=?";
+    $params = [$course_code, $title, $fileName, $subjectID];
+  } else {
+    $query = "UPDATE subject SET course_code=?, title=? WHERE id=?";
+    $params = [$course_code, $title, $subjectID];
   }
 
-  $sql = "UPDATE subject SET course_code='$courseCode', title='$title', syllabus='$fileName' WHERE id='$subjectID'";
+  try {
+    if (executeQuery($query, $params)) {
+      http_response_code(200);
+      echo json_encode(array(
+        "subjectID" => $subjectID,
+        "course_code" => $course_code,
+        "title" => $title,
+        "fileName" => $fileName
+      ));
+    } else {
+      http_response_code(404);
+    }
 
-  if ($result = mysqli_query($mysqli, $sql)) {
-    echo json_encode($randomNumber);
-  } else {
-    http_response_code(404);
+  } catch (Exception $e) {
+    http_response_code(500);
+    echo "Error updating subject: " . $e->getMessage();
   }
 }
+?>

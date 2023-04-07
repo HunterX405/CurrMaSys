@@ -27,6 +27,7 @@ export class LoginComponent {
   loginUser(loginForm: FormGroup) {
     // Accessing the inputted value on the loginForm
     const { email, password } = loginForm.value;
+
     if (loginForm.valid) {
       this.apiService.loginUser(email, password).subscribe(response => {
         // Check if the login was successful
