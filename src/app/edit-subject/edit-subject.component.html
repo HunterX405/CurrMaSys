@@ -1,15 +1,31 @@
 <div class="container">
     <h1>Edit Subject</h1>
+    
     <form [formGroup]="editSubForm" (ngSubmit)="editSubject(editSubForm)" enctype="multipart/form-data">
-        <label for="course_code">Course Code</label>
-        <input type="text" formControlName="course_code" id="course_code">
+        <label for="courseCode">Course Code</label>
+        <input type="text" formControlName="courseCode" id="courseCode"
+            [class.invalid]="editSubForm.get('courseCode')?.hasError('required') && (editSubForm.get('courseCode')?.dirty || editSubForm.get('courseCode')?.touched || isFormSubmitted)">
 
+        <div *ngIf="editSubForm.get('courseCode')?.hasError('required') && (editSubForm.get('courseCode')?.dirty || editSubForm.get('courseCode')?.touched || isFormSubmitted)"
+            class="error">
+            This field is required.
+        </div>
         <label for="title">Title</label>
-        <input type="text" formControlName="title" id="title">
-
+        <input type="text" formControlName="title" id="title"
+            [class.invalid]="editSubForm.get('title')?.hasError('required') && (editSubForm.get('title')?.dirty || editSubForm.get('title')?.touched || isFormSubmitted)">
+title
+        <div *ngIf="editSubForm.get('title')?.hasError('required') && (editSubForm.get('title')?.dirty || editSubForm.get('title')?.touched || isFormSubmitted)"
+            class="error">
+            This field is required.
+        </div>
         <label for="syllabus">Upload New Syllabus File</label>
-        <input type="File" formControlName="syllabus" name="syllabus" accept=".pdf" (change)="onFileSelect($event)">
+        <input type="File" formControlName="syllabus" name="syllabus" accept=".pdf" (change)="onFileSelect($event)"
+        [class.file]="editSubForm.get('syllabus')?.hasError('required') && (isFormSubmitted)">
 
         <button>Edit</button>
+
+        <div class="success" *ngIf="isSuccess && !editSubForm.get('syllabus')?.hasError('required') && !editSubForm.get('title')?.hasError('required') && !editSubForm.get('syllabus')?.hasError('required')">
+            Subject information is successfully changed.
+        </div>
     </form>
 </div>

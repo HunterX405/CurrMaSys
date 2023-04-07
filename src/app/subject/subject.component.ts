@@ -24,6 +24,9 @@ export class SubjectComponent {
     private router: Router,
     ) { }
 
+    isFormSubmitted: boolean = false;
+    isSuccess: boolean = false;
+    
   ngOnInit(): void {
     this.displaySubject();
   }
@@ -32,6 +35,9 @@ export class SubjectComponent {
     this.file = event.target.files[0];
   }
 
+
+
+
   addSubject(addSubForm: FormGroup) {
     console.log("@ addSubject");
     const { course_code, title, syllabus } = addSubForm.value;
@@ -39,6 +45,7 @@ export class SubjectComponent {
     if (addSubForm.valid) {
       this.apiService.addSubject(course_code, title, syllabus).subscribe({
         next: (data) => {
+          this.isSuccess = true;
           console.log("Subject Adding Successful", data);
           // The parameter is the generated number from the addSubject.php
           this.apiService.uploadFile(this.file, data.syllabus);
@@ -49,6 +56,7 @@ export class SubjectComponent {
         }
       });
     }
+    this.isFormSubmitted = true;
   }
 
   displaySubject() {

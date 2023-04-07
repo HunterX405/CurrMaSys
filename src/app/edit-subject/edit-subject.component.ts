@@ -27,6 +27,9 @@ export class EditSubjectComponent implements OnInit {
     private router: Router,
     ) { }
 
+
+isFormSubmitted: boolean = false;
+isSuccess: boolean = false;
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.subjectID = params.get('id');
@@ -61,6 +64,7 @@ export class EditSubjectComponent implements OnInit {
         next: (data) => {
           console.log("Subject Editing Successful", data);
           // If the user uploaded a new file it will upload the new file
+
           if (data.fileName) {
             this.apiService.uploadFile(this.file, data.fileName, this.oldFileName);
           }
@@ -72,5 +76,6 @@ export class EditSubjectComponent implements OnInit {
         }
       });
     }
+    this.isFormSubmitted = true;
   }
 }

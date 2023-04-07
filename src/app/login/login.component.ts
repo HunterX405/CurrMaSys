@@ -27,24 +27,26 @@ export class LoginComponent {
   loginUser(loginForm: FormGroup) {
     // Accessing the inputted value on the loginForm
     const { email, password } = loginForm.value;
-    this.apiService.loginUser(email, password).subscribe(response => {
-      console.log(response);
-      // Check if the login was successful
-      if (response.success) {
-        // Storing user details in the api service.
-        // const user = response.user;
-        // Redirect to dashboard upon successful login.
-        this.apiService.deleteCookie('jwt_token');
-        this.apiService.setCookie('jwt_token', response.jwt);
-        const redirect = this.apiService.redirectUrl ?? '/dashboard';
-        this.router.navigate([redirect]);
-      } else {
-        console.log(response.message); // Log the error message
-        this.isLoginFailed = true;
-        this.message = response.message;
-      }
-    });
-    this.isFormSubmitted = true;
+
+    if (loginForm.valid) {
+      this.apiService.loginUser(email, password).subscribe(response => {
+        // Check if the login was successful
+        if (response.success) {
+          // Storing user details in the api service.
+          // const user = response.user;
+          // Redirect to dashboard upon successful login.
+          this.apiService.deleteCookie('jwt_token');
+          this.apiService.setCookie('jwt_token', response.jwt);
+          const redirect = this.apiService.redirectUrl ?? '/dashboard';
+          this.router.navigate([redirect]);
+        } else {
+          console.log(response.message); // Log the error message
+          this.isLoginFailed = true;
+          this.message = response.message;
+        }
+      });
+      this.isFormSubmitted = true;
+    }
   }
 
   // To get the value of each key in the loginForm
