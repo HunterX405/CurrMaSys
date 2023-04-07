@@ -31,7 +31,7 @@ export class ForgotPasswordComponent {
     if (newPassword === conPassword) {
       this.isMatching = true;
       this.isSuccess = true;
-      
+
       this.apiService.resetPassword(email, newPassword).subscribe({
         next: (data) => {
           console.log(data);
@@ -51,4 +51,7 @@ export class ForgotPasswordComponent {
       this.isSubmitted = true;
     }
   }
+  get email() { return this.forgotForm.get('email'); }
+  get newPassword() { return this.forgotForm.get('newPassword'); }
+  get conPassword() { return this.forgotForm.get('conPassword'); }
 }

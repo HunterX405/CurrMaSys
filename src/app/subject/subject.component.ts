@@ -26,7 +26,7 @@ export class SubjectComponent {
 
     isFormSubmitted: boolean = false;
     isSuccess: boolean = false;
-    
+
   ngOnInit(): void {
     this.displaySubject();
   }
@@ -47,6 +47,7 @@ export class SubjectComponent {
         next: (data) => {
           this.isSuccess = true;
           console.log("Subject Adding Successful", data);
+          alert("Subject " + data.course_code + ": " + data.title + " added successfully.");
           // The parameter is the generated number from the addSubject.php
           this.apiService.uploadFile(this.file, data.syllabus);
           location.reload();

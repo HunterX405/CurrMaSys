@@ -60,22 +60,19 @@ export class ProfileComponent {
               console.log("Update Profile Failed", err);
             }
           });
-        } 
+        }
         else {
           console.log("No data updated.");
         }
-      } 
+      }
       else {
         console.log("Passwords doesn't match.");
         alert("Passwords doesn't match.");
       }
+    }
     else {
-      this.isMatching = false;
+        this.isMatching = false;
     }
     this.isFormSubmitted = true;
   }
-  get name() { return this.editProfileForm.value.name }
-  get email() { return this.editProfileForm.value.email }
-  get newPassword() { return this.editProfileForm.value.newPassword }
-  get conPassword() { return this.editProfileForm.value.conPassword }
 }

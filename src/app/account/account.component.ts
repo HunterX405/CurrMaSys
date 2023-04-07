@@ -11,6 +11,7 @@ import { ApiService } from '../api.service';
 export class AccountComponent implements OnInit {
   // Variable that holds the list of users
   users: any;
+  successMessage: string = "";
   isFormSubmitted: boolean = false;
 
   registerForm = this.fb.group({
@@ -34,6 +35,7 @@ export class AccountComponent implements OnInit {
     if (registerForm.valid) {
       this.apiService.registerUser(name, email, userType).subscribe({
         next: (data) => {
+          this.successMessage = "Registration Successful\n" + "Email: " + data?.email + "\nPassword: " + data?.password;
           alert("Registration Successful\n" + "Email: " + data?.email + "\nPassword: " + data?.password);
           console.log("Registration Successful", data);
           // Reload the page
@@ -46,7 +48,7 @@ export class AccountComponent implements OnInit {
     }
     this.isFormSubmitted = true;
   }
-  
+
   // Getting the list of users
   displayUsers() {
     this.apiService.displayUsers().subscribe({
