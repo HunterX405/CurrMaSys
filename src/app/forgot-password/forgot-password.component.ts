@@ -11,9 +11,11 @@ import { Router } from '@angular/router';
 
 export class ForgotPasswordComponent {
   isMatching: boolean = true;
+  isSubmitted: boolean = false;
+  isSuccess: boolean = false;
 
   forgotForm = this.fb.group({
-    email: ["", [Validators.required]],
+    email: ["", [Validators.required, Validators.email]],
     newPassword: ["", [Validators.required]],
     conPassword: ["", [Validators.required]]
   })
@@ -28,6 +30,8 @@ export class ForgotPasswordComponent {
     const { email, newPassword, conPassword } = forgotForm.value;
     if (newPassword === conPassword) {
       this.isMatching = true;
+      this.isSuccess = true;
+
       this.apiService.resetPassword(email, newPassword).subscribe({
         next: (data) => {
           console.log(data);
@@ -44,6 +48,10 @@ export class ForgotPasswordComponent {
       });
     } else {
       this.isMatching = false;
+      this.isSubmitted = true;
     }
   }
+  get email() { return this.forgotForm.get('email'); }
+  get newPassword() { return this.forgotForm.get('newPassword'); }
+  get conPassword() { return this.forgotForm.get('conPassword'); }
 }
