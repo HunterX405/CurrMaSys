@@ -4,12 +4,33 @@
   font-family: "Lato";
 }
 
-h1, .h1 {
+h1, .h1, h2, .h2 {
   font-family: "Outfit";
 }
 
 h1, .h1 {
   color: #182850;
+}
+
+h2, .h2 {
+  color: #ffaa28;
+}
+
+.error {
+  color: #ee404c;
+}
+
+.mainContent {
+  margin-left: 25vh;
+}
+
+.lowerMainContent {
+  background-color: #eef1f2;
+  height: 92vh;
+}
+
+.mainTable, .addForm {
+  background-color: #ffffff;
 }
 
 /*!

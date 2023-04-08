@@ -13,6 +13,15 @@ export class SubjectComponent {
   subjects: any;
   file!: Blob;
 
+  isTableVisible: boolean = true;
+  isAddFormVisible: boolean = false;
+
+  onAdd()
+  {
+    this.isAddFormVisible = !this.isAddFormVisible;
+    this.isTableVisible = !this.isTableVisible;
+  }
+
   addSubForm = this.fb.group({
     course_code: ["", [Validators.required]],
     title: ["", [Validators.required]],

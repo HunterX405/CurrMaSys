@@ -1,18 +1,18 @@
-.topNav{
-    height: 8vh;
+.logoImg{
+    margin-right: 3px;
+    margin-bottom: 3px;
+    width:15px;
+    height:15px;
 }
 
-.content{
-    margin-left: 25vh;
+/* FOR ACCOUNT STATE */
+
+#activeAcc{
+    color: #31a24c;
 }
 
-.mainContent{
-    background-color: #eef1f2;
-    height: 92vh;
-}
-
-.mainTable{
-    background-color: #ffffff;
+#inactiveAcc{
+    color: #686868;
 }
 
 .error {
