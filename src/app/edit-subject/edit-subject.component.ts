@@ -25,11 +25,11 @@ export class EditSubjectComponent implements OnInit {
     private apiService: ApiService,
     private route: ActivatedRoute,
     private router: Router,
-    ) { }
+  ) { }
 
 
-isFormSubmitted: boolean = false;
-isSuccess: boolean = false;
+  isFormSubmitted: boolean = false;
+  isSuccess: boolean = false;
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.subjectID = params.get('id');
@@ -45,7 +45,7 @@ isSuccess: boolean = false;
       })
     });
   }
-  
+
   setFormValue(data: any) {
     // Setting-up the value of the form from the specific subject data
     this.editSubForm.get('course_code')?.setValue(data.course_code);
@@ -68,7 +68,7 @@ isSuccess: boolean = false;
           if (data.fileName) {
             this.apiService.uploadFile(this.file, data.fileName, this.oldFileName);
           }
-          alert("Subject " + course_code +" Edited Successfully");
+          alert("Subject " + course_code + " Edited Successfully");
           this.router.navigate(['/subject']);
         },
         error: (err) => {

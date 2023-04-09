@@ -41,4 +41,3 @@
       die('Database query error: ' . $e->getMessage());
     }
   }
-?>

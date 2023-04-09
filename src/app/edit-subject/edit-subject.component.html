@@ -1,38 +1,57 @@
 <app-sidenav></app-sidenav>
 
 <div class="mainContent">
-    <h1 style="padding: 15px 32px; height: 8vh;"> Subjects </h1>
 
-    <div class="lowerMainContent">
+  <h1 style="padding: 15px 32px; height: 8vh;"> Subjects </h1>
+  <div class="lowerMainContent">
 
-        <div class="mx-5 py-3">
-            <div class="addForm p-5">
-                <h2>Edit Subject</h2>
-                <form [formGroup]="editSubForm" (ngSubmit)="editSubject(editSubForm)" enctype="multipart/form-data">
-        
-                    <div class="form-group pb-3">
-                        <label for="course_code">Course Code</label>
-                        <input type="text" formControlName="course_code" class="form-control" id="course_code">
-                    
-                    </div>
-                    
-                    <div class="form-group pb-3">
-                        <label for="title">Title</label>
-                        <input type="text" formControlName="title" class="form-control" id="title">
-                    </div>
-        
-                    <div class="form-group pb-3">
-                        <label for="syllabus" style="margin-bottom: 5px;">Upload New Syllabus File:</label> <br>
-                        <input type="File" formControlName="syllabus" class="form-control" name="syllabus" accept=".pdf" (change)="onFileSelect($event)">
-                    </div>
-            
-                    <div class="d-flex justify-content-end"  style="margin: 5px 0;">
-                        <button class="btn btn-primary">Edit</button>
-                    </div>
-            
-                </form>
-            </div>
-        </div>
-        
+    <div class="mx-5 py-3">
+      <div class="addForm p-5">
+
+        <h2>Edit Subject</h2>
+        <form [formGroup]="editSubForm" (ngSubmit)="editSubject(editSubForm)" enctype="multipart/form-data">
+
+          <div class="form-group pb-3">
+            <label for="course_code">Course Code</label>
+            <input type="text" formControlName="courseCode" id="courseCode"
+              [class.invalid]="editSubForm.get('courseCode')?.hasError('required') && (editSubForm.get('courseCode')?.dirty || editSubForm.get('courseCode')?.touched || isFormSubmitted)">
+          </div>
+
+          <div
+            *ngIf="editSubForm.get('courseCode')?.hasError('required') && (editSubForm.get('courseCode')?.dirty || editSubForm.get('courseCode')?.touched || isFormSubmitted)"
+            class="error">
+            This field is required.
+          </div>
+
+          <div class="form-group pb-3">
+            <label for="title">Title</label>
+            <input type="text" formControlName="title" id="title"
+              [class.invalid]="editSubForm.get('title')?.hasError('required') && (editSubForm.get('title')?.dirty || editSubForm.get('title')?.touched || isFormSubmitted)">
+            title
+          </div>
+
+          <div
+            *ngIf="editSubForm.get('title')?.hasError('required') && (editSubForm.get('title')?.dirty || editSubForm.get('title')?.touched || isFormSubmitted)"
+            class="error">
+            This field is required.
+          </div>
+
+          <div class="form-group pb-3">
+            <label for="syllabus" style="margin-bottom: 5px;">Upload New Syllabus File:</label> <br>
+            <input type="File" formControlName="syllabus" name="syllabus" accept=".pdf" (change)="onFileSelect($event)"
+              [class.file]="editSubForm.get('syllabus')?.hasError('required') && (isFormSubmitted)">
+          </div>
+
+          <div class="d-flex justify-content-end" style="margin: 5px 0;">
+            <button class="btn btn-primary">Edit</button>
+          </div>
+
+          <div class="success"
+            *ngIf="isSuccess && !editSubForm.get('syllabus')?.hasError('required') && !editSubForm.get('title')?.hasError('required') && !editSubForm.get('syllabus')?.hasError('required')">
+            Subject information successfully changed.
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
 </div>

@@ -20,12 +20,12 @@ export class ApiService {
 
   getUser(id: any): Observable<any> {
     const headers = this.getAuthHeaders();
-    const url = `${this.baseUrl+"/disableUser.php"}?id=${id}`;
-    return this.httpClient.get<any>(url,{headers});
+    const url = `${this.baseUrl + "/disableUser.php"}?id=${id}`;
+    return this.httpClient.get<any>(url, { headers });
   }
 
-  activationUser(id:any, formvalues:any) {
-    return this.httpClient.post(this.baseUrl+'/disableUser.php', formvalues);
+  activationUser(id: any, formvalues: any) {
+    return this.httpClient.post(this.baseUrl + '/disableUser.php', formvalues);
   }
 
   getPageTitle(title: string) {
@@ -93,7 +93,7 @@ export class ApiService {
     console.log("@ addSubject Service");
     // Removes the C:\fakepath\ on the value of the directory using RegEx
     syllabus = syllabus.replace(/^C:\\fakepath\\/i, '');
-    
+
     const subData = { course_code, title, syllabus };
 
     return this.httpClient.post<any>(this.baseUrl + "/addSubject.php", subData).pipe(map(data => {
@@ -119,7 +119,7 @@ export class ApiService {
 
   editSubject(subjectID: any, course_code: string, title: string, syllabus: string) {
     syllabus = syllabus.replace(/^C:\\fakepath\\/i, '');
-    const subData = {subjectID, course_code, title, syllabus};
+    const subData = { subjectID, course_code, title, syllabus };
     return this.httpClient.post<any>(this.baseUrl + "/editSubject.php", subData).pipe(map(data => {
       return data;
     }));

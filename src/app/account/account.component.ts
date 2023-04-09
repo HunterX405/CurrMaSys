@@ -16,9 +16,8 @@ export class AccountComponent implements OnInit {
 
   isTableVisible: boolean = true;
   isAddFormVisible: boolean = false;
-  
-  onAdd()
-  {
+
+  onAdd() {
     this.isAddFormVisible = !this.isAddFormVisible;
     this.isTableVisible = !this.isTableVisible;
   }

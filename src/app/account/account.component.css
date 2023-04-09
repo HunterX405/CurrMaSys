@@ -1,33 +1,33 @@
-.logoImg{
-    margin-right: 3px;
-    margin-bottom: 3px;
-    width:15px;
-    height:15px;
+.logoImg {
+  margin-right: 3px;
+  margin-bottom: 3px;
+  width: 15px;
+  height: 15px;
 }
 
 /* FOR ACCOUNT STATE */
 
-#activeAcc{
-    color: #31a24c;
+#activeAcc {
+  color: #31a24c;
 }
 
-#inactiveAcc{
-    color: #686868;
+#inactiveAcc {
+  color: #686868;
 }
 
 .error {
-    color: #ee404c;
+  color: #ee404c;
 }
 
 .invalid {
-    border: 1px solid red;
+  border: 1px solid red;
 }
 
 .success {
-    font: small;
-    color: white;
-    background-color: rgb(4, 182, 4);
-    width: fit-content;
-    padding: 0 10px 0 10px;
-    margin-top: 10px;
+  font: small;
+  color: white;
+  background-color: rgb(4, 182, 4);
+  width: fit-content;
+  padding: 0 10px 0 10px;
+  margin-top: 10px;
 }

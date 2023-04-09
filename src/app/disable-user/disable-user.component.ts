@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
-import { ActivatedRoute, Router  } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 
 @Component({
@@ -13,8 +13,8 @@ export class DisableUserComponent implements OnInit {
   id: any;
 
   deactivateUserForm = this.fb.group({
-    userid:[''],
-    isActive:[''],
+    userid: [''],
+    isActive: [''],
   });
 
   constructor(
@@ -22,7 +22,7 @@ export class DisableUserComponent implements OnInit {
     private apiService: ApiService,
     private fb: FormBuilder,
     private router: Router,
-  ) {  }
+  ) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -36,9 +36,9 @@ export class DisableUserComponent implements OnInit {
   }
 
   deactivateUser(): void {
-    this.apiService.activationUser(this.id,this.deactivateUserForm.value).subscribe(res => {
+    this.apiService.activationUser(this.id, this.deactivateUserForm.value).subscribe(res => {
       console.log(res);
-      alert("Account with ID:" + this.id +' was successfully deactivated');
+      alert("Account with ID:" + this.id + ' was successfully deactivated');
       this.router.navigate(['/account']);
     });
   }

@@ -14,4 +14,3 @@
     $response = array('success' => false, 'message' => 'Session expired. Please login again.');
     echo json_encode($response);
   }
-?>

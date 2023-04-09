@@ -8,9 +8,9 @@ describe('DisableUserComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DisableUserComponent ]
+      declarations: [DisableUserComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(DisableUserComponent);
     component = fixture.componentInstance;

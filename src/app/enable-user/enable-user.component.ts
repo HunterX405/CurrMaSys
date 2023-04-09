@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
-import { ActivatedRoute,Router  } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -9,11 +9,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./enable-user.component.css']
 })
 
-export class EnableUserComponent implements OnInit{
+export class EnableUserComponent implements OnInit {
   id: any;
   activateUserForm = this.fb.group({
-    userid:[''],
-    isActive:[''],
+    userid: [''],
+    isActive: [''],
   });
 
   constructor(
@@ -21,7 +21,7 @@ export class EnableUserComponent implements OnInit{
     private apiService: ApiService,
     private fb: FormBuilder,
     private router: Router
-  ) {  }
+  ) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -34,7 +34,7 @@ export class EnableUserComponent implements OnInit{
   }
 
   activateUser(): void {
-    this.apiService.activationUser(this.id,this.activateUserForm.value).subscribe(res => {
+    this.apiService.activationUser(this.id, this.activateUserForm.value).subscribe(res => {
       console.log(res);
       alert("Account ID:" + this.id + ' was successfully activated');
       this.router.navigate(['/account']);

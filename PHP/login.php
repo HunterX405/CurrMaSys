@@ -72,4 +72,3 @@
     $response = array('success' => false, 'message' => 'Login credentials are required.');
     echo json_encode($response);
   }
-?>

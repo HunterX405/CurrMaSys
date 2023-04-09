@@ -13,17 +13,16 @@ import { authGuard } from './auth-guard';
 import { EditSubjectComponent } from './edit-subject/edit-subject.component';
 
 const routes: Routes = [
-  {path: "login", component: LoginComponent, title: "Login"},
-  {path: "forgot-password", component: ForgotPasswordComponent, title: "Forgot Password"},
-  {path: "dashboard", component: DashboardComponent, title: "Dashboard", canActivate: [authGuard]},
-  {path: "subject", component: SubjectComponent, title: "Subjects" },
-  {path: "subject-edit/:id", component: EditSubjectComponent, title: "Edit Subject"},
-  {path: "account", component: AccountComponent, title: "Accounts"},
-  {path: "profile", component: ProfileComponent, title: "Profile"},
-  {path: "deactivate/:id", component: DisableUserComponent, title: "Disable User"},
-  {path: "activate/:id", component: EnableUserComponent, title: "Enable User"},
-  //{path: "sidenav", component: SidenavComponent, title: "Side Navigation"},
-  {path: "", redirectTo: "login", pathMatch: 'full'},
+  { path: "login", component: LoginComponent, title: "Login" },
+  { path: "forgot-password", component: ForgotPasswordComponent, title: "Forgot Password" },
+  { path: "dashboard", component: DashboardComponent, title: "Dashboard", canActivate: [authGuard] },
+  { path: "subject", component: SubjectComponent, title: "Subjects" },
+  { path: "subject-edit/:id", component: EditSubjectComponent, title: "Edit Subject" },
+  { path: "account", component: AccountComponent, title: "Accounts" },
+  { path: "profile", component: ProfileComponent, title: "Profile" },
+  { path: "deactivate/:id", component: DisableUserComponent, title: "Disable User" },
+  { path: "activate/:id", component: EnableUserComponent, title: "Enable User" },
+  { path: "", redirectTo: "login", pathMatch: 'full' },
 ];
 
 @NgModule({

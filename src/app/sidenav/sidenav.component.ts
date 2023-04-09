@@ -8,13 +8,13 @@ import { ApiService } from '../api.service';
 })
 export class SidenavComponent {
 
-    userName: string = '';
-    userType: string = '';
+  userName: string = '';
+  userType: string = '';
 
-    user = this.apiService.getUserDetails().subscribe(response => {
-      this.userName = response.name;
-      this.userType = response.userType;
-    });
+  user = this.apiService.getUserDetails().subscribe(response => {
+    this.userName = response.name;
+    this.userType = response.userType;
+  });
 
-    constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService) { }
 }

@@ -5,4 +5,3 @@ return [
   'password' => 'D<{.{3y5rR+zxm3X',
   'database' => 'currmasysdb'
 ];
-?>

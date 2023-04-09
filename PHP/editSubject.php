@@ -41,4 +41,3 @@ if (isset($postData) && !empty($postData)) {
     echo "Error updating subject: " . $e->getMessage();
   }
 }
-?>

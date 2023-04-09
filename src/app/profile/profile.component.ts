@@ -71,7 +71,7 @@ export class ProfileComponent {
       }
     }
     else {
-        this.isMatching = false;
+      this.isMatching = false;
     }
     this.isFormSubmitted = true;
   }

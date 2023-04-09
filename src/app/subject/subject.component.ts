@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../api.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-subject',
@@ -16,8 +15,7 @@ export class SubjectComponent {
   isTableVisible: boolean = true;
   isAddFormVisible: boolean = false;
 
-  onAdd()
-  {
+  onAdd() {
     this.isAddFormVisible = !this.isAddFormVisible;
     this.isTableVisible = !this.isTableVisible;
   }
@@ -30,11 +28,10 @@ export class SubjectComponent {
 
   constructor(private fb: FormBuilder,
     private apiService: ApiService,
-    private router: Router,
-    ) { }
+  ) { }
 
-    isFormSubmitted: boolean = false;
-    isSuccess: boolean = false;
+  isFormSubmitted: boolean = false;
+  isSuccess: boolean = false;
 
   ngOnInit(): void {
     this.displaySubject();
@@ -43,9 +40,6 @@ export class SubjectComponent {
   onFileSelect(event: any) {
     this.file = event.target.files[0];
   }
-
-
-
 
   addSubject(addSubForm: FormGroup) {
     console.log("@ addSubject");
