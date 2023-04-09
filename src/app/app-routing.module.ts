@@ -6,7 +6,6 @@ import { AccountComponent } from './account/account.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SubjectComponent } from './subject/subject.component';
-//import { SidenavComponent } from './sidenav/sidenav.component';
 import { DisableUserComponent } from './disable-user/disable-user.component';
 import { EnableUserComponent } from './enable-user/enable-user.component';
 import { authGuard } from './auth-guard';

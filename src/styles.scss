@@ -1,44 +1,42 @@
-* {
-  font-family: 'Lato';
+*{
+    font-family: 'Lato';
 }
 
-h1,
-h2 {
-  font-family: 'Outfit';
+h1,h2{
+    font-family: 'Outfit';
 }
 
 $theme-colors: (
-  "primary": #182850,
-  "secondary": #212121,
-  "info": #182850,
-  "danger": #ee404c,
-  "dark": #182850,
+    "primary": #182850,
+    "secondary": #212121,
+    "info": #182850,
+    "danger": #ee404c,
+    "dark": #182850,
 );
 
-h1 {
-  color: map-get($theme-colors, "primary");
+h1{
+    color: map-get($theme-colors, "primary");
 }
 
-h2 {
-  color: #ffaa28;
+h2{
+    color: #ffaa28;
 }
 
 .error {
-  color: map-get($theme-colors, "danger");
+    color: map-get($theme-colors, "danger");
 }
 
-.mainContent {
-  margin-left: 25vh;
+.mainContent{
+    margin-left: 25vh;
 }
 
-.lowerMainContent {
-  background-color: #eef1f2;
-  height: 92vh;
+.lowerMainContent{
+    background-color: #eef1f2;
+    height: 92vh;
 }
 
-.mainTable,
-.addForm {
-  background-color: #ffffff;
+.mainTable, .addForm{
+    background-color: #ffffff;
 }
 
 //@import "../../node_modules/bootstrap/scss/bootstrap.scss";

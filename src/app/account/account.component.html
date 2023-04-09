@@ -70,25 +70,23 @@
             <label for="name">Name</label>
             <input type="text" formControlName="name" class="form-control" placeholder="Name" id="name"
               [class.invalid]="registerForm.get('name')?.hasError('required') && (registerForm.get('name')?.dirty || registerForm.get('name')?.touched || isFormSubmitted)">
-          </div>
-
-          <div class="error"
-            *ngIf="registerForm.get('name')?.hasError('required') && (registerForm.get('name')?.dirty || registerForm.get('name')?.touched || isFormSubmitted)">
-            This field is required.
+            <div class="error"
+              *ngIf="registerForm.get('name')?.hasError('required') && (registerForm.get('name')?.dirty || registerForm.get('name')?.touched || isFormSubmitted)">
+              This field is required.
+            </div>
           </div>
 
           <div class="form-group pb-3 ">
             <label for="email">Email</label>
-            <input type="text" formControlName="email" class="form-control" placeholder="Email" id="email">
-          </div>
-
-          <div class="error"
-            *ngIf="registerForm.get('email')?.hasError('required') && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched || isFormSubmitted)">
-            This field is required.
-          </div>
-
-          <div class="error" *ngIf="registerForm.get('email')?.invalid && isFormSubmitted">
-            Invalid Email format
+            <input type="text" formControlName="email" class="form-control" placeholder="Email" id="email"
+              [class.invalid]="registerForm.get('email')?.hasError('required') && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched || registerForm.get('email')?.invalid && isFormSubmitted)">
+            <div class="error"
+              *ngIf="registerForm.get('email')?.hasError('required') && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched || isFormSubmitted)">
+              This field is required.
+            </div>
+            <div class="error" *ngIf="!registerForm.get('email')?.hasError('required') && registerForm.get('email')?.invalid && isFormSubmitted">
+              Invalid Email format
+            </div>
           </div>
 
           <div class="form-group pb-3">
@@ -98,12 +96,12 @@
               <option value="member">Committee Member</option>
               <option value="stakeholder">Stakeholder</option>
             </select>
+            <div class="error" *ngIf="registerForm.get('userType')?.hasError('required') && isFormSubmitted">
+              Choose a User Type
+            </div>
           </div>
 
-          <div class="error" *ngIf="registerForm.get('userType')?.hasError('required') && isFormSubmitted">
-            Choose a User Type
-          </div>
-          <div class="error" *ngIf="isFormSubmitted && registerForm.invalid" >
+          <div class="error" *ngIf="isFormSubmitted && registerForm.invalid">
             Fill up all the fields with proper format
           </div>
 

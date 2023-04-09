@@ -57,27 +57,29 @@
             <label for="course_code">Course Code</label>
             <input type="text" formControlName="course_code" class="form-control" placeholder="Course Code"
               [class.invalid]="addSubForm.get('course_code')?.hasError('required') && (addSubForm.get('course_code')?.dirty || addSubForm.get('course_code')?.touched || isFormSubmitted)">
-          </div>
-
-          <div class="error"
-            *ngIf="addSubForm.get('course_code')?.hasError('required') && (addSubForm.get('course_code')?.dirty || addSubForm.get('course_code')?.touched || isFormSubmitted)">
-            This field is required.
+            <div class="error"
+              *ngIf="addSubForm.get('course_code')?.hasError('required') && (addSubForm.get('course_code')?.dirty || addSubForm.get('course_code')?.touched || isFormSubmitted)">
+              This field is required.
+            </div>
           </div>
 
           <div class="form-group pb-3">
             <label for="title">Subject Title</label>
             <input type="text" formControlName="title" class="form-control" placeholder="Subject Title"
               [class.invalid]="addSubForm.get('title')?.hasError('required') && (addSubForm.get('title')?.dirty || addSubForm.get('title')?.touched || isFormSubmitted)">
-          </div>
-
-          <div class="error"
-            *ngIf="addSubForm.get('title')?.hasError('required') && (addSubForm.get('title')?.dirty || addSubForm.get('title')?.touched || isFormSubmitted)">
-            This field is required.
+            <div class="error"
+              *ngIf="addSubForm.get('title')?.hasError('required') && (addSubForm.get('title')?.dirty || addSubForm.get('title')?.touched || isFormSubmitted)">
+              This field is required.
+            </div>
           </div>
 
           <div class="form-group pb-3">
             <input type="File" formControlName="syllabus" name="syllabus" accept=".pdf" (change)="onFileSelect($event)"
-              [class.file]="addSubForm.get('syllabus')?.hasError('required') && (isFormSubmitted)">
+              [class.invalid]="addSubForm.get('syllabus')?.hasError('required') && (isFormSubmitted)">
+            <div class="error"
+              *ngIf="addSubForm.get('syllabus')?.hasError('required') && (isFormSubmitted)">
+              This field is required.
+            </div>
           </div>
 
           <div class="success" *ngIf="isSuccess">
