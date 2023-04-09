@@ -34,7 +34,7 @@
             [class.invalid]="email?.hasError('required') && (email?.dirty || email?.touched || isFormSubmitted) || (email?.hasError('email') && isFormSubmitted)">
           <!-- Scuffed and fast method of displaying errors -->
 
-          <div *ngIf="email?.hasError('required') && (email?.dirty || email?.touched || isFormSubmitted)" class="error">
+          <div class="error" *ngIf="email?.hasError('required') && (email?.dirty || email?.touched || isFormSubmitted)">
             This field is required.
           </div>
 
@@ -50,8 +50,8 @@
             [class.invalid]="password?.hasError('required') && (password?.dirty || password?.touched || isFormSubmitted)">
         </div>
 
-        <div *ngIf="password?.hasError('required') && (password?.dirty || password?.touched || isFormSubmitted)"
-          class="error">
+        <div class="error"
+          *ngIf="password?.hasError('required') && (password?.dirty || password?.touched || isFormSubmitted)">
           This field is required.
         </div>
         <br>

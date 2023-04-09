@@ -38,9 +38,8 @@
         [class.invalid]="editProfileForm.get('newPassword')?.hasError('required') && (editProfileForm.get('newPassword')?.dirty || editProfileForm.get('newPassword')?.touched || isFormSubmitted)">
     </div>
 
-    <div
-      *ngIf="editProfileForm.get('newPassword')?.hasError('required') && (editProfileForm.get('newPassword')?.dirty || editProfileForm.get('newPassword')?.touched || isFormSubmitted)"
-      class="error">
+    <div class="error"
+      *ngIf="editProfileForm.get('newPassword')?.hasError('required') && (editProfileForm.get('newPassword')?.dirty || editProfileForm.get('newPassword')?.touched || isFormSubmitted)">
       This field is required.
     </div>
 
@@ -51,13 +50,12 @@
         [class.invalid]="editProfileForm.get('conPassword')?.hasError('required') && (editProfileForm.get('conPassword')?.dirty || editProfileForm.get('conPassword')?.touched || isFormSubmitted)">
     </div>
 
-    <div
-      *ngIf="editProfileForm.get('conPassword')?.hasError('required') && (editProfileForm.get('conPassword')?.dirty || editProfileForm.get('conPassword')?.touched || isFormSubmitted)"
-      class="error">
+    <div class="error"
+      *ngIf="editProfileForm.get('conPassword')?.hasError('required') && (editProfileForm.get('conPassword')?.dirty || editProfileForm.get('conPassword')?.touched || isFormSubmitted)">
       This field is required.
     </div>
 
-    <div *ngIf="!isMatching && !isSuccess" class="error">
+    <div class="error" *ngIf="!isMatching && !isSuccess">
       The passwords entered do not match!
     </div>
 

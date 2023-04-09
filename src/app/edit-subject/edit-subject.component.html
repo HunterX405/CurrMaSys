@@ -17,9 +17,8 @@
               [class.invalid]="editSubForm.get('courseCode')?.hasError('required') && (editSubForm.get('courseCode')?.dirty || editSubForm.get('courseCode')?.touched || isFormSubmitted)">
           </div>
 
-          <div
-            *ngIf="editSubForm.get('courseCode')?.hasError('required') && (editSubForm.get('courseCode')?.dirty || editSubForm.get('courseCode')?.touched || isFormSubmitted)"
-            class="error">
+          <div class="error"
+            *ngIf="editSubForm.get('courseCode')?.hasError('required') && (editSubForm.get('courseCode')?.dirty || editSubForm.get('courseCode')?.touched || isFormSubmitted)">
             This field is required.
           </div>
 
@@ -30,9 +29,8 @@
             title
           </div>
 
-          <div
-            *ngIf="editSubForm.get('title')?.hasError('required') && (editSubForm.get('title')?.dirty || editSubForm.get('title')?.touched || isFormSubmitted)"
-            class="error">
+          <div class="error"
+            *ngIf="editSubForm.get('title')?.hasError('required') && (editSubForm.get('title')?.dirty || editSubForm.get('title')?.touched || isFormSubmitted)">
             This field is required.
           </div>
 
