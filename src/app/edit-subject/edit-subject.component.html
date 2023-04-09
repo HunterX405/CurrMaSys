@@ -13,12 +13,12 @@
 
           <div class="form-group pb-3">
             <label for="course_code">Course Code</label>
-            <input type="text" formControlName="courseCode" id="courseCode"
-              [class.invalid]="editSubForm.get('courseCode')?.hasError('required') && (editSubForm.get('courseCode')?.dirty || editSubForm.get('courseCode')?.touched || isFormSubmitted)">
+            <input type="text" formControlName="course_code" id="course_code"
+              [class.invalid]="editSubForm.get('course_code')?.hasError('required') && (editSubForm.get('course_code')?.dirty || editSubForm.get('course_code')?.touched || isFormSubmitted)">
           </div>
 
           <div class="error"
-            *ngIf="editSubForm.get('courseCode')?.hasError('required') && (editSubForm.get('courseCode')?.dirty || editSubForm.get('courseCode')?.touched || isFormSubmitted)">
+            *ngIf="editSubForm.get('course_code')?.hasError('required') && (editSubForm.get('course_code')?.dirty || editSubForm.get('course_code')?.touched || isFormSubmitted)">
             This field is required.
           </div>
 

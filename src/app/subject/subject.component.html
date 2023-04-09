@@ -55,12 +55,12 @@
         <form [formGroup]="addSubForm" (ngSubmit)="addSubject(addSubForm)">
           <div class="form-group pb-3">
             <label for="course_code">Course Code</label>
-            <input type="text" formControlName="courseCode" class="form-control" placeholder="Course Code"
-              [class.invalid]="addSubForm.get('courseCode')?.hasError('required') && (addSubForm.get('courseCode')?.dirty || addSubForm.get('courseCode')?.touched || isFormSubmitted)">
+            <input type="text" formControlName="course_code" class="form-control" placeholder="Course Code"
+              [class.invalid]="addSubForm.get('course_code')?.hasError('required') && (addSubForm.get('course_code')?.dirty || addSubForm.get('course_code')?.touched || isFormSubmitted)">
           </div>
 
           <div class="error"
-            *ngIf="addSubForm.get('courseCode')?.hasError('required') && (addSubForm.get('courseCode')?.dirty || addSubForm.get('courseCode')?.touched || isFormSubmitted)">
+            *ngIf="addSubForm.get('course_code')?.hasError('required') && (addSubForm.get('course_code')?.dirty || addSubForm.get('course_code')?.touched || isFormSubmitted)">
             This field is required.
           </div>
 
