@@ -1,0 +1,113 @@
+<div class="container">
+    <h1>Elective Subject</h1>
+    <form [formGroup]="addEleForm" (ngSubmit)="addElectives()">
+        <!-- Related to the getSubject function -->
+        <label for="subject">Choose Subject Title</label>
+        <select name="subject" id="subject" formControlName="fkSubjID">
+            <option value="{{ subject.id }}" *ngFor="let subject of subjects">
+                {{ subject.title }}
+            </option>
+        </select>
+
+        <!-- Formgroup for el1Data on addEleForm -->
+        <div formGroupName="el1Data">
+            <h3>Service Management Specialization Track</h3>
+            <label for="el-title1">Title</label>
+            <input type="text" formControlName="title" id="el-title1" placeholder="Input Title">
+
+            <label for="el-syllabus1">Syllabus</label>
+            <input type="File" formControlName="syllabus" id="el-syllabus1" name="el-syllabus1" accept=".pdf"
+                (change)="onFileSelect($event)">
+        </div>
+
+        <!-- Formgroup for el2Data on addEleForm -->
+        <div formGroupName="el2Data">
+            <h3>Business Analytics Specialization Track</h3>
+            <label for="el-title2">Title</label>
+            <input type="text" formControlName="title" id="el-title2" placeholder="Input Title">
+
+            <label for="el-syllabus2">Sylllabus</label>
+            <input type="File" formControlName="syllabus" id="el-syllabus2" name="el-syllabus2" accept=".pdf"
+                (change)="onFileSelect($event)">
+        </div>
+
+        <!-- Formgroup for el3Data on addEleForm -->
+        <div formGroupName="el3Data">
+            <h3>Web and Mobile Development Specialization Track</h3>
+            <label for="el-title3">Title</label>
+            <input type="text" formControlName="title" id="el-title3" placeholder="Input Title">
+
+            <label for="el-syllabus3">Syllabus</label>
+            <input type="File" formControlName="syllabus" id="el-syllabus3" name="el-syllabus3" accept=".pdf"
+                (change)="onFileSelect($event)">
+        </div>
+
+        <button>Add</button>
+    </form>
+
+    <!-- Preferred Display of Elective Subjects -->
+    <!-- Issue: If multiple elective subjects has the same fk_subj_id the older object will be overwritten -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>
+                    Service Management Specialization Track
+                </th>
+                <th>
+                    Business Analytics Specialization Track
+                </th>
+                <th>
+                    Web and Mobile Development Specialization Track
+                </th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <!-- Related to the displaySubjects and transformArray function -->
+            <tr *ngFor="let elective of newElectives">
+                <td> {{ elective.title }} </td>
+                <td> 
+                    <!-- To access the specific page using ID -->
+                    <a routerLink="/elective-edit/{{elective.SMID}}">
+                        {{ elective.SM }}
+                    </a>  
+                </td>
+                <td> 
+                    <a routerLink="/elective-edit/{{elective.BAID}}">
+                        {{ elective.BA }}
+                    </a>  
+                </td>
+                <td> 
+                    <a routerLink="/elective-edit/{{elective.WEBID}}">
+                        {{ elective.WEB }}
+                    </a>  
+                </td>
+                <td> <button>Edit</button> </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- NOTE: Do not apply design. Commented for back-up usage. -->
+    <!-- Default display of Elective Subject -->
+    <!-- Issue: Confusing display of Elective Subject -->
+    <!-- <table class="table">
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Track</th>
+                <th>Title</th>
+                <th>Syllabus</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let elective of electives">
+                <td> {{ elective.title }} </td>
+                <td> {{ elective.track}} </td>
+                <td> {{ elective.elective_title }} </td>
+                <td> {{ elective.elective_syllabus }} </td>
+            </tr>
+        </tbody>
+    </table> -->
+</div>

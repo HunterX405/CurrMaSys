@@ -9,7 +9,11 @@
     <div class="mx-5 py-3">
       <div *ngIf="isTableVisible" class="d-flex justify-content-end" style="margin: 20px 0;">
         <button (click)="onAdd()" type="button" class="btn btn-primary">
-          ADD
+          ADD Subject
+        </button>
+
+        <button routerLink="/elective" type="button" class="btn btn-primary">
+          ADD Elective
         </button>
       </div>
 

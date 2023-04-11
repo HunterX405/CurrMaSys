@@ -1,0 +1,17 @@
+<div class="container">
+    <h1> {{ tracks[electiveTrack] }} </h1>
+    <form [formGroup]="editEleForm" (ngSubmit)="editSubject(editEleForm)">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" formControlName="title" id="title">
+        </div>
+
+        <div class="form-group pb-3">
+            <label for="syllabus" style="margin-bottom: 5px;">Upload New Syllabus File:</label> <br>
+            <input type="File" formControlName="syllabus" name="syllabus" accept=".pdf" (change)="onFileSelect($event)">
+        </div>
+        <div>
+            <button>Edit</button>
+        </div>
+    </form>
+</div>
