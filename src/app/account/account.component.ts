@@ -1,6 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../api.service';
+import * as $ from 'jquery';
+import 'datatables.net';
+import 'datatables.net-buttons/js/buttons.html5.min.js';
+import 'datatables.net-buttons/js/buttons.print.min.js';
+
+
 
 @Component({
   selector: 'app-account',
@@ -8,7 +14,7 @@ import { ApiService } from '../api.service';
   styleUrls: ['./account.component.css']
 })
 
-export class AccountComponent implements OnInit {
+export class AccountComponent implements OnInit{
   // Variable that holds the list of users
   users: any;
   successMessage: string = "";
@@ -35,6 +41,8 @@ export class AccountComponent implements OnInit {
     // When the component is loaded, the users (variable) will have its value.
     this.displayUsers();
   }
+
+
 
   // Registering the user
   registerUser(registerForm: FormGroup) {
@@ -63,6 +71,18 @@ export class AccountComponent implements OnInit {
       next: (data) => {
         console.log("Get Users:", data);
         this.users = data;
+        setTimeout(() => {
+          $(document).ready(function() {
+            $('#accountsTable').DataTable( {
+              dom: 'Bfrtip', 
+              "ordering": false, 
+              language: {
+                searchPlaceholder: "Find records..."
+              }, "pageLength": 10
+            
+            });
+          });
+        }, 0);
       },
       error: (err) => {
         console.log("Get Users Failed", err);
