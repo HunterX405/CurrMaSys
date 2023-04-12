@@ -3,8 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../api.service';
 import * as $ from 'jquery';
 import 'datatables.net';
+import 'datatables.net-buttons';
 import 'datatables.net-buttons/js/buttons.html5.min.js';
 import 'datatables.net-buttons/js/buttons.print.min.js';
+import 'datatables.net-buttons/js/buttons.html5.js';
+import 'datatables.net-buttons/js/buttons.print.js';
 
 
 
@@ -16,6 +19,7 @@ import 'datatables.net-buttons/js/buttons.print.min.js';
 
 export class AccountComponent implements OnInit{
   // Variable that holds the list of users
+
   users: any;
   successMessage: string = "";
   isFormSubmitted: boolean = false;
@@ -74,12 +78,24 @@ export class AccountComponent implements OnInit{
         setTimeout(() => {
           $(document).ready(function() {
             $('#accountsTable').DataTable( {
-              dom: 'Bfrtip', 
-              "ordering": false, 
-              language: {
-                searchPlaceholder: "Find records..."
-              }, "pageLength": 10
-            
+              dom: '<"top"fB>rt<"bottom"ip><"clear">',//di ko maalign yung search at buttons
+              buttons: [
+                {
+                  extend: 'csv',
+                  text: 'CSV',
+                  className: 'btn btn-primary',
+                },
+                {
+                  extend: 'print',
+                  text: 'Print',
+                  className: 'btn btn-primary'
+                },
+              ],
+                "ordering": false, 
+                language: {
+                  searchPlaceholder: "Find records..."
+                },
+              "pageLength": 10,
             });
           });
         }, 0);

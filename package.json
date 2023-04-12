@@ -24,6 +24,7 @@
     "bootstrap": "^5.2.3",
     "datatables.net": "^1.13.4",
     "datatables.net-buttons": "^2.3.6",
+    "datatables.net-buttons-dt": "^1.7.0",
     "datatables.net-dt": "^1.13.4",
     "jquery": "^3.6.4",
     "ngx-cookie-service": "^15.0.0",
