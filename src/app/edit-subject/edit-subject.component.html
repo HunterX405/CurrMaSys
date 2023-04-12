@@ -6,6 +6,15 @@
   <div class="lowerMainContent">
 
     <div class="mx-5 py-3">
+
+      <div class="d-flex justify-content-start" style="margin: 10px 0;">
+        <button (click)="goBack()" type="button" class="btn p-0">
+          <img class="logoImg " src="../../assets/images/icon_back_btn.png" alt="BACK BUTTON">
+          <strong> GO BACK </strong>
+        </button>
+      </div>
+
+
       <div class="addForm p-5">
 
         <h2>Edit Subject</h2>
@@ -13,7 +22,7 @@
 
           <div class="form-group pb-3">
             <label for="course_code">Course Code</label>
-            <input type="text" formControlName="course_code" id="course_code"
+            <input type="text" formControlName="course_code" id="course_code" class="form-control"
               [class.invalid]="editSubForm.get('course_code')?.hasError('required') && (editSubForm.get('course_code')?.dirty || editSubForm.get('course_code')?.touched || isFormSubmitted)">
             <div class="error"
               *ngIf="editSubForm.get('course_code')?.hasError('required') && (editSubForm.get('course_code')?.dirty || editSubForm.get('course_code')?.touched || isFormSubmitted)">
@@ -23,7 +32,7 @@
 
           <div class="form-group pb-3">
             <label for="title">Title</label>
-            <input type="text" formControlName="title" id="title"
+            <input type="text" formControlName="title" id="title" class="form-control"
               [class.invalid]="editSubForm.get('title')?.hasError('required') && (editSubForm.get('title')?.dirty || editSubForm.get('title')?.touched || isFormSubmitted)">
             <div class="error"
               *ngIf="editSubForm.get('title')?.hasError('required') && (editSubForm.get('title')?.dirty || editSubForm.get('title')?.touched || isFormSubmitted)">
@@ -33,7 +42,7 @@
 
           <div class="form-group pb-3">
             <label for="syllabus" style="margin-bottom: 5px;">Upload New Syllabus File:</label> <br>
-            <input type="File" formControlName="syllabus" name="syllabus" accept=".pdf" (change)="onFileSelect($event)"
+            <input type="File" formControlName="syllabus" name="syllabus" accept=".pdf" (change)="onFileSelect($event)" class="form-control"
               [class.error]="editSubForm.get('syllabus')?.hasError('required') && (isFormSubmitted)">
           </div>
 

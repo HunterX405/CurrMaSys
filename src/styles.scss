@@ -39,6 +39,19 @@ h2{
     background-color: #ffffff;
 }
 
+.subCategory{
+    text-decoration: none;
+    color: #444444;
+}
+
+.subCategoryTitle{
+    font-family: 'Outfit';
+}
+
+.subCategoryActive, .subCategory:hover {
+    color: #ffaa28;
+}
+
 //@import "../../node_modules/bootstrap/scss/bootstrap.scss";
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Outfit:wght@700&display=swap');
 @import "../node_modules/bootstrap/scss/bootstrap.scss";

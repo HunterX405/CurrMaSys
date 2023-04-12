@@ -78,4 +78,9 @@ export class EditSubjectComponent implements OnInit {
     }
     this.isFormSubmitted = true;
   }
+
+  goBack(){
+    this.router.navigate(['/subject']);
+  }
+  
 }

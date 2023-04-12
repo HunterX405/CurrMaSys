@@ -85,4 +85,9 @@ export class EditElectiveComponent implements OnInit {
     }
     this.isFormSubmitted = true;
   }
+
+  goBack(){
+    this.router.navigate(['/elective']);
+  }
+
 }

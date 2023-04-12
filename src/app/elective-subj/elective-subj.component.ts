@@ -18,6 +18,15 @@ export class ElectiveSubjComponent implements OnInit {
 
   file!: Blob;
 
+  isTableVisible: boolean = true;
+  isAddFormVisible: boolean = false;
+
+  onAdd() {
+    this.isAddFormVisible = !this.isAddFormVisible;
+    this.isTableVisible = !this.isTableVisible;
+  }
+
+
   // Form for Adding Elective Subject
   // Sub fb.group to group each elective data based on track
   addEleForm = this.fb.group({
