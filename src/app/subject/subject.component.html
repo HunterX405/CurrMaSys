@@ -36,7 +36,9 @@
               <tr *ngFor="let subject of subjects">
                 <td>{{ subject.course_code }}</td>
                 <td>{{ subject.title }}</td>
-                <td>{{ subject.syllabus }}</td>
+                <td>  <a href="http://localhost/CurrMaSys/php/PDF/{{ subject.syllabus }}" target="_blank">{{ subject.syllabus }}</a></td>
+
+              
                 <td>
                   <button routerLink="/subject-edit/{{subject.id}}">
                     Edit

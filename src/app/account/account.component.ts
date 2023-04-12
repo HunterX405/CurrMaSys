@@ -56,6 +56,15 @@ export class AccountComponent implements OnInit{
       this.apiService.registerUser(name, email, userType).subscribe({
         next: (data) => {
           this.successMessage = "Registration Successful\n" + "Email: " + data?.email + "\nPassword: " + data?.password;
+          // const message = `Dear ${name},\n\nThank you for registering on our app. Your account has been created successfully. You can log in using your email: ${email} address and password: ${data?.password}.\n\nBest regards,\nExample App Team`;
+          // this.apiService.sendEmail(data?.email,"CurrMaSys",message).subscribe({
+          //   next: (response) => {
+          //     console.log('Email sent successfully', response);
+          //   },
+          //   error: (err) => {
+          //     console.log('Failed to send email', err);
+          //   }
+          // });
           alert("Registration Successful\n" + "Email: " + data?.email + "\nPassword: " + data?.password);
           console.log("Registration Successful", data);
           // Reload the page
