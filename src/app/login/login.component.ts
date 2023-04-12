@@ -45,8 +45,9 @@ export class LoginComponent {
           this.message = response.message;
         }
       });
-      this.isFormSubmitted = true;
+
     }
+    this.isFormSubmitted = true;
   }
 
   // To get the value of each key in the loginForm

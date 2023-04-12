@@ -33,6 +33,8 @@ export class EditElectiveComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
   ) { }
+  isFormSubmitted: boolean = false;
+  isSuccess: boolean = false;
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -66,13 +68,14 @@ export class EditElectiveComponent implements OnInit {
     if (this.editEleForm.valid) {
       this.apiService.editElective(this.electiveID, title, syllabus).subscribe({
         next: (data) => {
+          this.isSuccess = true;
           console.log("Elective Editing Successful", data);
 
           // If the user uploaded a new file it will upload the new file
           if (data.fileName) {
             this.apiService.uploadFile(this.file, data.fileName, this.oldFileName);
           }
-          alert("Edited Successfully");
+          alert("Elective " + data.title + " Edited Successfully.");
           this.router.navigate(['/elective']);
         },
         error: (err) => {
@@ -80,5 +83,6 @@ export class EditElectiveComponent implements OnInit {
         }
       });
     }
+    this.isFormSubmitted = true;
   }
 }

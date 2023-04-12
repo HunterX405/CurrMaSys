@@ -91,19 +91,16 @@
 
           <div class="form-group pb-3">
             <label for="userType">User Type &nbsp;&nbsp;&nbsp;</label>
-            <select formControlName="userType" id="userType" style="padding: 5px;">
+            <select formControlName="userType" id="userType" style="padding: 5px;" [class.invalid]="registerForm.get('userType')?.hasError('required') && isFormSubmitted">
               <option value="chair">Committee Chair</option>
               <option value="member">Committee Member</option>
               <option value="stakeholder">Stakeholder</option>
             </select>
             <div class="error" *ngIf="registerForm.get('userType')?.hasError('required') && isFormSubmitted">
-              Choose a User Type
+              Choose a user type.
             </div>
           </div>
 
-          <div class="error" *ngIf="isFormSubmitted && registerForm.invalid">
-            Fill up all the fields with proper format
-          </div>
 
           <div class="d-flex justify-content-end" style="margin: 5px 0;">
             <button class="btn btn-primary">Add</button>

@@ -34,10 +34,7 @@
           <div class="form-group pb-3">
             <label for="syllabus" style="margin-bottom: 5px;">Upload New Syllabus File:</label> <br>
             <input type="File" formControlName="syllabus" name="syllabus" accept=".pdf" (change)="onFileSelect($event)"
-              [class.invalid]="editSubForm.get('syllabus')?.hasError('required') && (isFormSubmitted)">
-            <div class="error" *ngIf="editSubForm.get('syllabus')?.hasError('required') && (isFormSubmitted)">
-              This field is required.
-            </div>
+              [class.error]="editSubForm.get('syllabus')?.hasError('required') && (isFormSubmitted)">
           </div>
 
           <div class="d-flex justify-content-end" style="margin: 5px 0;">

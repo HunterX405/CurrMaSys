@@ -79,11 +79,7 @@
 
           <div class="form-group pb-3">
             <input type="File" formControlName="syllabus" name="syllabus" accept=".pdf" (change)="onFileSelect($event)"
-              [class.invalid]="addSubForm.get('syllabus')?.hasError('required') && (isFormSubmitted)">
-            <div class="error"
-              *ngIf="addSubForm.get('syllabus')?.hasError('required') && (isFormSubmitted)">
-              This field is required.
-            </div>
+              [class.error]="addSubForm.get('syllabus')?.hasError('required') && (isFormSubmitted)">
           </div>
 
           <div class="success" *ngIf="isSuccess">

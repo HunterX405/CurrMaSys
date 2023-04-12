@@ -1,45 +1,70 @@
+
 <div class="container">
     <h1>Elective Subject</h1>
     <form [formGroup]="addEleForm" (ngSubmit)="addElectives()">
         <!-- Related to the getSubject function -->
         <label for="subject">Choose Subject Title</label>
-        <select name="subject" id="subject" formControlName="fkSubjID">
+        <select name="subject" id="subject" formControlName="fkSubjID"
+            [class.invalid]="addEleForm.get('fkSubjID')?.hasError('required') && (addEleForm.get('fkSubjID')?.dirty || addEleForm.get('el2Data.title')?.touched || isFormSubmitted)">
             <option value="{{ subject.id }}" *ngFor="let subject of subjects">
                 {{ subject.title }}
             </option>
         </select>
+        <div class="error"
+            *ngIf="addEleForm.get('fkSubjID')?.hasError('required') && (addEleForm.get('fkSubjID')?.dirty || addEleForm.get('fkSubjID')?.touched || isFormSubmitted)">
+            Choose a subject title.
+        </div>
 
         <!-- Formgroup for el1Data on addEleForm -->
         <div formGroupName="el1Data">
             <h3>Service Management Specialization Track</h3>
             <label for="el-title1">Title</label>
-            <input type="text" formControlName="title" id="el-title1" placeholder="Input Title">
+            <input type="text" formControlName="title" id="el-title1" placeholder="Input Title"
+                [class.invalid]="addEleForm.get('el1Data.title')?.hasError('required') && (addEleForm.get('el1Data.title')?.dirty || addEleForm.get('el1Data.title')?.touched || isFormSubmitted)">
+            <div class="error"
+                *ngIf="addEleForm.get('el1Data.title')?.hasError('required') && (addEleForm.get('el1Data.title')?.dirty || addEleForm.get('el1Data.title')?.touched || isFormSubmitted)">
+                This field is required.
+            </div>
 
             <label for="el-syllabus1">Syllabus</label>
             <input type="File" formControlName="syllabus" id="el-syllabus1" name="el-syllabus1" accept=".pdf"
-                (change)="onFileSelect($event)">
+                (change)="onFileSelect($event)"
+                [class.error]="addEleForm.get('el1Data.syllabus')?.hasError('required') && (addEleForm.get('el1Data.syllabus')?.dirty || addEleForm.get('el1Data.syllabus')?.touched || isFormSubmitted)">
+
         </div>
 
         <!-- Formgroup for el2Data on addEleForm -->
         <div formGroupName="el2Data">
             <h3>Business Analytics Specialization Track</h3>
             <label for="el-title2">Title</label>
-            <input type="text" formControlName="title" id="el-title2" placeholder="Input Title">
+            <input type="text" formControlName="title" id="el-title2" placeholder="Input Title"
+                [class.invalid]="addEleForm.get('el2Data.title')?.hasError('required') && (addEleForm.get('el2Data.title')?.dirty || addEleForm.get('el2Data.title')?.touched || isFormSubmitted)">
+            <div class="error"
+                *ngIf="addEleForm.get('el2Data.title')?.hasError('required') && (addEleForm.get('el2Data.title')?.dirty || addEleForm.get('el2Data.title')?.touched || isFormSubmitted)">
+                This field is required.
+            </div>
 
             <label for="el-syllabus2">Sylllabus</label>
             <input type="File" formControlName="syllabus" id="el-syllabus2" name="el-syllabus2" accept=".pdf"
-                (change)="onFileSelect($event)">
+                (change)="onFileSelect($event)"
+                [class.error]="addEleForm.get('el2Data.syllabus')?.hasError('required') && (addEleForm.get('el2Data.syllabus')?.dirty || addEleForm.get('el2Data.syllabus')?.touched || isFormSubmitted)">
         </div>
 
         <!-- Formgroup for el3Data on addEleForm -->
         <div formGroupName="el3Data">
             <h3>Web and Mobile Development Specialization Track</h3>
             <label for="el-title3">Title</label>
-            <input type="text" formControlName="title" id="el-title3" placeholder="Input Title">
+            <input type="text" formControlName="title" id="el-title3" placeholder="Input Title"
+                [class.invalid]="addEleForm.get('el3Data.title')?.hasError('required') && (addEleForm.get('el3Data.title')?.dirty || addEleForm.get('el3Data.title')?.touched || isFormSubmitted)">
+            <div class="error"
+                *ngIf="addEleForm.get('el3Data.title')?.hasError('required') && (addEleForm.get('el3Data.title')?.dirty || addEleForm.get('el3Data.title')?.touched || isFormSubmitted)">
+                This field is required.
+            </div>
 
             <label for="el-syllabus3">Syllabus</label>
             <input type="File" formControlName="syllabus" id="el-syllabus3" name="el-syllabus3" accept=".pdf"
-                (change)="onFileSelect($event)">
+                (change)="onFileSelect($event)"
+                [class.error]="addEleForm.get('el3Data.syllabus')?.hasError('required') && (addEleForm.get('el3Data.syllabus')?.dirty || addEleForm.get('el3Data.syllabus')?.touched || isFormSubmitted)">
         </div>
 
         <button>Add</button>
@@ -60,7 +85,7 @@
                 <th>
                     Web and Mobile Development Specialization Track
                 </th>
-                <th>Actions</th>
+
             </tr>
         </thead>
 
@@ -68,23 +93,23 @@
             <!-- Related to the displaySubjects and transformArray function -->
             <tr *ngFor="let elective of newElectives">
                 <td> {{ elective.title }} </td>
-                <td> 
+                <td>
                     <!-- To access the specific page using ID -->
                     <a routerLink="/elective-edit/{{elective.SMID}}">
                         {{ elective.SM }}
-                    </a>  
+                    </a>
                 </td>
-                <td> 
+                <td>
                     <a routerLink="/elective-edit/{{elective.BAID}}">
                         {{ elective.BA }}
-                    </a>  
+                    </a>
                 </td>
-                <td> 
+                <td>
                     <a routerLink="/elective-edit/{{elective.WEBID}}">
                         {{ elective.WEB }}
-                    </a>  
+                    </a>
                 </td>
-                <td> <button>Edit</button> </td>
+
             </tr>
         </tbody>
     </table>
