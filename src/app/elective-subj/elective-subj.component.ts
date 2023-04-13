@@ -18,6 +18,15 @@ export class ElectiveSubjComponent implements OnInit {
 
   file!: Blob;
 
+  isTableVisible: boolean = true;
+  isAddFormVisible: boolean = false;
+
+  onAdd() {
+    this.isAddFormVisible = !this.isAddFormVisible;
+    this.isTableVisible = !this.isTableVisible;
+  }
+
+
   // Form for Adding Elective Subject
   // Sub fb.group to group each elective data based on track
   addEleForm = this.fb.group({
@@ -47,7 +56,8 @@ export class ElectiveSubjComponent implements OnInit {
   onFileSelect(event: any) {
     this.file = event.target.files[0];
   }
-
+  isFormSubmitted: boolean = false;
+  isSuccess: boolean = false;
   // Getting data from the SUBJECT Table for SELECT input field on the template
   getSubjects() {
     this.apiService.displaySubjects().subscribe({
@@ -87,8 +97,10 @@ export class ElectiveSubjComponent implements OnInit {
     if (this.addEleForm.valid) {
       this.apiService.addElectives(fkSubjID, el1Data, el2Data, el3Data).subscribe({
         next: (data) => {
+          this.isSuccess = true;
           console.log("Adding Elective Successful", data);
-
+          alert("Elective subjects added succesfully.");
+          location.reload();
           // Loop is used to uploadFile because it returned 3 FileName
           for (let i = 0; i < data.length; i++) {
             this.apiService.uploadFile(this.file, data[i]);
@@ -99,6 +111,7 @@ export class ElectiveSubjComponent implements OnInit {
         }
       });
     }
+    this.isFormSubmitted = true;
   }
 
   // Transforms the electives from the displaySubject.php into a new structure for ease of display.

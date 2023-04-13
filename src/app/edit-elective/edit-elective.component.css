@@ -1,0 +1,10 @@
+.logoImg {
+  margin-right: 3px;
+  margin-bottom: 3px;
+  width: 15px;
+  height: 15px;
+}
+
+.invalid {
+    border: solid 1px #ee404c;
+  }
