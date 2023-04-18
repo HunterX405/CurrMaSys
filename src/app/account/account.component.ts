@@ -1,6 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../api.service';
+import * as $ from 'jquery';
+import 'datatables.net';
+import 'datatables.net-buttons';
+import 'datatables.net-buttons/js/buttons.html5.min.js';
+import 'datatables.net-buttons/js/buttons.print.min.js';
+import 'datatables.net-buttons/js/buttons.html5.js';
+import 'datatables.net-buttons/js/buttons.print.js';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -10,8 +17,9 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./account.component.css']
 })
 
-export class AccountComponent implements OnInit {
+export class AccountComponent implements OnInit{
   // Variable that holds the list of users
+
   users: any;
   successMessage: string = "";
   isFormSubmitted: boolean = false;
@@ -38,6 +46,8 @@ export class AccountComponent implements OnInit {
     this.displayUsers();
   }
 
+
+
   // Registering the user
   registerUser(registerForm: FormGroup) {
     const { name, email, userType } = registerForm.value;
@@ -45,6 +55,15 @@ export class AccountComponent implements OnInit {
       this.apiService.registerUser(name, email, userType).subscribe({
         next: (data) => {
           this.successMessage = "Registration Successful\n" + "Email: " + data?.email + "\nPassword: " + data?.password;
+          // const message = `Dear ${name},\n\nThank you for registering on our app. Your account has been created successfully. You can log in using your email: ${email} address and password: ${data?.password}.\n\nBest regards,\nExample App Team`;
+          // this.apiService.sendEmail(data?.email,"CurrMaSys",message).subscribe({
+          //   next: (response) => {
+          //     console.log('Email sent successfully', response);
+          //   },
+          //   error: (err) => {
+          //     console.log('Failed to send email', err);
+          //   }
+          // });
           alert("Registration Successful\n" + "Email: " + data?.email + "\nPassword: " + data?.password);
           console.log("Registration Successful", data);
           const emailData = {
@@ -74,6 +93,30 @@ export class AccountComponent implements OnInit {
       next: (data) => {
         console.log("Get Users:", data);
         this.users = data;
+        setTimeout(() => {
+          $(document).ready(function() {
+            $('#accountsTable').DataTable( {
+              dom: '<"top"fB>rt<"bottom"ip><"clear">',//di ko maalign yung search at buttons
+              buttons: [
+                {
+                  extend: 'csv',
+                  text: 'CSV',
+                  className: 'btn btn-primary',
+                },
+                {
+                  extend: 'print',
+                  text: 'Print',
+                  className: 'btn btn-primary'
+                },
+              ],
+                "ordering": false, 
+                language: {
+                  searchPlaceholder: "Find records..."
+                },
+              "pageLength": 10,
+            });
+          });
+        }, 0);
       },
       error: (err) => {
         console.log("Get Users Failed", err);

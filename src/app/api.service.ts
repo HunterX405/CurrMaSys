@@ -11,11 +11,46 @@ export class ApiService {
   redirectUrl: string | undefined;
   // To access files on the PHP folder in this project
   baseUrl: string = "http://localhost/CurrMaSys/php";
+  private sendGridAPIKey = 'wala pa haha ayaw gumana pa eh haha yung sa apikey';
 
   constructor(
     private httpClient: HttpClient,
     private cookieService: CookieService
   ) { }
+
+  sendEmail(to: string, subject: string, message: string) {
+    const emailData = {
+      personalizations: [
+        {
+          to: [
+            { email: to }
+          ],
+          subject: subject
+        }
+      ],
+      from: {
+        email: 'CurrMaSys@gmail.com',
+        name: 'CurrMaSys'
+      },
+      content: [
+        {
+          type: 'text/plain',
+          value: message
+        }
+      ]
+    };
+
+    return this.httpClient.post(`https://api.sendgrid.com/v3/mail/send`, emailData, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.sendGridAPIKey}`
+      }
+    });
+  }
+  
+  count(){
+    return this.httpClient.get<any>(this.baseUrl+"/count.php");
+  }
 
   getUser(id: any): Observable<any> {
     const headers = this.getAuthHeaders();
@@ -203,4 +238,5 @@ export class ApiService {
   deleteCookie(name: string) {
     this.cookieService.delete(name);
   }
+
 }
