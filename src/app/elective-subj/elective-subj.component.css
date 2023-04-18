@@ -6,7 +6,6 @@
 }
 
 .invalid {
-  border: 1px solid #ee404c;
-}
-
+    border: solid 1px #ee404c;
+  }
 

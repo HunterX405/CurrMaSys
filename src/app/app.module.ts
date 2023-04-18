@@ -16,6 +16,8 @@ import { EditSubjectComponent } from './edit-subject/edit-subject.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DisableUserComponent } from './disable-user/disable-user.component';
 import { EnableUserComponent } from './enable-user/enable-user.component';
+import { ElectiveSubjComponent } from './elective-subj/elective-subj.component';
+import { EditElectiveComponent } from './edit-elective/edit-elective.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { EnableUserComponent } from './enable-user/enable-user.component';
     DisableUserComponent,
     EnableUserComponent,
     EditSubjectComponent,
+    ElectiveSubjComponent,
+    EditElectiveComponent,
   ],
   imports: [
     BrowserModule,

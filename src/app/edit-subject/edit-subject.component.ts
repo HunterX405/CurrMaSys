@@ -68,7 +68,7 @@ export class EditSubjectComponent implements OnInit {
           if (data.fileName) {
             this.apiService.uploadFile(this.file, data.fileName, this.oldFileName);
           }
-          alert("Subject " + course_code + " Edited Successfully");
+          alert("Subject " + course_code + " Edited Successfully.");
           this.router.navigate(['/subject']);
         },
         error: (err) => {
@@ -78,4 +78,9 @@ export class EditSubjectComponent implements OnInit {
     }
     this.isFormSubmitted = true;
   }
+
+  goBack(){
+    this.router.navigate(['/subject']);
+  }
+  
 }

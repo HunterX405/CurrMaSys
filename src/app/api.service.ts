@@ -159,6 +159,42 @@ export class ApiService {
     }));
   }
 
+  addElectives(fkSubjID: any, el1Data: any, el2Data: any, el3Data: any) {
+    // Send Objects on the addElective.php
+    const elData = { fkSubjID, el1Data, el2Data, el3Data };
+
+    return this.httpClient.post<any>(`${this.baseUrl}/addElective.php`, elData).pipe(map(data => {
+      return data;
+    }));
+  }
+
+  // Gets all data from the ELECTIVE table
+  displayElectives() {
+    return this.httpClient.get<any>(this.baseUrl + "/displayElectives.php").pipe(
+      map(data => {
+        return data["electives"];
+      })
+    )
+  }
+
+  // Gets spefic data for an elective subject from ELECTIVE table
+  getElectiveInfo(electiveID: any) {
+    const credentials = { electiveID };
+    return this.httpClient.post<any>(this.baseUrl + "/getElectiveInfo.php", credentials).pipe(map(data => {
+      console.log("@ Service getElectiveInfo");
+      return data[0];
+    }));
+  }
+
+  // Updates an spefic data on the ELECTIVE table
+  editElective(electiveID: any, title: string, syllabus: string) {
+    syllabus = syllabus.replace(/^C:\\fakepath\\/i, '');
+    const subData = { electiveID, title, syllabus };
+    return this.httpClient.post<any>(this.baseUrl + "/editElective.php", subData).pipe(map(data => {
+      return data;
+    }));
+  }
+
   uploadFile(file: Blob, fileName: string, oldFileName: string = '') {
     const formData = new FormData();
     formData.append("file", file, fileName);

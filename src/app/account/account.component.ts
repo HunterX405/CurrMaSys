@@ -8,8 +8,8 @@ import 'datatables.net-buttons/js/buttons.html5.min.js';
 import 'datatables.net-buttons/js/buttons.print.min.js';
 import 'datatables.net-buttons/js/buttons.html5.js';
 import 'datatables.net-buttons/js/buttons.print.js';
-
-
+import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-account',
@@ -39,7 +39,7 @@ export class AccountComponent implements OnInit{
   })
 
   constructor(private fb: FormBuilder,
-    private apiService: ApiService) { }
+    private apiService: ApiService,private httpClient: HttpClient,private router: Router,) { }
 
   ngOnInit(): void {
     // When the component is loaded, the users (variable) will have its value.
@@ -51,7 +51,6 @@ export class AccountComponent implements OnInit{
   // Registering the user
   registerUser(registerForm: FormGroup) {
     const { name, email, userType } = registerForm.value;
-
     if (registerForm.valid) {
       this.apiService.registerUser(name, email, userType).subscribe({
         next: (data) => {
@@ -67,8 +66,18 @@ export class AccountComponent implements OnInit{
           // });
           alert("Registration Successful\n" + "Email: " + data?.email + "\nPassword: " + data?.password);
           console.log("Registration Successful", data);
-          // Reload the page
-          location.reload();
+          const emailData = {
+            "sender": {"name": "CurrMaSys", "email": "currmasys@gmail.com"},
+            "to": [{"email": data?.email}],
+            "htmlContent": "Hello " + data?.name + ",<br><br>Your password is "+data?.password+"<br><br>Best regards,<br>CurrMaSys",
+            "subject": "Registration Successful"
+          };
+          const headers = {"Content-Type": "application/json", "api-key": "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"};
+          this.httpClient.post("https://api.sendinblue.com/v3/smtp/email", emailData, {headers}).subscribe(
+            response => location.reload(),
+            error => console.log("Failed to send email", error)
+            );
+        
         },
         error: (err) => {
           console.log("Registration Failed", err);
@@ -112,6 +121,8 @@ export class AccountComponent implements OnInit{
       error: (err) => {
         console.log("Get Users Failed", err);
       }
+      
     });
+    
   }
 }

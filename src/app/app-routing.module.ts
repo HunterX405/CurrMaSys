@@ -10,6 +10,8 @@ import { DisableUserComponent } from './disable-user/disable-user.component';
 import { EnableUserComponent } from './enable-user/enable-user.component';
 import { authGuard } from './auth-guard';
 import { EditSubjectComponent } from './edit-subject/edit-subject.component';
+import { ElectiveSubjComponent } from './elective-subj/elective-subj.component';
+import { EditElectiveComponent } from './edit-elective/edit-elective.component';
 
 const routes: Routes = [
   { path: "login", component: LoginComponent, title: "Login" },
@@ -17,6 +19,8 @@ const routes: Routes = [
   { path: "dashboard", component: DashboardComponent, title: "Dashboard", canActivate: [authGuard] },
   { path: "subject", component: SubjectComponent, title: "Subjects" },
   { path: "subject-edit/:id", component: EditSubjectComponent, title: "Edit Subject" },
+  { path: "elective", component: ElectiveSubjComponent, title: "Elective" },
+  { path: "elective-edit/:id", component: EditElectiveComponent, title: "Edit Elective" },
   { path: "account", component: AccountComponent, title: "Accounts" },
   { path: "profile", component: ProfileComponent, title: "Profile" },
   { path: "deactivate/:id", component: DisableUserComponent, title: "Disable User" },
