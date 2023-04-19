@@ -61,15 +61,6 @@ export class AccountComponent implements OnInit{
       this.apiService.registerUser(name, email, userType).subscribe({
         next: (data) => {
           this.successMessage = "Registration Successful\n" + "Email: " + data?.email + "\nPassword: " + data?.password;
-          // const message = `Dear ${name},\n\nThank you for registering on our app. Your account has been created successfully. You can log in using your email: ${email} address and password: ${data?.password}.\n\nBest regards,\nExample App Team`;
-          // this.apiService.sendEmail(data?.email,"CurrMaSys",message).subscribe({
-          //   next: (response) => {
-          //     console.log('Email sent successfully', response);
-          //   },
-          //   error: (err) => {
-          //     console.log('Failed to send email', err);
-          //   }
-          // });
           alert("Registration Successful\n" + "Email: " + data?.email + "\nPassword: " + data?.password);
           console.log("Registration Successful", data);
           const emailData = {
@@ -78,7 +69,7 @@ export class AccountComponent implements OnInit{
             "htmlContent": "Hello " + data?.name + ",<br><br>Your password is "+data?.password+"<br><br>Best regards,<br>CurrMaSys",
             "subject": "Registration Successful"
           };
-          const headers = {"Content-Type": "application/json", "api-key": "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"};
+          const headers = {"Content-Type": "application/json", "api-key": "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"};
           this.httpClient.post("https://api.sendinblue.com/v3/smtp/email", emailData, {headers}).subscribe(
             response => location.reload(),
             error => console.log("Failed to send email", error)
@@ -111,11 +102,17 @@ export class AccountComponent implements OnInit{
                   extend: 'csv',
                   text: 'CSV',
                   className: 'btn btn-primary',
+                  exportOptions: {
+                    columns: ':visible:not(:nth-child(6))'
+                  }
                 },
                 {
                   extend: 'print',
                   text: 'PDF',
                   className: 'btn btn-primary'
+                  exportOptions: {
+                    columns: ':visible:not(:nth-child(6))'
+                  }
                 },
               ],
                 "ordering": false, 
@@ -123,6 +120,7 @@ export class AccountComponent implements OnInit{
                   searchPlaceholder: "Find records..."
                 },
               "pageLength": 10,
+              
             });
           });
         }, 0);
@@ -130,8 +128,6 @@ export class AccountComponent implements OnInit{
       error: (err) => {
         console.log("Get Users Failed", err);
       }
-      
     });
-    
   }
 }
