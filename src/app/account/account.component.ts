@@ -32,6 +32,12 @@ export class AccountComponent implements OnInit{
     this.isTableVisible = !this.isTableVisible;
   }
 
+  onGoBack(){
+    this.isAddFormVisible = !this.isAddFormVisible;
+    this.isTableVisible = !this.isTableVisible;
+    this.displayUsers();
+  }
+
   registerForm = this.fb.group({
     name: ["", [Validators.required]],
     email: ["", [Validators.required, Validators.email]],
@@ -87,7 +93,10 @@ export class AccountComponent implements OnInit{
         setTimeout(() => {
           $(document).ready(function() {
             $('#accountsTable').DataTable( {
-              dom: '<"top"fB>rt<"bottom"ip><"clear">',//di ko maalign yung search at buttons
+              dom: '<"row"<"top-left col-sm-6" f><"top-right d-flex justify-content-end col-sm-6"B>rt<"bottom"ip><"clear">',
+              //di ko maalign yung search at buttons
+              //o ayan aligned na -jonks     
+
               buttons: [
                 {
                   extend: 'csv',
@@ -99,8 +108,8 @@ export class AccountComponent implements OnInit{
                 },
                 {
                   extend: 'print',
-                  text: 'Print',
-                  className: 'btn btn-primary',
+                  text: 'PDF',
+                  className: 'btn btn-primary'
                   exportOptions: {
                     columns: ':visible:not(:nth-child(6))'
                   }

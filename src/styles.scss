@@ -52,6 +52,61 @@ h2{
     color: #ffaa28;
 }
 
+
+//ACCOUNTS FILTER
+.top-search{
+    margin-bottom: 100px;
+}
+
+.dataTables_filter{
+    width: max-content;    
+}
+
+.dataTables_filter > label {
+   font-weight: bolder;
+}
+
+.dataTables_filter > label > input {
+    width: 30vh;
+    padding: 0.7vh;
+    margin-left: 1.7vh;
+    
+ }
+
+.top-left{
+    margin-bottom: 15px;
+}
+
+.top-right{
+    justify-content: right;
+    margin-bottom: 15px;
+}
+
+.dataTables_info{
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+//PAGINATION
+.bottom > .dataTables_paginate > a, 
+.bottom > .dataTables_paginate > span > a{
+    color: black;
+    float: left;
+    transition: background-color .3s;
+    padding: 8px 16px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+}
+
+.bottom > .dataTables_paginate > span > .current,
+.bottom > .dataTables_paginate > a:hover:not(.active),
+.bottom > .dataTables_paginate > span > a:hover:not(.active) {
+    background-color: map-get($theme-colors, "primary");
+    color: white;
+}
+
+
+
 //@import "../../node_modules/bootstrap/scss/bootstrap.scss";
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Outfit:wght@700&display=swap');
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
