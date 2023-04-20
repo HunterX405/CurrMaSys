@@ -1,0 +1,21 @@
+<div class="container">
+    <h3>Curriculum Details</h3>
+
+    <form [formGroup]="feedbackForm" (ngSubmit)="addFeedback(feedbackForm)">
+        <label for="comment">Comment</label>
+        <textarea name="comment" formControlName="comment" id="" cols="30" rows="10"></textarea>
+
+        <div>
+            <input type="radio" id="approve" name="status" formControlName="isApproved" value="1">
+            <label for="approve">Approve</label><br>
+            
+            <input type="radio" id="returned" name="status" formControlName="isApproved" value="0">
+            <label for="return">Return</label>
+        </div>
+
+        <button>Submit</button>
+    </form>
+
+    <!-- Details of the Curriculum -->
+    <h3>Temporary Curriculum Details</h3>
+</div>

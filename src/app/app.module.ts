@@ -18,6 +18,9 @@ import { DisableUserComponent } from './disable-user/disable-user.component';
 import { EnableUserComponent } from './enable-user/enable-user.component';
 import { ElectiveSubjComponent } from './elective-subj/elective-subj.component';
 import { EditElectiveComponent } from './edit-elective/edit-elective.component';
+import { VoteComponent } from './vote/vote.component';
+import { SubmitFeedbackComponent } from './submit-feedback/submit-feedback.component';
+import { CurrFeedbackComponent } from './curr-feedback/curr-feedback.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +38,9 @@ import { EditElectiveComponent } from './edit-elective/edit-elective.component';
     EditSubjectComponent,
     ElectiveSubjComponent,
     EditElectiveComponent,
+    VoteComponent,
+    SubmitFeedbackComponent,
+    CurrFeedbackComponent,
   ],
   imports: [
     BrowserModule,

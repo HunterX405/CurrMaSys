@@ -47,9 +47,9 @@ export class ApiService {
       }
     });
   }
-  
-  count(){
-    return this.httpClient.get<any>(this.baseUrl+"/count.php");
+
+  count() {
+    return this.httpClient.get<any>(this.baseUrl + "/count.php");
   }
 
   getUser(id: any): Observable<any> {
@@ -209,6 +209,78 @@ export class ApiService {
         console.log("Upload File Failed", err);
       }
     });
+  }
+
+  // Accesses the CURRICULUM Table
+  displayCurriculum() {
+    return this.httpClient.get<any>(this.baseUrl + "/displayCurriculum.php").pipe(
+      map(data => {
+        return data["curriculums"];
+      })
+    )
+  }
+
+  // Add Feedback on the VOTE Table
+  addFeedback(comment: string, isApproved: number, userID: string, currID: string) {
+    const feedbackData = { comment, isApproved, userID, currID };
+
+    return this.httpClient.post<any>(`${this.baseUrl}/addFeedback.php`, feedbackData).pipe(map(data => {
+      return data;
+    }));
+  }
+
+  // Get the number of STAKEHOLDER ACCOUNTS
+  getStakeholderNum() {
+    return this.httpClient.get<any>(this.baseUrl + "/getStakeholderNum.php").pipe(
+      map(data => {
+        return data["stakeholders"];
+      })
+    )
+  }
+
+  // Get the feedbacks of a specific CURRICULUM
+  getFeedbacks(curriculumID: number) {
+    const credentials = { curriculumID };
+    return this.httpClient.post<any>(this.baseUrl + "/getFeedbacks.php", credentials).pipe(map(data => {
+      console.log("@ Service getFeedbacks");
+      return data['feedbacks'];
+    }));
+  }
+
+  getAllStatus() {
+    return this.httpClient.get<any>(this.baseUrl + "/getCurriculumStatus.php").pipe(
+      map(data => {
+        return data["status"];
+      })
+    )
+  }
+
+  // Determine the status of the specific CURRICULUM
+  // Pending - No. of Stakeholder Accounts !== Submitted Feedback
+  // Approved - All submitted feedback with is_approved has a value of 1
+  // Returned - Once a submitted feeback with is_approved has a value of 0
+  getCurriculumStatus(curriculumData: any, keys: any, sNum: number, fNum: number) {
+    // Condition for stakeholderNum and feedbackNum
+    if (sNum !== fNum) {
+      return "Pending";
+    } else {
+      // To iterate the array of the submitted feedback
+      for (let i = 0; i < curriculumData.length; i++) {
+        // To iterate the keys of the curriculumData Object
+        for (let j = 0; j < keys.length; j++) {
+          const key = keys[j];
+
+          if (key === "is_approved") {
+            // To check if the current feedback with an key of "is_approved" has a value of 0
+            if (curriculumData[i][key] == 0) {
+              return "Returned";
+            }
+          }
+        }
+      }
+      // If the 1st For Loop did not return anything, the staus will be APPROVED
+      return "Approved";
+    }
   }
 
   checkJwtToken(): boolean {
