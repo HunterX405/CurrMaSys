@@ -2,15 +2,29 @@
     <h3>Curriculum Details</h3>
 
     <form [formGroup]="feedbackForm" (ngSubmit)="addFeedback(feedbackForm)">
-        <label for="comment">Comment</label>
-        <textarea name="comment" formControlName="comment" id="" cols="30" rows="10"></textarea>
-
+        <div>
+            <label for="comment">Comment</label>
+            <textarea name="comment" formControlName="comment" id="" cols="30" rows="10"
+                [class.invalid]="(feedbackForm.get('comment')?.dirty || feedbackForm.get('comment')?.touched || isFormSubmitted || feedbackForm.get('comment')?.dirty) && isWrong"></textarea>
+            <!-- <div class="error"
+              *ngIf="(feedbackForm.get('comment')?.dirty || feedbackForm.get('comment')?.touched || isFormSubmitted || feedbackForm.get('comment')?.dirty) && isWrong">
+              This field is required if you selected return.
+            </div> -->
+            <div>
+                Note: Comment is required if you selected return.
+            </div>
+        </div>
         <div>
             <input type="radio" id="approve" name="status" formControlName="isApproved" value="1">
             <label for="approve">Approve</label><br>
-            
+
             <input type="radio" id="returned" name="status" formControlName="isApproved" value="0">
             <label for="return">Return</label>
+
+            <div class="error"
+                *ngIf="feedbackForm.get('isApproved')?.hasError('required') && (feedbackForm.get('isApproved')?.dirty || feedbackForm.get('isApproved')?.touched || isFormSubmitted)">
+                This field is required.
+            </div>
         </div>
 
         <button>Submit</button>
