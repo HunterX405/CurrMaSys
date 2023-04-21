@@ -28,6 +28,12 @@ export class SubjectComponent {
     this.isTableVisible = !this.isTableVisible;
   }
 
+  onGoBack() {
+    this.isAddFormVisible = !this.isAddFormVisible;
+    this.isTableVisible = !this.isTableVisible;
+    this.displaySubject();
+  }
+
   addSubForm = this.fb.group({
     course_code: ["", [Validators.required]],
     title: ["", [Validators.required]],
@@ -80,7 +86,7 @@ export class SubjectComponent {
         setTimeout(() => {
           $(document).ready(function() {
             $('#subjectsTable').DataTable( {
-              dom: '<"top"fB>rt<"bottom"ip><"clear">',//di ko maalign yung search at buttons
+              dom: '<"row"<"top-left col-sm-6" f><"top-right d-flex justify-content-end col-sm-6"B>rt<"bottom"ip><"clear">',
               buttons: [
                 {
                   extend: 'csv',

@@ -95,9 +95,7 @@ export class AccountComponent implements OnInit {
           $(document).ready(function () {
             $('#accountsTable').DataTable({
               dom: '<"row"<"top-left col-sm-6" f><"top-right d-flex justify-content-end col-sm-6"B>rt<"bottom"ip><"clear">',
-              //di ko maalign yung search at buttons
-              //o ayan aligned na -jonks
-
+              
               buttons: [
                 {
                   extend: 'csv',

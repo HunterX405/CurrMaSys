@@ -14,6 +14,11 @@ export class VoteComponent implements OnInit{
 
   tempUserType: any;
 
+  isTableVisible: boolean = true;
+  isTableSubmittedVisible: boolean = true;
+
+
+
   constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {

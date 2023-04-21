@@ -67,4 +67,9 @@ export class SubmitFeedbackComponent implements OnInit {
   }
   get comment() { return this.feedbackForm.value.comment }
   get isApproved() { return this.feedbackForm.value.isApproved }
+
+  goBack(){
+    this.router.navigate(['/vote']);
+  }
+
 }
