@@ -1,0 +1,24 @@
+<div class="container">
+    <h1>Feedbacks</h1>
+
+    <!-- <h2> Curriculum Version: {{ feedbacks[0].version }} </h2>
+    <h2> Department: {{ feedbacks[0].department }} </h2> -->
+
+    <div>
+        <h3>Report</h3>
+        <p>No. of Stakeholder Accounts: {{ stakeholderNum }}</p>
+        <p>No. of Submitted Feedbacks: {{ feedbackNum }} </p>
+        <p>Status: {{ curriculumStatus }} </p>
+    </div>
+
+    <!-- Display the Feedbacks using a div instead of table -->
+    <div *ngFor="let feedback of feedbacks" style="border: 1px solid black;">
+        <h3> {{ feedback.name }} </h3>
+        <p> {{ feedback.email }} </p>
+
+        <p *ngIf="feedback.is_approved == 1">Status: Approved</p>
+        <p *ngIf="feedback.is_approved == 0">Status: Returned</p>
+
+        <p> Comments: {{ feedback.comment }} </p>
+    </div>
+</div>

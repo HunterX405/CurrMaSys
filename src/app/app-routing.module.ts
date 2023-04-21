@@ -12,6 +12,9 @@ import { authGuard } from './auth-guard';
 import { EditSubjectComponent } from './edit-subject/edit-subject.component';
 import { ElectiveSubjComponent } from './elective-subj/elective-subj.component';
 import { EditElectiveComponent } from './edit-elective/edit-elective.component';
+import { VoteComponent } from './vote/vote.component';
+import { SubmitFeedbackComponent } from './submit-feedback/submit-feedback.component';
+import { CurrFeedbackComponent } from './curr-feedback/curr-feedback.component';
 
 const routes: Routes = [
   { path: "login", component: LoginComponent, title: "Login" },
@@ -25,6 +28,9 @@ const routes: Routes = [
   { path: "profile", component: ProfileComponent, title: "Profile" },
   { path: "deactivate/:id", component: DisableUserComponent, title: "Disable User" },
   { path: "activate/:id", component: EnableUserComponent, title: "Enable User" },
+  { path: "vote", component: VoteComponent, title: "Curriculum Feedback" },
+  { path: "feedback/:id", component: SubmitFeedbackComponent, title: "Feedback"},
+  { path: "status/:id", component: CurrFeedbackComponent, title: "Curriculum Status"},
   { path: "", redirectTo: "login", pathMatch: 'full' },
 ];
 

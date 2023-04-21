@@ -1,4 +1,4 @@
-import { Component , OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 
 
@@ -12,6 +12,7 @@ export class DashboardComponent implements OnInit {
   userName: string = '';
   userType: string = '';
   count: any = {};
+  noFileUploaded: any = "";
   subjectTotal: any;
 
   user = this.apiService.getUserDetails().subscribe(response => {
@@ -21,15 +22,16 @@ export class DashboardComponent implements OnInit {
   });
 
   constructor(private apiService: ApiService) { }
-  
+
   ngOnInit(): void {
     this.countFunc();
   }
-  countFunc(){
+  countFunc() {
     this.apiService.count().subscribe((data) => {
       this.count = data;
+      this.noFileUploaded = Number(this.count.subject) + Number(this.count.elective);
       this.subjectTotal = parseInt(this.count.subject, 10) + parseInt(this.count.elective, 10);
     });
   }
-  }
+}
 
