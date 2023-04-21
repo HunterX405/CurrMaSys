@@ -13,6 +13,7 @@ export class DashboardComponent implements OnInit {
   userType: string = '';
   count: any = {};
   noFileUploaded: any = "";
+  subjectTotal: any;
 
   user = this.apiService.getUserDetails().subscribe(response => {
     console.log(response);
@@ -29,6 +30,7 @@ export class DashboardComponent implements OnInit {
     this.apiService.count().subscribe((data) => {
       this.count = data;
       this.noFileUploaded = Number(this.count.subject) + Number(this.count.elective);
+      this.subjectTotal = parseInt(this.count.subject, 10) + parseInt(this.count.elective, 10);
     });
   }
 }

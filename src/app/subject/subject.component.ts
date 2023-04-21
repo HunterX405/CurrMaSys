@@ -1,6 +1,14 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ApiService } from '../api.service';
+import * as $ from 'jquery';
+import 'datatables.net';
+import 'datatables.net-buttons';
+import 'datatables.net-buttons/js/buttons.html5.min.js';
+import 'datatables.net-buttons/js/buttons.print.min.js';
+import 'datatables.net-buttons/js/buttons.html5.js';
+import 'datatables.net-buttons/js/buttons.print.js';
+
 
 @Component({
   selector: 'app-subject',
@@ -24,6 +32,7 @@ export class SubjectComponent {
     course_code: ["", [Validators.required]],
     title: ["", [Validators.required]],
     syllabus: ["", [Validators.required]],
+    prerequisites: [this.fb.array([]),[]],
   })
 
   constructor(private fb: FormBuilder,
@@ -43,10 +52,10 @@ export class SubjectComponent {
 
   addSubject(addSubForm: FormGroup) {
     console.log("@ addSubject");
-    const { course_code, title, syllabus } = addSubForm.value;
+    const { course_code, title, syllabus, prerequisites } = addSubForm.value;
 
     if (addSubForm.valid) {
-      this.apiService.addSubject(course_code, title, syllabus).subscribe({
+      this.apiService.addSubject(course_code, title, syllabus, prerequisites ).subscribe({
         next: (data) => {
           this.isSuccess = true;
           console.log("Subject Adding Successful", data);
@@ -68,6 +77,36 @@ export class SubjectComponent {
       next: (data) => {
         console.log("Display Successful", data);
         this.subjects = data;
+        setTimeout(() => {
+          $(document).ready(function() {
+            $('#subjectsTable').DataTable( {
+              dom: '<"top"fB>rt<"bottom"ip><"clear">',//di ko maalign yung search at buttons
+              buttons: [
+                {
+                  extend: 'csv',
+                  text: 'CSV',
+                  className: 'btn btn-primary',
+                  exportOptions: {
+                    columns: ':visible:not(:nth-child(4))'
+                  }
+                },
+                {
+                  extend: 'print',
+                  text: 'Print',
+                  className: 'btn btn-primary',
+                  exportOptions: {
+                    columns: ':visible:not(:nth-child(4))'
+                  }
+                },
+              ],
+                "ordering": false,
+                language: {
+                  searchPlaceholder: "Find records..."
+                },
+              "pageLength": 10,
+            });
+          });
+        }, 0);
       },
       error: (err) => {
         console.log("Display Failed");
