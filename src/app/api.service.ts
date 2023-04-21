@@ -123,12 +123,12 @@ export class ApiService {
     }));
   }
 
-  addSubject(course_code: string, title: string, syllabus: string) {
+  addSubject(course_code: string, title: string, syllabus: string, prerequisites: string[]) {
     console.log("@ addSubject Service");
     // Removes the C:\fakepath\ on the value of the directory using RegEx
     syllabus = syllabus.replace(/^C:\\fakepath\\/i, '');
 
-    const subData = { course_code, title, syllabus };
+    const subData = { course_code, title, syllabus, prerequisites};
 
     return this.httpClient.post<any>(this.baseUrl + "/addSubject.php", subData).pipe(map(data => {
       return data;

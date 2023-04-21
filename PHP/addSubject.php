@@ -7,6 +7,7 @@
     $course_code = trim($request->course_code);
     $title = trim($request->title);
     $fileName = trim($request->syllabus);
+    $prerequisites = $request->prerequisites;
 
     // $randomNumberr will be returned for the uploadFile function on the SubjectComponent
     if($fileName){
@@ -20,6 +21,13 @@
       $result = executeQuery($query, $params);
 
       if ($result) {
+        $subject_id = mysqli_insert_id($mysqli);
+        foreach ($prerequisites as $prerequisite) {
+          $query = "INSERT INTO prerequisites(subject_id, prerequisite_id) VALUES (?, ?)";
+          $params = [$subject_id, $prerequisite];
+          executeQuery($query, $params);
+        }
+
         $authdata = [
           'course_code' => $course_code,
           'title' => $title,

@@ -74,7 +74,7 @@ export class AccountComponent implements OnInit{
             response => location.reload(),
             error => console.log("Failed to send email", error)
             );
-        
+
         },
         error: (err) => {
           console.log("Registration Failed", err);
@@ -95,7 +95,7 @@ export class AccountComponent implements OnInit{
             $('#accountsTable').DataTable( {
               dom: '<"row"<"top-left col-sm-6" f><"top-right d-flex justify-content-end col-sm-6"B>rt<"bottom"ip><"clear">',
               //di ko maalign yung search at buttons
-              //o ayan aligned na -jonks     
+              //o ayan aligned na -jonks
 
               buttons: [
                 {
@@ -109,18 +109,18 @@ export class AccountComponent implements OnInit{
                 {
                   extend: 'print',
                   text: 'PDF',
-                  className: 'btn btn-primary'
+                  className: 'btn btn-primary',
                   exportOptions: {
                     columns: ':visible:not(:nth-child(6))'
                   }
                 },
               ],
-                "ordering": false, 
+                "ordering": false,
                 language: {
                   searchPlaceholder: "Find records..."
                 },
               "pageLength": 10,
-              
+
             });
           });
         }, 0);

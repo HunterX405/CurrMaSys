@@ -9,7 +9,7 @@
     <div class="mx-5 py-3">
 
       <div *ngIf="isTableVisible" class="d-flex justify-content-start">
-        <div style="padding-right: 30px;"> <a class="subCategory subCategoryActive" routerLink="/subject"> <h3 class="subCategoryTitle"> Base </h3> </a></div> 
+        <div style="padding-right: 30px;"> <a class="subCategory subCategoryActive" routerLink="/subject"> <h3 class="subCategoryTitle"> Base </h3> </a></div>
         <div style="padding-right: 30px;"> <a class="subCategory" routerLink="/elective"> <h3 class="subCategoryTitle"> Elective </h3></a></div>
       </div>
 
@@ -40,7 +40,7 @@
       <!--<div class="">
         <button routerLink="/elective" type="button" class="btn btn-primary">
           ADD Elective
-        </button> 
+        </button>
       </div>-->
 
       <div *ngIf="isAddFormVisible" class="d-flex justify-content-start" style="margin: 10px 0;">
@@ -68,7 +68,7 @@
                 <td>{{ subject.title }}</td>
                 <td>  <a href="http://localhost/CurrMaSys/php/PDF/{{ subject.syllabus }}" target="_blank">{{ subject.syllabus }}</a></td>
 
-              
+
                 <td>
                   <button class="btn btn-primary" routerLink="/subject-edit/{{subject.id}}">
                     Edit
@@ -107,8 +107,19 @@
 
           <div class="form-group pb-3">
             <label for="syllabus">Syllabus</label> <br>
-            <input type="File" formControlName="syllabus" name="syllabus" accept=".pdf" (change)="onFileSelect($event)" class="form-control"
+            <input type="File" formControlName="syllabus" name="syllabus" accept=".pdf" (change)="onFileSelect($event)"
               [class.error]="addSubForm.get('syllabus')?.hasError('required') && (isFormSubmitted)">
+            <div class="error" *ngIf="addSubForm.get('syllabus')?.hasError('required') && (isFormSubmitted)">
+              This field is required.
+            </div>
+          </div>
+
+          <div class="form-group pb-3">
+            <label for="prerequisites">Prerequisites</label>
+            <select formControlName="prerequisites" class="form-control" multiple>
+              <option *ngFor="let subject of subjects" [value]="subject.id">{{subject.course_code}} - {{subject.title}}
+              </option>
+            </select>
           </div>
 
           <div class="success" *ngIf="isSuccess">
