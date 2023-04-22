@@ -15,6 +15,7 @@ import { EditElectiveComponent } from './edit-elective/edit-elective.component';
 import { VoteComponent } from './vote/vote.component';
 import { SubmitFeedbackComponent } from './submit-feedback/submit-feedback.component';
 import { CurrFeedbackComponent } from './curr-feedback/curr-feedback.component';
+import { CurriculumComponent } from './curriculum/curriculum.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
 const routes: Routes = [
@@ -32,7 +33,8 @@ const routes: Routes = [
   { path: "activate/:id", component: EnableUserComponent, title: "Enable User" },
   { path: "vote", component: VoteComponent, title: "Curriculum Feedback" },
   { path: "feedback/:id", component: SubmitFeedbackComponent, title: "Feedback"},
-  { path: "status/:id", component: CurrFeedbackComponent, title: "Curriculum Status"},
+  { path: "status/:id", component: CurrFeedbackComponent, title: "Curriculum Status" },
+  { path: "curriculum", component: CurriculumComponent, title: "Curriculum" },
   { path: "", redirectTo: "login", pathMatch: 'full' },
 ];
 

@@ -1,15 +1,15 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../api.service';
 import * as $ from 'jquery';
-import 'datatables.net';
+// import 'datatables.net';
 import 'datatables.net-buttons';
 import 'datatables.net-buttons/js/buttons.html5.min.js';
 import 'datatables.net-buttons/js/buttons.print.min.js';
-import 'datatables.net-buttons/js/buttons.html5.js';
-import 'datatables.net-buttons/js/buttons.print.js';
+// import 'datatables.net-buttons/js/buttons.html5.js';
+// import 'datatables.net-buttons/js/buttons.print.js';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-account',
@@ -27,6 +27,14 @@ export class AccountComponent implements OnInit {
   isTableVisible: boolean = true;
   isAddFormVisible: boolean = false;
 
+  constructor(private fb: FormBuilder,
+    private apiService: ApiService,private httpClient: HttpClient,private router: Router,) { }
+
+  ngOnInit(): void {
+    // When the component is loaded, the users (variable) will have its value.
+    this.displayUsers();
+  }
+
   onAdd() {
     this.isAddFormVisible = !this.isAddFormVisible;
     this.isTableVisible = !this.isTableVisible;
@@ -43,17 +51,7 @@ export class AccountComponent implements OnInit {
     email: ["", [Validators.required, Validators.email]],
     userType: ["", [Validators.required]],
   })
-
-  constructor(private fb: FormBuilder,
-    private apiService: ApiService, private httpClient: HttpClient, private router: Router,) { }
-
-  ngOnInit(): void {
-    // When the component is loaded, the users (variable) will have its value.
-    this.displayUsers();
-  }
-
-
-
+  
   // Registering the user
   registerUser(registerForm: FormGroup) {
     const { name, email, userType } = registerForm.value;
@@ -92,8 +90,9 @@ export class AccountComponent implements OnInit {
         console.log("Get Users:", data);
         this.users = data;
         setTimeout(() => {
-          $(document).ready(function () {
-            $('#accountsTable').DataTable({
+          // jQuery $(document).ready(function({})) is deprecated, Use $(function() {} instead.
+          $(function() {
+            $('#accountsTable').DataTable( {
               dom: '<"row"<"top-left col-sm-6" f><"top-right d-flex justify-content-end col-sm-6"B>rt<"bottom"ip><"clear">',
               
               buttons: [

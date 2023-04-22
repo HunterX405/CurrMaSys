@@ -123,12 +123,12 @@ export class ApiService {
     }));
   }
 
-  addSubject(course_code: string, title: string, syllabus: string, prerequisites: string[]) {
+  addSubject(course_code: string, title: string, syllabus: string) {
     console.log("@ addSubject Service");
     // Removes the C:\fakepath\ on the value of the directory using RegEx
     syllabus = syllabus.replace(/^C:\\fakepath\\/i, '');
 
-    const subData = { course_code, title, syllabus, prerequisites};
+    const subData = { course_code, title, syllabus};
 
     return this.httpClient.post<any>(this.baseUrl + "/addSubject.php", subData).pipe(map(data => {
       return data;
@@ -311,4 +311,11 @@ export class ApiService {
     this.cookieService.delete(name);
   }
 
+  addCurriculum(formData: string) {
+    console.log("@ addCurriculum Service");
+
+    return this.httpClient.post<any>(this.baseUrl + "/addCurriculum.php", formData).pipe(map(data => {
+      return data;
+    }));
+  }
 }
