@@ -21,6 +21,7 @@ import { EditElectiveComponent } from './edit-elective/edit-elective.component';
 import { VoteComponent } from './vote/vote.component';
 import { SubmitFeedbackComponent } from './submit-feedback/submit-feedback.component';
 import { CurrFeedbackComponent } from './curr-feedback/curr-feedback.component';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { CurrFeedbackComponent } from './curr-feedback/curr-feedback.component';
     VoteComponent,
     SubmitFeedbackComponent,
     CurrFeedbackComponent,
+    UnauthorizedComponent,
   ],
   imports: [
     BrowserModule,
