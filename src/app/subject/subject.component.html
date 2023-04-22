@@ -8,23 +8,16 @@
 
     <div class="mx-5 py-3">
 
-      <div *ngIf="isTableVisible" class="d-flex justify-content-start">
-        <div style="padding-right: 30px;"> <a class="subCategory subCategoryActive" routerLink="/subject"> <h3 class="subCategoryTitle"> Base </h3> </a></div>
-        <div style="padding-right: 30px;"> <a class="subCategory" routerLink="/elective"> <h3 class="subCategoryTitle"> Elective </h3></a></div>
-      </div>
+      
 
       <div *ngIf="isTableVisible" class="row" style="margin: 20px 0;">
 
-        <div class="col-8 d-flex justify-content-start">
-
-          <!-- SAMPLE SEARCH BAR, PWEDE PALITAN CODE NITO -->
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Sample Search" aria-label="sample" aria-describedby="sample">
-            <div class="input-group-append">
-              <button class="btn btn-outline-secondary" type="button">Search</button>
-            </div>
+        <div class="col-8 d-flex justify-content-start">  
+          <div class="d-flex justify-content-start">
+            <div style="padding-right: 30px;"> <a class="subCategory subCategoryActive" routerLink="/subject"> <h3 class="subCategoryTitle"> Base </h3> </a></div>
+            <div style="padding-right: 30px;"> <a class="subCategory" routerLink="/elective"> <h3 class="subCategoryTitle"> Elective </h3></a></div>
           </div>
-          <!-- END OF CODE -->
+          
         </div>
 
         <div class="col-4 d-flex justify-content-end">
@@ -44,7 +37,7 @@
       </div>-->
 
       <div *ngIf="isAddFormVisible" class="d-flex justify-content-start" style="margin: 10px 0;">
-        <button (click)="onAdd()" type="button" class="btn p-0">
+        <button (click)="onGoBack()" type="button" class="btn p-0">
           <img class="logoImg " src="../../assets/images/icon_back_btn.png" alt="BACK BUTTON">
           <strong> GO BACK </strong>
         </button>
@@ -70,7 +63,7 @@
 
 
                 <td>
-                  <button class="btn btn-primary" routerLink="/subject-edit/{{subject.id}}">
+                  <button class="btn btn-primary btn-sm" routerLink="/subject-edit/{{subject.id}}">
                     Edit
                   </button>
                 </td>
