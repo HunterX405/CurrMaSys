@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ApiService } from '../api.service';
 import * as $ from 'jquery';
-import 'datatables.net';
+// import 'datatables.net';
 import 'datatables.net-buttons';
 import 'datatables.net-buttons/js/buttons.html5.min.js';
 import 'datatables.net-buttons/js/buttons.print.min.js';
-import 'datatables.net-buttons/js/buttons.html5.js';
-import 'datatables.net-buttons/js/buttons.print.js';
+// import 'datatables.net-buttons/js/buttons.html5.js';
+// import 'datatables.net-buttons/js/buttons.print.js';
 
 
 @Component({
@@ -31,8 +31,7 @@ export class SubjectComponent {
   addSubForm = this.fb.group({
     course_code: ["", [Validators.required]],
     title: ["", [Validators.required]],
-    syllabus: ["", [Validators.required]],
-    prerequisites: [this.fb.array([]),[]],
+    syllabus: ["", [Validators.required]]
   })
 
   constructor(private fb: FormBuilder,
@@ -52,10 +51,10 @@ export class SubjectComponent {
 
   addSubject(addSubForm: FormGroup) {
     console.log("@ addSubject");
-    const { course_code, title, syllabus, prerequisites } = addSubForm.value;
+    const { course_code, title, syllabus } = addSubForm.value;
 
     if (addSubForm.valid) {
-      this.apiService.addSubject(course_code, title, syllabus, prerequisites ).subscribe({
+      this.apiService.addSubject(course_code, title, syllabus ).subscribe({
         next: (data) => {
           this.isSuccess = true;
           console.log("Subject Adding Successful", data);
@@ -78,7 +77,8 @@ export class SubjectComponent {
         console.log("Display Successful", data);
         this.subjects = data;
         setTimeout(() => {
-          $(document).ready(function() {
+          // jQuery $(document).ready(function({})) is deprecated, Use $(function() {} instead.
+          $(function() {
             $('#subjectsTable').DataTable( {
               dom: '<"top"fB>rt<"bottom"ip><"clear">',//di ko maalign yung search at buttons
               buttons: [
