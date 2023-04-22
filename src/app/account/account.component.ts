@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./account.component.css']
 })
 
-export class AccountComponent implements OnInit{
+export class AccountComponent implements OnInit {
   // Variable that holds the list of users
 
   users: any;
@@ -40,7 +40,7 @@ export class AccountComponent implements OnInit{
     this.isTableVisible = !this.isTableVisible;
   }
 
-  onGoBack(){
+  onGoBack() {
     this.isAddFormVisible = !this.isAddFormVisible;
     this.isTableVisible = !this.isTableVisible;
     this.displayUsers();
@@ -51,7 +51,7 @@ export class AccountComponent implements OnInit{
     email: ["", [Validators.required, Validators.email]],
     userType: ["", [Validators.required]],
   })
-
+  
   // Registering the user
   registerUser(registerForm: FormGroup) {
     const { name, email, userType } = registerForm.value;
@@ -61,17 +61,18 @@ export class AccountComponent implements OnInit{
           this.successMessage = "Registration Successful\n" + "Email: " + data?.email + "\nPassword: " + data?.password;
           alert("Registration Successful\n" + "Email: " + data?.email + "\nPassword: " + data?.password);
           console.log("Registration Successful", data);
+          location.reload();
           const emailData = {
-            "sender": {"name": "CurrMaSys", "email": "currmasys@gmail.com"},
-            "to": [{"email": data?.email}],
-            "htmlContent": "Hello " + data?.name + ",<br><br>Your password is "+data?.password+"<br><br>Best regards,<br>CurrMaSys",
+            "sender": { "name": "CurrMaSys", "email": "currmasys@gmail.com" },
+            "to": [{ "email": data?.email }],
+            "htmlContent": "Hello " + data?.name + ",<br><br>Your password is " + data?.password + "<br><br>Best regards,<br>CurrMaSys",
             "subject": "Registration Successful"
           };
-          const headers = {"Content-Type": "application/json", "api-key": "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"};
-          this.httpClient.post("https://api.sendinblue.com/v3/smtp/email", emailData, {headers}).subscribe(
+          const headers = { "Content-Type": "application/json", "api-key": "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" };
+          this.httpClient.post("https://api.sendinblue.com/v3/smtp/email", emailData, { headers }).subscribe(
             response => location.reload(),
             error => console.log("Failed to send email", error)
-            );
+          );
 
         },
         error: (err) => {
@@ -93,9 +94,7 @@ export class AccountComponent implements OnInit{
           $(function() {
             $('#accountsTable').DataTable( {
               dom: '<"row"<"top-left col-sm-6" f><"top-right d-flex justify-content-end col-sm-6"B>rt<"bottom"ip><"clear">',
-              //di ko maalign yung search at buttons
-              //o ayan aligned na -jonks
-
+              
               buttons: [
                 {
                   extend: 'csv',
@@ -114,10 +113,10 @@ export class AccountComponent implements OnInit{
                   }
                 },
               ],
-                "ordering": false,
-                language: {
-                  searchPlaceholder: "Find records..."
-                },
+              "ordering": false,
+              language: {
+                searchPlaceholder: "Find records..."
+              },
               "pageLength": 10,
 
             });

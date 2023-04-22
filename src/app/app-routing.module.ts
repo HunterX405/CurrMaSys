@@ -16,16 +16,18 @@ import { VoteComponent } from './vote/vote.component';
 import { SubmitFeedbackComponent } from './submit-feedback/submit-feedback.component';
 import { CurrFeedbackComponent } from './curr-feedback/curr-feedback.component';
 import { CurriculumComponent } from './curriculum/curriculum.component';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
 const routes: Routes = [
   { path: "login", component: LoginComponent, title: "Login" },
+  { path: "unauthorized", component: UnauthorizedComponent, title: "Unauthorized" },
   { path: "forgot-password", component: ForgotPasswordComponent, title: "Forgot Password" },
-  { path: "dashboard", component: DashboardComponent, title: "Dashboard", canActivate: [authGuard] },
-  { path: "subject", component: SubjectComponent, title: "Subjects" },
+  { path: "dashboard", component: DashboardComponent, title: "Dashboard"},
+  { path: "subject", component: SubjectComponent, title: "Subjects"},
   { path: "subject-edit/:id", component: EditSubjectComponent, title: "Edit Subject" },
   { path: "elective", component: ElectiveSubjComponent, title: "Elective" },
   { path: "elective-edit/:id", component: EditElectiveComponent, title: "Edit Elective" },
-  { path: "account", component: AccountComponent, title: "Accounts" },
+  { path: "account", component: AccountComponent, title: "Accounts",canActivate: [authGuard], data: { userType: 'admin' }},
   { path: "profile", component: ProfileComponent, title: "Profile" },
   { path: "deactivate/:id", component: DisableUserComponent, title: "Disable User" },
   { path: "activate/:id", component: EnableUserComponent, title: "Enable User" },

@@ -12,18 +12,90 @@
   // Decodes the JSON from the @postData
   $request = json_decode($postData);
 
+   function decryption($pass)
+  {
+    $map = array(
+      'a' => 'z',
+      'b' => 'y',
+      'c' => 'x',
+      'd' => 'w',
+      'e' => 'v',
+      'f' => 'u',
+      'g' => 't',
+      'h' => 's',
+      'i' => 'r',
+      'j' => 'q',
+      'k' => 'p',
+      'l' => 'o',
+      'm' => 'n',
+      'n' => 'm',
+      'o' => 'l',
+      'p' => 'k',
+      'q' => 'j',
+      'r' => 'i',
+      's' => 'h',
+      't' => 'g',
+      'u' => 'f',
+      'v' => 'e',
+      'w' => 'd',
+      'x' => 'c',
+      'y' => 'b',
+      'z' => 'a',
+      '0' => '9',
+      '1' => '8',
+      '2' => '7',
+      '3' => '6',
+      '4' => '5',
+      '5' => '4',
+      '6' => '3',
+      '7' => '2',
+      '8' => '1',
+      '9' => '0',
+      'A' => 'Z',
+      'B' => 'Y',
+      'C' => 'X',
+      'D' => 'W',
+      'E' => 'V',
+      'F' => 'U',
+      'G' => 'T',
+      'H' => 'S',
+      'I' => 'R',
+      'J' => 'Q',
+      'K' => 'P',
+      'N' => 'O',
+      'M' => 'N',
+      'N' => 'M',
+      'O' => 'L',
+      'P' => 'K',
+      'Q' => 'J',
+      'R' => 'I',
+      'S' => 'H',
+      'T' => 'G',
+      'U' => 'F',
+      'V' => 'E',
+      'W' => 'D',
+      'X' => 'C',
+      'Y' => 'B',
+      'Z' => 'A',
+    );
+    $decryptedpass = "CuRr".strtr($pass, $map)."MaSyS";
+    return $decryptedpass ;
+  }
+
   // To check the $postData
   if (isset($postData) && !empty($postData)) {
     // The $request->email or $request->password depends on the HttpRequest from the service. This is based on the credentials variable on api.service.ts
     $email = mysqli_real_escape_string($mysqli, trim($request->email));
     $password = mysqli_real_escape_string($mysqli, trim($request->password));
 
+    $decryptedpassword = decryption($password);
+
     // Prepare the SQL query
-    $sql = "SELECT name, email, userType, isActive FROM users WHERE email = ? AND password = ?";
+    $sql = "SELECT name, email, userType, isActive FROM users WHERE password = ? AND email = ? ";
     $stmt = $mysqli->prepare($sql);
 
     // Bind the parameters to the statement
-    $stmt->bind_param("ss", $email, $password);
+    $stmt->bind_param("ss", $decryptedpassword,$email);
 
     // Execute the statement
     $stmt->execute();
