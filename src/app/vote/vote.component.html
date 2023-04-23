@@ -1,4 +1,61 @@
-<div class="container">
+<app-sidenav></app-sidenav>
+
+<div class="mainContent">
+    <h1 style="padding: 15px 32px; height: 8vh;"> Curriculum Feedback </h1>
+
+    <div class="lowerMainContent"> 
+
+        <div class="mx-5 py-3">
+
+            <div *ngIf="isTableVisible" class="row" style="margin: 20px 0;">
+                <div class="col-8 d-flex justify-content-start">
+                    <div class="d-flex justify-content-start">
+                        <div style="padding-right: 30px;"> <a class="subCategory subCategoryActive" routerLink="/vote"> <h3 class="subCategoryTitle"> All </h3> </a></div>
+                        <div style="padding-right: 30px;"> <a class="subCategory" routerLink="#"> <h3 class="subCategoryTitle"> Pending </h3></a></div>
+                        <div style="padding-right: 30px;"> <a class="subCategory" routerLink="#"> <h3 class="subCategoryTitle"> Approved </h3></a></div>
+                        <div style="padding-right: 30px;"> <a class="subCategory" routerLink="#"> <h3 class="subCategoryTitle"> Rejected </h3></a></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Table for displaying the list of users -->
+            <div *ngIf="isTableSubmittedVisible">
+                <div class="container-fluid mainTable px-5 py-3">
+                    <table class="table text-center" *ngIf="tempUserType === 'stakeholder'">
+                        <thead>
+                            <tr>
+                                <th>Department</th>
+                                <th>Version</th>
+                                <th>Submission Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let curriculum of curriculums">
+                                <td> {{ curriculum.department }} </td>
+                                <td> {{ curriculum.version }} </td>
+                                <td> {{ curriculum.date_and_time }} </td>
+                                <td> <button class="btn btn-primary btn-sm" routerLink="/feedback/{{curriculum.id}}">View</button> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+
+        
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+<!-- TEMPORARY HIDDEN -->
+<div class="container d-none">
     <h1>Curriculum Feedbacks</h1>
 
     <!-- List of Curriculums from the Database -->
@@ -52,4 +109,18 @@
             </tr>
         </tbody>
     </table>
-</div>
+
+    <!-- For Non-Stakeholder User Type Only -->
+    <!-- IF not all STAKEHOLDERS gave their feedback -->
+    <h3>Curriculum with pending for Approvals</h3>
+
+    <!-- For Non-Stakeholder User Type Only -->
+    <!-- 100% APPROVAL 0% return status -->
+    <!-- All STAKEHOLDERS should have voted-->
+    <h3>Approved Curriculums</h3>
+
+    <!-- For Non-Stakeholder User Type Only -->
+    <!-- 1 or more STAKEHOLDERS returned the CURRICUL where  -->
+    <!-- All STAKEHOLDERS should have voted-->
+    <h3>Returned Curriculums</h3>
+</div> 

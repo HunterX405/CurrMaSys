@@ -1,4 +1,67 @@
-<div class="container">
+<app-sidenav></app-sidenav>
+
+<div class="mainContent">
+    <h1 style="padding: 15px 32px; height: 8vh;"> Curriculum Feedback </h1>
+
+    <div class="lowerMainContent">
+        <div class="mx-5 py-3">
+
+            <div class="d-flex justify-content-start" style="margin: 10px 0;">
+                <button (click)="goBack()" type="button" class="btn p-0">
+                  <img class="logoImg " src="../../assets/images/icon_back_btn.png" alt="BACK BUTTON">
+                  <strong> GO BACK </strong>
+                </button>
+            </div>
+
+            <div class="addForm p-5">
+
+                <h2>View Curriculum Details</h2>
+                <form [formGroup]="feedbackForm" (ngSubmit)="addFeedback(feedbackForm)">
+
+                    <div class="form-group pb-3">
+                        <label for="comment">Comment:</label>
+                        <textarea name="comment" formControlName="comment" class="form-control" id="" cols="70" rows="3"
+                            [class.invalid]="(feedbackForm.get('comment')?.dirty || feedbackForm.get('comment')?.touched || isFormSubmitted || feedbackForm.get('comment')?.dirty) && isWrong"></textarea>
+                        <!-- <div class="error"
+                          *ngIf="(feedbackForm.get('comment')?.dirty || feedbackForm.get('comment')?.touched || isFormSubmitted || feedbackForm.get('comment')?.dirty) && isWrong">
+                          This field is required if you selected return.
+                        </div> -->
+                        <div>
+                            Note: Comment is required if you selected return.
+                        </div>
+                    </div>
+
+
+                    <div class="form-group pb-3">
+                        <input type="radio" id="approve" name="status" formControlName="isApproved" value="1">
+                        <label for="approve" class="h4 px-2 radioLbl">Approve</label><br>
+            
+                        <input type="radio" id="returned" name="status" formControlName="isApproved" value="0">
+                        <label for="return" class="h4 px-2 radioLbl">Return</label>
+            
+                        <div class="error"
+                            *ngIf="feedbackForm.get('isApproved')?.hasError('required') && (feedbackForm.get('isApproved')?.dirty || feedbackForm.get('isApproved')?.touched || isFormSubmitted)">
+                            This field is required.
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end" style="margin: 5px 0;">
+                        <button class="btn btn-primary">Submit</button>
+                    </div>
+            
+                    
+                </form>
+
+            </div>
+              
+        </div>
+
+    </div>
+</div>
+
+
+<!-- Temporary Hidden -->
+<div class="container d-none">
     <h3>Curriculum Details</h3>
 
     <div *ngIf="haveSubmitted">
@@ -6,15 +69,29 @@
     </div>
 
     <form [formGroup]="feedbackForm" (ngSubmit)="addFeedback(feedbackForm)">
-        <label for="comment">Comment</label>
-        <textarea name="comment" formControlName="comment" id="" cols="30" rows="10"></textarea>
-
+        <div>
+            <label for="comment">Comment</label>
+            <textarea name="comment" formControlName="comment" id="" cols="30" rows="10"
+                [class.invalid]="(feedbackForm.get('comment')?.dirty || feedbackForm.get('comment')?.touched || isFormSubmitted || feedbackForm.get('comment')?.dirty) && isWrong"></textarea>
+            <!-- <div class="error"
+              *ngIf="(feedbackForm.get('comment')?.dirty || feedbackForm.get('comment')?.touched || isFormSubmitted || feedbackForm.get('comment')?.dirty) && isWrong">
+              This field is required if you selected return.
+            </div> -->
+            <div>
+                Note: Comment is required if you selected return.
+            </div>
+        </div>
         <div>
             <input type="radio" id="approve" name="status" formControlName="isApproved" value="1">
             <label for="approve">Approve</label><br>
 
             <input type="radio" id="returned" name="status" formControlName="isApproved" value="0">
             <label for="return">Return</label>
+
+            <div class="error"
+                *ngIf="feedbackForm.get('isApproved')?.hasError('required') && (feedbackForm.get('isApproved')?.dirty || feedbackForm.get('isApproved')?.touched || isFormSubmitted)">
+                This field is required.
+            </div>
         </div>
 
         <button>Submit</button>
