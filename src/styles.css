@@ -46,6 +46,56 @@ h2, .h2 {
   color: #ffaa28;
 }
 
+.top-search {
+  margin-bottom: 100px;
+}
+
+.dataTables_filter {
+  width: -moz-max-content;
+  width: max-content;
+}
+
+.dataTables_filter > label {
+  font-weight: bolder;
+}
+
+.dataTables_filter > label > input {
+  width: 30vh;
+  padding: 0.7vh;
+  margin-left: 1.7vh;
+}
+
+.top-left {
+  margin-bottom: 15px;
+}
+
+.top-right {
+  justify-content: right;
+  margin-bottom: 15px;
+}
+
+.dataTables_info {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.bottom > .dataTables_paginate > a,
+.bottom > .dataTables_paginate > span > a {
+  color: black;
+  float: left;
+  transition: background-color 0.3s;
+  padding: 8px 16px;
+  text-decoration: none;
+  border: 1px solid #ddd;
+}
+
+.bottom > .dataTables_paginate > span > .current,
+.bottom > .dataTables_paginate > a:hover:not(.active),
+.bottom > .dataTables_paginate > span > a:hover:not(.active) {
+  background-color: #182850;
+  color: white;
+}
+
 /*!
  * Bootstrap  v5.2.3 (https://getbootstrap.com/)
  * Copyright 2011-2022 The Bootstrap Authors
