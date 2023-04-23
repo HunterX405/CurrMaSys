@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../api.service';
-import { ActivatedRoute, Route, createUrlTreeFromSnapshot } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-submit-feedback',
@@ -172,7 +172,7 @@ export class SubmitFeedbackComponent implements OnInit {
 
   get comment() { return this.feedbackForm.value.comment }
   get isApproved() { return this.feedbackForm.value.isApproved }
-  
+
   goBack(){
     this.router.navigate(['/vote']);
   }
