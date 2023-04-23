@@ -6,7 +6,7 @@ $postData = file_get_contents("php://input");
 $request = json_decode($postData);
 
 if (isset($postData) && !empty($postData)) {
-    $curriculumID = $request->curriculumID;
+    $curriculumID = $request->currID;
 
     // Query that accesses the VOTE, CURRICULUM and USERS Table
     $query = "SELECT 

@@ -3,13 +3,14 @@
 
     <!-- List of Curriculums from the Database -->
     <!-- For Stakeholder User Type Only -->
-    <h3>Submitted Curriculums for STAKEHOLDERS</h3>
+    <h3 *ngIf="tempUserType === 'stakeholder'">Submitted Curriculums for STAKEHOLDERS</h3>
     <table class="table" *ngIf="tempUserType === 'stakeholder'">
         <thead>
             <tr>
                 <th>Department</th>
                 <th>Version</th>
                 <th>Submission Date</th>
+                <th>Status</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -18,20 +19,22 @@
                 <td> {{ curriculum.department }} </td>
                 <td> {{ curriculum.version }} </td>
                 <td> {{ curriculum.date_and_time }} </td>
+                <td> {{ curriculum.curr_status | titlecase }} </td>
                 <td> <button routerLink="/feedback/{{curriculum.id}}">View</button> </td>
             </tr>
         </tbody>
     </table>
 
     <!-- List of Curriculums from the Database -->
-    <!-- For Stakeholder User Type Only -->
-    <h3>Submitted Curriculums for ADMIN</h3>
+    <!-- For Admin User Type Only -->
+    <h3 *ngIf="tempUserType !== 'stakeholder'">Submitted Curriculums for ADMIN</h3>
     <table class="table" *ngIf="tempUserType !== 'stakeholder'">
         <thead>
             <tr>
                 <th>Department</th>
                 <th>Version</th>
                 <th>Submission Date</th>
+                <th>Status</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -40,6 +43,7 @@
                 <td> {{ curriculum.department }} </td>
                 <td> {{ curriculum.version }} </td>
                 <td> {{ curriculum.date_and_time }} </td>
+                <td> {{ curriculum.curr_status | titlecase }} </td>
                 <td>
                     <button routerLink="/status/{{curriculum.id}}">
                         View Status
@@ -48,18 +52,4 @@
             </tr>
         </tbody>
     </table>
-
-    <!-- For Non-Stakeholder User Type Only -->
-    <!-- IF not all STAKEHOLDERS gave their feedback -->
-    <h3>Curriculum with pending for Approvals</h3>
-
-    <!-- For Non-Stakeholder User Type Only -->
-    <!-- 100% APPROVAL 0% return status -->
-    <!-- All STAKEHOLDERS should have voted-->
-    <h3>Approved Curriculums</h3>
-
-    <!-- For Non-Stakeholder User Type Only -->
-    <!-- 1 or more STAKEHOLDERS returned the CURRICUL where  -->
-    <!-- All STAKEHOLDERS should have voted-->
-    <h3>Returned Curriculums</h3>
 </div>

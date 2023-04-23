@@ -1,6 +1,10 @@
 <div class="container">
     <h3>Curriculum Details</h3>
 
+    <div *ngIf="haveSubmitted">
+        <p>You have already submitted a feedback.</p>
+    </div>
+
     <form [formGroup]="feedbackForm" (ngSubmit)="addFeedback(feedbackForm)">
         <label for="comment">Comment</label>
         <textarea name="comment" formControlName="comment" id="" cols="30" rows="10"></textarea>
@@ -8,7 +12,7 @@
         <div>
             <input type="radio" id="approve" name="status" formControlName="isApproved" value="1">
             <label for="approve">Approve</label><br>
-            
+
             <input type="radio" id="returned" name="status" formControlName="isApproved" value="0">
             <label for="return">Return</label>
         </div>

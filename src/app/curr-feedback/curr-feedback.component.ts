@@ -10,17 +10,16 @@ import { ActivatedRoute } from '@angular/router';
 export class CurrFeedbackComponent implements OnInit {
   // Holds any CURRICULUM Data
   curriculumID: any;
-  curriculumStatus: string | undefined;
+  curriculumStatus: string = "";
+  curriculumData: any;
   keys: any;
 
-  // Holds FEEDBACK Data
+  // Holds FEEDBACK Data and length of FEEDBACK
   feedbacks: any;
-  // Holds the length of FEEDBACK
   feedbackNum: number = 0;
 
-  // Holds STAKEHOLDER Data
+  // Holds STAKEHOLDER Data and length of STAKEHOLDER
   stakeholders: any;
-  // Holds the length of STAKEHOLDER
   stakeholderNum: number = 0;
 
   constructor(private apiService: ApiService,
@@ -31,8 +30,22 @@ export class CurrFeedbackComponent implements OnInit {
       this.curriculumID = params.get('id');
     });
 
+    this.getCurriculumInfo();
     this.getStakeholderNum();
     this.getFeedbacks();
+  }
+
+  // To get the data of a curriculum on the CURRICULUM Table
+  getCurriculumInfo() {
+    this.apiService.getCurriculumInfo(this.curriculumID).subscribe({
+      next: (data) => {
+        console.log("Curr Info Retrieved Successfully", data);
+        this.curriculumData = data;
+      },
+      error: (err) => {
+        console.log("Curr Info Retrieved Failed", err);
+      }
+    })
   }
 
   // To get the feedbacks based on CURRICULUM ID
@@ -42,10 +55,6 @@ export class CurrFeedbackComponent implements OnInit {
         console.log("Feedbacks Retrieved Successfully");
         this.feedbacks = data;
         this.feedbackNum = data.length;
-
-        this.keys = Object.keys(this.feedbacks[0]);
-
-        this.curriculumStatus = this.apiService.getCurriculumStatus(this.feedbacks, this.keys, this.stakeholderNum, this.feedbackNum);
       },
       error: (err) => {
         console.log("Feedbacks Retrieved Failed", err);
