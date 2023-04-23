@@ -3,17 +3,25 @@
 <div class="mainContent">
     <h1 style="padding: 15px 32px; height: 8vh;"> Curriculum Feedback </h1>
 
-    <div class="lowerMainContent"> 
+    <div class="lowerMainContent">
 
         <div class="mx-5 py-3">
 
             <div *ngIf="isTableVisible" class="row" style="margin: 20px 0;">
                 <div class="col-8 d-flex justify-content-start">
                     <div class="d-flex justify-content-start">
-                        <div style="padding-right: 30px;"> <a class="subCategory subCategoryActive" routerLink="/vote"> <h3 class="subCategoryTitle"> All </h3> </a></div>
-                        <div style="padding-right: 30px;"> <a class="subCategory" routerLink="#"> <h3 class="subCategoryTitle"> Pending </h3></a></div>
-                        <div style="padding-right: 30px;"> <a class="subCategory" routerLink="#"> <h3 class="subCategoryTitle"> Approved </h3></a></div>
-                        <div style="padding-right: 30px;"> <a class="subCategory" routerLink="#"> <h3 class="subCategoryTitle"> Rejected </h3></a></div>
+                        <div style="padding-right: 30px;"> <a class="subCategory subCategoryActive" routerLink="/vote">
+                                <h3 class="subCategoryTitle"> All </h3>
+                            </a></div>
+                        <div style="padding-right: 30px;"> <a class="subCategory" routerLink="#">
+                                <h3 class="subCategoryTitle"> Pending </h3>
+                            </a></div>
+                        <div style="padding-right: 30px;"> <a class="subCategory" routerLink="#">
+                                <h3 class="subCategoryTitle"> Approved </h3>
+                            </a></div>
+                        <div style="padding-right: 30px;"> <a class="subCategory" routerLink="#">
+                                <h3 class="subCategoryTitle"> Rejected </h3>
+                            </a></div>
                     </div>
                 </div>
             </div>
@@ -21,12 +29,13 @@
             <!-- Table for displaying the list of users -->
             <div *ngIf="isTableSubmittedVisible">
                 <div class="container-fluid mainTable px-5 py-3">
-                    <table class="table text-center" *ngIf="tempUserType === 'stakeholder'">
+                    <table class="table text-center">
                         <thead>
                             <tr>
                                 <th>Department</th>
                                 <th>Version</th>
                                 <th>Submission Date</th>
+                                <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -35,19 +44,24 @@
                                 <td> {{ curriculum.department }} </td>
                                 <td> {{ curriculum.version }} </td>
                                 <td> {{ curriculum.date_and_time }} </td>
-                                <td> <button class="btn btn-primary btn-sm" routerLink="/feedback/{{curriculum.id}}">View</button> </td>
+                                <td> {{ curriculum.curr_status | titlecase }} </td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm" *ngIf="tempUserType === 'stakeholder'" 
+                                        routerLink="/feedback/{{curriculum.id}}">
+                                        View
+                                    </button>
+                                    <button class="btn btn-primary btn-sm" *ngIf="tempUserType !== 'stakeholder'"
+                                        routerLink="/status/{{curriculum.id}}">
+                                        View
+                                    </button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-
             </div>
-
-
-        
         </div>
     </div>
-
 </div>
 
 
@@ -123,4 +137,4 @@
     <!-- 1 or more STAKEHOLDERS returned the CURRICUL where  -->
     <!-- All STAKEHOLDERS should have voted-->
     <h3>Returned Curriculums</h3>
-</div> 
+</div>
