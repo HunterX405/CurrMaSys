@@ -60,13 +60,14 @@
 
     <!-- List of Curriculums from the Database -->
     <!-- For Stakeholder User Type Only -->
-    <h3>Submitted Curriculums for STAKEHOLDERS</h3>
+    <h3 *ngIf="tempUserType === 'stakeholder'">Submitted Curriculums for STAKEHOLDERS</h3>
     <table class="table" *ngIf="tempUserType === 'stakeholder'">
         <thead>
             <tr>
                 <th>Department</th>
                 <th>Version</th>
                 <th>Submission Date</th>
+                <th>Status</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -75,20 +76,22 @@
                 <td> {{ curriculum.department }} </td>
                 <td> {{ curriculum.version }} </td>
                 <td> {{ curriculum.date_and_time }} </td>
+                <td> {{ curriculum.curr_status | titlecase }} </td>
                 <td> <button routerLink="/feedback/{{curriculum.id}}">View</button> </td>
             </tr>
         </tbody>
     </table>
 
     <!-- List of Curriculums from the Database -->
-    <!-- For Stakeholder User Type Only -->
-    <h3>Submitted Curriculums for ADMIN</h3>
+    <!-- For Admin User Type Only -->
+    <h3 *ngIf="tempUserType !== 'stakeholder'">Submitted Curriculums for ADMIN</h3>
     <table class="table" *ngIf="tempUserType !== 'stakeholder'">
         <thead>
             <tr>
                 <th>Department</th>
                 <th>Version</th>
                 <th>Submission Date</th>
+                <th>Status</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -97,6 +100,7 @@
                 <td> {{ curriculum.department }} </td>
                 <td> {{ curriculum.version }} </td>
                 <td> {{ curriculum.date_and_time }} </td>
+                <td> {{ curriculum.curr_status | titlecase }} </td>
                 <td>
                     <button routerLink="/status/{{curriculum.id}}">
                         View Status

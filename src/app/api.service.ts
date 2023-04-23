@@ -221,9 +221,9 @@ export class ApiService {
   }
 
   // Add Feedback on the VOTE Table
-  addFeedback(comment: string, isApproved: number, userID: string, currID: string) {
-    const feedbackData = { comment, isApproved, userID, currID };
-
+  addFeedback(comment: string, isApproved: number, userID: string, currID: string, haveSubmitted: boolean) {
+    const feedbackData = { comment, isApproved, userID, currID, haveSubmitted };
+    
     return this.httpClient.post<any>(`${this.baseUrl}/addFeedback.php`, feedbackData).pipe(map(data => {
       return data;
     }));
@@ -239,20 +239,20 @@ export class ApiService {
   }
 
   // Get the feedbacks of a specific CURRICULUM
-  getFeedbacks(curriculumID: number) {
-    const credentials = { curriculumID };
+  getFeedbacks(currID: any) {
+    const credentials = { currID };
+
     return this.httpClient.post<any>(this.baseUrl + "/getFeedbacks.php", credentials).pipe(map(data => {
-      console.log("@ Service getFeedbacks");
       return data['feedbacks'];
     }));
   }
 
-  getAllStatus() {
-    return this.httpClient.get<any>(this.baseUrl + "/getCurriculumStatus.php").pipe(
-      map(data => {
-        return data["status"];
-      })
-    )
+  getCurriculumInfo(currID: number) {
+    const credentials = { currID };
+
+    return this.httpClient.post<any>(this.baseUrl + "/getCurriculumInfo.php", credentials).pipe(map(data => {
+      return data;
+    }));
   }
 
   // Determine the status of the specific CURRICULUM
@@ -262,7 +262,7 @@ export class ApiService {
   getCurriculumStatus(curriculumData: any, keys: any, sNum: number, fNum: number) {
     // Condition for stakeholderNum and feedbackNum
     if (sNum !== fNum) {
-      return "Pending";
+      return "pending";
     } else {
       // To iterate the array of the submitted feedback
       for (let i = 0; i < curriculumData.length; i++) {
@@ -273,14 +273,22 @@ export class ApiService {
           if (key === "is_approved") {
             // To check if the current feedback with an key of "is_approved" has a value of 0
             if (curriculumData[i][key] == 0) {
-              return "Returned";
+              return "returned";
             }
           }
         }
       }
       // If the 1st For Loop did not return anything, the staus will be APPROVED
-      return "Approved";
+      return "approved";
     }
+  }
+
+  updateStatus(currID: any, currStatus: any) {
+    const currData = { currID, currStatus };
+
+    return this.httpClient.post<any>(this.baseUrl + "/updateStatus.php", currData).pipe(map(data => {
+      return data;
+    }));
   }
 
   checkJwtToken(): boolean {

@@ -8,10 +8,7 @@ import { ApiService } from '../api.service';
 })
 export class VoteComponent implements OnInit{
   curriculums: any;
-  stakeholders: any;
-  voteCounts: any;
-  stakeholderNum: any;
-
+  
   tempUserType: any;
 
   isTableVisible: boolean = true;
@@ -23,20 +20,10 @@ export class VoteComponent implements OnInit{
 
   ngOnInit(): void {
     this.displayCurriculum();
-    this.getStakeholderNum();
 
     this.apiService.getUserDetails().subscribe(response => {
       this.tempUserType = response.userType;
     });
-
-    this.apiService.getAllStatus().subscribe({
-      next: (data) => {
-        console.log("getAllStatus Successful", data);
-      },
-      error: (err) => {
-        console.log("getAllStatus Failed", err);
-      }
-    })
   }
 
   // Display the list of Curriculum for Stakeholders
@@ -48,21 +35,6 @@ export class VoteComponent implements OnInit{
       },
       error: (err) => {
         console.log("Display Failed", err);
-      }
-    });
-  }
-
-  // Get the data of all the Stakeholder Accounts
-  getStakeholderNum() {
-    this.apiService.getStakeholderNum().subscribe({
-      next: (data) => {
-        console.log("Successful to get Stakeholder Data");
-        this.stakeholders = data;
-        // Get the number of Stakeholder Accounts
-        this.stakeholderNum = this.stakeholders.length;
-      },
-      error: (err) => {
-        console.log("Failed to get Stakeholder Data", err);
       }
     });
   }

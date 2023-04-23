@@ -64,6 +64,10 @@
 <div class="container d-none">
     <h3>Curriculum Details</h3>
 
+    <div *ngIf="haveSubmitted">
+        <p>You have already submitted a feedback.</p>
+    </div>
+
     <form [formGroup]="feedbackForm" (ngSubmit)="addFeedback(feedbackForm)">
         <div>
             <label for="comment">Comment</label>
