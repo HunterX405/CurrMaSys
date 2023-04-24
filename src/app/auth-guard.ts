@@ -17,8 +17,8 @@ export const authGuard = (next: ActivatedRouteSnapshot) => {
         return service.getUserDetails().pipe(
           map((userType) => {
             const userTypeValue = userType['userType'];
-            const expectedUserType = next.data['userType'];
-            if (userTypeValue === expectedUserType) {
+            const expectedUserType = next.data['userType']; 
+            if (expectedUserType.includes(userTypeValue)) {
               console.log('Authorization Granted');
               return true;
             } else {
