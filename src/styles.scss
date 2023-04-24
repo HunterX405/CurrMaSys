@@ -1,8 +1,9 @@
-*{
+* {
     font-family: 'Lato';
 }
 
-h1,h2{
+h1,
+h2 {
     font-family: 'Outfit';
 }
 
@@ -14,11 +15,11 @@ $theme-colors: (
     "dark": #182850,
 );
 
-h1{
+h1 {
     color: map-get($theme-colors, "primary");
 }
 
-h2{
+h2 {
     color: #ffaa28;
 }
 
@@ -26,70 +27,78 @@ h2{
     color: map-get($theme-colors, "danger");
 }
 
-.mainContent{
-    margin-left: 25vh;
+.mainContent {  
+    margin-left: 15%;
 }
 
-.lowerMainContent{
+.lowerMainContent {
     background-color: #eef1f2;
     height: 92vh;
 }
 
-.mainTable, .addForm{
+.mainTable,
+.addForm {
     background-color: #ffffff;
 }
 
-.subCategory{
+.subCategory {
     text-decoration: none;
     color: #444444;
 }
 
-.subCategoryTitle{
+.subCategoryTitle {
     font-family: 'Outfit';
 }
 
-.subCategoryActive, .subCategory:hover {
+.subCategoryActive,
+.subCategory:hover {
     color: #ffaa28;
+}
+
+@media screen and (max-width: 1250px) {
+    .mainContent {  
+        margin-left: 11.5vh;
+    }
 }
 
 
 //ACCOUNTS FILTER
-.top-search{
+.top-search {
     margin-bottom: 100px;
 }
 
-.dataTables_filter{
-    width: max-content;    
+.dataTables_filter {
+    width: max-content;
 }
 
-.dataTables_filter > label {
-   font-weight: bolder;
+.dataTables_filter>label {
+    font-weight: bolder;
 }
 
-.dataTables_filter > label > input {
+.dataTables_filter>label>input {
     width: 30vh;
     padding: 0.7vh;
     margin-left: 1.7vh;
-    
- }
 
-.top-left{
+}
+
+.top-left {
     margin-bottom: 15px;
 }
 
-.top-right{
+.top-right {
     justify-content: right;
     margin-bottom: 15px;
 }
 
-.dataTables_info{
+.dataTables_info {
     font-weight: bold;
     margin-bottom: 10px;
 }
 
 //PAGINATION
-.bottom > .dataTables_paginate > a, 
-.bottom > .dataTables_paginate > span > a{
+.bottom>.dataTables_paginate>a,
+.bottom>.dataTables_paginate>span>a {
     color: black;
     float: left;
     transition: background-color .3s;
@@ -98,9 +107,9 @@ h2{
     border: 1px solid #ddd;
 }
 
-.bottom > .dataTables_paginate > span > .current,
-.bottom > .dataTables_paginate > a:hover:not(.active),
-.bottom > .dataTables_paginate > span > a:hover:not(.active) {
+.bottom>.dataTables_paginate>span>.current,
+.bottom>.dataTables_paginate>a:hover:not(.active),
+.bottom>.dataTables_paginate>span>a:hover:not(.active) {
     background-color: map-get($theme-colors, "primary");
     color: white;
 }

@@ -31,11 +31,13 @@ export class CurriculumViewComponent implements OnInit {
    thirdYearSecondSem: any;
    fourthYearFirstSem: any;
    fourthYearSecondSem: any;
+   currId: any;
 
    ngOnInit(): void {
       // Getting the ID of the Curriculum
       this.route.paramMap.subscribe(params => {
-         this.displayCurriculum(Number(params.get('id')));
+         this.currId = Number(params.get('id'));
+         this.displayCurriculum(this.currId);
       });
    }
 
@@ -63,8 +65,6 @@ export class CurriculumViewComponent implements OnInit {
             console.log("Display Failed", err);
          }
       });
-
-
    }
 
    setForm() {
