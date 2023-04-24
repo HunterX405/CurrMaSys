@@ -1,77 +1,161 @@
 <app-sidenav></app-sidenav>
 
 <div class="mainContent">
-  <h1 style="padding: 15px 32px; height: 8vh;"> Add Curriculum </h1>
 
-  <div class="lowerMainContent">
-    <div class="mx-5 py-3">
-      <form class="form-group" [formGroup]="curriculumForm" (ngSubmit)="addCurriculum(curriculumForm)">
-        <input class="form-control" formControlName="department" placeholder="Department" />
-        <input class="form-control" formControlName="version" placeholder="version" />
-        <br/>
-        <div *ngFor="let subjects of subjectsArray" formArrayName="{{subjects['form']}}">
-          <table class="table-bordered">
-            <tr><th colspan="7">{{subjects['yearTitle']}} YEAR - {{subjects['semTitle']}} SEMESTER</th></tr>
-            <tr><th colspan="2"><button (click)="addNewSubject(subjects['array'])">Add Subject</button></th></tr>
-            <tr *ngIf="subjects['array'].value.length">
-              <th>COURSE</th>
-              <th>LEC UNITS</th>
-              <th>LAB UNITS</th>
-              <th>TOTAL UNITS</th>
-              <th>HOURS PER WEEK</th>
-              <th>PREREQ.</th>
-              <th>CO-REQ.</th>
-              <th>Action</th>
-            </tr>
-            <tr *ngFor="let x of subjects['array'].controls; let i = index;" [formGroupName]="i">
-              <td>
-                <select class="form-control" formControlName="course">
-                  <option value="" selected="true"> Select Course </option>
-                  <option *ngFor="let subject of subjectsList" [value]="subject.id">{{ subject.course_code }} - {{ subject.title }}</option>
-                </select>
-              </td>
-              <td>
-                <input class="form-control" (change)="getTotalUnits(i, subjects['array'])" type="number" min="0" max="3" formControlName="lec_units" />
-              </td>
-              <td>
-                <input class="form-control" (change)="getTotalUnits(i, subjects['array'])" type="number" min="0" max="3" formControlName="lab_units"/>
-              </td>
-              <td>
-                <input class="form-control" type="number" min="0" max="5" formControlName="total_units" readonly
-                 [class.invalid]="subjects['array'].at(i).get('total_units').value > 5"/>
-                 <p *ngIf="subjects['array'].at(i).get('total_units').value > 5">Max of 5 only</p>
-              </td>
-              <td>
-                <input class="form-control" type="number" min="0" max="99" formControlName="hrs"/>
-              </td>
-              <td>
-                <select class="form-control" formControlName="pre_req" multiple>
-                  <option *ngFor="let subject of subjectsList" [value]="subject.course_code">{{ subject.course_code }}</option>
-                </select>
-              </td>
-              <td>
-                <select class="form-control" formControlName="co_req" multiple>
-                  <option *ngFor="let subject of subjectsList" [value]="subject.course_code">{{ subject.course_code }}</option>
-                </select>
-              </td>
-              <td>
-                <button (click)="deleteSubject(i,subjects['array'])">Delete Subject</button>
-              </td>
-            </tr>
-          </table>
-        </div>
-        <div class="d-flex justify-content-end" style="margin: 5px 0;">
-          <button class="btn btn-primary">Add</button>
-        </div>
-      </form>
+   <h1 style="padding: 15px 32px; height: 8vh;"> Curriculums </h1>
 
-      <b>Form's Value:</b>
-      {{ curriculumForm.value | json }}
-      <br />
-      <b>Form is Valid ? :</b>
-      {{ curriculumForm.valid }}
+   <div class="lowerMainContent">
 
-    </div>
-  </div>
+      <div class="mx-5 py-3">
 
+         <div *ngIf="isTableVisible" class="row" style="margin: 20px 0;">
+            <div class="col-8 d-flex justify-content-start">
+
+               <div class="d-flex justify-content-start">
+                  <div style="padding-right: 30px;">
+                     <h3 class="subCategoryTitle subCategoryActive"> List </h3>
+                  </div>
+
+               </div>
+            </div>
+
+            <div class="col-4 d-flex justify-content-end">
+               <button (click)="onAdd()" type="button" class="btn btn-primary btn-sm">
+                  <img src="../../assets/images/icon_add.png" style="width: 20px; height: 20px; margin-bottom: 2px;"
+                     alt="Plus Button">
+                  <span> &nbsp; <strong> ADD </strong> &nbsp;&nbsp; </span>
+               </button>
+            </div>
+
+         </div>
+
+         <div *ngIf="!isTableVisible" class="d-flex justify-content-start" style="margin: 10px 0;">
+            <button (click)="onGoBack()" type="button" class="btn p-0">
+               <img class="logoImg " src="../../assets/images/icon_back_btn.png" alt="BACK BUTTON">
+               <strong> GO BACK </strong>
+            </button>
+         </div>
+
+         <!-- Table for displaying the list of curriculums -->
+         <div *ngIf="isTableVisible">
+
+            <div class="container-fluid mainTable px-5 py-3">
+               <table id="curriculumsTable" class="table text-center">
+                  <thead>
+                     <tr>
+                        <th>Department</th>
+                        <th>Version</th>
+                        <th>Submission Date</th>
+                        <th>Actions</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr *ngFor="let curriculum of curriculums">
+                        <td> {{ curriculum.department }} </td>
+                        <td> {{ curriculum.version }} </td>
+                        <td> {{ curriculum.date_and_time }} </td>
+                        <td> <button class="btn btn-primary btn-sm" routerLink="/curriculum/{{curriculum.id}}">View</button>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+
+         <div *ngIf="!isTableVisible" class="addForm p-5">
+
+            <h2> Add Curriculum </h2>
+
+            <form [formGroup]="curriculumForm" (ngSubmit)="addCurriculum(curriculumForm)">
+
+               <div class="form-group pb-3">
+                  <label for="department">Department</label>
+                  <input class="form-control" formControlName="department" placeholder="Department" />
+               </div>
+
+               <div class="form-group pb-3">
+                  <label for="version">Version name</label>
+                  <input class="form-control" formControlName="version" placeholder="Version name" />
+               </div>
+
+               <div class="pb-3" *ngFor="let subjects of subjectsArray" formArrayName="{{subjects['form']}}">
+                  <table class="container-fluid mainTable px-5 py-3">
+                     <tr>
+                        <th>{{subjects['yearTitle']}} YEAR - {{subjects['semTitle']}} SEMESTER</th>
+                     </tr>
+                     <tr>
+                        <th><button (click)="addNewSubject(subjects['array'])">Add Subject</button></th>
+                     </tr>
+                     <tr *ngIf="subjects['array'].value.length">
+                        <th>COURSE</th>
+                        <th>LEC UNITS</th>
+                        <th>LAB UNITS</th>
+                        <th>TOTAL UNITS</th>
+                        <th>HOURS PER WEEK</th>
+                        <th>PREREQ.</th>
+                        <th>CO-REQ.</th>
+                        <th>Action</th>
+                     </tr>
+                     <tr *ngFor="let x of subjects['array'].controls; let i = index;" [formGroupName]="i">
+                        <td>
+                           <select class="form-control" formControlName="course" style="padding: 5px;">
+                              <option value="" selected="true"> Select Course </option>
+                              <option *ngFor="let subject of subjectsList" [value]="subject.id">
+                                 {{subject.course_code}} - {{ subject.title }}
+                              </option>
+                           </select>
+                        </td>
+                        <td>
+                           <input class="form-control" (change)="getTotalUnits(i, subjects['array'])" type="number"
+                              min="0" max="3" formControlName="lec_units" />
+                        </td>
+                        <td>
+                           <input class="form-control" (change)="getTotalUnits(i, subjects['array'])" type="number"
+                              min="0" max="3" formControlName="lab_units" />
+                        </td>
+                        <td>
+                           <input class="form-control" type="number" min="0" max="5" formControlName="total_units"
+                              readonly [class.invalid]="subjects['array'].at(i).get('total_units').value > 5" />
+                           <p *ngIf="subjects['array'].at(i).get('total_units').value > 5">Max of 5 only</p>
+                        </td>
+                        <td>
+                           <input class="form-control" type="number" min="0" max="99" formControlName="hrs" />
+                        </td>
+                        <td>
+                           <select class="form-control" formControlName="pre_req" style="padding: 5px;" multiple>
+                              <option *ngFor="let subject of subjectsList" [value]="subject.id">{{
+                                 subject.course_code }}</option>
+                           </select>
+                        </td>
+                        <td>
+                           <select class="form-control" formControlName="co_req" style="padding: 5px;">
+                              <option value="" selected="true">None</option>
+                              <option *ngFor="let subject of subjectsList" [value]="subject.id">
+                                 {{subject.course_code }}
+                              </option>
+                           </select>
+                        </td>
+                        <td>
+                           <button (click)="deleteSubject(i,subjects['array'])">Delete Subject</button>
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+
+               <div class="d-flex justify-content-end" style="margin: 5px 0;">
+                  <button class="btn btn-primary">Add</button>
+               </div>
+
+               <!-- FOR DEBUGGING ONLY -->
+               <b>Form's Value:</b>
+               {{ curriculumForm.value | json }}
+               <br />
+               <b>Form is Valid ? :</b>
+               {{ curriculumForm.valid }}
+            </form>
+         </div>
+
+      </div>
+
+   </div>
 </div>

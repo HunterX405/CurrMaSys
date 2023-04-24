@@ -1,7 +1,6 @@
 <?php
   include_once("database.php");
 
-  $resultData = [];
   // Selecting all properties of the table users
   $query = "SELECT id, name, email, userType, isActive FROM users";
   $result = executeQuery($query);
