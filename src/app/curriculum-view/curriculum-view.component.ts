@@ -1,47 +1,77 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormArray, FormBuilder } from '@angular/forms';
 import { ApiService } from '../api.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-   selector: 'app-curriculum',
-   templateUrl: './curriculum.component.html',
-   styleUrls: ['./curriculum.component.css']
+   selector: 'app-curriculum-view',
+   templateUrl: './curriculum-view.component.html',
+   styleUrls: ['./curriculum-view.component.css']
 })
-export class CurriculumComponent implements OnInit {
+export class CurriculumViewComponent implements OnInit {
 
    constructor(
       private fb: FormBuilder,
-      private apiService: ApiService
+      private apiService: ApiService,
+      private route: ActivatedRoute
    ) { }
 
    isTableVisible: boolean = true;
-   curriculums: any;
+   curriculum: any;
    subjectsList: any;
    curriculumForm!: FormGroup;
    subjectsArray: any;
    isFormSet: boolean = false;
+   yearSem: any;
+   firstYearFirstSem: any;
+   firstYearSecondSem: any;
+   secondYearFirstSem: any;
+   secondYearSecondSem: any;
+   thirdYearFirstSem: any;
+   thirdYearSecondSem: any;
+   fourthYearFirstSem: any;
+   fourthYearSecondSem: any;
 
    ngOnInit(): void {
-      this.displayCurriculum();
+      // Getting the ID of the Curriculum
+      this.route.paramMap.subscribe(params => {
+         this.displayCurriculum(Number(params.get('id')));
+      });
    }
 
-   displayCurriculum() {
-      this.apiService.displayCurriculum().subscribe({
+   displayCurriculum(currId: number) {
+      this.apiService.getCurriculum(currId).subscribe({
          next: (data) => {
-            console.log("Display Successful");
-            this.curriculums = data;
+            console.log("Get Curriculum Success", data);
+            this.curriculum = data.curriculum;
+            this.firstYearFirstSem = data.subjects.filter(subject => subject.year === 1 && subject.semester === 1);
+            this.firstYearSecondSem = data.subjects.filter(subject => subject.year === 1 && subject.semester === 2);
+            this.secondYearFirstSem = data.subjects.filter(subject => subject.year === 2 && subject.semester === 1);
+            this.secondYearSecondSem = data.subjects.filter(subject => subject.year === 2 && subject.semester === 2);
+            this.thirdYearFirstSem = data.subjects.filter(subject => subject.year === 3 && subject.semester === 1);
+            this.thirdYearSecondSem = data.subjects.filter(subject => subject.year === 3 && subject.semester === 2);
+            this.fourthYearFirstSem = data.subjects.filter(subject => subject.year === 4 && subject.semester === 1);
+            this.fourthYearSecondSem = data.subjects.filter(subject => subject.year === 4 && subject.semester === 2);
+            this.yearSem = [
+               { 'yearTitle': 'FIRST', 'sem1': this.firstYearFirstSem, 'sem2': this.firstYearSecondSem },
+               { 'yearTitle': 'SECOND', 'sem1': this.secondYearFirstSem, 'sem2': this.secondYearSecondSem },
+               { 'yearTitle': 'THIRD', 'sem1': this.thirdYearFirstSem, 'sem2': this.thirdYearSecondSem },
+               { 'yearTitle': 'FOURTH', 'sem1': this.fourthYearFirstSem, 'sem2': this.fourthYearSecondSem },
+            ];
          },
          error: (err) => {
             console.log("Display Failed", err);
          }
       });
+
+
    }
 
    setForm() {
       console.log('@setForm')
       this.curriculumForm = this.fb.group({
-         department: ['',Validators.required],
-         version: ['',Validators.required],
+         department: ['', Validators.required],
+         version: ['', Validators.required],
          firstYearFirstSemSubjects: this.fb.array([]),
          firstYearSecondSemSubjects: this.fb.array([]),
          secondYearFirstSemSubjects: this.fb.array([]),
@@ -75,7 +105,7 @@ export class CurriculumComponent implements OnInit {
       });
    }
 
-   onAdd() {
+   onEdit() {
       if (!this.isFormSet) {
          this.setForm();
          this.isFormSet = true;
@@ -112,20 +142,30 @@ export class CurriculumComponent implements OnInit {
       return <FormArray>this.curriculumForm.get('fourthYearSecondSemSubjects');
    }
 
-   createSubject() {
+   defaultSubject = {
+      course: '',
+      lec_units: 0,
+      lab_units: 0,
+      total_units: 0,
+      hrs: 0,
+      pre_req: '',
+      co_req: ''
+   };
+
+   createSubject(subject: any) {
       return this.fb.group({
-         course: ['', Validators.required],
-         lec_units: [0, [Validators.min(0), Validators.max(3), Validators.required]],
-         lab_units: [0, [Validators.min(0), Validators.max(3), Validators.required]],
-         total_units: [0, [Validators.min(0), Validators.max(5)]],
-         hrs: [0, Validators.required],
-         pre_req: '',
-         co_req: '',
+         course: [subject.course, Validators.required],
+         lec_units: [subject.lec_units, [Validators.min(0), Validators.max(3), Validators.required]],
+         lab_units: [subject.lab_units, [Validators.min(0), Validators.max(3), Validators.required]],
+         total_units: [subject.total_units, [Validators.min(0), Validators.max(5)]],
+         hrs: [subject.hrs, Validators.required],
+         pre_req: subject.pre_req,
+         co_req: subject.co_req,
       });
    }
 
    addNewSubject(subjects: FormArray) {
-      let formGroup = this.createSubject();
+      let formGroup = this.createSubject(this.defaultSubject);
       subjects.push(formGroup);
    }
 
@@ -140,7 +180,7 @@ export class CurriculumComponent implements OnInit {
       subjects.at(id).get('total_units')?.setValue(lab + lec);
    }
 
-   addCurriculum(curriculumForm: FormGroup) {
+   editCurriculum(curriculumForm: FormGroup) {
       console.log("@ addCurriculum");
 
       if (curriculumForm.valid) {

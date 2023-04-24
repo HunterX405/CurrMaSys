@@ -23,6 +23,7 @@ import { SubmitFeedbackComponent } from './submit-feedback/submit-feedback.compo
 import { CurrFeedbackComponent } from './curr-feedback/curr-feedback.component';
 import { CurriculumComponent } from './curriculum/curriculum.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { CurriculumViewComponent } from './curriculum-view/curriculum-view.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
     CurrFeedbackComponent,
     CurriculumComponent,
     UnauthorizedComponent,
+    CurriculumViewComponent,
   ],
   imports: [
     BrowserModule,
