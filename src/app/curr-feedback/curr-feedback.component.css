@@ -1,0 +1,18 @@
+.logoImg {
+    margin-right: 3px;
+    margin-bottom: 3px;
+    width: 15px;
+    height: 15px;
+  }
+  
+.activeStatus {
+    color: #31a24c;
+  }
+  
+.inactiveStatus {
+    color: #686868;
+}
+
+.returnedStatus {
+    color: #ee404c;
+  }

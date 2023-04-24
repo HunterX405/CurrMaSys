@@ -29,7 +29,6 @@ export class SubmitFeedbackComponent implements OnInit {
     comment: [""],
     isApproved: ["", [Validators.required]]
   })
-  // router: any;
 
   constructor(private fb: FormBuilder,
     private apiService: ApiService,
@@ -53,15 +52,21 @@ export class SubmitFeedbackComponent implements OnInit {
   isFormSubmitted: boolean = false;
   isSuccess: boolean = false;
   isWrong: boolean = false;
+
   // Submits the Feedback on the Database
   addFeedback(feedbackForm: FormGroup) {
     const { comment, isApproved } = feedbackForm.value;
-    if ((comment == "" && isApproved == 1) || (comment != "" && isApproved == 0)) {
+
+    if ((isApproved == 1) || (comment != "" && isApproved == 0)) {
       if (this.feedbackForm.valid) {
         this.apiService.addFeedback(comment, isApproved, this.userID, this.curriculumID, this.haveSubmitted).subscribe({
           next: (data) => {
             this.isSuccess = true;
             console.log("Adding Feedback Successful", data);
+
+            this.getStakeholderNum();
+            this.updateStatus(this.curriculumID);
+
             alert("Feedback submitted.");
             this.router.navigate(['/vote']);
           },
@@ -70,11 +75,9 @@ export class SubmitFeedbackComponent implements OnInit {
           }
         });
       }
-    }
-    else if (isApproved == 1) {
+    } else if (isApproved == 1) {
       this.isWrong = false;
-    }
-    else {
+    } else {
       this.isWrong = true;
     }
     this.isFormSubmitted = true;
@@ -173,7 +176,7 @@ export class SubmitFeedbackComponent implements OnInit {
   get comment() { return this.feedbackForm.value.comment }
   get isApproved() { return this.feedbackForm.value.isApproved }
 
-  goBack(){
+  goBack() {
     this.router.navigate(['/vote']);
   }
 }

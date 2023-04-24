@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-curr-feedback',
@@ -23,7 +23,9 @@ export class CurrFeedbackComponent implements OnInit {
   stakeholderNum: number = 0;
 
   constructor(private apiService: ApiService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private router: Router
+    ) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -76,4 +78,9 @@ export class CurrFeedbackComponent implements OnInit {
       }
     });
   }
+
+  onGoBack() {
+    this.router.navigate(['/vote']);
+  }
+
 }
