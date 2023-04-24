@@ -2,30 +2,68 @@
 
 <div class="mainContent">
 
-   <h1 style="padding: 15px 32px; height: 8vh;"> Curriculums </h1>
+   <h1 style="padding: 15px 32px; height: 8%;"> Curriculums </h1>
 
    <div class="lowerMainContent">
 
       <div class="mx-5 py-3">
 
-         <div *ngIf="isTableVisible && curriculum" class="row" style="margin: 20px 0;">
-            <div class="col-8 d-flex justify-content-start">
+         <div *ngIf="isTableVisible && curriculum" style="margin: 20px 0;">
 
-               <div class="d-flex justify-content-start">
-                  <div style="padding-right: 30px;">
-                     <h3 class="subCategoryTitle subCategoryActive"> Department: {{ curriculum.department }} </h3>
-                     <h4 class="subCategoryTitle subCategoryActive"> Version: {{ curriculum.version }} </h4>
+            <div class="row">
+               <div class="col-8 d-flex justify-content-start">
+
+                  <div class="d-flex justify-content-start">
+                     <div style="padding-right: 30px;">
+                        <h3 class="subCategoryTitle subCategoryActive"> View </h3>
+                     </div>
+   
                   </div>
-
+               </div>
+   
+               <div class="col-4 d-flex justify-content-end">
+                  <button routerLink="/curriculum/print/{{currId}}" class="btn btn-primary mx-2"> <span> &nbsp; <strong> TO PDF</strong> &nbsp;&nbsp; </span> </button>
+                  <button (click)="onEdit()" type="button" class="btn btn-primary">           
+                     <span> &nbsp; <strong> EDIT CONTENT</strong> &nbsp;&nbsp; </span>
+                  </button>
                </div>
             </div>
 
-            <div class="col-4 d-flex justify-content-end">
-               <button (click)="onEdit()" type="button" class="btn btn-primary btn-sm">
-                  <img src="../../assets/images/icon_add.png" style="width: 20px; height: 20px; margin-bottom: 2px;"
-                     alt="Plus Button">
-                  <span> &nbsp; <strong> EDIT </strong> &nbsp;&nbsp; </span>
-               </button>
+            <div class="row" style="padding-top: 30px;">
+               <div class="col-md-6">
+                  <div class="row card border-0 m-2">
+                     <div class="card-body">
+                        <div class="row">
+                           <div class="d-flex justify-content-center col-2">
+                              <img src="../../assets/images/icon_department.png" style="width:60px; height:60px;"
+                                 alt="DASHBOARD">
+                           </div>
+                           <div class="col-10">
+                              <h6 class="card-title"> <strong> Department: </strong> </h6>
+                              <h3 class="card-subtitle mb-2" style="font-weight:bolder; color: #222222">{{
+                                 curriculum.department }} </h3>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-6">
+                  <div class="row card border-0 m-2">
+                     <div class="card-body">
+                        <div class="row">
+                           <div class="d-flex justify-content-center col-2">
+                              <img src="../../assets/images/icon_paper.png" style="width:60px; height:60px;"
+                                 alt="BASE SUBJECT">
+                           </div>
+                           <div class="col-10">
+                              <h6 class="card-title"> <strong> Version: </strong> </h6>
+                              <h3 class="card-subtitle mb-2" style="font-weight:bolder; color: #222222">{{
+                                 curriculum.version }} </h3>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
             </div>
 
          </div>
@@ -41,29 +79,30 @@
          <div *ngIf="isTableVisible">
 
             <div class="container-fluid mainTable px-5 py-3" *ngFor="let subjects of yearSem">
-               <table id="curriculumsTable" class="table text-center">
+            
+               <table id="curriculumsTable" class="table">
                   <thead>
-                     <tr>
-                        <th colspan="8">{{subjects['yearTitle']}} YEAR</th>
+                     <tr class="text-center">
+                        <th colspan="8"> <h4 style="font-family:'Outfit'"> {{subjects['yearTitle']}} YEAR</h4> </th>
                      </tr>
-                     <tr>
-                        <th colspan="2">FIRST SEMESTER</th>
+                     <tr class="text-left">
+                        <th colspan="8"> <h5 style="margin-top: 25px;"> <strong> FIRST SEMESTER: </strong> </h5>  </th>
                      </tr>
-                     <tr *ngIf="subjects['sem1'].length">
+                     <tr *ngIf="subjects['sem1'].length" class="text-center">
                         <th>COURSE CODE</th>
                         <th>DESCRIPTIVE TITLE</th>
                         <th>LEC UNITS</th>
                         <th>LAB UNITS</th>
                         <th>TOTAL UNITS</th>
-                        <th>HOURS PER WEEK</th>
+                        <th>HRS / WEEK</th>
                         <th>PREREQ.</th>
                         <th>CO-REQ.</th>
                      </tr>
-                     <tr *ngIf="!subjects['sem1'].length">
+                     <tr *ngIf="!subjects['sem1'].length" class="text-center">
                         <th colspan="8s">NO SUBJECTS</th>
                      </tr>
                   </thead>
-                  <tbody *ngFor="let subject of subjects['sem1']">
+                  <tbody *ngFor="let subject of subjects['sem1']" class="text-center">
                      <td>{{ subject.course_code }}</td>
                      <td>{{ subject.title }}</td>
                      <td>{{ subject.lec_units }}</td>
@@ -76,24 +115,24 @@
                      <td *ngIf="!subject.co_requisite">None</td>
                   </tbody>
                   <thead>
-                     <tr>
-                        <th colspan="2">SECOND SEMESTER</th>
+                     <tr class="text-left">
+                        <th colspan="8"> <h5 style="margin-top: 25px;"> <strong> SECOND SEMESTER: </strong> </h5>  </th>
                      </tr>
-                     <tr *ngIf="subjects['sem2'].length">
+                     <tr *ngIf="subjects['sem2'].length" class="text-center">
                         <th>COURSE CODE</th>
                         <th>DESCRIPTIVE TITLE</th>
                         <th>LEC UNITS</th>
                         <th>LAB UNITS</th>
                         <th>TOTAL UNITS</th>
-                        <th>HOURS PER WEEK</th>
+                        <th>HRS / WEEK</th>
                         <th>PREREQ.</th>
                         <th>CO-REQ.</th>
                      </tr>
-                     <tr *ngIf="!subjects['sem2'].length">
+                     <tr *ngIf="!subjects['sem2'].length" class="text-center">
                         <th colspan="8">NO SUBJECTS</th>
                      </tr>
                   </thead>
-                  <tbody *ngFor="let subject of subjects['sem2']">
+                  <tbody *ngFor="let subject of subjects['sem2']" class="text-center">
                      <td>{{ subject.course_code }}</td>
                      <td>{{ subject.title }}</td>
                      <td>{{ subject.lec_units }}</td>
@@ -204,4 +243,5 @@
       </div>
 
    </div>
+
 </div>

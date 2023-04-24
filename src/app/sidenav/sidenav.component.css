@@ -3,19 +3,26 @@
 .l-navbar {
   position: fixed;
   top: 0;
+  left: 0;
   height: 100vh;
-  transition: .5s;
+  transition: .3s;
   /*left: -30%;*/
   /*padding: .3rem 1rem 0 0;*/
-  width: 25vh;
+  width: 15%;
 
   background-color: #182850;
-  left: 0;
-  padding: 0.2rem 0 0 0
+  padding: 0.2rem 0 0 0;
+ 
     /* z-index: var(--z-fixed); */
     /*background-color: var(--first-color); */
     /* width: var(--nav-width); */
 }
+
+@media screen and (max-width: 1250px) {
+  .l-navbar {  
+      width: 11.5vh;
+  }
+} 
 
 .nav {
   display: flex;

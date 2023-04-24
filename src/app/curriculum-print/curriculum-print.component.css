@@ -1,0 +1,9 @@
+.mainPrintContent{
+    margin-left: 0%;
+}
+
+@media print {
+    @page {
+        margin: 0.7in;
+    }
+}

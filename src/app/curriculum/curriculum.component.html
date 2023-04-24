@@ -2,7 +2,7 @@
 
 <div class="mainContent">
 
-   <h1 style="padding: 15px 32px; height: 8vh;"> Curriculums </h1>
+   <h1 style="padding: 15px 32px; height: 8%;"> Curriculums </h1>
 
    <div class="lowerMainContent">
 
@@ -54,7 +54,8 @@
                         <td> {{ curriculum.department }} </td>
                         <td> {{ curriculum.version }} </td>
                         <td> {{ curriculum.date_and_time }} </td>
-                        <td> <button class="btn btn-primary btn-sm" routerLink="/curriculum/{{curriculum.id}}">View</button>
+                        <td> <button class="btn btn-primary btn-sm"
+                              routerLink="/curriculum/{{curriculum.id}}">View</button>
                         </td>
                      </tr>
                   </tbody>
@@ -70,64 +71,72 @@
 
                <div class="form-group pb-3">
                   <label for="department">Department</label>
-                  <input class="form-control" formControlName="department" placeholder="Department" />
+                  <input class="form-control" formControlName="department" placeholder="Department" 
+                  [class.invalid]="curriculumForm.get('department')?.hasError('required') && (curriculumForm.get('department')?.dirty || curriculumForm.get('department')?.touched || isSubmitted)"/>
                </div>
 
-               <div class="form-group pb-3">
+               <div class="form-group pb-5">
                   <label for="version">Version name</label>
-                  <input class="form-control" formControlName="version" placeholder="Version name" />
+                  <input class="form-control" formControlName="version" placeholder="Version name" 
+                  [class.invalid]="curriculumForm.get('version')?.hasError('required') && (curriculumForm.get('version')?.dirty || curriculumForm.get('version')?.touched || isSubmitted)"/>
                </div>
 
                <div class="pb-3" *ngFor="let subjects of subjectsArray" formArrayName="{{subjects['form']}}">
-                  <table class="container-fluid mainTable px-5 py-3">
-                     <tr>
-                        <th>{{subjects['yearTitle']}} YEAR - {{subjects['semTitle']}} SEMESTER</th>
+                  <table class="container-fluid mainTable px-5 py-3" style="margin-bottom: 30px">
+                     <tr style="width:35%;">
+                        <th>
+                           <div class="row">       
+                            <span>
+                              <h6 style="margin-bottom:15px; padding-bottom:5px; border-bottom: 0.2px solid rgba(104, 104, 104, 0.5);"> <strong> {{subjects['yearTitle']}} YEAR - {{subjects['semTitle']}} SEMESTER &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </strong>                                
+                                 <span class="addSub"> <a (click)="addNewSubject(subjects['array'])"> + ADD SUBJECT </a> </span> </h6> 
+                            </span>
+                                                                           
+                                                                                                                                                                             
+                           </div>
+                        </th>
                      </tr>
-                     <tr>
-                        <th><button (click)="addNewSubject(subjects['array'])">Add Subject</button></th>
+                     <tr *ngIf="subjects['array'].value.length" class="text-center">
+                        <th class="p-1">COURSE</th>
+                        <th class="p-1">LEC UNITS</th>
+                        <th class="p-1">LAB UNITS</th>
+                        <th class="p-1">TOTAL UNITS</th>
+                        <th class="p-1">HOURS PER WEEK</th>
+                        <th class="p-1">PREREQ.</th>
+                        <th class="p-1">CO-REQ.</th>
+                        <th class="p-1">Action</th>
                      </tr>
-                     <tr *ngIf="subjects['array'].value.length">
-                        <th>COURSE</th>
-                        <th>LEC UNITS</th>
-                        <th>LAB UNITS</th>
-                        <th>TOTAL UNITS</th>
-                        <th>HOURS PER WEEK</th>
-                        <th>PREREQ.</th>
-                        <th>CO-REQ.</th>
-                        <th>Action</th>
-                     </tr>
-                     <tr *ngFor="let x of subjects['array'].controls; let i = index;" [formGroupName]="i">
-                        <td>
-                           <select class="form-control" formControlName="course" style="padding: 5px;">
+                     <tr *ngFor="let x of subjects['array'].controls; let i = index;" [formGroupName]="i" class="text-center">
+                        <td class="px-1">
+                           <select class="form-control" formControlName="course" style="padding: 5px;" [class.invalid]="subjects['array'].at(i).get('course')?.pristine &&isSubmitted ">
                               <option value="" selected="true"> Select Course </option>
                               <option *ngFor="let subject of subjectsList" [value]="subject.id">
                                  {{subject.course_code}} - {{ subject.title }}
                               </option>
                            </select>
                         </td>
-                        <td>
+                        <td class="px-1">
                            <input class="form-control" (change)="getTotalUnits(i, subjects['array'])" type="number"
                               min="0" max="3" formControlName="lec_units" />
                         </td>
-                        <td>
+                        <td class="px-1">
                            <input class="form-control" (change)="getTotalUnits(i, subjects['array'])" type="number"
                               min="0" max="3" formControlName="lab_units" />
                         </td>
-                        <td>
+                        <td class="px-1">
                            <input class="form-control" type="number" min="0" max="5" formControlName="total_units"
                               readonly [class.invalid]="subjects['array'].at(i).get('total_units').value > 5" />
                            <p *ngIf="subjects['array'].at(i).get('total_units').value > 5">Max of 5 only</p>
                         </td>
-                        <td>
+                        <td class="px-1">
                            <input class="form-control" type="number" min="0" max="99" formControlName="hrs" />
                         </td>
-                        <td>
+                        <td class="px-1">
                            <select class="form-control" formControlName="pre_req" style="padding: 5px;" multiple>
                               <option *ngFor="let subject of subjectsList" [value]="subject.id">{{
                                  subject.course_code }}</option>
                            </select>
                         </td>
-                        <td>
+                        <td class="px-1">
                            <select class="form-control" formControlName="co_req" style="padding: 5px;">
                               <option value="" selected="true">None</option>
                               <option *ngFor="let subject of subjectsList" [value]="subject.id">
@@ -135,15 +144,15 @@
                               </option>
                            </select>
                         </td>
-                        <td>
-                           <button (click)="deleteSubject(i,subjects['array'])">Delete Subject</button>
+                        <td class="px-1">
+                           <button (click)="deleteSubject(i,subjects['array'])" class="btn btn-danger btn-sm text-white">Delete</button>
                         </td>
                      </tr>
                   </table>
                </div>
 
                <div class="d-flex justify-content-end" style="margin: 5px 0;">
-                  <button class="btn btn-primary">Add</button>
+                  <button class="btn btn-primary">Add Curriculum</button>
                </div>
 
                <!-- FOR DEBUGGING ONLY -->
@@ -159,3 +168,27 @@
 
    </div>
 </div>
+
+<!-- <table class="wrapperTable">
+   <tr>
+      
+      <td>
+
+      </td>
+
+      
+      <td>
+
+      </td>
+
+      
+      <td>
+
+      </td>
+
+      
+      <td>
+
+      </td>
+   </tr>
+</table> -->

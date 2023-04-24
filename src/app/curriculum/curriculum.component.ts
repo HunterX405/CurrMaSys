@@ -14,6 +14,7 @@ export class CurriculumComponent implements OnInit {
       private apiService: ApiService
    ) { }
 
+   isSubmitted: boolean = false;
    isTableVisible: boolean = true;
    curriculums: any;
    subjectsList: any;
@@ -156,5 +157,7 @@ export class CurriculumComponent implements OnInit {
             }
          });
       }
+      this.isSubmitted = true;
+      
    }
 }
