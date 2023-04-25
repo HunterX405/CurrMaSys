@@ -67,67 +67,6 @@ export class CurriculumViewComponent implements OnInit {
                { 'yearTitle': 'FOURTH', 'sem1': this.fourthYearFirstSem, 'sem2': this.fourthYearSecondSem },
 
             ];
-            // setTimeout(() => {
-            //    // jQuery $(document).ready(function({})) is deprecated, Use $(function() {} instead.
-            //    $(function() {
-            //      $('#curriculumsTable').DataTable( {
-            //        dom: 'Brt',
-
-            //        buttons: [
-            //          {
-            //            extend: 'print',
-            //            text: 'PDF',
-            //            className: 'btn btn-primary',
-
-            //          },
-            //        ],
-            //        "ordering": false,
-
-            //      });
-            //    });
-            //  }, 0);
-
-            $(function () {
-               $('#FIRST').DataTable({
-                  dom: 'Brtip',
-                  buttons: [
-                     {
-                        extend: 'print',
-                        exportOptions: {
-                           columns: [0], // print all visible columns in the wrapper table
-                        }
-                     }
-                  ]
-               });
-
-               $('#SECOND').DataTable({
-                  dom: 'Bfrtip',
-                  buttons: [
-                     {
-                        extend: 'print',
-                        exportOptions: {
-                           columns: [0], // print all visible columns in the wrapper table
-                        }
-                     }
-                  ]
-               });
-
-               $('#curriculumsTable').DataTable({
-                  dom: 'Bfrtip',
-                  buttons: [
-                     {
-                        extend: 'print',
-                        exportOptions: {
-                           columns: ':visible', // print all visible columns in the wrapper table
-                           modifier: {
-                              selected: true // include only selected tables
-                           }
-                        }
-                     }
-                  ]
-               });
-            });
-
          },
          error: (err) => {
             console.log("Display Failed", err);

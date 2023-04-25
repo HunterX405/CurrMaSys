@@ -38,7 +38,9 @@ ngOnInit(): void {
 }
 
 ngAfterViewInit(): void {
-  window.print();
+  if(this.curriculumData){
+    window.print();
+  }
 }
 
 // To get the data of a curriculum on the CURRICULUM Table
