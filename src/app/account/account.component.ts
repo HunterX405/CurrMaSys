@@ -68,7 +68,7 @@ export class AccountComponent implements OnInit {
             "htmlContent": "Hello " + data?.name + ",<br><br>Your password is " + data?.password + "<br><br>Best regards,<br>CurrMaSys",
             "subject": "Registration Successful"
           };
-          const headers = { "Content-Type": "application/json", "api-key": "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" };
+          const headers = { "Content-Type": "application/json", "api-key": "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"};
           this.httpClient.post("https://api.sendinblue.com/v3/smtp/email", emailData, { headers }).subscribe(
             response => location.reload(),
             error => console.log("Failed to send email", error)

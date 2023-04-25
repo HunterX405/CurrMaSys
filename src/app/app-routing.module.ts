@@ -18,27 +18,29 @@ import { CurrFeedbackComponent } from './curr-feedback/curr-feedback.component';
 import { CurriculumComponent } from './curriculum/curriculum.component';
 import { CurriculumViewComponent } from './curriculum-view/curriculum-view.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { FeedbackPrintComponent } from './feedback-print/feedback-print.component';
 import { CurriculumPrintComponent } from './curriculum-print/curriculum-print.component';
-
 
 const routes: Routes = [
    { path: "login", component: LoginComponent, title: "Login" },
    { path: "unauthorized", component: UnauthorizedComponent, title: "Unauthorized" },
    { path: "forgot-password", component: ForgotPasswordComponent, title: "Forgot Password" },
-   { path: "dashboard", component: DashboardComponent, title: "Dashboard" , data: { userType: ['admin','chair','member','stakeholder'] }},
-   { path: "subject", component: SubjectComponent, title: "Subjects" ,data: { userType: ['admin','chair','member'] }},
-   { path: "subject-edit/:id", component: EditSubjectComponent, title: "Edit Subject" },
-   { path: "elective", component: ElectiveSubjComponent, title: "Elective" },
-   { path: "elective-edit/:id", component: EditElectiveComponent, title: "Edit Elective" },
-   { path: "account", component: AccountComponent, title: "Accounts", canActivate: [authGuard], data: { userType: 'admin'}},
-   { path: "profile", component: ProfileComponent, title: "Profile" },
-   { path: "deactivate/:id", component: DisableUserComponent, title: "Disable User" },
-   { path: "activate/:id", component: EnableUserComponent, title: "Enable User" },
-   { path: "vote", component: VoteComponent, title: "Curriculum Feedback" },
-   { path: "feedback/:id", component: SubmitFeedbackComponent, title: "Feedback",data: { userType: 'stakeholder'} },
-   { path: "status/:id", component: CurrFeedbackComponent, title: "Curriculum Status" },
+   { path: "dashboard", component: DashboardComponent, title: "Dashboard", canActivate: [authGuard], data: { userType: ['admin','chair','member','stakeholder'] }},
+   { path: "subject", component: SubjectComponent, title: "Subjects", canActivate: [authGuard],data: { userType: ['admin','chair','member'] }},
+   { path: "subject-edit/:id", component: EditSubjectComponent, title: "Edit Subject", canActivate: [authGuard], data: { userType: ['admin','chair','member'] }},
+   { path: "elective", component: ElectiveSubjComponent, title: "Elective", canActivate: [authGuard], data: { userType: ['admin','chair','member'] }},
+   { path: "elective-edit/:id", component: EditElectiveComponent, title: "Edit Elective", canActivate: [authGuard], data: { userType: ['admin','chair','member'] }},
+   { path: "account", component: AccountComponent, title: "Accounts", canActivate: [authGuard], data: { userType: ['admin']}},
+   { path: "profile", component: ProfileComponent, title: "Profile", canActivate: [authGuard], data: { userType: ['admin','chair','member','stakeholder'] }},
+   { path: "deactivate/:id", component: DisableUserComponent, title: "Disable User", canActivate: [authGuard], data: { userType: ['admin'] }},
+   { path: "activate/:id", component: EnableUserComponent, title: "Enable User", canActivate: [authGuard], data: { userType: ['admin'] }},
+   { path: "vote", component: VoteComponent, title: "Curriculum Feedback", canActivate: [authGuard], data: { userType: ['admin','chair','member','stakeholder'] }},
+   { path: "feedback/:id", component: SubmitFeedbackComponent, title: "Feedback", canActivate: [authGuard], data: { userType: ['stakeholder'] }},
+   { path: "status/:id", component: CurrFeedbackComponent, title: "Curriculum Status", canActivate: [authGuard], data: { userType: ['admin','chair','member'] }},
    { path: "curriculum", component: CurriculumComponent, title: "Curriculums" },
    { path: "curriculum/:id", component: CurriculumViewComponent, title: "View Curriculum" },
+   { path: "curriculum/print/:id", component: CurriculumPrintComponent, title: "Print Curriculum" },
+   { path: "feedback/print/:id", component: FeedbackPrintComponent, title: "Print Feedback"},
    { path: "", redirectTo: "login", pathMatch: 'full' },
 ];
 
