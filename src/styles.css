@@ -4,7 +4,9 @@
   font-family: "Lato";
 }
 
-h1, .h1, h2, .h2 {
+h1, .h1,
+h2,
+.h2 {
   font-family: "Outfit";
 }
 
@@ -21,7 +23,7 @@ h2, .h2 {
 }
 
 .mainContent {
-  margin-left: 25vh;
+  margin-left: 15%;
 }
 
 .lowerMainContent {
@@ -29,7 +31,8 @@ h2, .h2 {
   height: 92vh;
 }
 
-.mainTable, .addForm {
+.mainTable,
+.addForm {
   background-color: #ffffff;
 }
 
@@ -42,10 +45,16 @@ h2, .h2 {
   font-family: "Outfit";
 }
 
-.subCategoryActive, .subCategory:hover {
+.subCategoryActive,
+.subCategory:hover {
   color: #ffaa28;
 }
 
+@media screen and (max-width: 1250px) {
+  .mainContent {
+    margin-left: 11.5vh;
+  }
+}
 .top-search {
   margin-bottom: 100px;
 }

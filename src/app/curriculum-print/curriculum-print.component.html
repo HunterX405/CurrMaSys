@@ -1,0 +1,93 @@
+<div class="mainPrintContent">
+   <div class="lowerMainContent">
+
+      <div class="mx-5 py-3">
+         <div>
+            <div class="row"> <h1> <strong> CurrMaSys </strong></h1></div>
+            <div class="row"> <h4> <strong> Department: </strong> {{
+                                 curriculum.department }} </h4></div>
+             <div class="row"> 
+               <h4> <strong> Version: </strong> {{
+                  curriculum.version }} </h4>
+            </div>
+                         
+
+         </div>
+
+         <!-- Table for displaying the list of curriculums -->
+         <div>
+
+            <div class="container-fluid mainTable px-5 py-3" *ngFor="let subjects of yearSem">
+               <table id="curriculumsTable" class="table">
+                  <thead>
+                     <tr class="text-center">
+                        <th colspan="8"> <h4 style="font-family:'Outfit'"> {{subjects['yearTitle']}} YEAR</h4> </th>
+                     </tr>
+                     <tr class="text-left">
+                        <th colspan="8"> <h5 style="margin-top: 25px;"> <strong> FIRST SEMESTER: </strong> </h5>  </th>
+                     </tr>
+                     <tr *ngIf="subjects['sem1'].length" class="text-center">
+                        <th>COURSE CODE</th>
+                        <th>DESCRIPTIVE TITLE</th>
+                        <th>LEC UNITS</th>
+                        <th>LAB UNITS</th>
+                        <th>TOTAL UNITS</th>
+                        <th>HRS / WEEK</th>
+                        <th>PREREQ.</th>
+                        <th>CO-REQ.</th>
+                     </tr>
+                     <tr *ngIf="!subjects['sem1'].length" class="text-center">
+                        <th colspan="8s">NO SUBJECTS</th>
+                     </tr>
+                  </thead>
+                  <tbody *ngFor="let subject of subjects['sem1']" class="text-center">
+                     <td>{{ subject.course_code }}</td>
+                     <td>{{ subject.title }}</td>
+                     <td>{{ subject.lec_units }}</td>
+                     <td>{{ subject.lab_units }}</td>
+                     <td>{{ subject.total_units }}</td>
+                     <td>{{ subject.hrs }}</td>
+                     <td *ngIf="subject.pre_requisite">{{ subject.pre_requisite }}</td>
+                     <td *ngIf="!subject.pre_requisite">None</td>
+                     <td *ngIf="subject.co_requisite">{{ subject.co_requisite }}</td>
+                     <td *ngIf="!subject.co_requisite">None</td>
+                  </tbody>
+                  <thead>
+                     <tr class="text-left">
+                        <th colspan="8"> <h5 style="margin-top: 25px;"> <strong> SECOND SEMESTER: </strong> </h5>  </th>
+                     </tr>
+                     <tr *ngIf="subjects['sem2'].length" class="text-center">
+                        <th>COURSE CODE</th>
+                        <th>DESCRIPTIVE TITLE</th>
+                        <th>LEC UNITS</th>
+                        <th>LAB UNITS</th>
+                        <th>TOTAL UNITS</th>
+                        <th>HRS / WEEK</th>
+                        <th>PREREQ.</th>
+                        <th>CO-REQ.</th>
+                     </tr>
+                     <tr *ngIf="!subjects['sem2'].length" class="text-center">
+                        <th colspan="8">NO SUBJECTS</th>
+                     </tr>
+                  </thead>
+                  <tbody *ngFor="let subject of subjects['sem2']" class="text-center">
+                     <td>{{ subject.course_code }}</td>
+                     <td>{{ subject.title }}</td>
+                     <td>{{ subject.lec_units }}</td>
+                     <td>{{ subject.lab_units }}</td>
+                     <td>{{ subject.total_units }}</td>
+                     <td>{{ subject.hrs }}</td>
+                     <td *ngIf="subject.pre_requisite">{{ subject.pre_requisite }}</td>
+                     <td *ngIf="!subject.pre_requisite">None</td>
+                     <td *ngIf="subject.co_requisite">{{ subject.co_requisite }}</td>
+                     <td *ngIf="!subject.co_requisite">None</td>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+
+      </div>
+
+   </div>
+
+</div>
