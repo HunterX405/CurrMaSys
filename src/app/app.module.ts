@@ -24,6 +24,7 @@ import { CurrFeedbackComponent } from './curr-feedback/curr-feedback.component';
 import { CurriculumComponent } from './curriculum/curriculum.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { CurriculumViewComponent } from './curriculum-view/curriculum-view.component';
+import { FeedbackPrintComponent } from './feedback-print/feedback-print.component';
 import { CurriculumPrintComponent } from './curriculum-print/curriculum-print.component';
 
 @NgModule({
@@ -48,6 +49,7 @@ import { CurriculumPrintComponent } from './curriculum-print/curriculum-print.co
     CurriculumComponent,
     UnauthorizedComponent,
     CurriculumViewComponent,
+    FeedbackPrintComponent,
     CurriculumPrintComponent,
   ],
   imports: [

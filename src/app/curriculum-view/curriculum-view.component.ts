@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormArray, FormBuilder } from '@angular/forms';
 import { ApiService } from '../api.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import 'datatables.net-buttons';
+import 'datatables.net-buttons/js/buttons.html5.min.js';
+import 'datatables.net-buttons/js/buttons.print.min.js';
+import * as $ from 'jquery';
+
 
 @Component({
    selector: 'app-curriculum-view',
@@ -23,6 +28,7 @@ export class CurriculumViewComponent implements OnInit {
    subjectsArray: any;
    isFormSet: boolean = false;
    yearSem: any;
+
    firstYearFirstSem: any;
    firstYearSecondSem: any;
    secondYearFirstSem: any;
@@ -59,6 +65,7 @@ export class CurriculumViewComponent implements OnInit {
                { 'yearTitle': 'SECOND', 'sem1': this.secondYearFirstSem, 'sem2': this.secondYearSecondSem },
                { 'yearTitle': 'THIRD', 'sem1': this.thirdYearFirstSem, 'sem2': this.thirdYearSecondSem },
                { 'yearTitle': 'FOURTH', 'sem1': this.fourthYearFirstSem, 'sem2': this.fourthYearSecondSem },
+
             ];
          },
          error: (err) => {
