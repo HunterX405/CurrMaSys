@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-forgot-password',
@@ -10,6 +11,7 @@ import { Router } from '@angular/router';
 })
 
 export class ForgotPasswordComponent {
+  successMessage: string = "";
   isMatching: boolean = true;
   isSubmitted: boolean = false;
   isSuccess: boolean = false;
@@ -24,34 +26,34 @@ export class ForgotPasswordComponent {
     private fb: FormBuilder,
     private apiService: ApiService,
     private router: Router,
+    private httpClient: HttpClient,
   ) { }
 
   resetPassword(forgotForm: FormGroup) {
-    const { email, newPassword, conPassword } = forgotForm.value;
-    if (newPassword === conPassword) {
-      this.isMatching = true;
-      this.isSuccess = true;
-
-      this.apiService.resetPassword(email, newPassword).subscribe({
+    const { email, } = forgotForm.value;
+      this.apiService.resetPassword(email).subscribe({
         next: (data) => {
           console.log(data);
-          alert(data.message);
-          if (data.success) {
-            this.router.navigate(['/login']);
-          } else {
-            location.reload();
-          }
+          alert("Reset Password Successful\n" + "Email: " + data?.email + "\nPassword: " + data?.newPassword + "\nCheck your Email for your new password. ");
+          console.log("Reset Password Successful", data);
+          const emailData = {
+            "sender": { "name": "CurrMaSys", "email": "currmasys@gmail.com" },
+            "to": [{ "email": data?.email }],
+            "htmlContent": "Hello " + data?.email + ",<br><br>Your password is " + data?.newPassword + "<br><br>Best regards,<br>CurrMaSys",
+            "subject": "Reset Password Successful"
+          };
+          const headers = { "Content-Type": "application/json", "api-key": "nadedetect ng sendinblue yung api kaya wala muna"};
+          this.httpClient.post("https://api.sendinblue.com/v3/smtp/email", emailData, { headers }).subscribe(
+            response => this.router.navigate(['/login']),
+            error => console.log("Failed to send email", error)
+          );
         },
         error: (err) => {
           console.log("Reset Password Failed", err);
         }
       });
-    } else {
-      this.isMatching = false;
-      this.isSubmitted = true;
-    }
+
   }
   get email() { return this.forgotForm.get('email'); }
-  get newPassword() { return this.forgotForm.get('newPassword'); }
-  get conPassword() { return this.forgotForm.get('conPassword'); }
 }
+

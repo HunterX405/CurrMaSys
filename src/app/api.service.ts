@@ -143,8 +143,8 @@ export class ApiService {
       }));
    }
 
-   resetPassword(email: string, newPassword: string) {
-      const credentials = { email, newPassword };
+   resetPassword(email: string) {
+      const credentials = { email };
       return this.httpClient.post<any>(this.baseUrl + "/forgotPassword.php", credentials).pipe(map(data => {
          console.log("@apiService/resetPassword")
          return data;
@@ -278,10 +278,15 @@ export class ApiService {
          return data['feedbacks'];
       }));
    }
+   
+   getAllFeddbacks() {
+      return this.httpClient.get<any>(this.baseUrl + "/getAllFeedbacks.php").pipe(map(data => {
+         return data['allFeedbacks'];
+      }));
+   }
 
    getCurriculumInfo(currID: number, currVer: number) {
       const credentials = { currID, currVer};
-
       return this.httpClient.post<any>(this.baseUrl + "/getCurriculumInfo.php", credentials).pipe(map(data => {
          return data;
       }));
