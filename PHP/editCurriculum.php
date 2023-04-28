@@ -4,6 +4,8 @@ $postdata = file_get_contents("php://input");
 
 if (isset($postdata)) {
    $request = json_decode($postdata);
+   $currId = $request->currId;
+   $currVer = $request->verId + 1;
    $department = trim($request->department);
    $version = trim($request->version);
    $firstYearFirstSem = $request->firstYearFirstSemSubjects;
@@ -26,18 +28,22 @@ if (isset($postdata)) {
       array("arr" => $fourthYearSecondSem, "year" => 4, "sem" => 2),
    ];
 
+   // Set all current curriculums to not latest
+   $query = "UPDATE curriculum SET isLatest = 0 WHERE id=?";
+   $params = [$currId];
+   $result = executeQuery($query, $params);
+
    // Add curriculums
-   $query = "INSERT INTO curriculum(department, version) VALUES (?,?)";
-   $params = [$department, $version];
+   $query = "INSERT INTO curriculum(id, department, version, version_id) VALUES (?,?,?,?)";
+   $params = [$currId, $department, $version, $currVer];
    $result = executeQuery($query, $params);
 
    if ($result) {
-      $curr_id = mysqli_insert_id($mysqli);
       // ADD subjects
       foreach ($subjectsArray as $subjects) {
          foreach ($subjects['arr'] as $subject) {
             $query = "INSERT INTO curriculum_subjects(curr_id, subject_id, lec_units, lab_units, hrs, curr_ver, year, semester) VALUES (?,?,?,?,?,?,?,?)";
-            $params = [$curr_id, $subject->course, $subject->lec_units, $subject->lab_units, $subject->hrs, 1, $subjects['year'], $subjects['sem']];
+            $params = [$currId, $subject->course, $subject->lec_units, $subject->lab_units, $subject->hrs, $currVer, $subjects['year'], $subjects['sem']];
             $result = executeQuery($query, $params);
 
             // Get the id of the inserted curriculum subjects
@@ -63,13 +69,13 @@ if (isset($postdata)) {
       }
       $response = [
          'success' => true,
-         'message' => 'Curriculum Added Successfully',
-         'curr_id' => $curr_id,
+         'message' => 'Curriculum Edited Successfully',
+         'curr_id' => $currId,
       ];
    } else {
       $response = [
          'success' => false,
-         'message' => 'Failed to add curriculum',
+         'message' => 'Failed to edit curriculum',
          'department' => $department,
       ];
    }

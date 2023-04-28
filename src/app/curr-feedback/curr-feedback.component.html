@@ -11,7 +11,7 @@
                 </button>
             </div>
             <button routerLink="/feedback/print/{{curriculumID}}" class="btn btn-primary mx-2">PDF</button>
-            <div *ngFor="let data of curriculumData">             
+            <div *ngFor="let data of curriculumData">
             <div class="row card border-0 m-2">
                 <div class="card-body">
                     <h3 style="font-family: 'Outfit';"> Curriculum Version:&nbsp; <span class="text-muted"> <strong> {{ data.version }} </strong> </span>  </h3>
@@ -66,9 +66,9 @@
                                         <h3 *ngIf="data.curr_status === 'approved'" class="card-subtitle mb-2 activeStatus" style="font-weight:bolder;">
                                              {{data.curr_status | titlecase }} </h3>
                                         <h3 *ngIf="data.curr_status === 'pending'" class="card-subtitle mb-2 inactiveStatus" style="font-weight:bolder;">
-                                                {{data.curr_status | titlecase }} </h3>  
+                                                {{data.curr_status | titlecase }} </h3>
                                         <h3 *ngIf="data.curr_status === 'returned'" class="card-subtitle mb-2 returnedStatus" style="font-weight:bolder;">
-                                                    {{data.curr_status | titlecase }} </h3>                          
+                                                    {{data.curr_status | titlecase }} </h3>
                                     </div>
                                 </div>
                             </div>
@@ -80,16 +80,16 @@
             <div class="row card border-0 m-2">
                 <div class="card-body">
                     <h3 class="my-0" style="font-family: 'Outfit';"> LIST OF FEEDBACKS: </h3>
-                 
+
                 </div>
             </div>
 
-            <div *ngIf="feedbacks.length === 0"> 
+            <div *ngIf="!feedbackNum">
                 <div class="row card border-0 m-2">
                     <div class="card-body">
                         <!-- Display the Feedbacks using a div instead of table -->
                         <div class="p-3 text-center">
-                            <h4 class="text-muted"> <strong> <em> NO SUBMITTED FEEDBACK</em> </strong></h4>                  
+                            <h4 class="text-muted"> <strong> <em> NO SUBMITTED FEEDBACK</em> </strong></h4>
                         </div>
                     </div>
                 </div>
@@ -97,7 +97,7 @@
             </div>
 
 
-            <div *ngIf="feedbacks.length !== 0">
+            <div *ngIf="feedbackNum">
             <div *ngFor="let feedback of feedbacks" class="row card border-0 m-2">
                 <div class="card-body">
                     <!-- Display the Feedbacks using a div instead of table -->
@@ -108,11 +108,11 @@
                         <p *ngIf="feedback.is_approved == 1"> <strong>Status:&nbsp;</strong> <span class="activeStatus"> Approved </span></p>
                         <p *ngIf="feedback.is_approved == 0"> <strong>Status:&nbsp;</strong> <span class="returnedStatus"> Returned </span></p>
 
-                        <p *ngIf="feedback.comment !== ''"> 
-                            <span><strong>Comments:&nbsp;</strong></span> {{ feedback.comment }} 
+                        <p *ngIf="feedback.comment !== ''">
+                            <span><strong>Comments:&nbsp;</strong></span> {{ feedback.comment }}
                         </p>
-                        <p *ngIf="feedback.comment == ''"> 
-                            <span><strong>Comments:&nbsp;</strong></span> <em> No Comments Submitted</em> 
+                        <p *ngIf="feedback.comment == ''">
+                            <span><strong>Comments:&nbsp;</strong></span> <em> No Comments Submitted</em>
                         </p>
                     </div>
                 </div>
