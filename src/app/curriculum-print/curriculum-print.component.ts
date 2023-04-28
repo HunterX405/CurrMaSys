@@ -27,7 +27,7 @@ export class CurriculumPrintComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      this.printCurriculum(Number(params.get('id')));
+      this.printCurriculum(Number(params.get('id')),Number(params.get('ver')));
     });
   }
 
@@ -35,8 +35,8 @@ export class CurriculumPrintComponent implements OnInit, AfterViewInit {
     window.print();
   }
 
-  printCurriculum(currId: number) {
-    this.apiService.getCurriculum(currId).subscribe({
+  printCurriculum(currId: number, currVer: number) {
+    this.apiService.getCurriculum(currId,currVer).subscribe({
       next: (data) => {
         console.log("Get Curriculum Success", data);
         this.curriculum = data.curriculum;

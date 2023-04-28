@@ -85,6 +85,34 @@ export class ApiService {
       return this.httpClient.post<any>(this.baseUrl + "/login.php", credentials);
    }
 
+   checkJwtToken(): boolean {
+      return this.cookieService.check('jwt_token');
+   }
+
+   isLoggedIn(): Observable<boolean> {
+      if (this.checkJwtToken()) {
+         return of(true);
+      }
+      return of(false);
+   }
+
+   setCookie(name: string, value: string) {
+      // Set cookie with expiry time of 1 hour
+      const expiryTime = new Date();
+      expiryTime.setTime(expiryTime.getTime() + (60 * 60 * 1000)); // 1 hour
+      const options = {
+         expires: expiryTime,
+         secure: true,
+         httpOnly: true
+      };
+
+      this.cookieService.set(name, value, options);
+   }
+
+   deleteCookie(name: string) {
+      this.cookieService.delete(name);
+   }
+
    // Function to set the authorization header with the JWT token
    private getAuthHeaders(): HttpHeaders {
       const token = this.cookieService.get('jwt_token');
@@ -123,6 +151,7 @@ export class ApiService {
       }));
    }
 
+   // SUBJECTS
    addSubject(course_code: string, title: string, syllabus: string) {
       console.log("@ addSubject Service");
       // Removes the C:\fakepath\ on the value of the directory using RegEx
@@ -159,6 +188,7 @@ export class ApiService {
       }));
    }
 
+   // ELECTIVES
    addElectives(fkSubjID: any, el1Data: any, el2Data: any, el3Data: any) {
       // Send Objects on the addElective.php
       const elData = { fkSubjID, el1Data, el2Data, el3Data };
@@ -211,6 +241,7 @@ export class ApiService {
       });
    }
 
+   // CURRICULUM
    // Accesses the CURRICULUM Table
    displayCurriculum() {
       return this.httpClient.get<any>(this.baseUrl + "/displayCurriculum.php").pipe(
@@ -221,8 +252,8 @@ export class ApiService {
    }
 
    // Add Feedback on the VOTE Table
-   addFeedback(comment: string, isApproved: number, userID: string, currID: string, haveSubmitted: boolean) {
-      const feedbackData = { comment, isApproved, userID, currID, haveSubmitted };
+   addFeedback(comment: string, isApproved: number, userID: string, currID: number, currVer: number, haveSubmitted: boolean) {
+      const feedbackData = { comment, isApproved, userID, currID, currVer, haveSubmitted };
 
       return this.httpClient.post<any>(`${this.baseUrl}/addFeedback.php`, feedbackData).pipe(map(data => {
          return data;
@@ -239,23 +270,23 @@ export class ApiService {
    }
 
    // Get the feedbacks of a specific CURRICULUM
-   getFeedbacks(currID: any) {
-      const credentials = { currID };
+   getFeedbacks(currID: number, currVer: number) {
+      const credentials = { currID, currVer };
+      console.log('cc',credentials)
 
       return this.httpClient.post<any>(this.baseUrl + "/getFeedbacks.php", credentials).pipe(map(data => {
          return data['feedbacks'];
       }));
    }
-
+   
    getAllFeddbacks() {
       return this.httpClient.get<any>(this.baseUrl + "/getAllFeedbacks.php").pipe(map(data => {
          return data['allFeedbacks'];
       }));
    }
 
-   getCurriculumInfo(currID: number) {
-      const credentials = { currID };
-
+   getCurriculumInfo(currID: number, currVer: number) {
+      const credentials = { currID, currVer};
       return this.httpClient.post<any>(this.baseUrl + "/getCurriculumInfo.php", credentials).pipe(map(data => {
          return data;
       }));
@@ -297,33 +328,7 @@ export class ApiService {
       }));
    }
 
-   checkJwtToken(): boolean {
-      return this.cookieService.check('jwt_token');
-   }
-
-   isLoggedIn(): Observable<boolean> {
-      if (this.checkJwtToken()) {
-         return of(true);
-      }
-      return of(false);
-   }
-
-   setCookie(name: string, value: string) {
-      // Set cookie with expiry time of 1 hour
-      const expiryTime = new Date();
-      expiryTime.setTime(expiryTime.getTime() + (60 * 60 * 1000)); // 1 hour
-      const options = {
-         expires: expiryTime,
-         secure: true,
-         httpOnly: true
-      };
-
-      this.cookieService.set(name, value, options);
-   }
-
-   deleteCookie(name: string) {
-      this.cookieService.delete(name);
-   }
+   // CURRICULUM
 
    addCurriculum(formData: string) {
       console.log("@ addCurriculum Service");
@@ -333,10 +338,18 @@ export class ApiService {
       }));
    }
 
-   getCurriculum(currId: number) {
-      const data = { currId };
+   getCurriculum(currId: number, currVer: number) {
+      const data = { currId, currVer };
 
       return this.httpClient.post<any>(this.baseUrl + "/getCurriculum.php", data).pipe(map(data => {
+         return data;
+      }));
+   }
+
+   editCurriculum(formData: string) {
+      console.log("@ addCurriculum Service");
+
+      return this.httpClient.post<any>(this.baseUrl + "/editCurriculum.php", formData).pipe(map(data => {
          return data;
       }));
    }
