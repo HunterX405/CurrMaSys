@@ -247,6 +247,12 @@ export class ApiService {
       }));
    }
 
+   getAllFeddbacks() {
+      return this.httpClient.get<any>(this.baseUrl + "/getAllFeedbacks.php").pipe(map(data => {
+         return data['allFeedbacks'];
+      }));
+   }
+
    getCurriculumInfo(currID: number) {
       const credentials = { currID };
 

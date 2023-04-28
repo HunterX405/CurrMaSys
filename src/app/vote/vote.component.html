@@ -35,16 +35,26 @@
                                 <th>Department</th>
                                 <th>Version</th>
                                 <th>Submission Date</th>
-                                <th>Status</th>
+                                <th *ngIf="tempUserType !== 'stakeholder'">
+                                    Status
+                                </th>
+                                <th *ngIf="tempUserType === 'stakeholder'">
+                                    Feedbacks
+                                </th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let curriculum of curriculums">
+                            <tr *ngFor="let curriculum of curriculums; let i = index">
                                 <td> {{ curriculum.department }} </td>
                                 <td> {{ curriculum.version }} </td>
                                 <td> {{ curriculum.date_and_time }} </td>
-                                <td> {{ curriculum.curr_status | titlecase }} </td>
+                                <td *ngIf="tempUserType !== 'stakeholder'"> 
+                                    {{ curriculum.curr_status | titlecase }} 
+                                </td>
+                                <td *ngIf="tempUserType === 'stakeholder'">
+                                    {{ submissions[i] }}
+                                </td>
                                 <td>
                                     <button class="btn btn-primary btn-sm" *ngIf="tempUserType === 'stakeholder'" 
                                         routerLink="/feedback/{{curriculum.id}}">
