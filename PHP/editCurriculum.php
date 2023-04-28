@@ -71,6 +71,7 @@ if (isset($postdata)) {
          'success' => true,
          'message' => 'Curriculum Edited Successfully',
          'curr_id' => $currId,
+         'curr_version' => $currVer,
       ];
    } else {
       $response = [

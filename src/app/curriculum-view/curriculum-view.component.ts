@@ -17,7 +17,8 @@ export class CurriculumViewComponent implements OnInit {
    constructor(
       private fb: FormBuilder,
       private apiService: ApiService,
-      private route: ActivatedRoute
+      private route: ActivatedRoute,
+      private router: Router
    ) { }
 
    isTableVisible: boolean = true;
@@ -213,8 +214,8 @@ export class CurriculumViewComponent implements OnInit {
 
    getTotalUnits(id: number, subjects: FormArray) {
       // let subject: any = this.curriculumForm.value.firstYearFirstSemArray[id];
-      let lab:number = subjects.at(id).get('lab_units')?.value;
-      let lec:number  = subjects.at(id).get('lec_units')?.value;
+      let lab: number = subjects.at(id).get('lab_units')?.value;
+      let lec: number = subjects.at(id).get('lec_units')?.value;
       subjects.at(id).get('total_units')?.setValue(lec + lab);
    }
 
@@ -253,9 +254,10 @@ export class CurriculumViewComponent implements OnInit {
          this.apiService.editCurriculum(JSON.stringify(curriculumForm.value)).subscribe({
             next: (data) => {
                console.log("Curriculum Edited Successfully", data);
-               alert("Curriculum ID: " + data.curr_id + " edited successfully.");
+               alert("Curriculum edited successfully.");
                // The parameter is the generated number from the addSubject.php
-               location.reload();
+               this.router.navigate(['curriculum/' + data.curr_id + '/' + data.curr_version]);
+               this.isTableVisible = true;
             },
             error: (err) => {
                console.log("Curriculum Editing Failed", err);

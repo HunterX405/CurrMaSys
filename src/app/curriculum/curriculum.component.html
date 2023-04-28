@@ -43,6 +43,7 @@
                <table id="curriculumsTable" class="table text-center">
                   <thead>
                      <tr>
+                        <th>ID</th>
                         <th>Department</th>
                         <th>Version Name</th>
                         <th>Version ID</th>
@@ -52,6 +53,7 @@
                   </thead>
                   <tbody>
                      <tr *ngFor="let curriculum of curriculums">
+                        <td> {{ curriculum.id }} </td>
                         <td> {{ curriculum.department }} </td>
                         <td> {{ curriculum.version }} </td>
                         <td *ngIf="!curriculum.isLatest"> {{ curriculum.version_id }} </td>
