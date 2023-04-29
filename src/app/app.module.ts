@@ -26,6 +26,7 @@ import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { CurriculumViewComponent } from './curriculum-view/curriculum-view.component';
 import { FeedbackPrintComponent } from './feedback-print/feedback-print.component';
 import { CurriculumPrintComponent } from './curriculum-print/curriculum-print.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { CurriculumPrintComponent } from './curriculum-print/curriculum-print.co
     CurriculumViewComponent,
     FeedbackPrintComponent,
     CurriculumPrintComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,

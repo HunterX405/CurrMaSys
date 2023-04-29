@@ -20,6 +20,7 @@ import { CurriculumViewComponent } from './curriculum-view/curriculum-view.compo
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { FeedbackPrintComponent } from './feedback-print/feedback-print.component';
 import { CurriculumPrintComponent } from './curriculum-print/curriculum-print.component';
+import { SettingsComponent } from './settings/settings.component';
 
 const routes: Routes = [
    { path: "login", component: LoginComponent, title: "Login" },
@@ -41,6 +42,7 @@ const routes: Routes = [
    { path: "curriculum/:id", component: CurriculumViewComponent, title: "View Curriculum" },
    { path: "curriculum/print/:id", component: CurriculumPrintComponent, title: "Print Curriculum" },
    { path: "feedback/print/:id", component: FeedbackPrintComponent, title: "Print Feedback"},
+   { path: "settings", component: SettingsComponent, title: "Settings"},
    { path: "", redirectTo: "login", pathMatch: 'full' },
 ];
 

@@ -8,7 +8,7 @@
   transition: .3s;
   /*left: -30%;*/
   /*padding: .3rem 1rem 0 0;*/
-  width: 15%;
+  width: 200px;
 
   background-color: #182850;
   padding: 0.2rem 0 0 0;
@@ -17,12 +17,6 @@
     /*background-color: var(--first-color); */
     /* width: var(--nav-width); */
 }
-
-@media screen and (max-width: 1250px) {
-  .l-navbar {  
-      width: 11.5vh;
-  }
-} 
 
 .nav {
   display: flex;
@@ -67,6 +61,30 @@
   margin-bottom: .8rem;
   transition: .3s
 }
+
+.sidebar-dropdown{
+  width: 190px; 
+  max-width: 190px;
+}
+
+
+/* ===FOR SCREEN ADAPTABILITY PURPOSES=== */
+@media screen and (max-width: 1250px) {
+  .l-navbar {  
+      width: 80px;
+  }
+
+  .sidebar-dropdown{
+    width: 70px; 
+    min-width: 70px;
+    max-width: 70px;
+  }
+
+  .dropdown-label{
+    display: none;
+  }
+
+} 
 
 /* ===IF THE SIDEBAR IS ACTIVE=== */
 /*

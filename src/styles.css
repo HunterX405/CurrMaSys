@@ -1,5 +1,25 @@
 @charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Outfit:wght@700&display=swap");
+:root {
+  --bg-color: #eef1f2;
+  --bg-foreground:#ffffff;
+  --text-color: #212121;
+  --primary: #182850;
+  --input-label: #ffffff;
+  --sub-category: #444444;
+  --add-sub-curr: #182850;
+}
+
+[data-theme=dark] {
+  --bg-color: #18191a;
+  --bg-foreground:#242526;
+  --text-color: #ffffff;
+  --primary: #ffffff;
+  --input-label: #3a3b3c;
+  --sub-category: #ffffff;
+  --add-sub-curr: #ffaa28;
+}
+
 * {
   font-family: "Lato";
 }
@@ -11,34 +31,48 @@ h2,
 }
 
 h1, .h1 {
-  color: #182850;
+  color: var(--primary);
 }
 
 h2, .h2 {
   color: #ffaa28;
 }
 
+h4, .h4, h5, .h5, h6, .h6, p {
+  color: var(--text-color);
+}
+
 .error {
   color: #ee404c;
 }
 
+.loginContainer {
+  background-color: var(--bg-foreground);
+}
+
+.logoName {
+  color: var(--add-sub-curr);
+}
+
 .mainContent {
-  margin-left: 15%;
+  margin-left: 200px;
+  background-color: var(--bg-foreground);
 }
 
 .lowerMainContent {
-  background-color: #eef1f2;
-  height: 92vh;
+  background-color: var(--bg-color);
+  min-height: 92vh;
+  height: 100%;
 }
 
 .mainTable,
 .addForm {
-  background-color: #ffffff;
+  background-color: var(--bg-foreground);
 }
 
 .subCategory {
   text-decoration: none;
-  color: #444444;
+  color: var(--sub-category);
 }
 
 .subCategoryTitle {
@@ -52,7 +86,7 @@ h2, .h2 {
 
 @media screen and (max-width: 1250px) {
   .mainContent {
-    margin-left: 11.5vh;
+    margin-left: 80px;
   }
 }
 .top-search {
@@ -90,7 +124,7 @@ h2, .h2 {
 
 .bottom > .dataTables_paginate > a,
 .bottom > .dataTables_paginate > span > a {
-  color: black;
+  color: var(--text-color);
   float: left;
   transition: background-color 0.3s;
   padding: 8px 16px;
@@ -103,6 +137,68 @@ h2, .h2 {
 .bottom > .dataTables_paginate > span > a:hover:not(.active) {
   background-color: #182850;
   color: white;
+}
+
+.dataTables_info {
+  color: var(--text-color);
+}
+
+.card-body {
+  background-color: var(--bg-foreground);
+  color: var(--text-color);
+}
+
+.card-subtitle {
+  color: var(--text-color);
+}
+
+th, td {
+  color: var(--text-color);
+}
+
+.dataTables_filter {
+  color: var(--text-color);
+}
+
+label {
+  color: var(--text-color);
+}
+
+input {
+  color: var(--text-color);
+  background-color: var(--input-label);
+}
+
+.form-control {
+  color: var(--text-color) !important;
+  background-color: var(--input-label) !important;
+}
+
+.addSub {
+  color: var(--add-sub-curr);
+  font-weight: bold;
+}
+
+.addSub:hover {
+  text-decoration: underline;
+  font-weight: bolder;
+}
+
+.go_back,
+.fPass {
+  color: var(--text-color);
+}
+
+.sidebar-dropdown {
+  background-color: var(--bg-foreground) !important;
+}
+
+.dropdown-label {
+  color: var(--text-color) !important;
+}
+
+.dropdown-item:hover {
+  background-color: var(--bg-color) !important;
 }
 
 /*!

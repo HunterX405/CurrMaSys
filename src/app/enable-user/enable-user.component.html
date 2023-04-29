@@ -1,22 +1,22 @@
 <app-sidenav></app-sidenav>
-<div *ngIf="id">
-  <div class="container" style="margin-top: 250px;">
-    <form [formGroup]="activateUserForm" (ngSubmit)="activateUser()">
-      <div class="row mt-5">
-        <div class="col-md-6 offset-md-3">
-          <div class="border p-4 bg-white">
-            <h3>Activation Confirmation</h3>
-            <hr>
-            <div class="alert alert-danger">
-              <h5>Are you sure you want to activate Account ID:{{id}}?</h5>
-              <input type="hidden" formControlName="userid" class="form-control" id="id">
-            </div>
-            <div style="display: flex; justify-content: flex-end;">
-              <button class="btn btn-primary">Submit</button>
-              <a routerLink="/account" class="btn btn-primary">Cancel</a>
-            </div>
+
+<div class="mainContent">
+
+  <h1 style="padding: 15px 32px; height: 8%;"> Activation Confirmation </h1>
+  <div *ngIf="id">
+    <div class="lowerMainContent">
+      <div class="p-5">
+        <form [formGroup]="activateUserForm" (ngSubmit)="activateUser()" style="padding-top: 200px;">
+          <div class="alert alert-danger">
+            <h5 class="text-black">Are you sure you want to activate Account ID:{{id}}?</h5>
+            <input type="hidden" formControlName="userid" class="form-control" id="id">
           </div>
-        </div>
+          <div style="display: flex; justify-content: flex-end;">
+            <a routerLink="/account" class="btn btn-primary mx-2">Cancel</a>
+            <button class="btn btn-primary">Submit</button>
+          </div>
+        </form>
       </div>
-    </form>
+    </div>
   </div>
+</div>

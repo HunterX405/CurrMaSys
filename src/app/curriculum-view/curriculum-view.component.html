@@ -8,6 +8,13 @@
 
       <div class="mx-5 py-3">
 
+         <div *ngIf="isTableVisible" class="d-flex justify-content-start " style="margin: 10px 0;">
+            <button (click)="onGoBack1()" type="button" class="btn p-0 ">
+               <img class="logoImg " src="../../assets/images/icon_back_btn.png" alt="BACK BUTTON">
+               <strong class="go_back"> GO BACK </strong>
+            </button>
+         </div>
+
          <div *ngIf="isTableVisible && curriculum" style="margin: 20px 0;">
 
             <div class="row">
@@ -40,7 +47,7 @@
                            </div>
                            <div class="col-10">
                               <h6 class="card-title"> <strong> Department: </strong> </h6>
-                              <h3 class="card-subtitle mb-2" style="font-weight:bolder; color: #222222">{{
+                              <h3 class="card-subtitle mb-2" style="font-weight:bolder;">{{
                                  curriculum.department }} </h3>
                            </div>
                         </div>
@@ -57,7 +64,7 @@
                            </div>
                            <div class="col-10">
                               <h6 class="card-title"> <strong> Version: </strong> </h6>
-                              <h3 class="card-subtitle mb-2" style="font-weight:bolder; color: #222222">{{
+                              <h3 class="card-subtitle mb-2" style="font-weight:bolder;">{{
                                  curriculum.version }} </h3>
                            </div>
                         </div>
@@ -68,10 +75,10 @@
 
          </div>
 
-         <div *ngIf="!isTableVisible" class="d-flex justify-content-start" style="margin: 10px 0;">
-            <button (click)="onGoBack()" type="button" class="btn p-0">
+         <div *ngIf="!isTableVisible" class="d-flex justify-content-start " style="margin: 10px 0;">
+            <button (click)="onGoBack2()" type="button" class="btn p-0 ">
                <img class="logoImg " src="../../assets/images/icon_back_btn.png" alt="BACK BUTTON">
-               <strong> GO BACK </strong>
+               <strong class="go_back"> GO BACK </strong>
             </button>
          </div>
 

@@ -18,7 +18,8 @@ export class CurriculumViewComponent implements OnInit {
    constructor(
       private fb: FormBuilder,
       private apiService: ApiService,
-      private route: ActivatedRoute
+      private route: ActivatedRoute,
+      private router: Router,
    ) { }
 
    isTableVisible: boolean = true;
@@ -120,7 +121,12 @@ export class CurriculumViewComponent implements OnInit {
       this.isTableVisible = !this.isTableVisible;
    }
 
-   onGoBack() {
+   onGoBack1() {
+      this.router.navigate(['/curriculum']);
+   
+   }
+
+   onGoBack2() {
       this.isTableVisible = !this.isTableVisible;
    }
 
