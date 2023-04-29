@@ -33,10 +33,10 @@
 
 
                     <div class="form-group pb-3">
-                        <input type="radio" id="approve" name="status" formControlName="isApproved" value="1">
+                        <input type="radio" id="approve" name="status" formControlName="isApproved" value="1" [checked]="approve">
                         <label for="approve" class="h4 px-2 radioLbl">Approve</label><br>
             
-                        <input type="radio" id="returned" name="status" formControlName="isApproved" value="0">
+                        <input type="radio" id="returned" name="status" formControlName="isApproved" value="0" [checked]="returned">
                         <label for="return" class="h4 px-2 radioLbl">Return</label>
             
                         <div class="error"

@@ -31,6 +31,9 @@ export class SubmitFeedbackComponent implements OnInit {
       isApproved: ["", [Validators.required]]
    })
 
+   approve: boolean = false;
+   returned: boolean = false;
+
    constructor(private fb: FormBuilder,
       private apiService: ApiService,
       private route: ActivatedRoute,
@@ -115,6 +118,13 @@ export class SubmitFeedbackComponent implements OnInit {
 
             if (this.haveSubmitted === true) {
                this.feedbackForm.get("comment")?.setValue(this.getComment(feedbacks, keys, userID));
+               this.feedbackForm.get("isApproved")?.setValue(this.getRadio(feedbacks, keys, userID));
+               if (this.isApproved == "1"){
+                  this.approve = true;
+               }
+               else{
+                  this.returned = true;
+               }
             }
          },
          error: (err) => {
@@ -169,6 +179,21 @@ export class SubmitFeedbackComponent implements OnInit {
             if (key === "fk_vote_user_id") {
                if (curriculumData[i][key] == userID) {
                   return curriculumData[i]["comment"];
+               }
+            }
+         }
+      }
+   }
+
+   getRadio(curriculumData: any, keys: any, userID: any) {
+      for (let i = 0; i < curriculumData.length; i++) {
+         // To iterate the keys of the curriculumData Object
+         for (let j = 0; j < keys.length; j++) {
+            const key = keys[j];
+
+            if (key === "fk_vote_user_id") {
+               if (curriculumData[i][key] == userID) {
+                  return curriculumData[i]["is_approved"];
                }
             }
          }
