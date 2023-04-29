@@ -32,11 +32,16 @@ export class FeedbackPrintComponent implements OnInit, AfterViewInit {
       this.route.paramMap.subscribe(params => {
          this.curriculumID = params.get('id');
          this.curriculumVer = params.get('ver');
+           window.onafterprint = (event) => {
+            this.router.navigate(['status/' + params.get('id') + '/' + params.get('ver')]);
+         };
       });
 
       this.getCurriculumInfo();
       this.getStakeholderNum();
       this.getFeedbacks();
+
+      
    }
 
    ngAfterViewInit(): void {

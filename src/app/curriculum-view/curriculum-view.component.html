@@ -22,7 +22,7 @@
                </div>
 
                <div class="col-4 d-flex justify-content-end">
-                  <button routerLink="/curriculum/print/{{currId}}/{{currVer}}" class="btn btn-primary mx-2"> <span>
+                  <button routerLink="/curriculum/print/{{currId}}/{{currVer}}/{{paramyear}}/{{paramsem}}" class="btn btn-primary mx-2"> <span>
                         &nbsp; <strong>
                            TO PDF</strong> &nbsp;&nbsp; </span> </button>
                   <button *ngIf="curriculum.isLatest" (click)="onEdit()" type="button" class="btn btn-primary">
@@ -76,9 +76,27 @@
                <strong> GO BACK </strong>
             </button>
          </div>
-
+        
          <!-- Table for displaying the list of curriculums -->
          <div *ngIf="isTableVisible">
+            <form [formGroup]="filterForm" (ngSubmit)="displayCurriculum(currId, currVer)">
+               <label for="year">Year:</label>
+               <select id="year" formControlName="year">
+                 <option value="1">1</option>
+                 <option value="2">2</option>
+                 <option value="3">3</option>
+                 <option value="4">4</option>
+                 <option value="all" selected>All Levels</option>
+               </select>
+             
+               <label for="semester">Semester:</label>
+               <select id="semester" formControlName="semester">
+                 <option value="1">1</option>
+                 <option value="2">2</option>
+                 <option value="all" selected>All Semester</option>
+               </select>
+               <button type="submit">Filter</button>
+             </form>
 
             <div class="container-fluid mainTable px-5 py-3" *ngFor="let subjects of yearSem">
 
@@ -105,7 +123,7 @@
                         <th>CO-REQ.</th>
                      </tr>
                      <tr *ngIf="!subjects['sem1'].length" class="text-center">
-                        <th colspan="8s">NO SUBJECTS</th>
+                        <th colspan="8s">NO SUBJECTS/NO DATA RETRIEVED</th>
                      </tr>
                   </thead>
                   <tbody *ngFor="let subject of subjects['sem1']" class="text-center">
@@ -145,7 +163,7 @@
                         <th>CO-REQ.</th>
                      </tr>
                      <tr *ngIf="!subjects['sem2'].length" class="text-center">
-                        <th colspan="8">NO SUBJECTS</th>
+                        <th colspan="8">NO SUBJECTS/NO DATA RETRIEVED</th>
                      </tr>
                   </thead>
                   <tbody *ngFor="let subject of subjects['sem2']" class="text-center">
