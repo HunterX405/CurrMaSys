@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import { environment } from './../environments/environment';
 
 @Injectable({
    providedIn: 'root'
@@ -10,7 +11,8 @@ import { CookieService } from 'ngx-cookie-service';
 export class ApiService {
    redirectUrl: string | undefined;
    // To access files on the PHP folder in this project
-   baseUrl: string = "http://localhost/CurrMaSys/php";
+   baseUrl: string = environment.apiUrl;
+
    private sendGridAPIKey = 'wala pa haha ayaw gumana pa eh haha yung sa apikey';
 
    constructor(
@@ -278,7 +280,7 @@ export class ApiService {
          return data['feedbacks'];
       }));
    }
-   
+
    getAllFeddbacks() {
       return this.httpClient.get<any>(this.baseUrl + "/getAllFeedbacks.php").pipe(map(data => {
          return data['allFeedbacks'];

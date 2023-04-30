@@ -8,11 +8,11 @@
 
             <div class="d-flex justify-content-start" style="margin: 10px 0;">
                 <button (click)="goBack()" type="button" class="btn p-0">
-                  <img class="logoImg " src="../../assets/images/icon_back_btn.png" alt="BACK BUTTON">
+                  <img class="logoImg " src="./assets/images/icon_back_btn.png" alt="BACK BUTTON">
                   <strong> GO BACK </strong>
                 </button>
-            </div> 
-            
+            </div>
+
             <div class="addForm p-5">
                 <h2> Edit&nbsp;{{ tracks[electiveTrack] }} </h2>
                 <form [formGroup]="editEleForm" (ngSubmit)="editSubject(editEleForm)">
@@ -25,7 +25,7 @@
                             This field is required.
                         </div>
                     </div>
-            
+
                     <div class="form-group pb-3">
                         <label for="syllabus" style="margin-bottom: 5px;">Upload New Syllabus File:</label> <br>
                         <input type="File" formControlName="syllabus" name="syllabus" accept=".pdf" (change)="onFileSelect($event)" class="form-control"
@@ -34,7 +34,7 @@
 
                     <div class="d-flex justify-content-end" style="margin: 5px 0;">
                         <button class="btn btn-primary">Edit</button>
-                      </div>   
+                      </div>
                 </form>
             </div>
         </div>
@@ -42,4 +42,4 @@
 </div>
 
 
-   
+

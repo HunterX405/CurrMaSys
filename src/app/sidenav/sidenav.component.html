@@ -2,41 +2,41 @@
   <nav class="nav" id="navbar-settings">
     <div>
       <div class="nav_logo" id="text_link">
-        <img style="width:50px; height:50px;" src="../../assets/images/logoCICT_reduced.png" alt="CurrMaSys">
+        <img style="width:50px; height:50px;" src="./assets/images/logoCICT_reduced.png" alt="CurrMaSys">
         <span class="nav_logo-name">&nbsp;&nbsp;CurrMaSys</span>
       </div>
 
       <div class="nav_list">
 
           <a routerLink="/dashboard" class="nav_link sidebar-hovered" id="text_link">
-            <img style="width:50px; height:50px;" src="../../assets/images/icon_dashboard.png" alt="Dashboard">
+            <img style="width:50px; height:50px;" src="./assets/images/icon_dashboard.png" alt="Dashboard">
             <span class="" style="font-weight:500;">&nbsp;&nbsp;Dashboard</span>
           </a>
-        
+
         <div *ngIf="userType === 'admin'">
           <a routerLink="/subject" class="nav_link sidebar-hovered" id="text_link">
-            <img style="width:50px; height:50px;" src="../../assets/images/icon_subject.png" alt="Subjects">
+            <img style="width:50px; height:50px;" src="./assets/images/icon_subject.png" alt="Subjects">
             <span class="" style="font-weight:500;">&nbsp;&nbsp;Subjects</span>
           </a>
         </div>
 
         <div *ngIf="userType === 'admin'">
          <a routerLink="/curriculum" class="nav_link sidebar-hovered" id="text_link">
-           <img style="width:50px; height:50px;" src="../../assets/images/icon_curriculum.png" alt="Manage Accounts">
+           <img style="width:50px; height:50px;" src="./assets/images/icon_curriculum.png" alt="Manage Accounts">
            <span class="" style="font-weight:500;">&nbsp;&nbsp;Curriculum</span>
          </a>
        </div>
 
         <div *ngIf="userType === 'stakeholder' || userType === 'admin'">
           <a routerLink="/vote" class="nav_link sidebar-hovered" id="text_link">
-            <img style="width:50px; height:50px;" src="../../assets/images/icon_feedback.png" alt="Feedback">
+            <img style="width:50px; height:50px;" src="./assets/images/icon_feedback.png" alt="Feedback">
             <span class="" style="font-weight:500;">&nbsp;&nbsp;Feedback</span>
           </a>
         </div>
 
         <div *ngIf="userType === 'admin'">
           <a routerLink="/account" class="nav_link sidebar-hovered" id="text_link">
-            <img style="width:50px; height:50px;" src="../../assets/images/icon_accMngt.png" alt="Manage Accounts">
+            <img style="width:50px; height:50px;" src="./assets/images/icon_accMngt.png" alt="Manage Accounts">
             <span class="" style="font-weight:500;">&nbsp;&nbsp;Accounts</span>
           </a>
         </div>
@@ -47,17 +47,17 @@
     <div class="btn-group dropup" style="display: inline-block">
       <div class="nav_prof sidebar-hovered dropdown-toggle" id="text_link" data-toggle="dropdown" aria-haspopup="true"
         aria-expanded="false">
-        <img style="width:50px; height:50px;" src="../../assets/images/icon_user.png" alt="Profile">
+        <img style="width:50px; height:50px;" src="./assets/images/icon_user.png" alt="Profile">
         <span class="" style="font-weight:500;">&nbsp;&nbsp;&nbsp;&nbsp;{{ userName }}&nbsp;&nbsp;&nbsp;</span>
       </div>
       <div class="dropdown-menu" style=" width: 200px; max-width: 200px;">
-        <a class="dropdown-item" routerLink="/profile"> <img class="mb-1" src="../../assets/images/icon_viewprof.png"
+        <a class="dropdown-item" routerLink="/profile"> <img class="mb-1" src="./assets/images/icon_viewprof.png"
             style="width: 25px; height: 25px; margin-top: 3px;" alt="View Profile"> &nbsp; View Profile &nbsp; &nbsp;
           &nbsp;</a>
-        <a class="dropdown-item" href="#"> <img class="mb-1" src="../../assets/images/icon_settings.png"
+        <a class="dropdown-item" href="#"> <img class="mb-1" src="./assets/images/icon_settings.png"
             style="width: 25px; height: 25px; margin-top: 3px;" alt="View Profile"> &nbsp; Settings &nbsp; &nbsp;
           &nbsp;</a>
-        <a class="dropdown-item" href="#" (click)="logout()"> <img class="mb-1" src="../../assets/images/icon_logout.png"
+        <a class="dropdown-item" href="#" (click)="logout()"> <img class="mb-1" src="./assets/images/icon_logout.png"
             style="width: 25px; height: 25px; margin-top: 3px;" alt="View Profile"> &nbsp; Logout &nbsp; &nbsp;
           &nbsp;</a>
       </div>

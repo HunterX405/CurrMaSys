@@ -8,7 +8,7 @@
 
             <div class="d-flex justify-content-start" style="margin: 10px 0;">
                 <button (click)="goBack()" type="button" class="btn p-0">
-                  <img class="logoImg " src="../../assets/images/icon_back_btn.png" alt="BACK BUTTON">
+                  <img class="logoImg " src="./assets/images/icon_back_btn.png" alt="BACK BUTTON">
                   <strong> GO BACK </strong>
                 </button>
             </div>
@@ -35,10 +35,10 @@
                     <div class="form-group pb-3">
                         <input type="radio" id="approve" name="status" formControlName="isApproved" value="1" [checked]="approve">
                         <label for="approve" class="h4 px-2 radioLbl">Approve</label><br>
-            
+
                         <input type="radio" id="returned" name="status" formControlName="isApproved" value="0" [checked]="returned">
                         <label for="return" class="h4 px-2 radioLbl">Return</label>
-            
+
                         <div class="error"
                             *ngIf="feedbackForm.get('isApproved')?.hasError('required') && (feedbackForm.get('isApproved')?.dirty || feedbackForm.get('isApproved')?.touched || isFormSubmitted)">
                             This field is required.
@@ -48,12 +48,12 @@
                     <div class="d-flex justify-content-end" style="margin: 5px 0;">
                         <button class="btn btn-primary">Submit</button>
                     </div>
-            
-                    
+
+
                 </form>
 
             </div>
-              
+
         </div>
 
     </div>
