@@ -20,20 +20,56 @@
                            data.department }} </strong> </span> </h3>
                </div>
             </div>
-            <div class="row">
-               <div class="col-md-4">
-                  <div class="row card border-0 m-2">
-                     <div class="card-body">
-                        <div class="row">
-                           <div class="d-flex justify-content-center col-2">
-                              <img src="./assets/images/icon_user_dashboard.png" style="width:60px; height:60px;"
-                                 alt="DASHBOARD">
-                           </div>
-                           <div class="col-10">
-                              <h6 class="card-title"> <strong> No. of Stakeholder Accounts: </strong> </h6>
-                              <h3 class="card-subtitle mb-2" style="font-weight:bolder; color: #222222">{{
-                                 stakeholderNum }} </h3>
-                           </div>
+
+            <button (click)="viewCurriculum()" class="btn btn-primary mx-2">
+                View Curriculum
+            </button>
+            <button routerLink="/feedback/print/{{ curriculumID }}/{{curriculumVer}}" class="btn btn-primary mx-2">PDF</button>
+
+            <div *ngFor="let data of curriculumData">
+                <div class="row card border-0 m-2">
+                    <div class="card-body">
+                        <h4 style="font-family: 'Outfit'">
+                            Curriculum Version:&nbsp;
+                            <span class="text-muted">
+                                <strong> {{ data.version }} </strong>
+                            </span>
+                        </h4>
+                        <h4 style="font-family: 'Outfit'">
+                            Department:&nbsp;
+                            <span class="text-muted">
+                                <strong>{{ data.department }} </strong>
+                            </span>
+                        </h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="row card border-0 m-2">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="d-flex justify-content-center col-2">
+                                        <img
+                                            src="../../assets/images/icon_user_dashboard.png"
+                                            style="width: 60px; height: 60px"
+                                            alt="DASHBOARD"
+                                        />
+                                    </div>
+                                    <div class="col-10">
+                                        <h6 class="card-title">
+                                            <strong>
+                                                No. of Stakeholder Accounts:
+                                            </strong>
+                                        </h6>
+                                        <h3
+                                            class="card-subtitle mb-2"
+                                            style="font-weight: bolder"
+                                        >
+                                            {{ stakeholderNum }}
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                      </div>
                   </div>

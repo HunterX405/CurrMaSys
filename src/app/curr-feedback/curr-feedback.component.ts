@@ -85,4 +85,7 @@ export class CurrFeedbackComponent implements OnInit {
       this.router.navigate(['/vote']);
    }
 
+   viewCurriculum() {
+      window.open(`/curriculum/${this.curriculumID}/${this.curriculumVer}`, "_blank");
+   }
 }

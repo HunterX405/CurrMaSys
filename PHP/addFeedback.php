@@ -18,9 +18,9 @@ if (isset($postdata) && !empty($postdata)) {
 
     if ($haveSubmitted === true) {
         // IF user have already submitted, use UPDATE Query
-        $query = "UPDATE vote SET is_approved=?, comment=? WHERE fk_vote_user_id=? AND fk_vote_curr_id=?";
+        $query = "UPDATE vote SET is_approved=?, comment=? WHERE fk_vote_user_id=? AND fk_vote_curr_id=? AND curr_ver=?";
 
-        $params = [$isApproved, $comment, $userID, $currID];
+        $params = [$isApproved, $comment, $userID, $currID, $currVer];
 
         $result = executeQuery($query, $params);
     } else {

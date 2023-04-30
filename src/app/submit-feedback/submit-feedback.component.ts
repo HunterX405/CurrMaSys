@@ -119,10 +119,9 @@ export class SubmitFeedbackComponent implements OnInit {
             if (this.haveSubmitted === true) {
                this.feedbackForm.get("comment")?.setValue(this.getComment(feedbacks, keys, userID));
                this.feedbackForm.get("isApproved")?.setValue(this.getRadio(feedbacks, keys, userID));
-               if (this.isApproved == "1"){
+               if (this.isApproved == "1") {
                   this.approve = true;
-               }
-               else{
+               } else {
                   this.returned = true;
                }
             }
@@ -154,7 +153,7 @@ export class SubmitFeedbackComponent implements OnInit {
 
             this.curriculumStatus = this.apiService.getCurriculumStatus(this.feedbacks, this.keys, this.stakeholderNum, this.feedbackNum);
 
-            this.apiService.updateStatus(curriculumID, this.curriculumStatus).subscribe({
+            this.apiService.updateStatus(curriculumID, curriculumVer, this.curriculumStatus).subscribe({
                next: (data) => {
                   console.log("Update Success", data);
                },
@@ -205,5 +204,9 @@ export class SubmitFeedbackComponent implements OnInit {
 
    goBack() {
       this.router.navigate(['/vote']);
+   }
+
+   viewCurriculum() {
+      window.open(`/curriculum/${this.curriculumID}/${this.curriculumVer}`, "_blank");
    }
 }

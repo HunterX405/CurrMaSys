@@ -57,10 +57,10 @@ export class ApiService {
    countUser() {
       return this.httpClient.get<any>(this.baseUrl + "/countUsers.php");
    }
-   
+
    countCurrStatus() {
       return this.httpClient.get<any>(this.baseUrl + "/countCurrstatus.php");
-   } 
+   }
 
    getUser(id: any): Observable<any> {
       const url = `${this.baseUrl + "/disableUser.php"}?id=${id}`;
@@ -278,7 +278,7 @@ export class ApiService {
    // Get the feedbacks of a specific CURRICULUM
    getFeedbacks(currID: number, currVer: number) {
       const credentials = { currID, currVer };
-      console.log('cc',credentials)
+      console.log('cc', credentials)
 
       return this.httpClient.post<any>(this.baseUrl + "/getFeedbacks.php", credentials).pipe(map(data => {
          return data['feedbacks'];
@@ -292,7 +292,7 @@ export class ApiService {
    }
 
    getCurriculumInfo(currID: number, currVer: number) {
-      const credentials = { currID, currVer};
+      const credentials = { currID, currVer };
       return this.httpClient.post<any>(this.baseUrl + "/getCurriculumInfo.php", credentials).pipe(map(data => {
          return data;
       }));
@@ -326,8 +326,8 @@ export class ApiService {
       }
    }
 
-   updateStatus(currID: any, currStatus: any) {
-      const currData = { currID, currStatus };
+   updateStatus(currID: any, currVer: any, currStatus: any) {
+      const currData = { currID, currVer, currStatus };
 
       return this.httpClient.post<any>(this.baseUrl + "/updateStatus.php", currData).pipe(map(data => {
          return data;
@@ -357,6 +357,12 @@ export class ApiService {
 
       return this.httpClient.post<any>(this.baseUrl + "/editCurriculum.php", formData).pipe(map(data => {
          return data;
+      }));
+   }
+
+   getApprovedCurr() {
+      return this.httpClient.get<any>(this.baseUrl + "/getApprovedCurr.php").pipe(map(data => {
+         return data["curriculum"];
       }));
    }
 }

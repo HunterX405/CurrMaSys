@@ -4,8 +4,14 @@
 
   <h1 style="padding: 15px 32px; height: 8%;"> Dashboard </h1>
   <div class="chart-container">
-    <canvas  id="subjectChart">{{ chart }}</canvas>
-    <canvas  id="userChart">{{ chart }}</canvas>
+    <h2>Status of Curriculums</h2>
+    <canvas  id="statusChart">{{ chart }}</canvas>
+    <!-- <canvas  id="subjectChart">{{ chart }}</canvas> -->
+    <!-- <canvas  id="userChart">{{ chart }}</canvas> -->
+    <h3>View Latest Approved Curriculum</h3>
+    <button class="btn btn-primary" (click)="viewLatestCurriculum()">
+      View
+    </button>
   </div>
   <div class="lowerMainContent">
     <div class="container-fluid">
@@ -66,7 +72,7 @@
                   <img src="./assets/images/icon_uploads.png" style="width:60px; height:60px;" alt="UPLOADED FILES">
                 </div>
                 <div class="col-10">
-                  <h6 class="card-title"> <strong> Uploaded Files </strong> </h6>
+                  <h6 class="card-title"> <strong> REMOVE THIS PART Uploaded Files </strong> </h6>
                   <h3 class="card-subtitle mb-2" style="font-weight:bolder;"> {{ noFileUploaded }}</h3>
                 </div>
               </div>
@@ -84,7 +90,7 @@
                   <img src="./assets/images/icon_paper.png" style="width:60px; height:60px;" alt="X">
                 </div>
                 <div class="col-10">
-                  <h2 class="card-subtitle mb-2"  style="font-weight:bolder; color: #222222">Curriculum Status:</h2>
+                  <h2 class="card-subtitle mb-2"  style="font-weight:bolder; color: #222222"> REMOVE THIS PART Curriculum Status:</h2>
                   <h6 class="card-title"> <strong> Approved </strong> </h6>
                   <h3 class="card-subtitle mb-2"  style="font-weight:bolder; color: #222222"> {{ countcurrstat.approved }} </h3>
                   <h6 class="card-title"> <strong> Pending</strong> </h6>
@@ -105,7 +111,7 @@
                 </div>
                 <div class="col-10">
                   <h6 class="card-title"> <strong> Total Subjects </strong> </h6>
-                  <h3 class="card-subtitle mb-2"  style="font-weight:bolder;">{{subjectTotal}}</h3>
+                  <h3 class="card-subtitle mb-2"  style="font-weight:bolder;">{{allsubjectTotal}}</h3>
                 </div>
               </div>
             </div>
@@ -113,7 +119,7 @@
         </div>
       </div>
 
-      <div class="container">
+      <div class="container d-none">
         <h1>Dashboard</h1>
         <div *ngIf="userType !== 'stakeholder'">
           <a routerLink="/subject">Subjects</a>

@@ -6,10 +6,11 @@ $request = json_decode($postData);
 
 if (isset($postData) && !empty($postData)) {
     $currID = $request->currID;
+    $currVer = $request->currVer;
     $currStatus = trim($request->currStatus);
 
-    $query = "UPDATE curriculum SET curr_status=? WHERE id=?";
-    $params = [$currStatus, $currID];
+    $query = "UPDATE curriculum SET curr_status=? WHERE id=? AND version_id=?";
+    $params = [$currStatus, $currID, $currVer];
 
     $result = executeQuery($query, $params);
 

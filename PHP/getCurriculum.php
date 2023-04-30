@@ -16,7 +16,7 @@ if (isset($postData) && !empty($postData)) {
       $curriculum = $result->fetch_assoc();
       $resultData['curriculum'] = $curriculum;
 
-      $query = "SELECT s.course_code, s.title, s.id,
+      $query = "SELECT s.course_code, s.title, s.id, s.syllabus,
                         cs.lec_units, cs.lab_units, cs.total_units, cs.hrs, cs.year, cs.semester,
                         GROUP_CONCAT(DISTINCT sp.course_code) AS pre_requisite,
                         GROUP_CONCAT(DISTINCT sp.id) AS pre_requisite_id,

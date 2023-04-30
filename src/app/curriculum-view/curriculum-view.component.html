@@ -135,7 +135,7 @@
                   </thead>
                   <tbody *ngFor="let subject of subjects['sem1']" class="text-center">
                      <td>{{ subject.course_code }}</td>
-                     <td>{{ subject.title }}</td>
+                     <td><a href="http://localhost/CurrMaSys/php/PDF/{{subject.syllabus}}">{{ subject.title }}</a></td>
                      <td>{{ subject.lec_units }}</td>
                      <td>{{ subject.lab_units }}</td>
                      <td>{{ subject.total_units }}</td>
@@ -175,7 +175,7 @@
                   </thead>
                   <tbody *ngFor="let subject of subjects['sem2']" class="text-center">
                      <td>{{ subject.course_code }}</td>
-                     <td>{{ subject.title }}</td>
+                     <td><a href="http://localhost/CurrMaSys/php/PDF/{{subject.syllabus}}">{{ subject.title }}</a></td>
                      <td>{{ subject.lec_units }}</td>
                      <td>{{ subject.lab_units }}</td>
                      <td>{{ subject.total_units }}</td>
