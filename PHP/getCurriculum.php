@@ -21,13 +21,17 @@ if (isset($postData) && !empty($postData)) {
                         GROUP_CONCAT(DISTINCT sp.course_code) AS pre_requisite,
                         GROUP_CONCAT(DISTINCT sp.id) AS pre_requisite_id,
                         GROUP_CONCAT(DISTINCT sc.course_code) AS co_requisite,
-                        GROUP_CONCAT(DISTINCT sc.id) AS co_requisite_id
+                        GROUP_CONCAT(DISTINCT sc.id) AS co_requisite_id,
+                        GROUP_CONCAT(DISTINCT e.track) AS electives_track,
+                        GROUP_CONCAT(DISTINCT e.elective_title) AS electives_title,
+                        GROUP_CONCAT(DISTINCT e.elective_syllabus) AS electives_syllabus
                   FROM curriculum_subjects AS cs
                   INNER JOIN subject AS s ON cs.subject_id = s.id
                   LEFT JOIN pre_requisites AS pr ON cs.id = pr.curr_subject_id
                   LEFT JOIN co_requisites AS cr ON cs.id = cr.curr_subject_id
                   LEFT JOIN subject AS sp ON pr.pre_requisite_id = sp.id
                   LEFT JOIN subject AS sc ON cr.co_requisite_id = sc.id
+                  LEFT JOIN elective AS e ON s.id = e.fk_subject_id
                   WHERE cs.curr_id=? AND cs.curr_ver=?
                   GROUP BY cs.id";
       $params = [$curriculumID, $curriculumVer];
