@@ -36,7 +36,7 @@ export class DisableUserComponent implements OnInit {
   }
 
   deactivateUser(): void {
-    this.apiService.activationUser(this.id, this.deactivateUserForm.value).subscribe(res => {
+    this.apiService.activationUser(this.deactivateUserForm.value).subscribe(res => {
       console.log(res);
       alert("Account with ID:" + this.id + ' was successfully deactivated');
       this.router.navigate(['/account']);
