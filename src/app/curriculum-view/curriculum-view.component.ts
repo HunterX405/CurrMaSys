@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormArray, FormBuilder } from '@angular/forms';
 import { ApiService } from '../api.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import 'datatables.net-buttons';
 import 'datatables.net-buttons/js/buttons.html5.min.js';
 import 'datatables.net-buttons/js/buttons.print.min.js';
@@ -40,6 +41,7 @@ export class CurriculumViewComponent implements OnInit {
     thirdYearSecondSem: any;
     fourthYearFirstSem: any;
     fourthYearSecondSem: any;
+    apiUrl: string = environment.apiUrl;
     electives: any;
     paramyear: any;
     paramsem: any;

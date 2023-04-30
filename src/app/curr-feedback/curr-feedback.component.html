@@ -17,14 +17,14 @@
 
                 <div class="d-flex justify-content-end">
                     <button (click)="viewCurriculum()" class="btn btn-primary mx-2">
-                       <strong> View Curriculum </strong> 
+                       <strong> View Curriculum </strong>
                     </button>
                     <button routerLink="/feedback/print/{{ curriculumID }}/{{curriculumVer}}"
                         class="btn btn-primary mx-2"> <strong> TO PDF </strong>
                     </button>
                 </div>
 
-            
+
 
                 <div class="row card border-0 m-2">
                     <div class="card-body">
@@ -36,7 +36,7 @@
                     </div>
                 </div>
 
-               
+
 
                 <div *ngFor="let data of curriculumData">
 
@@ -65,7 +65,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="d-flex justify-content-center col-2">
-                                            <img src="../../assets/images/icon_user_dashboard.png"
+                                            <img src="./assets/images/icon_user_dashboard.png"
                                                 style="width: 60px; height: 60px" alt="DASHBOARD" />
                                         </div>
                                         <div class="col-10">

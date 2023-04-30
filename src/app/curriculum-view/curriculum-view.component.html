@@ -1,4 +1,4 @@
-<app-sidenav class="printexclude"></app-sidenav>
+<app-sidenav></app-sidenav>
 
 <div class="mainContent">
 
@@ -10,7 +10,7 @@
 
             <div *ngIf="isTableVisible" class="d-flex justify-content-start " style="margin: 10px 0;">
                 <button (click)="onGoBack1()" type="button" class="btn p-0 ">
-                    <img class="logoImg " src="../../assets/images/icon_back_btn.png" alt="BACK BUTTON">
+                    <img class="logoImg " src="./assets/images/icon_back_btn.png" alt="BACK BUTTON">
                     <strong class="go_back"> GO BACK </strong>
                 </button>
             </div>
@@ -122,7 +122,7 @@
                     </thead>
                     <tbody *ngFor="let subject of subjects['sem1']" class="text-center">
                         <td>{{ subject.course_code }}</td>
-                        <td><a href="http://localhost/CurrMaSys/php/PDF/{{subject.syllabus}}">{{ subject.title }}</a>
+                        <td><a href="{{apiUrl}}/PDF/{{subject.syllabus}}">{{ subject.title }}</a>
                         </td>
                         <td>{{ subject.lec_units }}</td>
                         <td>{{ subject.lab_units }}</td>
@@ -163,7 +163,7 @@
                     </thead>
                     <tbody *ngFor="let subject of subjects['sem2']" class="text-center">
                         <td>{{ subject.course_code }}</td>
-                        <td><a href="http://localhost/CurrMaSys/php/PDF/{{subject.syllabus}}">{{ subject.title }}</a>
+                        <td><a href="{{apiUrl}}/php/PDF/{{subject.syllabus}}">{{ subject.title }}</a>
                         </td>
                         <td>{{ subject.lec_units }}</td>
                         <td>{{ subject.lab_units }}</td>
