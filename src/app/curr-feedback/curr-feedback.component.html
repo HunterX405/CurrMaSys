@@ -15,6 +15,9 @@
                 </button>
             </div>
 
+            <button (click)="viewCurriculum()" class="btn btn-primary mx-2">
+                View Curriculum
+            </button>
             <button routerLink="/feedback/print/{{ curriculumID }}/{{curriculumVer}}" class="btn btn-primary mx-2">PDF</button>
 
             <div *ngFor="let data of curriculumData">

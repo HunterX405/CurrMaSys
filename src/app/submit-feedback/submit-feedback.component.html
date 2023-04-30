@@ -15,7 +15,10 @@
 
             <div class="addForm p-5">
 
-                <h2>View Curriculum Details</h2>
+                <h2>Feedback Form</h2>
+                <button (click)="viewCurriculum()" type="button" class="btn btn-primary">
+                    View Curriculum
+                </button>
                 <form [formGroup]="feedbackForm" (ngSubmit)="addFeedback(feedbackForm)">
 
                     <div class="form-group pb-3">

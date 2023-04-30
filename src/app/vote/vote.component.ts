@@ -107,7 +107,7 @@ export class VoteComponent implements OnInit {
       // Access the VOTE Table
       for (const feedback of feedbacks) {
         // Check IF the current feedback has the current CURRICULUM ID and USER ID
-        if (feedback.fk_vote_user_id === userID && feedback.fk_vote_curr_id === curriculum.id) {
+        if (feedback.fk_vote_user_id === userID && feedback.fk_vote_curr_id === curriculum.id && feedback.curr_ver === curriculum.version_id) {
           tempChecker = 1;
           this.submissions.push("Submitted");
           break;
