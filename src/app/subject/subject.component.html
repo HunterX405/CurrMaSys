@@ -36,10 +36,10 @@
         </button>
       </div>-->
 
-      <div *ngIf="isAddFormVisible" class="d-flex justify-content-start" style="margin: 10px 0;">
-        <button (click)="onGoBack()" type="button" class="btn p-0">
+      <div *ngIf="isAddFormVisible" class="d-flex justify-content-start " style="margin: 10px 0;">
+        <button (click)="onGoBack()" type="button" class="btn p-0 ">
           <img class="logoImg " src="../../assets/images/icon_back_btn.png" alt="BACK BUTTON">
-          <strong> GO BACK </strong>
+          <strong class="go_back"> GO BACK </strong>
         </button>
       </div>
 
@@ -100,7 +100,7 @@
 
           <div class="form-group pb-3">
             <label for="syllabus">Syllabus</label> <br>
-            <input type="File" formControlName="syllabus" name="syllabus" accept=".pdf" (change)="onFileSelect($event)"
+            <input type="File" formControlName="syllabus" class="form-control" name="syllabus" accept=".pdf" (change)="onFileSelect($event)"
               [class.error]="addSubForm.get('syllabus')?.hasError('required') && (isFormSubmitted)">
             <div class="error" *ngIf="addSubForm.get('syllabus')?.hasError('required') && (isFormSubmitted)">
               This field is required.

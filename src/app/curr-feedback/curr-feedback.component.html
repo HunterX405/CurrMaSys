@@ -1,61 +1,60 @@
 <app-sidenav></app-sidenav>
 
 <div class="mainContent">
-   <h1 style="padding: 15px 32px; height: 8vh;"> Reports </h1>
-   <div class="lowerMainContent">
-      <div class="mx-5 py-3">
-         <div class="d-flex justify-content-start" style="margin: 10px 0;">
-            <button (click)="onGoBack()" type="button" class="btn p-0">
-               <img class="logoImg " src="../../assets/images/icon_back_btn.png" alt="BACK BUTTON">
-               <strong> GO BACK </strong>
-            </button>
-         </div>
-         <button routerLink="/feedback/print/{{curriculumID}}/{{curriculumVer}}" class="btn btn-primary mx-2">PDF</button>
-         <div *ngFor="let data of curriculumData">
-            <div class="row card border-0 m-2">
-               <div class="card-body">
-                  <h3 style="font-family: 'Outfit';"> Curriculum Version:&nbsp; <span class="text-muted"> <strong> {{
-                           data.version }} - {{data.version_id}} </strong> </span> </h3>
-                  <h3 style="font-family: 'Outfit';"> Department:&nbsp; <span class="text-muted"> <strong>{{
-                           data.department }} </strong> </span> </h3>
-               </div>
+    <h1 style="padding: 15px 32px; height: 8vh;"> Reports </h1>
+    <div class="lowerMainContent">
+        <div class="mx-5 py-3">
+            <div class="d-flex justify-content-start" style="margin: 10px 0;">
+                <button (click)="onGoBack()" type="button" class="btn p-0 ">
+                  <img class="logoImg " src="../../assets/images/icon_back_btn.png" alt="BACK BUTTON">
+                  <strong class="go_back"> GO BACK </strong>
+                </button>
             </div>
-            <div class="row">
-               <div class="col-md-4">
-                  <div class="row card border-0 m-2">
-                     <div class="card-body">
-                        <div class="row">
-                           <div class="d-flex justify-content-center col-2">
-                              <img src="../../assets/images/icon_user_dashboard.png" style="width:60px; height:60px;"
-                                 alt="DASHBOARD">
-                           </div>
-                           <div class="col-10">
-                              <h6 class="card-title"> <strong> No. of Stakeholder Accounts: </strong> </h6>
-                              <h3 class="card-subtitle mb-2" style="font-weight:bolder; color: #222222">{{
-                                 stakeholderNum }} </h3>
-                           </div>
+            <button routerLink="/feedback/print/{{curriculumID}}/{{curriculumVer}}" class="btn btn-primary mx-2">PDF</button>
+            <div *ngFor="let data of curriculumData">             
+                <div class="row card border-0 m-2">
+                    <div class="card-body">
+                        <h4 style="font-family: 'Outfit';"> Curriculum Version:&nbsp; <span class="text-muted"> <strong> {{ data.version }} </strong> </span>  </h4>
+                        <h4 style="font-family: 'Outfit';"> Department:&nbsp; <span class="text-muted"> <strong>{{ data.department }} </strong> </span> </h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="row card border-0 m-2">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="d-flex justify-content-center col-2">
+                                        <img src="../../assets/images/icon_user_dashboard.png"
+                                            style="width:60px; height:60px;" alt="DASHBOARD">
+                                    </div>
+                                    <div class="col-10">
+                                        <h6 class="card-title"> <strong> No. of Stakeholder Accounts: </strong> </h6>
+                                        <h3 class="card-subtitle mb-2" style="font-weight:bolder;">{{
+                                            stakeholderNum }} </h3>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-md-4">
-                  <div class="row card border-0 m-2">
-                     <div class="card-body">
-                        <div class="row">
-                           <div class="d-flex justify-content-center col-2">
-                              <img src="../../assets/images/icon_paper.png" style="width:60px; height:60px;"
-                                 alt="BASE SUBJECT">
-                           </div>
-                           <div class="col-10">
-                              <h6 class="card-title"> <strong> No. of Submitted Feedbacks: </strong> </h6>
-                              <h3 class="card-subtitle mb-2" style="font-weight:bolder; color: #222222">{{
-                                 feedbackNum }} </h3>
-                           </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row card border-0 m-2">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="d-flex justify-content-center col-2">
+                                        <img src="../../assets/images/icon_paper.png" style="width:60px; height:60px;"
+                                            alt="BASE SUBJECT">
+                                    </div>
+                                    <div class="col-10">
+                                        <h6 class="card-title"> <strong> No. of Submitted Feedbacks: </strong> </h6>
+                                        <h3 class="card-subtitle mb-2" style="font-weight:bolder;">{{
+                                            feedbackNum }} </h3>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-md-4">
+                    </div>
+                </div>
+                <div class="col-md-4">
                   <div class="row card border-0 m-2">
                      <div class="card-body">
                         <div class="row">
@@ -78,16 +77,16 @@
                         </div>
                      </div>
                   </div>
-               </div>
+                </div>
             </div>
-         </div>
+        </div>
 
-         <div class="row card border-0 m-2">
-            <div class="card-body">
-               <h3 class="my-0" style="font-family: 'Outfit';"> LIST OF FEEDBACKS: </h3>
-
-            </div>
-         </div>
+        <div class="row card border-0 m-2">
+             <div class="card-body">
+                    <h4 class="my-0" style="font-family: 'Outfit';"> LIST OF FEEDBACKS: </h4>
+                 
+             </div>
+        </div>
 
          <div *ngIf="!feedbackNum">
             <div class="row card border-0 m-2">
@@ -104,25 +103,23 @@
 
          <div *ngIf="feedbackNum">
             <div *ngFor="let feedback of feedbacks" class="row card border-0 m-2">
-               <div class="card-body">
-                  <!-- Display the Feedbacks using a div instead of table -->
-                  <div class="p-3">
-                     <h3> <strong>Name:&nbsp;</strong> {{ feedback.name }} </h3>
-                     <p> <strong>Email:&nbsp;</strong> {{ feedback.email }} </p>
+                <div class="card-body">
+                    <!-- Display the Feedbacks using a div instead of table -->
+                    <div class="p-3">
+                        <h4> <strong>Name:&nbsp;</strong> {{ feedback.name }} </h4>
+                        <p> <strong>Email:&nbsp;</strong> {{ feedback.email }} </p>
 
-                     <p *ngIf="feedback.is_approved == 1"> <strong>Status:&nbsp;</strong> <span class="activeStatus">
-                           Approved </span></p>
-                     <p *ngIf="feedback.is_approved == 0"> <strong>Status:&nbsp;</strong> <span class="returnedStatus">
-                           Returned </span></p>
+                        <p *ngIf="feedback.is_approved == 1"> <strong>Status:&nbsp;</strong> <span class="activeStatus"> Approved </span></p>
+                        <p *ngIf="feedback.is_approved == 0"> <strong>Status:&nbsp;</strong> <span class="returnedStatus"> Returned </span></p>
 
-                     <p *ngIf="feedback.comment !== ''">
-                        <span><strong>Comments:&nbsp;</strong></span> {{ feedback.comment }}
-                     </p>
-                     <p *ngIf="feedback.comment == ''">
-                        <span><strong>Comments:&nbsp;</strong></span> <em> No Comments Submitted</em>
-                     </p>
-                  </div>
-               </div>
+                        <p *ngIf="feedback.comment !== ''"> 
+                            <span><strong>Comments:&nbsp;</strong></span> {{ feedback.comment }} 
+                        </p>
+                        <p *ngIf="feedback.comment == ''"> 
+                            <span><strong>Comments:&nbsp;</strong></span> <em> No Comments Submitted</em> 
+                        </p>
+                    </div>
+                </div>
             </div>
          </div>
 

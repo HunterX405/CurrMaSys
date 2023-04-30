@@ -9,12 +9,4 @@
   border: 1px solid #ee404c;
 }
 
-.addSub{
-  color: #182850;
-  font-weight: bold;
-}
 
-.addSub:hover{
-  text-decoration: underline;
-  font-weight: bolder;
-}

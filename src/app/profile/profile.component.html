@@ -9,8 +9,8 @@
         <h2> {{ "Logged in User: " + userName }}</h2>
         <form [formGroup]="editProfileForm" (ngSubmit)="editProfile(editProfileForm)">
           <input type="hidden" formControlName="id" class="form-control" id="id">
-          <div class="form-group">
-            <label for="name">Name</label>
+          <div class="form-group pb-2">
+            <label for="name">Name:</label>
             <input type="text" formControlName="name" class="form-control" placeholder="Name" id="name"
               [class.invalid]="editProfileForm.get('name')?.invalid ">
           </div>
@@ -19,8 +19,8 @@
             This field is required.
           </div>
       
-          <div class="form-group">
-            <label for="email">Email</label>
+          <div class="form-group pb-2">
+            <label for="email">Email:</label>
             <input type="text" formControlName="email" class="form-control" placeholder="Email" id="email"
               [class.invalid]="editProfileForm.get('email')?.hasError('email') || editProfileForm.get('email')?.hasError('required')">
           </div>
@@ -33,9 +33,9 @@
             Invalid email format
           </div>
       
-          <h3>Change Password</h3>
-          <div class="form-group">
-            <label for="newPassword">New Password</label>
+          <div class="py-3"><h4>Change Password</h4> </div>
+          <div class="form-group pb-2">
+            <label for="newPassword">New Password:</label>
             <input type="password" formControlName="newPassword" class="form-control" placeholder="New Password"
               id="New Password"
               [class.invalid]="editProfileForm.get('newPassword')?.hasError('required') && (editProfileForm.get('newPassword')?.dirty || editProfileForm.get('newPassword')?.touched || isFormSubmitted)">
@@ -46,8 +46,8 @@
             This field is required.
           </div>
       
-          <div class="form-group">
-            <label for="conPassword">Confirm Password</label>
+          <div class="form-group pb-2">
+            <label for="conPassword">Confirm Password:</label>
             <input type="password" formControlName="conPassword" class="form-control" placeholder="Confirm Password"
               id="conPassword"
               [class.invalid]="editProfileForm.get('conPassword')?.hasError('required') && (editProfileForm.get('conPassword')?.dirty || editProfileForm.get('conPassword')?.touched || isFormSubmitted)">
@@ -65,7 +65,10 @@
           <div class="success" *ngIf="isSuccess">
             Profile is successfully changed.
           </div>
-          <button class="btn btn-primary">Submit</button>
+
+          <div class="d-flex justify-content-end" style="margin: 5px 0;">
+            <button class="btn btn-primary">Submit</button>
+          </div>
         </form>
       </div>
 

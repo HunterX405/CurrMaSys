@@ -276,7 +276,12 @@ export class CurriculumViewComponent implements OnInit {
       this.isTableVisible = !this.isTableVisible;
    }
 
-   onGoBack() {
+   onGoBack1() {
+      this.router.navigate(['/curriculum']);
+   
+   }
+
+   onGoBack2() {
       this.isTableVisible = !this.isTableVisible;
    }
 
