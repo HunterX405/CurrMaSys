@@ -1,4 +1,4 @@
-<app-sidenav></app-sidenav>
+<app-sidenav class="printexclude"></app-sidenav>
 
 <div class="mainContent">
 
@@ -24,13 +24,15 @@
                      <div style="padding-right: 30px;">
                         <h3 class="subCategoryTitle subCategoryActive"> View </h3>
                      </div>
-   
+
                   </div>
                </div>
-   
+
                <div class="col-4 d-flex justify-content-end">
-                  <button routerLink="/curriculum/print/{{currId}}" class="btn btn-primary mx-2"> <span> &nbsp; <strong> TO PDF</strong> &nbsp;&nbsp; </span> </button>
-                  <button (click)="onEdit()" type="button" class="btn btn-primary">           
+                  <button routerLink="/curriculum/print/{{currId}}/{{currVer}}/{{paramyear}}/{{paramsem}}" class="btn btn-primary mx-2"> <span>
+                        &nbsp; <strong>
+                           TO PDF</strong> &nbsp;&nbsp; </span> </button>
+                  <button *ngIf="curriculum.isLatest" (click)="onEdit()" type="button" class="btn btn-primary">
                      <span> &nbsp; <strong> EDIT CONTENT</strong> &nbsp;&nbsp; </span>
                   </button>
                </div>
@@ -64,8 +66,8 @@
                            </div>
                            <div class="col-10">
                               <h6 class="card-title"> <strong> Version: </strong> </h6>
-                              <h3 class="card-subtitle mb-2" style="font-weight:bolder;">{{
-                                 curriculum.version }} </h3>
+                              <h3 class="card-subtitle mb-2" style="font-weight:bolder; color: #222222">{{
+                                 curriculum.version }} - {{ curriculum.version_id }} </h3>
                            </div>
                         </div>
                      </div>
@@ -81,19 +83,41 @@
                <strong class="go_back"> GO BACK </strong>
             </button>
          </div>
-
+        
          <!-- Table for displaying the list of curriculums -->
          <div *ngIf="isTableVisible">
+            <form [formGroup]="filterForm" (ngSubmit)="displayCurriculum(currId, currVer)">
+               <label for="year">Year:</label>
+               <select id="year" formControlName="year">
+                 <option value="1">1</option>
+                 <option value="2">2</option>
+                 <option value="3">3</option>
+                 <option value="4">4</option>
+                 <option value="all" selected>All Levels</option>
+               </select>
+             
+               <label for="semester">Semester:</label>
+               <select id="semester" formControlName="semester">
+                 <option value="1">1</option>
+                 <option value="2">2</option>
+                 <option value="all" selected>All Semester</option>
+               </select>
+               <button type="submit">Filter</button>
+             </form>
 
             <div class="container-fluid mainTable px-5 py-3" *ngFor="let subjects of yearSem">
-            
+
                <table id="curriculumsTable" class="table">
                   <thead>
                      <tr class="text-center">
-                        <th colspan="8"> <h4 style="font-family:'Outfit'"> {{subjects['yearTitle']}} YEAR</h4> </th>
+                        <th colspan="8">
+                           <h4 style="font-family:'Outfit'"> {{subjects['yearTitle']}} YEAR</h4>
+                        </th>
                      </tr>
                      <tr class="text-left">
-                        <th colspan="8"> <h5 style="margin-top: 25px;"> <strong> FIRST SEMESTER: </strong> </h5>  </th>
+                        <th colspan="8">
+                           <h5 style="margin-top: 25px;"> <strong> FIRST SEMESTER: </strong> </h5>
+                        </th>
                      </tr>
                      <tr *ngIf="subjects['sem1'].length" class="text-center">
                         <th>COURSE CODE</th>
@@ -106,7 +130,7 @@
                         <th>CO-REQ.</th>
                      </tr>
                      <tr *ngIf="!subjects['sem1'].length" class="text-center">
-                        <th colspan="8s">NO SUBJECTS</th>
+                        <th colspan="8s">NO SUBJECTS/NO DATA RETRIEVED</th>
                      </tr>
                   </thead>
                   <tbody *ngFor="let subject of subjects['sem1']" class="text-center">
@@ -121,9 +145,19 @@
                      <td *ngIf="subject.co_requisite">{{ subject.co_requisite }}</td>
                      <td *ngIf="!subject.co_requisite">None</td>
                   </tbody>
+                  <tr *ngIf="subjects['sem1'].length && getTotals(subjects['sem1']) as totals" class="text-center">
+                     <td></td>
+                     <td>TOTAL</td>
+                     <td>{{ totals.lec | number : '1.1-2' }}</td>
+                     <td>{{ totals.lab | number : '1.1-2' }}</td>
+                     <td>{{ totals.all | number : '1.1-2' }}</td>
+                     <td>{{ totals.hrs }}</td>
+                  </tr>
                   <thead>
                      <tr class="text-left">
-                        <th colspan="8"> <h5 style="margin-top: 25px;"> <strong> SECOND SEMESTER: </strong> </h5>  </th>
+                        <th colspan="8">
+                           <h5 style="margin-top: 25px;"> <strong> SECOND SEMESTER: </strong> </h5>
+                        </th>
                      </tr>
                      <tr *ngIf="subjects['sem2'].length" class="text-center">
                         <th>COURSE CODE</th>
@@ -136,7 +170,7 @@
                         <th>CO-REQ.</th>
                      </tr>
                      <tr *ngIf="!subjects['sem2'].length" class="text-center">
-                        <th colspan="8">NO SUBJECTS</th>
+                        <th colspan="8">NO SUBJECTS/NO DATA RETRIEVED</th>
                      </tr>
                   </thead>
                   <tbody *ngFor="let subject of subjects['sem2']" class="text-center">
@@ -151,8 +185,16 @@
                      <td *ngIf="subject.co_requisite">{{ subject.co_requisite }}</td>
                      <td *ngIf="!subject.co_requisite">None</td>
                   </tbody>
+                  <tr *ngIf="subjects['sem2'].length && getTotals(subjects['sem2']) as totals" class="text-center">
+                     <td></td>
+                     <td>TOTAL</td>
+                     <td>{{ totals.lec | number : '1.1-2' }}</td>
+                     <td>{{ totals.lab | number : '1.1-2' }}</td>
+                     <td>{{ totals.all | number : '1.1-2' }}</td>
+                     <td>{{ totals.hrs }}</td>
+                  </tr>
                </table>
- 
+
             </div>
          </div>
 
@@ -164,87 +206,121 @@
 
                <div class="form-group pb-3">
                   <label for="department">Department</label>
-                  <input class="form-control" formControlName="department" placeholder="Department" />
+                  <input class="form-control" formControlName="department" placeholder="Department"
+                     [class.invalid]="curriculumForm.get('department')?.hasError('required') && (curriculumForm.get('department')?.dirty || curriculumForm.get('department')?.touched || isSubmitted)" />
                </div>
 
-               <div class="form-group pb-3">
+               <div class="form-group pb-5">
                   <label for="version">Version name</label>
-                  <input class="form-control" formControlName="version" placeholder="Version name" />
+                  <input class="form-control" formControlName="version" placeholder="Version name"
+                     [class.invalid]="curriculumForm.get('version')?.hasError('required') && (curriculumForm.get('version')?.dirty || curriculumForm.get('version')?.touched || isSubmitted)" />
                </div>
 
                <div class="pb-3" *ngFor="let subjects of subjectsArray" formArrayName="{{subjects['form']}}">
-                  <table class="container-fluid mainTable px-5 py-3">
-                     <tr>
-                        <th>{{subjects['yearTitle']}} YEAR - {{subjects['semTitle']}} SEMESTER</th>
-                     </tr>
-                     <tr>
-                        <th><button (click)="addNewSubject(subjects['array'])">Add Subject</button></th>
-                     </tr>
-                     <tr *ngIf="subjects['array'].value.length">
-                        <th>COURSE</th>
-                        <th>LEC UNITS</th>
-                        <th>LAB UNITS</th>
-                        <th>TOTAL UNITS</th>
-                        <th>HOURS PER WEEK</th>
-                        <th>PREREQ.</th>
-                        <th>CO-REQ.</th>
-                        <th>Action</th>
-                     </tr>
-                     <tr *ngFor="let x of subjects['array'].controls; let i = index;" [formGroupName]="i">
-                        <td>
-                           <select class="form-control" formControlName="course" style="padding: 5px;">
-                              <option value="" selected="true"> Select Course </option>
-                              <option *ngFor="let subject of subjectsList" [value]="subject.id">
-                                 {{subject.course_code}} - {{ subject.title }}
-                              </option>
-                           </select>
-                        </td>
-                        <td>
-                           <input class="form-control" (change)="getTotalUnits(i, subjects['array'])" type="number"
-                              min="0" max="3" formControlName="lec_units" />
-                        </td>
-                        <td>
-                           <input class="form-control" (change)="getTotalUnits(i, subjects['array'])" type="number"
-                              min="0" max="3" formControlName="lab_units" />
-                        </td>
-                        <td>
-                           <input class="form-control" type="number" min="0" max="5" formControlName="total_units"
-                              readonly [class.invalid]="subjects['array'].at(i).get('total_units').value > 5" />
-                           <p *ngIf="subjects['array'].at(i).get('total_units').value > 5">Max of 5 only</p>
-                        </td>
-                        <td>
-                           <input class="form-control" type="number" min="0" max="99" formControlName="hrs" />
-                        </td>
-                        <td>
-                           <select class="form-control" formControlName="pre_req" style="padding: 5px;" multiple>
-                              <option *ngFor="let subject of subjectsList" [value]="subject.course_code">{{
-                                 subject.course_code }}</option>
-                           </select>
-                        </td>
-                        <td>
-                           <select class="form-control" formControlName="co_req" style="padding: 5px;" multiple>
-                              <option *ngFor="let subject of subjectsList" [value]="subject.course_code">
-                                 {{subject.course_code }}
-                              </option>
-                           </select>
-                        </td>
-                        <td>
-                           <button (click)="deleteSubject(i,subjects['array'])">Delete Subject</button>
-                        </td>
-                     </tr>
+                  <table class="container-fluid mainTable px-5 py-3" style="margin-bottom: 30px">
+                     <thead>
+                        <tr style="width:35%;">
+                           <th>
+                              <div class="row">
+                                 <span>
+                                    <h6
+                                       style="margin-bottom:15px; padding-bottom:5px; border-bottom: 0.2px solid rgba(104, 104, 104, 0.5);">
+                                       <strong> {{subjects['yearTitle']}} YEAR - {{subjects['semTitle']}} SEMESTER
+                                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </strong>
+                                       <span class="addSub"> <a (click)="addNewSubject(subjects['array'])"> + ADD
+                                             SUBJECT
+                                          </a> </span>
+                                    </h6>
+                                 </span>
+
+
+                              </div>
+                           </th>
+                        </tr>
+
+
+                        <tr *ngIf="subjects['array'].value.length" class="text-center">
+                           <th class="p-1">COURSE</th>
+                           <th class="p-1">LEC UNITS</th>
+                           <th class="p-1">LAB UNITS</th>
+                           <th class="p-1">TOTAL UNITS</th>
+                           <th class="p-1">HOURS PER WEEK</th>
+                           <th class="p-1">PREREQ.</th>
+                           <th class="p-1">CO-REQ.</th>
+                           <th class="p-1">Action</th>
+                        </tr>
+                     </thead>
+
+                     <tbody>
+                        <tr *ngFor="let x of subjects['array'].controls; let i = index;" [formGroupName]="i"
+                           class="text-center">
+                           <td class="px-1">
+                              <select class="form-control" formControlName="course" style="padding: 5px;"
+                                 [class.invalid]="subjects['array'].at(i).get('course')?.pristine &&isSubmitted ">
+                                 <option value="" selected="true"> Select Course </option>
+                                 <option *ngFor="let subject of subjectsList" [value]="subject.id">
+                                    {{subject.course_code}} - {{ subject.title }}
+                                 </option>
+                              </select>
+                           </td>
+                           <td class="px-1">
+                              <input class="form-control" (change)="getTotalUnits(i, subjects['array'])" type="number"
+                                 min="0" max="3" formControlName="lec_units" />
+                           </td>
+                           <td class="px-1">
+                              <input class="form-control" (change)="getTotalUnits(i, subjects['array'])" type="number"
+                                 min="0" max="3" formControlName="lab_units" />
+                           </td>
+                           <td class="px-1">
+                              <input class="form-control" type="number" min="0" max="5" formControlName="total_units"
+                                 readonly [class.invalid]="subjects['array'].at(i).get('total_units').value > 5" />
+                              <p *ngIf="subjects['array'].at(i).get('total_units').value > 5">Max of 5 only</p>
+                           </td>
+                           <td class="px-1">
+                              <input class="form-control" type="number" min="0" max="99" formControlName="hrs" />
+                           </td>
+                           <td class="px-1">
+                              <select class="form-control" formControlName="pre_req" style="padding: 5px;" multiple>
+                                 <option *ngFor="let subject of subjectsList" [value]="subject.id">{{
+                                    subject.course_code }}</option>
+                              </select>
+                           </td>
+                           <td class="px-1">
+                              <select class="form-control" formControlName="co_req" style="padding: 5px;">
+                                 <option value="" selected="true">None</option>
+                                 <option *ngFor="let subject of subjectsList" [value]="subject.id">
+                                    {{subject.course_code }}
+                                 </option>
+                              </select>
+                           </td>
+                           <td class="px-1">
+                              <button (click)="deleteSubject(i,subjects['array'])"
+                                 class="btn btn-danger btn-sm text-white">Delete</button>
+                           </td>
+                        </tr>
+                     </tbody>
+                     <tfoot *ngIf="subjects['array'].length">
+                        <tr *ngIf="getFormTotals(subjects['array']) as totals">
+                           <td>TOTAL</td>
+                           <td>{{ totals.lec }}</td>
+                           <td>{{ totals.lab }}</td>
+                           <td>{{ totals.all }}</td>
+                           <td>{{ totals.hrs }}</td>
+                        </tr>
+                     </tfoot>
                   </table>
                </div>
 
                <div class="d-flex justify-content-end" style="margin: 5px 0;">
-                  <button class="btn btn-primary">Add</button>
+                  <button class="btn btn-primary">Edit Curriculum</button>
                </div>
 
                <!-- FOR DEBUGGING ONLY -->
-               <b>Form's Value:</b>
+               <!-- <b>Form's Value:</b>
                {{ curriculumForm.value | json }}
                <br />
                <b>Form is Valid ? :</b>
-               {{ curriculumForm.valid }}
+               {{ curriculumForm.valid }} -->
             </form>
          </div>
 

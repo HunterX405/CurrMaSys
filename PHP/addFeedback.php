@@ -11,22 +11,23 @@ if (isset($postdata) && !empty($postdata)) {
     $isApproved = $request->isApproved;
     $userID = $request->userID;
     $currID = $request->currID;
+    $currVer = $request->currVer;
     $haveSubmitted = $request->haveSubmitted;
     $message = "";
 
-    
+
     if ($haveSubmitted === true) {
         // IF user have already submitted, use UPDATE Query
-        $query = "UPDATE vote SET is_approved=?, comment=? WHERE fk_vote_user_id=?";
+        $query = "UPDATE vote SET is_approved=?, comment=? WHERE fk_vote_user_id=? AND fk_vote_curr_id=?";
 
-        $params = [$isApproved, $comment, $userID];
+        $params = [$isApproved, $comment, $userID, $currID];
 
         $result = executeQuery($query, $params);
     } else {
         // IF user have not submitted, use INSERT Query
-        $query = "INSERT INTO vote (is_approved, comment, fk_vote_user_id, fk_vote_curr_id) VALUES (?,?,?,?)";
+        $query = "INSERT INTO vote (is_approved, comment, fk_vote_user_id, fk_vote_curr_id, curr_ver) VALUES (?,?,?,?,?)";
 
-        $params = [$isApproved, $comment, $userID, $currID];
+        $params = [$isApproved, $comment, $userID, $currID, $currVer];
 
         $result = executeQuery($query, $params);
     }

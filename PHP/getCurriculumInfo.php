@@ -7,10 +7,11 @@ $request = json_decode($postData);
 
 if (isset($postData) && !empty($postData)) {
     $curriculumID = $request->currID;
+    $curriculumVer = $request->currVer;
 
-    $query = "SELECT * FROM curriculum WHERE id=?";
+    $query = "SELECT * FROM curriculum WHERE id=? AND version_id=?";
 
-    $params = [$curriculumID];
+    $params = [$curriculumID, $curriculumVer];
 
     $result = executeQuery($query, $params);
 

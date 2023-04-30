@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormArray, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormArray, FormBuilder, Form } from '@angular/forms';
 import { ApiService } from '../api.service';
 import * as $ from 'jquery';
 import 'datatables.net-buttons';
@@ -33,14 +33,14 @@ export class CurriculumComponent implements OnInit {
    displayCurriculum() {
       this.apiService.displayCurriculum().subscribe({
          next: (data) => {
-            console.log("Display Successful");
+            console.log("Display Successful", data);
             this.curriculums = data;
             setTimeout(() => {
                // jQuery $(document).ready(function({})) is deprecated, Use $(function() {} instead.
                $(function() {
                  $('#curriculumsTable').DataTable( {
                    dom: '<"row"<"top-left col-sm-6" f><"top-right d-flex justify-content-end col-sm-6"B>rt<"bottom"ip><"clear">',
-                   
+
                    buttons: [
                      {
                        extend: 'csv',
@@ -64,7 +64,7 @@ export class CurriculumComponent implements OnInit {
                      searchPlaceholder: "Find records..."
                    },
                    "pageLength": 10,
-     
+
                  });
                });
              }, 0);
@@ -103,7 +103,8 @@ export class CurriculumComponent implements OnInit {
 
       this.apiService.displaySubjects().subscribe({
          next: (data) => {
-            console.log("Get Subjects", data);
+            // let saw = data.map(subject => [subject.id,subject.course_code]);
+            console.log("Get Subjects",data);
             this.subjectsList = data;
          },
          error: (err) => {
@@ -178,6 +179,20 @@ export class CurriculumComponent implements OnInit {
       subjects.at(id).get('total_units')?.setValue(lab + lec);
    }
 
+   getFormTotals(subjects: FormArray) {
+      let lec: number = 0;
+      let lab: number = 0;
+      let all: number = 0;
+      let hrs: number = 0;
+      subjects.value.forEach(subject => {
+         lec += subject.lec_units;
+         lab += subject.lab_units;
+         all += subject.total_units;
+         hrs += subject.hrs;
+      })
+      return { 'lec': lec, 'lab': lab, 'all': all, 'hrs': hrs };
+   }
+
    addCurriculum(curriculumForm: FormGroup) {
       console.log("@ addCurriculum");
 
@@ -195,6 +210,6 @@ export class CurriculumComponent implements OnInit {
          });
       }
       this.isSubmitted = true;
-      
+
    }
 }

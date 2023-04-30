@@ -7,20 +7,21 @@ $request = json_decode($postData);
 
 if (isset($postData) && !empty($postData)) {
    $curriculumID = $request->currId;
-
-   $query = "SELECT * FROM curriculum WHERE id=?";
-   $params = [$curriculumID];
+   $curriculumVer = $request->currVer;
+   $query = "SELECT * FROM curriculum WHERE id=? AND version_id=?";
+   $params = [$curriculumID, $curriculumVer];
    $result = executeQuery($query, $params);
 
    if ($result) {
       $curriculum = $result->fetch_assoc();
-      $curriculumVersion = $curriculum['version_id'];
       $resultData['curriculum'] = $curriculum;
 
-      $query = "SELECT s.course_code, s.title,
+      $query = "SELECT s.course_code, s.title, s.id,
                         cs.lec_units, cs.lab_units, cs.total_units, cs.hrs, cs.year, cs.semester,
                         GROUP_CONCAT(DISTINCT sp.course_code) AS pre_requisite,
-                        GROUP_CONCAT(DISTINCT sc.course_code) AS co_requisite
+                        GROUP_CONCAT(DISTINCT sp.id) AS pre_requisite_id,
+                        GROUP_CONCAT(DISTINCT sc.course_code) AS co_requisite,
+                        GROUP_CONCAT(DISTINCT sc.id) AS co_requisite_id
                   FROM curriculum_subjects AS cs
                   INNER JOIN subject AS s ON cs.subject_id = s.id
                   LEFT JOIN pre_requisites AS pr ON cs.id = pr.curr_subject_id
@@ -29,7 +30,7 @@ if (isset($postData) && !empty($postData)) {
                   LEFT JOIN subject AS sc ON cr.co_requisite_id = sc.id
                   WHERE cs.curr_id=? AND cs.curr_ver=?
                   GROUP BY cs.id";
-      $params = [$curriculumID, $curriculumVersion];
+      $params = [$curriculumID, $curriculumVer];
       $subjects = executeQuery($query, $params);
 
       $resultData['subjects'] = $subjects->fetch_all(MYSQLI_ASSOC);

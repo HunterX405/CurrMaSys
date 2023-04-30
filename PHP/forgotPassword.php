@@ -73,9 +73,19 @@
     return $encryptedpass ;
   }
 
+   function generate_password($length = 12)
+  {
+    $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $password = '';
+    for ($i = 0; $i < $length; $i++) {
+      $password .= $chars[random_int(0, strlen($chars) - 1)];
+    }
+    return $password;
+  }
+
   if (isset($postData) && !empty($postData)) {
     $email = trim($request->email);
-    $newPassword = trim($request->newPassword);
+    $newPassword = generate_password(8);
     $newEncryptedPassword = encryption($newPassword);
 
     $query = "UPDATE users SET password=? WHERE email=?";
@@ -85,13 +95,14 @@
       echo json_encode(array(
         "success" => true,
         "message" => "Password Reset Successfull.",
-        "email" => $email
+        "email" => $email,
+        "newPassword" => $newPassword
       ));
     } else {
       echo json_encode(array(
         "success" => false,
         "message" => "Email does not exist or password is correct and does not need to be reset.",
-        "email" => $email
+        "email" => $email,
       ));
     }
   }

@@ -61,14 +61,13 @@ export class AccountComponent implements OnInit {
           this.successMessage = "Registration Successful\n" + "Email: " + data?.email + "\nPassword: " + data?.password;
           alert("Registration Successful\n" + "Email: " + data?.email + "\nPassword: " + data?.password);
           console.log("Registration Successful", data);
-          location.reload();
           const emailData = {
             "sender": { "name": "CurrMaSys", "email": "currmasys@gmail.com" },
             "to": [{ "email": data?.email }],
             "htmlContent": "Hello " + data?.name + ",<br><br>Your password is " + data?.password + "<br><br>Best regards,<br>CurrMaSys",
             "subject": "Registration Successful"
           };
-          const headers = { "Content-Type": "application/json", "api-key": "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"};
+          const headers = { "Content-Type": "application/json", "api-key": "nadedetect ng sendinblue yung api kaya wala muna"};
           this.httpClient.post("https://api.sendinblue.com/v3/smtp/email", emailData, { headers }).subscribe(
             response => location.reload(),
             error => console.log("Failed to send email", error)
