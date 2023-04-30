@@ -6,15 +6,13 @@
   header("Content-Type: application/json; charset=UTF-8");
 
   include_once("database.php");
-  require_once('authenticate.php');
+  if (isset($_GET['email'])) {
+   $email = $_GET['email'];
 
-  $user = authenticate();
-
-  if(isset($user)){
     $response = array('success' => true, 'message' => 'User is authenticated.');
 
     $query = "SELECT id, name, email, userType FROM users WHERE email=?";
-    $params = [$user['email']];
+    $params = [$email];
 
     $result = executeQuery($query, $params);
     if ($result) {
@@ -25,6 +23,6 @@
       echo json_encode($response);
     }
   } else {
-    $response = array('success' => false, 'message' => 'Session expired. Please login again.');
+    $response = array('success' => false, 'message' => 'Session expired. Please login again.', 'email' => 'email');
     echo json_encode($response);
   }

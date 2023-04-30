@@ -1,10 +1,10 @@
-<div class="loginBg">
-  <div class="d-inline-flex p-5 bd-highlight formHeight loginContainer">
+<div class="loginBg" style="background-image: url('{{assetsUrl}}/images/loginBg_rev.png');">
+  <div class="d-inline-flex p-5 bd-highlight bg-white formHeight">
     <div class="container-fluid my-5">
 
       <div class="d-flex flex-row my-3">
-        <img class="logoImg " src="../../assets/images/logoBSU.png" alt="BULSU LOGO">
-        <img class="logoImg" src="../../assets/images/logoCICT.png" alt="CICT LOGO">
+        <img class="logoImg " src="./assets/images/logoBSU.png" alt="BULSU LOGO">
+        <img class="logoImg" src="./assets/images/logoCICT.png" alt="CICT LOGO">
       </div>
 
       <h1 class="my-1 logoName">CurrMaSys</h1>
@@ -19,7 +19,7 @@
         <!-- ERROR TRACING -->
         <div class="error" *ngIf="isLoginFailed">
           <div class="d-flex flex-row bd-highlight mb-1" *ngIf="isFormSubmitted && isLoginFailed ">
-            <div class="bd-highlight"><img src="../../assets/images/icon_danger.png"
+            <div class="bd-highlight"><img src="./assets/images/icon_danger.png"
                 style="width: 25px; height: 25px; margin-right: 5px;" alt="WARNING"></div>
             <div class="bd-highlight">
               <h5><strong>{{ message }}</strong></h5>

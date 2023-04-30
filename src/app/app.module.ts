@@ -28,6 +28,7 @@ import { FeedbackPrintComponent } from './feedback-print/feedback-print.componen
 import { CurriculumPrintComponent } from './curriculum-print/curriculum-print.component';
 import { SettingsComponent } from './settings/settings.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,

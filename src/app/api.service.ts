@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import { environment } from './../environments/environment';
 
 @Injectable({
    providedIn: 'root'
@@ -10,7 +11,8 @@ import { CookieService } from 'ngx-cookie-service';
 export class ApiService {
    redirectUrl: string | undefined;
    // To access files on the PHP folder in this project
-   baseUrl: string = "http://localhost/CurrMaSys/php";
+   baseUrl: string = environment.apiUrl;
+
    private sendGridAPIKey = 'wala pa haha ayaw gumana pa eh haha yung sa apikey';
 
    constructor(
@@ -55,17 +57,17 @@ export class ApiService {
    countUser() {
       return this.httpClient.get<any>(this.baseUrl + "/countUsers.php");
    }
+
    countCurrStatus() {
       return this.httpClient.get<any>(this.baseUrl + "/countCurrstatus.php");
    }
 
    getUser(id: any): Observable<any> {
-      const headers = this.getAuthHeaders();
       const url = `${this.baseUrl + "/disableUser.php"}?id=${id}`;
-      return this.httpClient.get<any>(url, { headers });
+      return this.httpClient.get<any>(url);
    }
 
-   activationUser(id: any, formvalues: any) {
+   activationUser(formvalues: any) {
       return this.httpClient.post(this.baseUrl + '/disableUser.php', formvalues);
    }
 
@@ -92,12 +94,9 @@ export class ApiService {
       return this.httpClient.post<any>(this.baseUrl + "/login.php", credentials);
    }
 
-   checkJwtToken(): boolean {
-      return this.cookieService.check('jwt_token');
-   }
-
    isLoggedIn(): Observable<boolean> {
-      if (this.checkJwtToken()) {
+      console.log(this.cookieService.check('email'));
+      if (this.cookieService.check('email')) {
          return of(true);
       }
       return of(false);
@@ -121,15 +120,15 @@ export class ApiService {
    }
 
    // Function to set the authorization header with the JWT token
-   private getAuthHeaders(): HttpHeaders {
-      const token = this.cookieService.get('jwt_token');
-      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-      return headers;
-   }
+   // private getAuthHeaders(): HttpHeaders {
+   //    const token = this.cookieService.get('jwt_token');
+   //    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+   //    return headers;
+   // }
 
    getUserDetails() {
-      const headers = this.getAuthHeaders();
-      return this.httpClient.get<any>(`${this.baseUrl}/getUserDetails.php`, { headers });
+      const email = this.cookieService.get('email');
+      return this.httpClient.get<any>(`${this.baseUrl}/getUserDetails.php?email=${email}`);
    }
 
    // Getting the list of users

@@ -34,7 +34,7 @@ export class EnableUserComponent implements OnInit {
   }
 
   activateUser(): void {
-    this.apiService.activationUser(this.id, this.activateUserForm.value).subscribe(res => {
+    this.apiService.activationUser(this.activateUserForm.value).subscribe(res => {
       console.log(res);
       alert("Account ID:" + this.id + ' was successfully activated');
       this.router.navigate(['/account']);
