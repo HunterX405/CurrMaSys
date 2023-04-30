@@ -26,43 +26,44 @@ import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { CurriculumViewComponent } from './curriculum-view/curriculum-view.component';
 import { FeedbackPrintComponent } from './feedback-print/feedback-print.component';
 import { CurriculumPrintComponent } from './curriculum-print/curriculum-print.component';
+import { SettingsComponent } from './settings/settings.component';
 
 
 @NgModule({
-   declarations: [
-      AppComponent,
-      LoginComponent,
-      DashboardComponent,
-      AccountComponent,
-      ForgotPasswordComponent,
-      ProfileComponent,
-      SubjectComponent,
-      SidenavComponent,
-      EditSubjectComponent,
-      DisableUserComponent,
-      EnableUserComponent,
-      EditSubjectComponent,
-      ElectiveSubjComponent,
-      EditElectiveComponent,
-      VoteComponent,
-      SubmitFeedbackComponent,
-      CurrFeedbackComponent,
-      CurriculumComponent,
-      UnauthorizedComponent,
-      CurriculumViewComponent,
-      FeedbackPrintComponent,
-      CurriculumPrintComponent,
-   ],
-   imports: [
-      BrowserModule,
-      AppRoutingModule,
-      ReactiveFormsModule,
-      RouterModule,
-      HttpClientModule,
-      NgbModule,
-
-   ],
-   providers: [],
-   bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    DashboardComponent,
+    AccountComponent,
+    ForgotPasswordComponent,
+    ProfileComponent,
+    SubjectComponent,
+    SidenavComponent,
+    EditSubjectComponent,
+    DisableUserComponent,
+    EnableUserComponent,
+    EditSubjectComponent,
+    ElectiveSubjComponent,
+    EditElectiveComponent,
+    VoteComponent,
+    SubmitFeedbackComponent,
+    CurrFeedbackComponent,
+    CurriculumComponent,
+    UnauthorizedComponent,
+    CurriculumViewComponent,
+    FeedbackPrintComponent,
+    CurriculumPrintComponent,
+    SettingsComponent,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    RouterModule,
+    HttpClientModule,
+    NgbModule,
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -30,7 +30,7 @@ export class CurriculumPrintComponent implements OnInit, AfterViewInit {
       this.route.paramMap.subscribe(params => {
 
          // Get curriculum details
-         this.printCurriculum(Number(params.get('id')), Number(params.get('ver')));
+         this.printCurriculum(Number(params.get('id')), Number(params.get('ver')),String(params.get('year')),String(params.get('semester')));
 
          // Go back to the curriculum page after printing.
          window.onafterprint = (event) => {
@@ -43,7 +43,7 @@ export class CurriculumPrintComponent implements OnInit, AfterViewInit {
       window.print();
    }
 
-   printCurriculum(currId: number, currVer: number) {
+   printCurriculum(currId: number, currVer: number, year:any, semester: any) {
       this.apiService.getCurriculum(currId, currVer).subscribe({
          next: (data) => {
             this.curriculum = data.curriculum;
@@ -56,12 +56,100 @@ export class CurriculumPrintComponent implements OnInit, AfterViewInit {
             this.thirdYearSecondSem = data.subjects.filter(subject => subject.year === 3 && subject.semester === 2);
             this.fourthYearFirstSem = data.subjects.filter(subject => subject.year === 4 && subject.semester === 1);
             this.fourthYearSecondSem = data.subjects.filter(subject => subject.year === 4 && subject.semester === 2);
-            this.yearSem = [
-               { 'yearTitle': 'FIRST', 'sem1': this.firstYearFirstSem, 'sem2': this.firstYearSecondSem },
-               { 'yearTitle': 'SECOND', 'sem1': this.secondYearFirstSem, 'sem2': this.secondYearSecondSem },
-               { 'yearTitle': 'THIRD', 'sem1': this.thirdYearFirstSem, 'sem2': this.thirdYearSecondSem },
-               { 'yearTitle': 'FOURTH', 'sem1': this.fourthYearFirstSem, 'sem2': this.fourthYearSecondSem },
-            ];
+            if (year==='1') {
+               this.yearSem = [
+                  { 'yearTitle': 'FIRST', 'sem1': this.firstYearFirstSem, 'sem2': this.firstYearSecondSem }
+               ];
+            }
+            else if(year==='2'){
+               this.yearSem = [
+                  { 'yearTitle': 'SECOND', 'sem1': this.secondYearFirstSem,  'sem2': this.secondYearSecondSem}
+               ]
+            }
+            else if(year==='3'){
+               this.yearSem = [
+                  { 'yearTitle': 'THIRD', 'sem1': this.thirdYearFirstSem,  'sem2': this.thirdYearSecondSem, }
+               ]
+            }
+            else if(year==='4'){
+               this.yearSem = [
+                  { 'yearTitle': 'FOURTH', 'sem1': this.fourthYearFirstSem, 'sem2': this.fourthYearSecondSem, }
+               ]
+            }
+            else if(year==='all'){
+               this.yearSem = [
+                  { 'yearTitle': 'FIRST', 'sem1': this.firstYearFirstSem,  'sem2': this.firstYearSecondSem },
+                  { 'yearTitle': 'SECOND', 'sem1': this.secondYearFirstSem,  'sem2': this.secondYearSecondSem },
+                  { 'yearTitle': 'THIRD', 'sem1': this.thirdYearFirstSem, 'sem2': this.thirdYearSecondSem},
+                  { 'yearTitle': 'FOURTH', 'sem1': this.fourthYearFirstSem,'sem2': this.fourthYearSecondSem },
+               ];
+            }
+            else{
+               this.yearSem = [
+                  { 'yearTitle': 'FIRST', 'sem1': this.firstYearFirstSem, 'sem2': this.firstYearSecondSem },
+                  { 'yearTitle': 'SECOND', 'sem1': this.secondYearFirstSem, 'sem2': this.secondYearSecondSem },
+                  { 'yearTitle': 'THIRD', 'sem1': this.thirdYearFirstSem, 'sem2': this.thirdYearSecondSem },
+                  { 'yearTitle': 'FOURTH', 'sem1': this.fourthYearFirstSem,'sem2': this.fourthYearSecondSem },
+               ];
+            }
+
+            if (year==='1' && semester==='1') {
+               this.yearSem = [
+                  { 'yearTitle': 'FIRST', 'sem1': this.firstYearFirstSem, 'sem2': [] }
+               ];
+            }
+            if (year==='1'&& semester==='2') {
+               this.yearSem = [
+                  { 'yearTitle': 'FIRST', 'sem1': [], 'sem2': this.firstYearSecondSem}
+               ];
+            }
+            if (year==='2' && semester==='1') {
+               this.yearSem = [
+                  { 'yearTitle': 'SECOND', 'sem1': this.secondYearFirstSem, 'sem2': [] },
+               ];
+            }
+            if (year==='2'&& semester==='2') {
+               this.yearSem = [
+                  { 'yearTitle': 'SECOND', 'sem1': [], 'sem2': this.secondYearSecondSem },
+               ];
+            }
+            if (year==='3' && semester==='1') {
+               this.yearSem = [
+                  { 'yearTitle': 'THIRD', 'sem1': this.thirdYearFirstSem, 'sem2': []},
+               ];
+            }
+            if (year==='3'&& semester==='2') {
+               this.yearSem = [
+                  { 'yearTitle': 'THIRD', 'sem1': [], 'sem2': this.thirdYearSecondSem,},
+               ];
+            }
+            if (year==='4' && semester==='1') {
+               this.yearSem = [
+                  { 'yearTitle': 'FOURTH', 'sem1': this.fourthYearFirstSem,'sem2': [] },
+               ];
+            }
+            if (year==='4'&& semester==='2') {
+               this.yearSem = [
+                  { 'yearTitle': 'FOURTH', 'sem1': [],'sem2': this.fourthYearSecondSem },
+               ];
+            }
+            if (year==='all'&& semester==='1') {
+               this.yearSem = [
+                  { 'yearTitle': 'FIRST', 'sem1': this.firstYearFirstSem, 'sem2': []},
+                  { 'yearTitle': 'SECOND', 'sem1': this.secondYearFirstSem, 'sem2': [] },
+                  { 'yearTitle': 'THIRD', 'sem1': this.thirdYearFirstSem,  'sem2': []},
+                  { 'yearTitle': 'FOURTH', 'sem1': this.fourthYearFirstSem, 'sem2': [] },
+               ];
+            }
+            if (year==='all'&& semester==='2') {
+               this.yearSem = [
+                  { 'yearTitle': 'FIRST', 'sem1': [], 'sem2': this.firstYearSecondSem },
+                  { 'yearTitle': 'SECOND', 'sem1': [],  'sem2': this.secondYearSecondSem },
+                  { 'yearTitle': 'THIRD', 'sem1': [], 'sem2': this.thirdYearSecondSem },
+                  { 'yearTitle': 'FOURTH', 'sem1': [],  'sem2': this.fourthYearSecondSem },
+               ];
+            }
+ 
          },
          error: (err) => {
             console.log("Display Failed", err);

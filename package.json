@@ -24,6 +24,7 @@
     "@types/datatables.net-buttons": "^1.4.7",
     "angular-datatables": "^15.0.1",
     "bootstrap": "^5.2.3",
+    "chart.js": "^4.3.0",
     "datatables.net": "^1.13.4",
     "datatables.net-buttons": "^2.3.6",
     "datatables.net-buttons-dt": "^1.7.0",

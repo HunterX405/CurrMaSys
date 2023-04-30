@@ -100,7 +100,7 @@
 
           <div class="form-group pb-3">
             <label for="syllabus">Syllabus</label> <br>
-            <input type="File" formControlName="syllabus" name="syllabus" accept=".pdf" (change)="onFileSelect($event)"
+            <input type="File" formControlName="syllabus" class="form-control" name="syllabus" accept=".pdf" (change)="onFileSelect($event)"
               [class.error]="addSubForm.get('syllabus')?.hasError('required') && (isFormSubmitted)">
             <div class="error" *ngIf="addSubForm.get('syllabus')?.hasError('required') && (isFormSubmitted)">
               This field is required.

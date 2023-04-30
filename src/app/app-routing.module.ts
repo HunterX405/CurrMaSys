@@ -20,6 +20,7 @@ import { CurriculumViewComponent } from './curriculum-view/curriculum-view.compo
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { FeedbackPrintComponent } from './feedback-print/feedback-print.component';
 import { CurriculumPrintComponent } from './curriculum-print/curriculum-print.component';
+import { SettingsComponent } from './settings/settings.component';
 
 const routes: Routes = [
    { path: "login", component: LoginComponent, title: "Login" },
@@ -37,10 +38,10 @@ const routes: Routes = [
    { path: "vote", component: VoteComponent, title: "Curriculum Feedback", canActivate: [authGuard], data: { userType: ['admin','chair','member','stakeholder'] }},
    { path: "feedback/:id/:ver", component: SubmitFeedbackComponent, title: "Feedback", canActivate: [authGuard], data: { userType: ['stakeholder'] }},
    { path: "status/:id/:ver", component: CurrFeedbackComponent, title: "Curriculum Status", canActivate: [authGuard], data: { userType: ['admin','chair','member'] }},
-   { path: "curriculum", component: CurriculumComponent, title: "Curriculums" },
-   { path: "curriculum/:id/:ver", component: CurriculumViewComponent, title: "View Curriculum" },
-   { path: "curriculum/print/:id/:ver", component: CurriculumPrintComponent, title: "Print Curriculum" },
-   { path: "feedback/print/:id", component: FeedbackPrintComponent, title: "Print Feedback"},
+   { path: "curriculum", component: CurriculumComponent, title: "Curriculums", canActivate: [authGuard], data: { userType: ['admin','chair','member','stakeholder'] }},
+   { path: "curriculum/:id/:ver", component: CurriculumViewComponent, title: "View Curriculum", canActivate: [authGuard], data: { userType: ['admin','chair','member','stakeholder'] } },
+   { path: "curriculum/print/:id/:ver/:year/:semester", component: CurriculumPrintComponent, title: "Print Curriculum", canActivate: [authGuard], data: { userType: ['admin','chair'] }},
+   { path: "feedback/print/:id/:ver", component: FeedbackPrintComponent, title: "Print Feedback", canActivate: [authGuard], data: { userType: ['admin','chair','member'] }},
    { path: "", redirectTo: "login", pathMatch: 'full' },
 ];
 
