@@ -3,7 +3,10 @@
 <div class="mainContent">
 
   <h1 style="padding: 15px 32px; height: 8%;"> Dashboard </h1>
-
+  <div class="chart-container">
+    <canvas  id="subjectChart">{{ chart }}</canvas>
+    <canvas  id="userChart">{{ chart }}</canvas>
+  </div>
   <div class="lowerMainContent">
     <div class="container-fluid">
       <div class="row" style="padding-top: 30px;">
@@ -81,8 +84,13 @@
                   <img src="../../assets/images/icon_paper.png" style="width:60px; height:60px;" alt="X">
                 </div>
                 <div class="col-10">
-                  <h6 class="card-title"> <strong> Vacant Data </strong> </h6>
-                  <h3 class="card-subtitle mb-2"  style="font-weight:bolder;"> xx </h3>
+                  <h2 class="card-subtitle mb-2"  style="font-weight:bolder; color: #222222">Curriculum Status:</h2>
+                  <h6 class="card-title"> <strong> Approved </strong> </h6>
+                  <h3 class="card-subtitle mb-2"  style="font-weight:bolder; color: #222222"> {{ countcurrstat.approved }} </h3>
+                  <h6 class="card-title"> <strong> Pending</strong> </h6>
+                  <h3 class="card-subtitle mb-2"  style="font-weight:bolder; color: #222222"> {{ countcurrstat.pending }} </h3>
+                  <h6 class="card-title"> <strong> Returned </strong> </h6>
+                  <h3 class="card-subtitle mb-2"  style="font-weight:bolder; color: #222222"> {{ countcurrstat.returned }} </h3>
                 </div>
               </div>
             </div>

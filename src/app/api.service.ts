@@ -52,6 +52,13 @@ export class ApiService {
       return this.httpClient.get<any>(this.baseUrl + "/count.php");
    }
 
+   countUser() {
+      return this.httpClient.get<any>(this.baseUrl + "/countUsers.php");
+   } 
+   countCurrStatus() {
+      return this.httpClient.get<any>(this.baseUrl + "/countCurrstatus.php");
+   } 
+
    getUser(id: any): Observable<any> {
       const headers = this.getAuthHeaders();
       const url = `${this.baseUrl + "/disableUser.php"}?id=${id}`;
