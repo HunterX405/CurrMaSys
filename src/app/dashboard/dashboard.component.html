@@ -3,19 +3,13 @@
 <div class="mainContent">
 
   <h1 style="padding: 15px 32px; height: 8%;"> Dashboard </h1>
-  <div class="chart-container">
-    <h2>Status of Curriculums</h2>
-    <canvas  id="statusChart">{{ chart }}</canvas>
-    <!-- <canvas  id="subjectChart">{{ chart }}</canvas> -->
-    <!-- <canvas  id="userChart">{{ chart }}</canvas> -->
-    <h3>View Latest Approved Curriculum</h3>
-    <button class="btn btn-primary" (click)="viewLatestCurriculum()">
-      View
-    </button>
-  </div>
+
   <div class="lowerMainContent">
     <div class="container-fluid">
-      <div class="row" style="padding-top: 30px;">
+
+      <h3 class="subCategoryTitle subCategoryActive" style="padding-top: 30px;"> &nbsp; Welcome {{ userName }} </h3>
+
+      <div class="row">
         <div class="col-md-6">
           <div class="row card border-0 m-2">
             <div class="card-body">
@@ -72,44 +66,6 @@
                   <img src="./assets/images/icon_uploads.png" style="width:60px; height:60px;" alt="UPLOADED FILES">
                 </div>
                 <div class="col-10">
-                  <h6 class="card-title"> <strong> REMOVE THIS PART Uploaded Files </strong> </h6>
-                  <h3 class="card-subtitle mb-2" style="font-weight:bolder;"> {{ noFileUploaded }}</h3>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-6">
-          <div class="row card border-0 m-2">
-            <div class="card-body">
-              <div class="row">
-                <div class="d-flex justify-content-center col-2">
-                  <img src="./assets/images/icon_paper.png" style="width:60px; height:60px;" alt="X">
-                </div>
-                <div class="col-10">
-                  <h2 class="card-subtitle mb-2"  style="font-weight:bolder; color: #222222"> REMOVE THIS PART Curriculum Status:</h2>
-                  <h6 class="card-title"> <strong> Approved </strong> </h6>
-                  <h3 class="card-subtitle mb-2"  style="font-weight:bolder; color: #222222"> {{ countcurrstat.approved }} </h3>
-                  <h6 class="card-title"> <strong> Pending</strong> </h6>
-                  <h3 class="card-subtitle mb-2"  style="font-weight:bolder; color: #222222"> {{ countcurrstat.pending }} </h3>
-                  <h6 class="card-title"> <strong> Returned </strong> </h6>
-                  <h3 class="card-subtitle mb-2"  style="font-weight:bolder; color: #222222"> {{ countcurrstat.returned }} </h3>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="row card border-0 m-2">
-            <div class="card-body">
-              <div class="row">
-                <div class="d-flex justify-content-center col-2">
-                  <img src="./assets/images/icon_total_sub.png" style="width:60px; height:60px;" alt="TOTAL SUBJECTS">
-                </div>
-                <div class="col-10">
                   <h6 class="card-title"> <strong> Total Subjects </strong> </h6>
                   <h3 class="card-subtitle mb-2"  style="font-weight:bolder;">{{allsubjectTotal}}</h3>
                 </div>
@@ -119,7 +75,48 @@
         </div>
       </div>
 
-      <div class="container d-none">
+      <div style="margin: 20px 250px;">
+
+        <div class="row card border-0 m-2">
+          <div class="card-body p-4">
+            <div class="row">
+              <div class="d-flex justify-content-center col-2">
+                <img src="./assets/images/icon_status_green.png" style="width:60px; height:60px;" alt="BASE SUBJECT">
+              </div>
+              <div class="col-10">
+                <h4 class="card-title"> <strong> Latest Approved Curriculum </strong> </h4>
+                <button class="btn btn-primary" (click)="viewLatestCurriculum()">View</button>           
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row"></div>
+
+        <div class="row card border-0 m-2">
+          <div class="card-body">
+              <div class="chart-container">
+                <h4 class="customized_header"> Curriculums Status</h4>
+                <canvas  id="statusChart">{{ chart }}</canvas>           
+              </div>  
+          </div>
+        </div>
+      </div>
+
+      <div class="row"></div>
+
+      <!-- <div class="chart-container">
+        <h2>Status of Curriculums</h2>
+        <canvas  id="statusChart">{{ chart }}</canvas>
+        <canvas  id="subjectChart">{{ chart }}</canvas> 
+        <canvas  id="userChart">{{ chart }}</canvas> 
+        <h3>View Latest Approved Curriculum</h3>
+        <button class="btn btn-primary" (click)="viewLatestCurriculum()">
+          View
+        </button>
+      </div> -->
+
+      <!-- <div class="container d-none">
         <h1>Dashboard</h1>
         <div *ngIf="userType !== 'stakeholder'">
           <a routerLink="/subject">Subjects</a>
@@ -133,8 +130,9 @@
         <div>
           <a routerLink="/curriculum">Curriculums</a>
         </div>
-      </div>
-    </div>
+      </div> -->
 
+
+    </div>
   </div>
 </div>

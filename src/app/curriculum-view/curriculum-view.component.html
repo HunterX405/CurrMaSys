@@ -26,56 +26,165 @@
                             </div>
 
                         </div>
-                    </div>
-
-                    <div class="col-4 d-flex justify-content-end">
-                        <button routerLink="/curriculum/print/{{currId}}/{{currVer}}/{{paramyear}}/{{paramsem}}"
-                            class="btn btn-primary mx-2"> <span>
-                                &nbsp; <strong>
-                                    TO PDF</strong> &nbsp;&nbsp; </span> </button>
-                        <button *ngIf="curriculum.isLatest" (click)="onEdit()" type="button" class="btn btn-primary">
-                            <span> &nbsp; <strong> EDIT CONTENT</strong> &nbsp;&nbsp; </span>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="row" style="padding-top: 30px;">
-                    <div class="col-md-6">
-                        <div class="row card border-0 m-2">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="d-flex justify-content-center col-2">
-                                        <img src="./assets/images/icon_department.png" style="width:60px; height:60px;"
-                                            alt="DASHBOARD">
-                                    </div>
-                                    <div class="col-10">
-                                        <h6 class="card-title"> <strong> Department: </strong> </h6>
-                                        <h3 class="card-subtitle mb-2" style="font-weight:bolder;">{{
-                                            curriculum.department }} </h3>
-                                    </div>
-                                </div>
-                            </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-6">
+                  <div class="row card border-0 m-2">
+                     <div class="card-body">
+                        <div class="row">
+                           <div class="d-flex justify-content-center col-2">
+                              <img src="./assets/images/icon_paper.png" style="width:60px; height:60px;"
+                                 alt="BASE SUBJECT">
+                           </div>
+                           <div class="col-10">
+                              <h6 class="card-title"> <strong> Version: </strong> </h6>
+                              <h3 class="card-subtitle mb-2" style="font-weight:bolder;">{{
+                                 curriculum.version }} - {{ curriculum.version_id }} </h3>
+                           </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="row card border-0 m-2">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="d-flex justify-content-center col-2">
-                                        <img src="./assets/images/icon_paper.png" style="width:60px; height:60px;"
-                                            alt="BASE SUBJECT">
-                                    </div>
-                                    <div class="col-10">
-                                        <h6 class="card-title"> <strong> Version: </strong> </h6>
-                                        <h3 class="card-subtitle mb-2" style="font-weight:bolder; color: #222222">{{
-                                            curriculum.version }} - {{ curriculum.version_id }} </h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
 
+         </div>
+
+         <div *ngIf="!isTableVisible" class="d-flex justify-content-start" style="margin: 10px 0;">
+            <button (click)="onGoBack()" type="button" class="btn p-0">
+               <img class="logoImg " src="./assets/images/icon_back_btn.png" alt="BACK BUTTON">
+               <strong class="go_back"> GO BACK </strong>
+            </button>
+         </div>
+        
+         <!-- Table for displaying the list of curriculums -->
+         <div *ngIf="isTableVisible">
+
+            
+
+            <form [formGroup]="filterForm" (ngSubmit)="displayCurriculum(currId, currVer)">
+       
+               <div class="row my-3">
+                  <div class="col-md-2">
+                     <label for="year">Choose Year:</label>
+                     <select id="year" class="form-control" formControlName="year">
+                       <option value="1">1</option>
+                       <option value="2">2</option>
+                       <option value="3">3</option>
+                       <option value="4">4</option>
+                       <option value="all" selected>All</option>
+                     </select>
+                  </div>
+
+                  <div class="col-md-2">
+                     <label for="semester">Choose Semester:</label>
+                     <select id="semester" class="form-control" formControlName="semester">
+                       <option value="1">1</option>
+                       <option value="2">2</option>
+                       <option value="all" selected>All</option>
+                     </select>
+                  </div>
+
+                  <div class="col-md-2">
+                     <div style="margin-top: 22.5px;">
+                        <button type="submit" class="btn btn-primary mx-2">Filter</button>
+                     </div>
+                     
+                  </div>
+
+               </div>
+            
+             </form>
+
+            <div class="container-fluid mainTable px-5 py-3" *ngFor="let subjects of yearSem">
+
+               <table id="curriculumsTable" class="table">
+                  <thead>
+                     <tr class="text-center">
+                        <th colspan="8">
+                           <h4 style="font-family:'Outfit'"> {{subjects['yearTitle']}} YEAR</h4>
+                        </th>
+                     </tr>
+                     <tr class="text-left">
+                        <th colspan="8">
+                           <h5 style="margin-top: 25px;"> <strong> FIRST SEMESTER: </strong> </h5>
+                        </th>
+                     </tr>
+                     <tr *ngIf="subjects['sem1'].length" class="text-center">
+                        <th>COURSE CODE</th>
+                        <th>DESCRIPTIVE TITLE</th>
+                        <th>LEC UNITS</th>
+                        <th>LAB UNITS</th>
+                        <th>TOTAL UNITS</th>
+                        <th>HRS / WEEK</th>
+                        <th>PREREQ.</th>
+                        <th>CO-REQ.</th>
+                     </tr>
+                     <tr *ngIf="!subjects['sem1'].length" class="text-center">
+                        <th colspan="8s">NO SUBJECTS/NO DATA RETRIEVED</th>
+                     </tr>
+                  </thead>
+                  <tbody *ngFor="let subject of subjects['sem1']" class="text-center">
+                     <td>{{ subject.course_code }}</td>
+                     <td><a href="http://localhost/CurrMaSys/php/PDF/{{subject.syllabus}}">{{ subject.title }}</a></td>
+                     <td>{{ subject.lec_units }}</td>
+                     <td>{{ subject.lab_units }}</td>
+                     <td>{{ subject.total_units }}</td>
+                     <td>{{ subject.hrs }}</td>
+                     <td *ngIf="subject.pre_requisite">{{ subject.pre_requisite }}</td>
+                     <td *ngIf="!subject.pre_requisite">None</td>
+                     <td *ngIf="subject.co_requisite">{{ subject.co_requisite }}</td>
+                     <td *ngIf="!subject.co_requisite">None</td>
+                  </tbody>
+                  <tr *ngIf="subjects['sem1'].length && getTotals(subjects['sem1']) as totals" class="text-center">
+                     <td></td>
+                     <td>TOTAL</td>
+                     <td>{{ totals.lec | number : '1.1-2' }}</td>
+                     <td>{{ totals.lab | number : '1.1-2' }}</td>
+                     <td>{{ totals.all | number : '1.1-2' }}</td>
+                     <td>{{ totals.hrs }}</td>
+                  </tr>
+                  <thead>
+                     <tr class="text-left">
+                        <th colspan="8">
+                           <h5 style="margin-top: 25px;"> <strong> SECOND SEMESTER: </strong> </h5>
+                        </th>
+                     </tr>
+                     <tr *ngIf="subjects['sem2'].length" class="text-center">
+                        <th>COURSE CODE</th>
+                        <th>DESCRIPTIVE TITLE</th>
+                        <th>LEC UNITS</th>
+                        <th>LAB UNITS</th>
+                        <th>TOTAL UNITS</th>
+                        <th>HRS / WEEK</th>
+                        <th>PREREQ.</th>
+                        <th>CO-REQ.</th>
+                     </tr>
+                     <tr *ngIf="!subjects['sem2'].length" class="text-center">
+                        <th colspan="8">NO SUBJECTS/NO DATA RETRIEVED</th>
+                     </tr>
+                  </thead>
+                  <tbody *ngFor="let subject of subjects['sem2']" class="text-center">
+                     <td>{{ subject.course_code }}</td>
+                     <td><a href="http://localhost/CurrMaSys/php/PDF/{{subject.syllabus}}">{{ subject.title }}</a></td>
+                     <td>{{ subject.lec_units }}</td>
+                     <td>{{ subject.lab_units }}</td>
+                     <td>{{ subject.total_units }}</td>
+                     <td>{{ subject.hrs }}</td>
+                     <td *ngIf="subject.pre_requisite">{{ subject.pre_requisite }}</td>
+                     <td *ngIf="!subject.pre_requisite">None</td>
+                     <td *ngIf="subject.co_requisite">{{ subject.co_requisite }}</td>
+                     <td *ngIf="!subject.co_requisite">None</td>
+                  </tbody>
+                  <tr *ngIf="subjects['sem2'].length && getTotals(subjects['sem2']) as totals" class="text-center">
+                     <td></td>
+                     <td>TOTAL</td>
+                     <td>{{ totals.lec | number : '1.1-2' }}</td>
+                     <td>{{ totals.lab | number : '1.1-2' }}</td>
+                     <td>{{ totals.all | number : '1.1-2' }}</td>
+                     <td>{{ totals.hrs }}</td>
+                  </tr>
+               </table>
             </div>
 
             <div *ngIf="!isTableVisible" class="d-flex justify-content-start" style="margin: 10px 0;">

@@ -42,6 +42,7 @@ const routes: Routes = [
    { path: "curriculum/:id/:ver", component: CurriculumViewComponent, title: "View Curriculum", canActivate: [authGuard], data: { userType: ['admin','chair','member','stakeholder'] } },
    { path: "curriculum/print/:id/:ver/:year/:semester", component: CurriculumPrintComponent, title: "Print Curriculum", canActivate: [authGuard], data: { userType: ['admin','chair'] }},
    { path: "feedback/print/:id/:ver", component: FeedbackPrintComponent, title: "Print Feedback", canActivate: [authGuard], data: { userType: ['admin','chair','member'] }},
+   { path: "settings", component: SettingsComponent, title: "Settings"},
    { path: "", redirectTo: "login", pathMatch: 'full' },
 ];
 

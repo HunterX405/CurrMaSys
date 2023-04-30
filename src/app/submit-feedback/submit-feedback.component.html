@@ -9,16 +9,27 @@
             <div class="d-flex justify-content-start" style="margin: 10px 0;">
                 <button (click)="goBack()" type="button" class="btn p-0">
                   <img class="logoImg " src="./assets/images/icon_back_btn.png" alt="BACK BUTTON">
-                  <strong> GO BACK </strong>
+                  <strong class="go_back"> GO BACK </strong>
                 </button>
             </div>
 
             <div class="addForm p-5">
 
-                <h2>Feedback Form</h2>
-                <button (click)="viewCurriculum()" type="button" class="btn btn-primary">
-                    View Curriculum
-                </button>
+                <div class="row mb-2">
+                    <div class="col-md-6 d-flex justify-content-start">
+                        <h2>Feedback Form</h2>
+                    </div>
+
+                    <div class="col-md-6 d-flex justify-content-end">
+                        <button (click)="viewCurriculum()" type="button" class="btn btn-primary btn-sm">
+                           <strong> View Curriculum </strong> 
+                        </button>
+                    </div>
+
+                </div>
+
+              
+             
                 <form [formGroup]="feedbackForm" (ngSubmit)="addFeedback(feedbackForm)">
 
                     <div class="form-group pb-3">

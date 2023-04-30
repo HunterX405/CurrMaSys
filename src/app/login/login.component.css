@@ -19,3 +19,7 @@
 .invalid {
   border: solid 1px #ee404c;
 }
+
+.msg_danger{
+  color: #ee404c;
+}
