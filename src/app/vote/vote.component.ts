@@ -43,7 +43,7 @@ export class VoteComponent implements OnInit {
       next: (data) => {
         // Manages the submissions array before display on the table
         this.checkSubmission(userID, data, this.allFeedbacks);
-        
+
         console.log("Display Successful");
         this.curriculums = data;
         setTimeout(() => {
@@ -51,7 +51,7 @@ export class VoteComponent implements OnInit {
           $(function() {
             $('#voteTable').DataTable( {
               dom: '<"row"<"top-left col-sm-6" f><"top-right d-flex justify-content-end col-sm-6"B>rt<"bottom"ip><"clear">',
-              
+
               buttons: [
                 {
                   extend: 'csv',

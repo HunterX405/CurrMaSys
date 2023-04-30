@@ -2,12 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../api.service';
 import * as $ from 'jquery';
-// import 'datatables.net';
-import 'datatables.net-buttons';
 import 'datatables.net-buttons/js/buttons.html5.min.js';
 import 'datatables.net-buttons/js/buttons.print.min.js';
-// import 'datatables.net-buttons/js/buttons.html5.js';
-// import 'datatables.net-buttons/js/buttons.print.js';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
