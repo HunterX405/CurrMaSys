@@ -66,7 +66,7 @@
                            </div>
                            <div class="col-10">
                               <h6 class="card-title"> <strong> Version: </strong> </h6>
-                              <h3 class="card-subtitle mb-2" style="font-weight:bolder; color: #222222">{{
+                              <h3 class="card-subtitle mb-2" style="font-weight:bolder;">{{
                                  curriculum.version }} - {{ curriculum.version_id }} </h3>
                            </div>
                         </div>
@@ -80,29 +80,47 @@
          <div *ngIf="!isTableVisible" class="d-flex justify-content-start" style="margin: 10px 0;">
             <button (click)="onGoBack()" type="button" class="btn p-0">
                <img class="logoImg " src="./assets/images/icon_back_btn.png" alt="BACK BUTTON">
-               <strong> GO BACK </strong>
+               <strong class="go_back"> GO BACK </strong>
             </button>
          </div>
         
          <!-- Table for displaying the list of curriculums -->
          <div *ngIf="isTableVisible">
+
+            
+
             <form [formGroup]="filterForm" (ngSubmit)="displayCurriculum(currId, currVer)">
-               <label for="year">Year:</label>
-               <select id="year" formControlName="year">
-                 <option value="1">1</option>
-                 <option value="2">2</option>
-                 <option value="3">3</option>
-                 <option value="4">4</option>
-                 <option value="all" selected>All Levels</option>
-               </select>
-             
-               <label for="semester">Semester:</label>
-               <select id="semester" formControlName="semester">
-                 <option value="1">1</option>
-                 <option value="2">2</option>
-                 <option value="all" selected>All Semester</option>
-               </select>
-               <button type="submit">Filter</button>
+       
+               <div class="row my-3">
+                  <div class="col-md-2">
+                     <label for="year">Choose Year:</label>
+                     <select id="year" class="form-control" formControlName="year">
+                       <option value="1">1</option>
+                       <option value="2">2</option>
+                       <option value="3">3</option>
+                       <option value="4">4</option>
+                       <option value="all" selected>All</option>
+                     </select>
+                  </div>
+
+                  <div class="col-md-2">
+                     <label for="semester">Choose Semester:</label>
+                     <select id="semester" class="form-control" formControlName="semester">
+                       <option value="1">1</option>
+                       <option value="2">2</option>
+                       <option value="all" selected>All</option>
+                     </select>
+                  </div>
+
+                  <div class="col-md-2">
+                     <div style="margin-top: 22.5px;">
+                        <button type="submit" class="btn btn-primary mx-2">Filter</button>
+                     </div>
+                     
+                  </div>
+
+               </div>
+            
              </form>
 
             <div class="container-fluid mainTable px-5 py-3" *ngFor="let subjects of yearSem">
