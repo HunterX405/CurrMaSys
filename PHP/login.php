@@ -56,7 +56,7 @@ function decryption($pass)
       'I' => 'R',
       'J' => 'Q',
       'K' => 'P',
-      'N' => 'O',
+      'L' => 'O',
       'M' => 'N',
       'N' => 'M',
       'O' => 'L',
@@ -76,6 +76,7 @@ function decryption($pass)
    return $decryptedpass;
 }
 
+$response = array('success' => false, 'message' => 'Login credentials are required.');
 // To check the $postData
 if (isset($postData) && !empty($postData)) {
    // The $request->email or $request->password depends on the HttpRequest from the service. This is based on the credentials variable on api.service.ts
@@ -104,8 +105,6 @@ if (isset($postData) && !empty($postData)) {
       // If there is no user, return an error message
       $response = array('success' => false, 'message' => 'Invalid username or password.');
    }
-} else {
-   $response = array('success' => false, 'message' => 'Login credentials are required.');
 }
 
 echo json_encode($response);

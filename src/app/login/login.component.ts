@@ -36,9 +36,10 @@ export class LoginComponent {
             // Check if the login was successful
             if (response.success) {
 
-               // // Set the JWT as cookie
-               this.apiService.deleteCookie('email');
-               this.apiService.setCookie('email', response.user.email);
+                this.apiService.setCookie('email', response.user.email);
+                this.apiService.setCookie('name', response.user.name);
+                this.apiService.setCookie('id', response.user.id);
+                this.apiService.setCookie('userType', response.user.userType);
                // Redirect to dashboard upon successful login.
                const redirect = this.apiService.redirectUrl ?? '/dashboard';
                this.router.navigate([redirect]);

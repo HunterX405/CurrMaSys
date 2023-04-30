@@ -127,8 +127,12 @@ export class ApiService {
    // }
 
    getUserDetails() {
-      const email = this.cookieService.get('email');
-      return this.httpClient.get<any>(`${this.baseUrl}/getUserDetails.php?email=${email}`);
+       const email = this.cookieService.get('email');
+       const name = this.cookieService.get('name');
+       const userType = this.cookieService.get('userType');
+       const id = this.cookieService.get('id');
+    //   return this.httpClient.get<any>(`${this.baseUrl}/getUserDetails.php?email=${email}`);
+       return of({ 'name': name, 'email': email, 'userType': userType, 'id': id });
    }
 
    // Getting the list of users
