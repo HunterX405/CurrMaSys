@@ -63,9 +63,8 @@ export class ApiService {
    } 
 
    getUser(id: any): Observable<any> {
-      const headers = this.getAuthHeaders();
       const url = `${this.baseUrl + "/disableUser.php"}?id=${id}`;
-      return this.httpClient.get<any>(url, { headers });
+      return this.httpClient.get<any>(url);
    }
 
    activationUser(formvalues: any) {
