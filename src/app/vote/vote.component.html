@@ -7,147 +7,40 @@
 
       <div class="mx-5 py-3">
 
-         <div *ngIf="isTableVisible" class="row d-none" style="margin: 20px 0;">
+        <div class="row" style="margin: 20px 0;">
             <div class="col-8 d-flex justify-content-start">
-               <div class="d-flex justify-content-start">
-                  <div style="padding-right: 30px;"> <a class="subCategory subCategoryActive" routerLink="/vote">
-                        <h3 class="subCategoryTitle"> All </h3>
-                     </a></div>
-                  <div style="padding-right: 30px;"> <a class="subCategory" routerLink="#">
-                        <h3 class="subCategoryTitle"> Pending </h3>
-                     </a></div>
-                  <div style="padding-right: 30px;"> <a class="subCategory" routerLink="#">
-                        <h3 class="subCategoryTitle"> Approved </h3>
-                     </a></div>
-                  <div style="padding-right: 30px;"> <a class="subCategory" routerLink="#">
-                        <h3 class="subCategoryTitle"> Rejected </h3>
-                     </a></div>
-               </div>
+              <div class="d-flex justify-content-start">
+                <div style="padding-right: 30px;">
+                  <a class="subCategory" [ngClass]="{'subCategoryActive': activeSubcategory === 'All'}" (click)="setSubCategory('All')">
+                    <h3 class="subCategoryTitle"> All </h3>
+                  </a>
+                </div>
+                <div style="padding-right: 30px;">
+                  <a class="subCategory" [ngClass]="{'subCategoryActive': activeSubcategory === 'Pending'}" (click)="setSubCategory('Pending')">
+                    <h3 class="subCategoryTitle"> Pending </h3>
+                  </a>
+                </div>
+                <div style="padding-right: 30px;">
+                  <a class="subCategory" [ngClass]="{'subCategoryActive': activeSubcategory === 'Approved'}" (click)="setSubCategory('Approved')">
+                    <h3 class="subCategoryTitle"> Approved </h3>
+                  </a>
+                </div>
+                <div style="padding-right: 30px;">
+                  <a class="subCategory" [ngClass]="{'subCategoryActive': activeSubcategory === 'Returned'}" (click)="setSubCategory('Returned')">
+                    <h3 class="subCategoryTitle"> Rejected </h3>
+                  </a>
+                </div>
+              </div>
             </div>
-         </div>
+          </div>
 
          <!-- Table for displaying the list of users -->
          <div *ngIf="isTableSubmittedVisible">
             <div class="container-fluid mainTable px-5 py-3">
-               <table id="voteTable" class="table text-center">
-                  <thead>
-                     <tr>
-                        <th>ID</th>
-                        <th>Department</th>
-                        <th>Version Name</th>
-                        <th>Version ID</th>
-                        <th>Submission Date</th>
-                        <th *ngIf="tempUserType !== 'stakeholder'">
-                           Status
-                        </th>
-                        <th *ngIf="tempUserType === 'stakeholder'">
-                           Feedbacks
-                        </th>
-                        <th>Actions</th>
-                     </tr>
-                  </thead>
-                  <tbody>
-                     <tr *ngFor="let curriculum of curriculums; let i = index">
-                        <td>{{ curriculum.id }}</td>
-                        <td> {{ curriculum.department }} </td>
-                        <td> {{ curriculum.version }} </td>
-                        <td *ngIf="!curriculum.isLatest"> {{ curriculum.version_id }} </td>
-                        <td *ngIf="curriculum.isLatest"> Latest ({{ curriculum.version_id }}) </td>
-                        <td> {{ curriculum.date_and_time }} </td>
-                        <td *ngIf="tempUserType !== 'stakeholder'">
-                           {{ curriculum.curr_status | titlecase }}
-                        </td>
-                        <td *ngIf="tempUserType === 'stakeholder'">
-                           {{ submissions[i] }}
-                        </td>
-                        <td>
-                           <button class="btn btn-primary btn-sm" *ngIf="tempUserType === 'stakeholder'"
-                              routerLink="/feedback/{{curriculum.id}}/{{curriculum.version_id}}">
-                              Submit Feedback
-                           </button>
-                           <button class="btn btn-primary btn-sm" *ngIf="tempUserType !== 'stakeholder'"
-                              routerLink="/status/{{curriculum.id}}/{{curriculum.version_id}}">
-                              View
-                           </button>
-                        </td>
-                     </tr>
-                  </tbody>
-               </table>
+                <!-- The content of this table is initialized in vote.component.ts setDataTable() -->
+               <table id="voteTable" class="table text-center"></table>
             </div>
          </div>
       </div>
    </div>
-</div>
-
-
-
-<!-- TEMPORARY HIDDEN -->
-<div class="container d-none">
-   <h1>Curriculum Feedbacks</h1>
-
-   <!-- List of Curriculums from the Database -->
-   <!-- For Stakeholder User Type Only -->
-   <h3 *ngIf="tempUserType === 'stakeholder'">Submitted Curriculums for STAKEHOLDERS</h3>
-   <table class="table" *ngIf="tempUserType === 'stakeholder'">
-      <thead>
-         <tr>
-            <th>Department</th>
-            <th>Version</th>
-            <th>Submission Date</th>
-            <th>Status</th>
-            <th>Actions</th>
-         </tr>
-      </thead>
-      <tbody>
-         <tr *ngFor="let curriculum of curriculums">
-            <td> {{ curriculum.department }} </td>
-            <td> {{ curriculum.version }} </td>
-            <td> {{ curriculum.date_and_time }} </td>
-            <td> {{ curriculum.curr_status | titlecase }} </td>
-            <td> <button routerLink="/feedback/{{curriculum.id}}">View</button> </td>
-         </tr>
-      </tbody>
-   </table>
-
-   <!-- List of Curriculums from the Database -->
-   <!-- For Admin User Type Only -->
-   <h3 *ngIf="tempUserType !== 'stakeholder'">Submitted Curriculums for ADMIN</h3>
-   <table class="table" *ngIf="tempUserType !== 'stakeholder'">
-      <thead>
-         <tr>
-            <th>Department</th>
-            <th>Version</th>
-            <th>Submission Date</th>
-            <th>Status</th>
-            <th>Actions</th>
-         </tr>
-      </thead>
-      <tbody>
-         <tr *ngFor="let curriculum of curriculums">
-            <td> {{ curriculum.department }} </td>
-            <td> {{ curriculum.version }} </td>
-            <td> {{ curriculum.date_and_time }} </td>
-            <td> {{ curriculum.curr_status | titlecase }} </td>
-            <td>
-               <button routerLink="/status/{{curriculum.id}}">
-                  View Status
-               </button>
-            </td>
-         </tr>
-      </tbody>
-   </table>
-
-   <!-- For Non-Stakeholder User Type Only -->
-   <!-- IF not all STAKEHOLDERS gave their feedback -->
-   <h3>Curriculum with pending for Approvals</h3>
-
-   <!-- For Non-Stakeholder User Type Only -->
-   <!-- 100% APPROVAL 0% return status -->
-   <!-- All STAKEHOLDERS should have voted-->
-   <h3>Approved Curriculums</h3>
-
-   <!-- For Non-Stakeholder User Type Only -->
-   <!-- 1 or more STAKEHOLDERS returned the CURRICUL where  -->
-   <!-- All STAKEHOLDERS should have voted-->
-   <h3>Returned Curriculums</h3>
 </div>

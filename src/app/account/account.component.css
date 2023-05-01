@@ -7,13 +7,15 @@
 
 /* FOR ACCOUNT STATE */
 
-#activeAcc {
+
+/* Colors set in account.component.ts setDataTable() as inline style */
+/* .activeAcc {
   color: #31a24c;
 }
 
-#inactiveAcc {
+.inactiveAcc {
   color: #686868;
-}
+} */
 
 .error {
   color: #ee404c;

@@ -9,11 +9,10 @@ if (isset($postdata) && !empty($postdata)) {
 
     $comment = trim($request->comment);
     $isApproved = $request->isApproved;
-    $userID = $request->userID;
-    $currID = $request->currID;
+    $userID = $request->userId;
+    $currID = $request->currId;
     $currVer = $request->currVer;
     $haveSubmitted = $request->haveSubmitted;
-    $message = "";
 
 
     if ($haveSubmitted === true) {

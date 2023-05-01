@@ -45,10 +45,9 @@ export class FeedbackPrintComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        console.log('afterview', this.feedbackNum)
-        if (this.feedbackNum) {
+        window.setTimeout(() => {
             window.print();
-        }
+          }, 2000);
     }
 
     // To get the data of a curriculum on the CURRICULUM Table
@@ -57,9 +56,6 @@ export class FeedbackPrintComponent implements OnInit, AfterViewInit {
             next: (data) => {
                 console.log("Curr Info Retrieved Successfully", data);
                 this.curriculumData = data;
-                if (data) {
-                    window.print();
-                }
             },
             error: (err) => {
                 console.log("Curr Info Retrieved Failed", err);

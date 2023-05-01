@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
-import { of } from 'rxjs';
 import * as $ from 'jquery';
 import 'datatables.net-buttons';
 import 'datatables.net-buttons/js/buttons.html5.min.js';
@@ -14,76 +13,122 @@ import 'datatables.net-buttons/js/buttons.print.min.js';
 export class VoteComponent implements OnInit {
     // Holds all data from CURRICULUM Table
     curriculums: any;
-    // Holds all data from VOTE Table
-    allFeedbacks: any;
     tempUserType: any;
-    // Holds userID from getUserDetails Service
-    userID: any;
-
-    submissions: any = [];
-
     isTableVisible: boolean = true;
     isTableSubmittedVisible: boolean = true;
+    buttons: any = [];
+    columns: any = [];
+    activeSubcategory = 'All';
 
-    constructor(private apiService: ApiService) { 
-        this.getAllFeedbacks();
-    }
+    constructor(
+        private apiService: ApiService
+    ) { }
 
     ngOnInit(): void {
-        this.getAllFeedbacks();
         this.apiService.getUserDetails().subscribe(response => {
-            this.getAllFeedbacks();
             this.tempUserType = response.userType;
-            this.userID = response.id;
-            this.displayCurriculum(response.id);
+
+            if (response.userType === 'admin' || response.userType === 'chair') {
+                this.curriculumStatus();
+            } else if (response.userType === 'stakeholder' || response.userType === 'member') {
+                this.curriulumFeedback(Number(response.id));
+            }
         });
     }
 
-    // Display the list of Curriculum for Stakeholders
-    // Has userID parameter only for the checkSubmission Function
-    displayCurriculum(userID: any) {
-        this.getAllFeedbacks();
+    // Display Tables for Admin And Committee Chair
+    curriculumStatus() {
+
+        // Show the CSV and PDF buttons for Admin and Committee Chair only.
+        this.buttons = [
+            {
+                extend: 'csv',
+                text: 'CSV',
+                className: 'btn btn-primary',
+                exportOptions: {
+                    columns: ':visible:not(:nth-child(4))'
+                }
+            },
+            {
+                extend: 'print',
+                text: 'PDF',
+                className: 'btn btn-primary',
+                exportOptions: {
+                    columns: ':visible:not(:nth-child(4))'
+                }
+            },
+        ];
+
+        this.columns = [
+            { data: 'id', title: 'ID' },
+            { data: 'department', title: 'Department' },
+            { data: 'version', title: 'Version Name' },
+            { data: 'version_id', title: 'Version ID' },
+            { data: 'date_and_time', title: 'Submission Date' },
+            {
+                data: 'curr_status', title: 'Status', render: function (data, type, row, meta) {
+                    return data.toLowerCase().replace(/\b(\w)/g, function (s) { return s.toUpperCase(); });
+                }
+            },
+            {
+                data: null, title: 'Actions', render: (data, type, row) => {
+                    return `
+                        <a class="btn btn-primary btn-sm" href="/status/${row.id}/${row.version_id}">
+                            View
+                        </a>
+                    `;
+                }
+            }
+        ];
+
+        this.displayCurriculum();
+    }
+
+    // Display Tables for Stakeholder And Committee Member
+    curriulumFeedback(id: number) {
+
+        this.columns = [
+            { data: 'id', title: 'ID' },
+            { data: 'department', title: 'Department' },
+            { data: 'version', title: 'Version Name' },
+            { data: 'version_id', title: 'Version ID' },
+            { data: 'date_and_time', title: 'Submission Date' },
+            {
+                data: 'is_approved', title: 'Feedbacks', render: function (data, type, row, meta) {
+                    if (data === 1) {
+                        return 'Approved';
+                    } else if (data === 0) {
+                        return 'Returned';
+                    } else {
+                        return 'Pending';
+                    }
+                }
+            },
+            {
+                data: null, title: 'Actions', render: (data, type, row) => {
+                    return `
+                        <a class="btn btn-primary btn-sm" *ngIf="tempUserType === 'stakeholder'"
+                            href="/feedback/${row.id}/${row.version_id}">
+                            Submit Feedback
+                        </a>
+                    `;
+                }
+            }
+        ];
+
+        this.getAllFeedbacks(id);
+    }
+
+    // Display the list of Curriculum for Admin and Committee Chair
+    displayCurriculum() {
         this.apiService.displayCurriculum().subscribe({
             next: (data) => {
                 // Manages the submissions array before display on the table
-                
-                this.checkSubmission(userID, data, this.allFeedbacks);
-
                 console.log("Display Successful");
                 this.curriculums = data;
-                setTimeout(() => {
-                    // jQuery $(document).ready(function({})) is deprecated, Use $(function() {} instead.
-                    $(function () {
-                        $('#voteTable').DataTable({
-                            dom: '<"row"<"top-left col-sm-6" f><"top-right d-flex justify-content-end col-sm-6"B>rt<"bottom"ip><"clear">',
 
-                            buttons: [
-                                {
-                                    extend: 'csv',
-                                    text: 'CSV',
-                                    className: 'btn btn-primary',
-                                    exportOptions: {
-                                        columns: ':visible:not(:nth-child(5))'
-                                    }
-                                },
-                                {
-                                    extend: 'print',
-                                    text: 'PDF',
-                                    className: 'btn btn-primary',
-                                    exportOptions: {
-                                        columns: ':visible:not(:nth-child(5))'
-                                    }
-                                },
-                            ],
-                            "ordering": false,
-                            language: {
-                                searchPlaceholder: "Find records..."
-                            },
-                            "pageLength": 10,
-
-                        });
-                    });
-                }, 0);
+                // Initialize the DataTable
+                this.setDataTable();
             },
             error: (err) => {
                 console.log("Display Failed", err);
@@ -91,12 +136,13 @@ export class VoteComponent implements OnInit {
         });
     }
 
-    // Get all data from the VOTE Table without filter based on USER ID
-    getAllFeedbacks() {
-        this.apiService.getAllFeddbacks().subscribe({
+    // Display the list of Curriculum for Stakeholder and Committee Members
+    getAllFeedbacks(id: number) {
+        this.apiService.getAllFeedbacks(id).subscribe({
             next: (data) => {
-                this.allFeedbacks = data;
-                // console.log('feedback', data);
+                this.curriculums = data;
+                // Initialize the DataTable
+                this.setDataTable();
             },
             error: (err) => {
                 console.log("Display Failed", err);
@@ -104,38 +150,59 @@ export class VoteComponent implements OnInit {
         });
     }
 
-    // To check IF the USER have submitted a FEEDBACK on a CURRICULUM
-    checkSubmission(userID: any, curriculums: any, feedbacks: any) {
-        // check if feedbacks has been initialized
-        if (feedbacks) {
-            // Access the CURRICULUM Table
-            for (const curriculum of curriculums) {
-                let tempChecker = 0;
+    setDataTable() {
+        let btn = this.buttons;
+        let curr = this.curriculums;
+        let columns = this.columns;
+        // jQuery $(document).ready(function({})) is deprecated, Use $(function() {} instead.
+        $(function () {
+            $('#voteTable').DataTable({
+                data: curr,
+                dom: '<"row"<"top-left col-sm-6" f><"top-right d-flex justify-content-end col-sm-6"B>rt<"bottom"ip><"clear">',
+                buttons: btn,
+                "ordering": false,
+                language: {
+                    searchPlaceholder: "Find records..."
+                },
+                "pageLength": 10,
+                columns: columns
+            });
+        });
+    }
 
-                feedbacks.forEach(feedback => {
-                    // Check IF the current feedback has the current CURRICULUM ID and USER ID
-                    if (feedback.fk_vote_user_id == userID && feedback.fk_vote_curr_id == curriculum.id && feedback.curr_ver == curriculum.version_id) {
-                        tempChecker = 1;
-                        this.submissions.push("Submitted");
-                        // break;
-                    }
-                });
-                // Access the VOTE Table
-                // for (let feedback of feedbacks) {
-                //     // Check IF the current feedback has the current CURRICULUM ID and USER ID
-                //     if (feedback.fk_vote_user_id === userID && feedback.fk_vote_curr_id === curriculum.id && feedback.curr_ver === curriculum.version_id) {
-                //         tempChecker = 1;
-                //         this.submissions.push("Submitted");
-                //         break;
-                //     }
-                // }
-
-                // To identify if the USER have not submitted a feedback
-                if (tempChecker === 0) {
-                    tempChecker = 0;
-                    this.submissions.push("Not Submitted");
-                }
-            }
+    setSubCategory(subcategory: string) {
+        this.activeSubcategory = subcategory;
+        if (this.tempUserType === 'admin' || this.tempUserType === 'chair') {
+            this.refreshStatusTable();
+        } else {
+            this.refreshFeedbackTable();
         }
+    }
+
+    refreshStatusTable() {
+        let currs = this.curriculums;
+        if (this.activeSubcategory !== 'All') {
+            currs = this.curriculums.filter(curriculum =>
+                curriculum.curr_status == this.activeSubcategory.toLowerCase()
+            );
+        }
+        $('#voteTable').DataTable().clear().rows.add(currs).draw();
+    }
+
+    refreshFeedbackTable() {
+        let currs = this.curriculums;
+        let status: number | null = null;
+        if (this.activeSubcategory !== 'All') {
+            if (this.activeSubcategory === 'Approved') {
+                status = 1;
+            } else if (this.activeSubcategory === 'Returned') {
+                status = 0;
+            }
+            currs = this.curriculums.filter(curriculum =>
+                curriculum.is_approved === status
+
+            );
+        }
+        $('#voteTable').DataTable().clear().rows.add(currs).draw();
     }
 }

@@ -4,3 +4,7 @@
    width: 15px;
    height: 15px;
 }
+
+.container-fluid.mainTable.px-5.py-3 > .hide {
+    display: none;
+}

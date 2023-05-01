@@ -8,16 +8,14 @@ $request = json_decode($postData);
 if (isset($postData) && !empty($postData)) {
     $curriculumID = $request->currID;
     $curriculumVer = $request->currVer;
+    $userId = $request->userId;
 
     // Query that accesses the VOTE, CURRICULUM and USERS Table
-    $query = "SELECT
-    vote.is_approved, vote.comment, vote.fk_vote_user_id, vote.fk_vote_curr_id,
-    users.name, users.email
-    FROM vote
-    INNER JOIN users ON vote.fk_vote_user_id = users.id
-    WHERE fk_vote_curr_id=? AND curr_ver=?";
+    $query = "SELECT vote.is_approved, vote.comment
+                FROM vote
+                WHERE fk_vote_curr_id=? AND curr_ver=? AND fk_vote_user_id=?";
 
-    $params = [$curriculumID, $curriculumVer];
+    $params = [$curriculumID, $curriculumVer, $userId];
 
     $result = executeQuery($query, $params);
 
