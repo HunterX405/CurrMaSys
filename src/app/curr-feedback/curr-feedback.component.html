@@ -146,38 +146,38 @@
                             </div>
                         </div>
                     </div>
+                        <div *ngIf="feedbackNum">
+                            <div *ngFor="let feedback of feedbacks" class="row card border-0 m-2">
+                                <div class="card-body">
+                                    <!-- Display the Feedbacks using a div instead of table -->
+                                    <div class="p-3">
+                                        <h4>
+                                            <strong>Name:&nbsp;</strong>
+                                            {{ feedback.name }}
+                                        </h4>
+                                        <p>
+                                            <strong>Email:&nbsp;</strong>
+                                            {{ feedback.email }}
+                                        </p>
 
-                    <div *ngIf="feedbackNum">
-                        <div *ngFor="let feedback of feedbacks" class="row card border-0 m-2">
-                            <div class="card-body">
-                                <!-- Display the Feedbacks using a div instead of table -->
-                                <div class="p-3">
-                                    <h4>
-                                        <strong>Name:&nbsp;</strong>
-                                        {{ feedback.name }}
-                                    </h4>
-                                    <p>
-                                        <strong>Email:&nbsp;</strong>
-                                        {{ feedback.email }}
-                                    </p>
+                                        <p *ngIf="feedback.is_approved == 1">
+                                            <strong>Status:&nbsp;</strong>
+                                            <span class="activeStatus"> Approved </span>
+                                        </p>
+                                        <p *ngIf="feedback.is_approved == 0">
+                                            <strong>Status:&nbsp;</strong>
+                                            <span class="returnedStatus"> Returned </span>
+                                        </p>
 
-                                    <p *ngIf="feedback.is_approved == 1">
-                                        <strong>Status:&nbsp;</strong>
-                                        <span class="activeStatus"> Approved </span>
-                                    </p>
-                                    <p *ngIf="feedback.is_approved == 0">
-                                        <strong>Status:&nbsp;</strong>
-                                        <span class="returnedStatus"> Returned </span>
-                                    </p>
-
-                                    <p *ngIf="feedback.comment !== ''">
-                                        <span><strong>Comments:&nbsp;</strong></span>
-                                        {{ feedback.comment }}
-                                    </p>
-                                    <p *ngIf="feedback.comment == ''">
-                                        <span><strong>Comments:&nbsp;</strong></span>
-                                        <em> No Comments Submitted </em>
-                                    </p>
+                                        <p *ngIf="feedback.comment">
+                                            <span><strong>Comments:&nbsp;</strong></span>
+                                            {{ feedback.comment }}
+                                        </p>
+                                        <p *ngIf="!feedback.comment">
+                                            <span><strong>Comments:&nbsp;</strong></span>
+                                            <em> No Comments Submitted </em>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

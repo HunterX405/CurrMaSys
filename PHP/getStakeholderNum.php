@@ -2,7 +2,7 @@
 // Retreving all the data of Stakeholder Accounts
 include_once("database.php");
 
-$query = "SELECT id, name FROM users where userType = 'stakeholder'";
+$query = "SELECT id, name FROM users where userType = 'stakeholder' AND isActive=1";
 
 $result = executeQuery($query);
 
