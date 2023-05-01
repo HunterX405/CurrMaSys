@@ -10,9 +10,6 @@
                     <strong class="go_back"> GO BACK </strong>
                 </button>
             </div>
-
-            <button routerLink="/feedback/print/{{curriculumID}}" class="btn btn-primary mx-2">PDF</button>
-
             <div *ngFor="let data of curriculumData">
 
                 <div class="d-flex justify-content-end">
@@ -20,7 +17,7 @@
                        <strong> View Curriculum </strong>
                     </button>
                     <button routerLink="/feedback/print/{{ curriculumID }}/{{curriculumVer}}"
-                        class="btn btn-primary mx-2"> <strong> TO PDF </strong>
+                        class="btn btn-primary mx-2"> <strong> PDF </strong>
                     </button>
                 </div>
 
