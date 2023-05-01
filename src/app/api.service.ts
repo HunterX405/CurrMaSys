@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from './../environments/environment';
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
@@ -17,7 +18,8 @@ export class ApiService {
 
     constructor(
         private httpClient: HttpClient,
-        private cookieService: CookieService
+        private cookieService: CookieService,
+        private router: Router
     ) { }
 
     sendEmail(to: string, subject: string, message: string) {
@@ -263,7 +265,10 @@ export class ApiService {
 
     // Add Feedback on the VOTE Table
     addFeedback(formData: string) {
+        // For displaying a loading page.
+        // this.router.navigate(['/loading']);
         return this.httpClient.post<any>(`${this.baseUrl}/addFeedback.php`, formData).pipe(map(data => {
+            // this.router.navigate(['/vote']);
             return data;
         }));
     }

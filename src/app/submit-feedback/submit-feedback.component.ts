@@ -64,7 +64,7 @@ export class SubmitFeedbackComponent implements OnInit {
     }
 
     addFeedback(feedbackForm: FormGroup) {
-        if (this.feedbackForm.get('isApproved')?.getRawValue() === '0' && this.feedbackForm.get('comment')?.getRawValue() !== '') {
+        if ((this.feedbackForm.get('isApproved')?.value === '0' && this.feedbackForm.get('comment')?.getRawValue() !== '') || this.feedbackForm.get('isApproved')?.value === '1') {
             if (feedbackForm.valid) {
                 this.apiService.addFeedback(JSON.stringify(feedbackForm.value)).subscribe({
                     next: (data) => {

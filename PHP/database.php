@@ -41,3 +41,20 @@
       die('Database query error: ' . $e->getMessage());
     }
   }
+
+  function executeCountQuery($query, $params = []) {
+    global $mysqli;
+    $stmt = $mysqli->prepare($query);
+    if (!$stmt) {
+        die("Error in query: " . $mysqli->error);
+    }
+    if (count($params) > 0) {
+        $stmt->bind_param(str_repeat('s', count($params)), ...$params);
+    }
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_row();
+    $count = $row[0];
+    $stmt->close();
+    return $count;
+}
