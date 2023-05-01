@@ -58,7 +58,7 @@
         <!-- Table for displaying the list of curriculums -->
         <div *ngIf="isTableVisible">
 
-            <form [formGroup]="filterForm" (ngSubmit)="displayCurriculum(currId, currVer)">
+            <form [formGroup]="filterForm" (ngSubmit)="displayCurriculum(currId, currVer)" style="margin-left: 50px;">
 
                 <div class="row my-3">
                     <div class="col-md-2">
@@ -85,12 +85,18 @@
                         <div style="margin-top: 22.5px;">
                             <button type="submit" class="btn btn-primary mx-2">Filter</button>
                         </div>
-
                     </div>
-
+                    <div class="col-md-2">
+                        <div style="margin-top: 22.5px; margin-left:700px;" >
+                            <button routerLink="/curriculum/print/{{ currId }}/{{currVer}}/{{paramyear}}/{{paramsem}}"
+                            class="btn btn-primary mx-2"> <strong> PDF </strong>
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
             </form>
+            
 
             <div class="container-fluid mainTable px-5 py-3">
 
@@ -122,7 +128,7 @@
                     </thead>
                     <tbody *ngFor="let subject of subjects['sem1']" class="text-center">
                         <td>{{ subject.course_code }}</td>
-                        <td><a href="{{apiUrl}}/PDF/{{subject.syllabus}}">{{ subject.title }}</a>
+                        <td><a href="{{apiUrl}}/PDF/{{subject.syllabus}}" target="blank">{{ subject.title }}</a>
                         </td>
                         <td>{{ subject.lec_units }}</td>
                         <td>{{ subject.lab_units }}</td>
@@ -163,7 +169,7 @@
                     </thead>
                     <tbody *ngFor="let subject of subjects['sem2']" class="text-center">
                         <td>{{ subject.course_code }}</td>
-                        <td><a href="{{apiUrl}}/php/PDF/{{subject.syllabus}}">{{ subject.title }}</a>
+                        <td><a href="{{apiUrl}}/php/PDF/{{subject.syllabus}}" target="blank">{{ subject.title }}</a>
                         </td>
                         <td>{{ subject.lec_units }}</td>
                         <td>{{ subject.lab_units }}</td>
