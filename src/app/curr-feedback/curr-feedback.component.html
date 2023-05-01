@@ -172,11 +172,11 @@
                                             <span class="returnedStatus"> Returned </span>
                                         </p>
 
-                                        <p *ngIf="feedback.comment !== ''">
+                                        <p *ngIf="feedback.comment">
                                             <span><strong>Comments:&nbsp;</strong></span>
                                             {{ feedback.comment }}
                                         </p>
-                                        <p *ngIf="feedback.comment == ''">
+                                        <p *ngIf="!feedback.comment">
                                             <span><strong>Comments:&nbsp;</strong></span>
                                             <em> No Comments Submitted </em>
                                         </p>
