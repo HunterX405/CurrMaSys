@@ -26,8 +26,13 @@ export class CurriculumComponent implements OnInit {
    subjectsArray: any;
    isFormSet: boolean = false;
 
+   tempUserType: string = "";
+
    ngOnInit(): void {
       this.displayCurriculum();
+      this.apiService.getUserDetails().subscribe(response => {
+         this.tempUserType = response.userType;
+     });
    }
 
    displayCurriculum() {

@@ -25,11 +25,14 @@ export class VoteComponent implements OnInit {
     isTableVisible: boolean = true;
     isTableSubmittedVisible: boolean = true;
 
-    constructor(private apiService: ApiService) { }
+    constructor(private apiService: ApiService) { 
+        this.getAllFeedbacks();
+    }
 
     ngOnInit(): void {
         this.getAllFeedbacks();
         this.apiService.getUserDetails().subscribe(response => {
+            this.getAllFeedbacks();
             this.tempUserType = response.userType;
             this.userID = response.id;
             this.displayCurriculum(response.id);
@@ -39,9 +42,11 @@ export class VoteComponent implements OnInit {
     // Display the list of Curriculum for Stakeholders
     // Has userID parameter only for the checkSubmission Function
     displayCurriculum(userID: any) {
+        this.getAllFeedbacks();
         this.apiService.displayCurriculum().subscribe({
             next: (data) => {
                 // Manages the submissions array before display on the table
+                
                 this.checkSubmission(userID, data, this.allFeedbacks);
 
                 console.log("Display Successful");
@@ -91,7 +96,7 @@ export class VoteComponent implements OnInit {
         this.apiService.getAllFeddbacks().subscribe({
             next: (data) => {
                 this.allFeedbacks = data;
-                console.log('feedback', data);
+                // console.log('feedback', data);
             },
             error: (err) => {
                 console.log("Display Failed", err);
@@ -109,7 +114,7 @@ export class VoteComponent implements OnInit {
 
                 feedbacks.forEach(feedback => {
                     // Check IF the current feedback has the current CURRICULUM ID and USER ID
-                    if (feedback.fk_vote_user_id === userID && feedback.fk_vote_curr_id === curriculum.id && feedback.curr_ver === curriculum.version_id) {
+                    if (feedback.fk_vote_user_id == userID && feedback.fk_vote_curr_id == curriculum.id && feedback.curr_ver == curriculum.version_id) {
                         tempChecker = 1;
                         this.submissions.push("Submitted");
                         // break;
