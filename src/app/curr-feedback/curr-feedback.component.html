@@ -10,18 +10,17 @@
                     <strong class="go_back"> GO BACK </strong>
                 </button>
             </div>
+
+            <div class="d-flex justify-content-end">
+                <button (click)="viewCurriculum()" class="btn btn-primary mx-2">
+                    <strong> View Curriculum </strong>
+                </button>
+                <button routerLink="/feedback/print/{{ curriculumID }}/{{curriculumVer}}"
+                    class="btn btn-primary mx-2"> <strong> PDF </strong>
+                </button>
+            </div>
+
             <div *ngFor="let data of curriculumData">
-
-                <div class="d-flex justify-content-end">
-                    <button (click)="viewCurriculum()" class="btn btn-primary mx-2">
-                        <strong> View Curriculum </strong>
-                    </button>
-                    <button routerLink="/feedback/print/{{ curriculumID }}/{{curriculumVer}}"
-                        class="btn btn-primary mx-2"> <strong> PDF </strong>
-                    </button>
-                </div>
-
-
 
                 <div class="row card border-0 m-2">
                     <div class="card-body">
@@ -146,38 +145,37 @@
                             </div>
                         </div>
                     </div>
-                        <div *ngIf="feedbackNum">
-                            <div *ngFor="let feedback of feedbacks" class="row card border-0 m-2">
-                                <div class="card-body">
-                                    <!-- Display the Feedbacks using a div instead of table -->
-                                    <div class="p-3">
-                                        <h4>
-                                            <strong>Name:&nbsp;</strong>
-                                            {{ feedback.name }}
-                                        </h4>
-                                        <p>
-                                            <strong>Email:&nbsp;</strong>
-                                            {{ feedback.email }}
-                                        </p>
+                    <div *ngIf="feedbackNum">
+                        <div *ngFor="let feedback of feedbacks" class="row card border-0 m-2">
+                            <div class="card-body">
+                                <!-- Display the Feedbacks using a div instead of table -->
+                                <div class="p-3">
+                                    <h4>
+                                        <strong>Name:&nbsp;</strong>
+                                        {{ feedback.name }}
+                                    </h4>
+                                    <p>
+                                        <strong>Email:&nbsp;</strong>
+                                        {{ feedback.email }}
+                                    </p>
 
-                                        <p *ngIf="feedback.is_approved == 1">
-                                            <strong>Status:&nbsp;</strong>
-                                            <span class="activeStatus"> Approved </span>
-                                        </p>
-                                        <p *ngIf="feedback.is_approved == 0">
-                                            <strong>Status:&nbsp;</strong>
-                                            <span class="returnedStatus"> Returned </span>
-                                        </p>
+                                    <p *ngIf="feedback.is_approved == 1">
+                                        <strong>Status:&nbsp;</strong>
+                                        <span class="activeStatus"> Approved </span>
+                                    </p>
+                                    <p *ngIf="feedback.is_approved == 0">
+                                        <strong>Status:&nbsp;</strong>
+                                        <span class="returnedStatus"> Returned </span>
+                                    </p>
 
-                                        <p *ngIf="feedback.comment">
-                                            <span><strong>Comments:&nbsp;</strong></span>
-                                            {{ feedback.comment }}
-                                        </p>
-                                        <p *ngIf="!feedback.comment">
-                                            <span><strong>Comments:&nbsp;</strong></span>
-                                            <em> No Comments Submitted </em>
-                                        </p>
-                                    </div>
+                                    <p *ngIf="feedback.comment">
+                                        <span><strong>Comments:&nbsp;</strong></span>
+                                        {{ feedback.comment }}
+                                    </p>
+                                    <p *ngIf="!feedback.comment">
+                                        <span><strong>Comments:&nbsp;</strong></span>
+                                        <em> No Comments Submitted </em>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -185,31 +183,31 @@
                 </div>
             </div>
         </div>
+    </div>
 
 
-        <div class="container d-none">
-            <h1>Feedbacks</h1>
+    <div class="container d-none">
+        <h1>Feedbacks</h1>
 
-            <div *ngFor="let data of curriculumData">
-                <h2>Curriculum Version: {{ data.version }}</h2>
-                <h2>Department: {{ data.department }}</h2>
+        <div *ngFor="let data of curriculumData">
+            <h2>Curriculum Version: {{ data.version }}</h2>
+            <h2>Department: {{ data.department }}</h2>
 
-                <h3>Report</h3>
-                <p>No. of Stakeholder Accounts: {{ stakeholderNum }}</p>
-                <p>No. of Submitted Feedbacks: {{ feedbackNum }}</p>
-                <p>Status: {{ data.curr_status | titlecase }}</p>
-            </div>
+            <h3>Report</h3>
+            <p>No. of Stakeholder Accounts: {{ stakeholderNum }}</p>
+            <p>No. of Submitted Feedbacks: {{ feedbackNum }}</p>
+            <p>Status: {{ data.curr_status | titlecase }}</p>
+        </div>
 
-            <!-- Display the Feedbacks using a div instead of table -->
-            <div *ngFor="let feedback of feedbacks" style="border: 1px solid black">
-                <h3>{{ feedback.name }}</h3>
-                <p>{{ feedback.email }}</p>
+        <!-- Display the Feedbacks using a div instead of table -->
+        <div *ngFor="let feedback of feedbacks" style="border: 1px solid black">
+            <h3>{{ feedback.name }}</h3>
+            <p>{{ feedback.email }}</p>
 
-                <p *ngIf="feedback.is_approved == 1">Status: Approved</p>
-                <p *ngIf="feedback.is_approved == 0">Status: Returned</p>
+            <p *ngIf="feedback.is_approved == 1">Status: Approved</p>
+            <p *ngIf="feedback.is_approved == 0">Status: Returned</p>
 
-                <p>Comments: {{ feedback.comment }}</p>
-            </div>
+            <p>Comments: {{ feedback.comment }}</p>
         </div>
     </div>
 </div>

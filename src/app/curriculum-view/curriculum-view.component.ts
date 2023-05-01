@@ -278,6 +278,7 @@ export class CurriculumViewComponent implements OnInit {
             this.isFormSet = true;
         }
         this.isTableVisible = !this.isTableVisible;
+        console.log('table',this.isTableVisible);
     }
 
     onGoBack1() {
