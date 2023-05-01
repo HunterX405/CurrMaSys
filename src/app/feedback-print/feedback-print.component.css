@@ -7,3 +7,19 @@
         margin:0.7in;
     }
 }
+
+.printModule, .card-body{
+    background-color: #ffffff !important;
+}
+
+.printModule > h1{
+    color: #182850 !important;
+}
+
+.card-body > h4,
+.card-body > .row > .col-10 > h3,
+.card-body > .row > .col-10 > h6,
+.card-body > .p-3, h4,
+.card-body > .p-3, p{
+   color: #212121 !important;
+}

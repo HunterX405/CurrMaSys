@@ -170,7 +170,7 @@ input {
   background-color: var(--input-label);
 }
 
-.form-control {
+.form-control, .form-select {
   color: var(--text-color) !important;
   background-color: var(--input-label) !important;
 }

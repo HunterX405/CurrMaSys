@@ -6,7 +6,7 @@
   <div *ngIf="id">
     <div class="lowerMainContent">
       <div class="p-5">
-        <form [formGroup]="activateUserForm" (ngSubmit)="activateUser()" style="padding-top: 200px;">
+        <form [formGroup]="activateUserForm" (ngSubmit)="activateUser()">
           <div class="alert alert-danger">
             <h5 class="text-black">Are you sure you want to activate Account ID:{{id}}?</h5>
             <input type="hidden" formControlName="userid" class="form-control" id="id">

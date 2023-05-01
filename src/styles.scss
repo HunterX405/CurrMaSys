@@ -1,3 +1,4 @@
+//BASE THEME (BOTH LIGHT AND DARK MODES)
 $theme-colors: (
     "primary": #182850,
     "secondary": #212121,
@@ -28,7 +29,6 @@ $theme-colors: (
 }
 
 //COMMON TYPOGRAPHY 
-
 * {
     font-family: 'Lato';
 }
@@ -51,6 +51,7 @@ h4,h5,h6,p{
     color: var(--text-color);
 }
 
+//CONTAINERS COLOR AND SIZES
 .error {
     color: map-get($theme-colors, "danger");
 }
@@ -74,11 +75,13 @@ h4,h5,h6,p{
     height: 100%;
 }
 
+//TABLE AND FORM BACKGROUND COLOR
 .mainTable,
 .addForm {
     background-color: var(--bg-foreground);
 }
 
+//SUB CATEGORIES (YELLOW TEXT BELOW MAIN BANNER)
 .subCategory {
     text-decoration: none;
     color: var(--sub-category);
@@ -93,6 +96,7 @@ h4,h5,h6,p{
     color: #ffaa28;
 }
 
+//FOR SCREEN ADAPTABILITY
 @media screen and (max-width: 1250px) {
     .mainContent {  
         margin-left: 80px;
@@ -186,7 +190,7 @@ input{
 }
 
 //FORM CONTROLS
-.form-control{
+.form-control, .form-select{
     color: var(--text-color) !important; 
     background-color: var(--input-label) !important;
 }

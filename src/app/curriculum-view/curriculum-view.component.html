@@ -95,12 +95,12 @@
         <!-- Table for displaying the list of curriculums -->
         <div *ngIf="isTableVisible">
 
-            <form [formGroup]="filterForm" (ngSubmit)="filterTable()" style="margin-left: 50px;">
+            <form [formGroup]="filterForm" (ngSubmit)="filterTable()" style="margin: 0 50px;">
 
                 <div class="row my-3">
                     <div class="col-md-2">
                         <label for="year">Choose Year:</label>
-                        <select id="year" class="form-control" formControlName="year">
+                        <select id="year" class="form-select" formControlName="year">
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -111,7 +111,7 @@
 
                     <div class="col-md-2">
                         <label for="semester">Choose Semester:</label>
-                        <select id="semester" class="form-control" formControlName="semester">
+                        <select id="semester" class="form-select" formControlName="semester">
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="all" selected>All</option>
@@ -124,174 +124,180 @@
                         </div>
                     </div>
 
-                    <div *ngIf="curriculum && !curriculum.isLatest  && (userType === 'admin' || userType === 'chair')"
-                        class="col-md-2" style="margin-left: 600px; width: fit-content;">
-                        <div style="margin-top: 22.5px;">
+                    <div class="d-flex justify-content-end col-md-6" style="margin-top: 22.5px;">
+
+                        <div
+                            *ngIf="curriculum && !curriculum.isLatest  && (userType === 'admin' || userType === 'chair')">
                             <button routerLink="/curriculum/print/{{ currId }}/{{currVer}}/{{paramyear}}/{{paramsem}}"
-                                class="btn btn-primary mx-2"> <strong> PDF </strong>
+                                class="btn btn-primary mx-2"> <strong> TO PDF </strong>
                             </button>
                         </div>
-                    </div>
 
-                    <div *ngIf="curriculum && curriculum.isLatest" class="col-md-2"
-                        style="width: fit-content; margin-left: 400px;">
-                        <div style="margin-top: 22.5px;">
+                        <div *ngIf="curriculum && curriculum.isLatest">
                             <button (click)="onEdit()" type="button" class="btn btn-primary mx-2">
                                 <span> &nbsp; <strong> EDIT CONTENT</strong> &nbsp;&nbsp; </span>
                             </button>
                         </div>
-                    </div>
 
-                    <div *ngIf="curriculum && curriculum.isLatest && (userType === 'admin' || userType === 'chair')"
-                        class="col-md-2" style="width: fit-content;">
-                        <div style="margin-top: 22.5px;">
+                        <div
+                            *ngIf="curriculum && curriculum.isLatest && (userType === 'admin' || userType === 'chair')">
                             <button routerLink="/curriculum/print/{{ currId }}/{{currVer}}/{{paramyear}}/{{paramsem}}"
-                                class="btn btn-primary mx-2"> <strong> PDF </strong>
+                                class="btn btn-primary mx-2"> <strong> TO PDF </strong>
                             </button>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
             </form>
 
-            <div *ngFor="let subjects of yearSem">
-                <div class="container-fluid mainTable px-5 py-3" *ngIf="paramyear === 'all' || subjects['year'] == paramyear">
+            
+                <div *ngFor="let subjects of yearSem">
+                    <div class="mx-5 py-2">
+                    <div class="container-fluid mainTable px-5 py-3" *ngIf="paramyear === 'all' || subjects['year'] == paramyear">
+    
+                        <table class="table">
+                            <thead>
+                                <tr class="text-center">
+                                    <th colspan="8">
+                                        <h4 style="font-family:'Outfit'"> {{subjects['yearTitle']}} YEAR</h4>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <thead *ngIf="paramsem === 'all' || paramsem === '1'">
+                                <tr class="text-left">
+                                    <th colspan="8">
+                                        <h5 style="margin-top: 25px;"> <strong> FIRST SEMESTER: </strong> </h5>
+                                    </th>
+                                </tr>
+                                <tr *ngIf="subjects['sem1'].length" class="text-center">
+                                    <th>COURSE CODE</th>
+                                    <th>DESCRIPTIVE TITLE</th>
+                                    <th>LEC UNITS</th>
+                                    <th>LAB UNITS</th>
+                                    <th>TOTAL UNITS</th>
+                                    <th>HRS / WEEK</th>
+                                    <th>PREREQ.</th>
+                                    <th>CO-REQ.</th>
+                                </tr>
+                                <tr *ngIf="!subjects['sem1'].length" class="text-center">
+                                    <th colspan="8s"> <em class="text-muted"> NO SUBJECTS/NO DATA RETRIEVED </em> </th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="paramsem === 'all' || paramsem === '1'" class="text-center">
+                                <tr *ngFor="let subject of subjects['sem1']">
+                                    <td>{{ subject.course_code }}</td>
+                                    <td><a href="{{apiUrl}}/PDF/{{subject.syllabus}}" target="blank">{{ subject.title }}</a>
+                                    </td>
+                                    <td>{{ subject.lec_units }}</td>
+                                    <td>{{ subject.lab_units }}</td>
+                                    <td>{{ subject.total_units }}</td>
+                                    <td>{{ subject.hrs }}</td>
+                                    <td *ngIf="subject.pre_requisite">{{ subject.pre_requisite }}</td>
+                                    <td *ngIf="!subject.pre_requisite">None</td>
+                                    <td *ngIf="subject.co_requisite">{{ subject.co_requisite }}</td>
+                                    <td *ngIf="!subject.co_requisite">None</td>
+                                </tr>
+                                <tr *ngIf="subjects['sem2'] && subjects['sem1'].length && getTotals(subjects['sem1']) as totals"
+                                    class="text-center">
+                                    <td></td>
+                                    <td> <strong> TOTAL: </strong></td>
+                                    <td>{{ totals.lec | number : '1.1-2' }}</td>
+                                    <td>{{ totals.lab | number : '1.1-2' }}</td>
+                                    <td>{{ totals.all | number : '1.1-2' }}</td>
+                                    <td>{{ totals.hrs }}</td>
+                                </tr>
+                            </tbody>
+                            <thead *ngIf="paramsem === 'all' || paramsem === '2'">
+                                <tr class="text-left">
+                                    <th colspan="8">
+                                        <h5 style="margin-top: 25px;"> <strong> SECOND SEMESTER: </strong> </h5>
+                                    </th>
+                                </tr>
+                                <tr *ngIf="subjects['sem2'].length" class="text-center">
+                                    <th>COURSE CODE</th>
+                                    <th>DESCRIPTIVE TITLE</th>
+                                    <th>LEC UNITS</th>
+                                    <th>LAB UNITS</th>
+                                    <th>TOTAL UNITS</th>
+                                    <th>HRS / WEEK</th>
+                                    <th>PREREQ.</th>
+                                    <th>CO-REQ.</th>
+                                </tr>
+                                <tr *ngIf="!subjects['sem2'].length" class="text-center">
+                                    <th colspan="8"> <em class="text-muted"> NO SUBJECTS/NO DATA RETRIEVED </em></th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="paramsem === 'all' || paramsem === '2'" class="text-center">
+                                <tr *ngFor="let subject of subjects['sem2']">
+                                    <td>{{ subject.course_code }}</td>
+                                    <td><a href="{{apiUrl}}/PDF/{{subject.syllabus}}" target="blank">{{ subject.title }}</a>
+                                    </td>
+                                    <td>{{ subject.lec_units }}</td>
+                                    <td>{{ subject.lab_units }}</td>
+                                    <td>{{ subject.total_units }}</td>
+                                    <td>{{ subject.hrs }}</td>
+                                    <td *ngIf="subject.pre_requisite">{{ subject.pre_requisite }}</td>
+                                    <td *ngIf="!subject.pre_requisite">None</td>
+                                    <td *ngIf="subject.co_requisite">{{ subject.co_requisite }}</td>
+                                    <td *ngIf="!subject.co_requisite">None</td>
+                                </tr>
+    
+                                <tr *ngIf="subjects['sem2'] && subjects['sem2'].length && getTotals(subjects['sem2']) as totals"
+                                    class="text-center">
+                                    <td></td>
+                                    <td> <strong> TOTAL: </strong> </td>
+                                    <td>{{ totals.lec | number : '1.1-2' }}</td>
+                                    <td>{{ totals.lab | number : '1.1-2' }}</td>
+                                    <td>{{ totals.all | number : '1.1-2' }}</td>
+                                    <td>{{ totals.hrs }}</td>
+                                </tr>
+                            </tbody>
+    
+                        </table>
+                    </div>
+                    </div>
+                </div> 
+           
 
-                    <table class="table">
+
+
+            <div class="mx-5 py-3">
+                <div class="container-fluid mainTable px-5 py-3">
+                    <table class="table text-center">
                         <thead>
                             <tr class="text-center">
                                 <th colspan="8">
-                                    <h4 style="font-family:'Outfit'"> {{subjects['yearTitle']}} YEAR</h4>
+                                    <h4 style="font-family:'Outfit'"> SPECIALIZATION </h4>
                                 </th>
                             </tr>
-                        </thead>
-                        <thead *ngIf="paramsem === 'all' || paramsem === '1'">
-                            <tr class="text-left">
-                                <th colspan="8">
-                                    <h5 style="margin-top: 25px;"> <strong> FIRST SEMESTER: </strong> </h5>
-                                </th>
-                            </tr>
-                            <tr *ngIf="subjects['sem1'].length" class="text-center">
-                                <th>COURSE CODE</th>
-                                <th>DESCRIPTIVE TITLE</th>
-                                <th>LEC UNITS</th>
-                                <th>LAB UNITS</th>
-                                <th>TOTAL UNITS</th>
-                                <th>HRS / WEEK</th>
-                                <th>PREREQ.</th>
-                                <th>CO-REQ.</th>
-                            </tr>
-                            <tr *ngIf="!subjects['sem1'].length" class="text-center">
-                                <th colspan="8s">NO SUBJECTS/NO DATA RETRIEVED</th>
+                            <tr *ngIf="electives && electives.length">
+                                <th></th>
+                                <th>Service Management Specialization Track</th>
+                                <th>Business Analytics Specialization Track</th>
+                                <th>Web and Mobile Development Specialization Track</th>
                             </tr>
                         </thead>
-                        <tbody *ngIf="paramsem === 'all' || paramsem === '1'" class="text-center">
-                            <tr *ngFor="let subject of subjects['sem1']">
-                                <td>{{ subject.course_code }}</td>
-                                <td><a href="{{apiUrl}}/PDF/{{subject.syllabus}}" target="blank">{{ subject.title }}</a>
-                                </td>
-                                <td>{{ subject.lec_units }}</td>
-                                <td>{{ subject.lab_units }}</td>
-                                <td>{{ subject.total_units }}</td>
-                                <td>{{ subject.hrs }}</td>
-                                <td *ngIf="subject.pre_requisite">{{ subject.pre_requisite }}</td>
-                                <td *ngIf="!subject.pre_requisite">None</td>
-                                <td *ngIf="subject.co_requisite">{{ subject.co_requisite }}</td>
-                                <td *ngIf="!subject.co_requisite">None</td>
-                            </tr>
-                            <tr *ngIf="subjects['sem2'] && subjects['sem1'].length && getTotals(subjects['sem1']) as totals"
-                                class="text-center">
-                                <td></td>
-                                <td>TOTAL</td>
-                                <td>{{ totals.lec | number : '1.1-2' }}</td>
-                                <td>{{ totals.lab | number : '1.1-2' }}</td>
-                                <td>{{ totals.all | number : '1.1-2' }}</td>
-                                <td>{{ totals.hrs }}</td>
+                        <tbody *ngIf="electives && electives.length">
+                            <tr *ngFor="let elective of electives">
+                                <td>{{ elective.title }}</td>
+                                <td>{{getElectives(elective.electives_title)[0]}}</td>
+                                <td>{{getElectives(elective.electives_title)[1]}}</td>
+                                <td>{{getElectives(elective.electives_title)[2]}}</td>
                             </tr>
                         </tbody>
-                        <thead *ngIf="paramsem === 'all' || paramsem === '2'">
-                            <tr class="text-left">
-                                <th colspan="8">
-                                    <h5 style="margin-top: 25px;"> <strong> SECOND SEMESTER: </strong> </h5>
-                                </th>
-                            </tr>
-                            <tr *ngIf="subjects['sem2'].length" class="text-center">
-                                <th>COURSE CODE</th>
-                                <th>DESCRIPTIVE TITLE</th>
-                                <th>LEC UNITS</th>
-                                <th>LAB UNITS</th>
-                                <th>TOTAL UNITS</th>
-                                <th>HRS / WEEK</th>
-                                <th>PREREQ.</th>
-                                <th>CO-REQ.</th>
-                            </tr>
-                            <tr *ngIf="!subjects['sem2'].length" class="text-center">
-                                <th colspan="8">NO SUBJECTS/NO DATA RETRIEVED</th>
-                            </tr>
-                        </thead>
-                        <tbody *ngIf="paramsem === 'all' || paramsem === '2'" class="text-center">
-                            <tr *ngFor="let subject of subjects['sem2']">
-                                <td>{{ subject.course_code }}</td>
-                                <td><a href="{{apiUrl}}/PDF/{{subject.syllabus}}" target="blank">{{ subject.title }}</a>
-                                </td>
-                                <td>{{ subject.lec_units }}</td>
-                                <td>{{ subject.lab_units }}</td>
-                                <td>{{ subject.total_units }}</td>
-                                <td>{{ subject.hrs }}</td>
-                                <td *ngIf="subject.pre_requisite">{{ subject.pre_requisite }}</td>
-                                <td *ngIf="!subject.pre_requisite">None</td>
-                                <td *ngIf="subject.co_requisite">{{ subject.co_requisite }}</td>
-                                <td *ngIf="!subject.co_requisite">None</td>
-                            </tr>
-
-                            <tr *ngIf="subjects['sem2'] && subjects['sem2'].length && getTotals(subjects['sem2']) as totals"
-                                class="text-center">
+                        <tbody *ngIf="electives && !electives.length">
+                            <tr>
                                 <td></td>
-                                <td>TOTAL</td>
-                                <td>{{ totals.lec | number : '1.1-2' }}</td>
-                                <td>{{ totals.lab | number : '1.1-2' }}</td>
-                                <td>{{ totals.all | number : '1.1-2' }}</td>
-                                <td>{{ totals.hrs }}</td>
+                                <th colspan="2"> <em class="text-muted"> NO ELECTIVE SUBJECTS </em></th>
+                                <td></td>
                             </tr>
                         </tbody>
-
                     </table>
                 </div>
             </div>
-
-            <div class="container-fluid mainTable px-5 py-3">
-                <table>
-                    <thead>
-                        <tr class="text-center">
-                            <th colspan="8">
-                                <h4 style="font-family:'Outfit'"> SPECIALIZATION </h4>
-                            </th>
-                        </tr>
-                        <tr *ngIf="electives && electives.length">
-                            <th></th>
-                            <th>Service Management Specialization Track</th>
-                            <th>Business Analytics Specialization Track</th>
-                            <th>Web and Mobile Development Specialization Track</th>
-                        </tr>
-                    </thead>
-                    <tbody *ngIf="electives && electives.length">
-                        <tr *ngFor="let elective of electives">
-                            <td>{{ elective.title }}</td>
-                            <td>{{getElectives(elective.electives_title)[0]}}</td>
-                            <td>{{getElectives(elective.electives_title)[1]}}</td>
-                            <td>{{getElectives(elective.electives_title)[2]}}</td>
-                        </tr>
-                    </tbody>
-                    <tbody *ngIf="electives && !electives.length">
-                        <tr>
-                            <td></td>
-                            <td colspan="2"> NO ELECTIVE SUBJECTS </td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
         </div>
+
+
         <div *ngIf="!isTableVisible" class="addForm p-5">
 
             <h2> Edit Curriculum </h2>
@@ -351,7 +357,7 @@
                             <tr *ngFor="let x of subjects['array'].controls; let i = index;" [formGroupName]="i"
                                 class="text-center">
                                 <td class="px-1">
-                                    <select class="form-control" formControlName="course" style="padding: 5px;"
+                                    <select class="form-select" formControlName="course" style="padding: 5px;"
                                         [class.invalid]="subjects['array'].at(i).get('course')?.pristine &&isSubmitted "
                                         (change)="checkElective(subjects['array'].at(i).get('course'))">
                                         <option value="" selected="true"> Select Course </option>
@@ -379,14 +385,14 @@
                                     <input class="form-control" type="number" min="0" max="99" formControlName="hrs" />
                                 </td>
                                 <td class="px-1">
-                                    <select class="form-control" formControlName="pre_req" style="padding: 5px;"
+                                    <select class="form-select" formControlName="pre_req" style="padding: 5px;"
                                         multiple>
                                         <option *ngFor="let subject of subjectsList" [value]="subject.id">{{
                                             subject.course_code }}</option>
                                     </select>
                                 </td>
                                 <td class="px-1">
-                                    <select class="form-control" formControlName="co_req" style="padding: 5px;">
+                                    <select class="form-select" formControlName="co_req" style="padding: 5px;">
                                         <option value="" selected="true">None</option>
                                         <option *ngFor="let subject of subjectsList" [value]="subject.id">
                                             {{subject.course_code }}

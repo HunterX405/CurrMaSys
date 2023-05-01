@@ -35,7 +35,7 @@
             <div *ngIf="isAddFormVisible" class="d-flex justify-content-start" style="margin: 10px 0;">
                 <button (click)="onAdd()" type="button" class="btn p-0">
                     <img class="logoImg " src="./assets/images/icon_back_btn.png" alt="BACK BUTTON">
-                    <strong> GO BACK </strong>
+                    <strong class="go_back"> GO BACK </strong>
                 </button>
             </div>
 
@@ -95,7 +95,7 @@
                     <div class="my-4">
                         <!-- Related to the getSubject function -->
                         <label for="subject">Choose Subject Title &nbsp;&nbsp;&nbsp;</label>
-                        <select style="padding: 5px;" name="subject" id="subject" formControlName="fkSubjID"
+                        <select style="padding: 5px;" name="subject" class="form-select" id="subject" formControlName="fkSubjID"
                             [class.invalid]="addEleForm.get('fkSubjID')?.hasError('required') && (addEleForm.get('fkSubjID')?.dirty || addEleForm.get('el2Data.title')?.touched || isFormSubmitted)">
                             <option value="{{ subject.id }}" *ngFor="let subject of subjects">
                                 {{ subject.title }}
