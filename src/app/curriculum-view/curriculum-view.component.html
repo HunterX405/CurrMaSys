@@ -29,18 +29,39 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="row card border-0 m-2">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="d-flex justify-content-center col-2">
-                                <img src="./assets/images/icon_paper.png" style="width:60px; height:60px;"
-                                    alt="BASE SUBJECT">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row card border-0 m-2">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="d-flex justify-content-center col-2">
+                                    <img src="./assets/images/icon_department.png" style="width:60px; height:60px;"
+                                        alt="DASHBOARD">
+                                </div>
+                                <div class="col-10">
+                                    <h6 class="card-title"> <strong> Department: </strong> </h6>
+                                    <h3 class="card-subtitle mb-2" style="font-weight:bolder;">{{
+                                        curriculum.department }} </h3>
+                                </div>
                             </div>
-                            <div class="col-10">
-                                <h6 class="card-title"> <strong> Version: </strong> </h6>
-                                <h3 class="card-subtitle mb-2" style="font-weight:bolder;">{{
-                                    curriculum.version }} - {{ curriculum.version_id }} </h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="row card border-0 m-2">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="d-flex justify-content-center col-2">
+                                    <img src="./assets/images/icon_paper.png" style="width:60px; height:60px;"
+                                        alt="BASE SUBJECT">
+                                </div>
+                                <div class="col-10">
+                                    <h6 class="card-title"> <strong> Version: </strong> </h6>
+                                    <h3 class="card-subtitle mb-2" style="font-weight:bolder;">{{
+                                        curriculum.version }} - {{ curriculum.version_id }} </h3>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -86,17 +107,34 @@
                             <button type="submit" class="btn btn-primary mx-2">Filter</button>
                         </div>
                     </div>
-                    <div class="col-md-2">
-                        <div style="margin-top: 22.5px; margin-left:700px;" >
+
+                    <div *ngIf="!curriculum.isLatest" class="col-md-2" style="margin-left: 600px; width: fit-content;">
+                        <div style="margin-top: 22.5px;" >
                             <button routerLink="/curriculum/print/{{ currId }}/{{currVer}}/{{paramyear}}/{{paramsem}}"
                             class="btn btn-primary mx-2"> <strong> PDF </strong>
                             </button>
                         </div>
                     </div>
-                </div>
 
+                    <div *ngIf="curriculum.isLatest" class="col-md-2" style="width: fit-content; margin-left: 400px;">
+                        <div style="margin-top: 22.5px;" >
+                            <button  (click)="onEdit()" type="button" class="btn btn-primary mx-2">
+                                <span> &nbsp; <strong> EDIT CONTENT</strong> &nbsp;&nbsp; </span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div *ngIf="curriculum.isLatest" class="col-md-2" style="width: fit-content;">
+                        <div style="margin-top: 22.5px;" >
+                            <button routerLink="/curriculum/print/{{ currId }}/{{currVer}}/{{paramyear}}/{{paramsem}}"
+                            class="btn btn-primary mx-2"> <strong> PDF </strong>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
             </form>
-            
+
 
             <div class="container-fluid mainTable px-5 py-3">
 

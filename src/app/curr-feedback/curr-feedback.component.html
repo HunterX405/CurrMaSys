@@ -14,7 +14,7 @@
 
                 <div class="d-flex justify-content-end">
                     <button (click)="viewCurriculum()" class="btn btn-primary mx-2">
-                       <strong> View Curriculum </strong>
+                        <strong> View Curriculum </strong>
                     </button>
                     <button routerLink="/feedback/print/{{ curriculumID }}/{{curriculumVer}}"
                         class="btn btn-primary mx-2"> <strong> PDF </strong>
@@ -67,7 +67,8 @@
                                         </div>
                                         <div class="col-10">
                                             <h6 class="card-title"> <strong>No. of Stakeholder Accounts:</strong></h6>
-                                            <h3 class="card-subtitle mb-2" style="font-weight: bolder">{{ stakeholderNum }}</h3>
+                                            <h3 class="card-subtitle mb-2" style="font-weight: bolder">{{ stakeholderNum
+                                                }}</h3>
                                         </div>
 
                                     </div>
@@ -99,7 +100,7 @@
                                     <div class="row">
                                         <div class="d-flex justify-content-center col-2">
                                             <img src="./assets/images/icon_paper.png" style="width:60px; height:60px;"
-                                            alt="BASE SUBJECT">
+                                                alt="BASE SUBJECT">
                                         </div>
                                         <div class="col-10">
                                             <h6 class="card-title"> <strong> Status: </strong> </h6>
@@ -123,29 +124,28 @@
 
 
 
+                    <div class="row card border-0 m-2">
+                        <div class="card-body">
+                            <h4 class="my-0" style="font-family: 'Outfit'">
+                                LIST OF FEEDBACKS:
+                            </h4>
+                        </div>
+                    </div>
+
+                    <div *ngIf="!feedbackNum">
                         <div class="row card border-0 m-2">
                             <div class="card-body">
-                                <h4 class="my-0" style="font-family: 'Outfit'">
-                                    LIST OF FEEDBACKS:
-                                </h4>
-                            </div>
-                        </div>
-
-                        <div *ngIf="!feedbackNum">
-                            <div class="row card border-0 m-2">
-                                <div class="card-body">
-                                    <!-- Display the Feedbacks using a div instead of table -->
-                                    <div class="p-3 text-center">
-                                        <h4 class="text-muted">
-                                            <strong>
-                                                <em> NO SUBMITTED FEEDBACK</em>
-                                            </strong>
-                                        </h4>
-                                    </div>
+                                <!-- Display the Feedbacks using a div instead of table -->
+                                <div class="p-3 text-center">
+                                    <h4 class="text-muted">
+                                        <strong>
+                                            <em> NO SUBMITTED FEEDBACK</em>
+                                        </strong>
+                                    </h4>
                                 </div>
                             </div>
                         </div>
-
+                    </div>
                         <div *ngIf="feedbackNum">
                             <div *ngFor="let feedback of feedbacks" class="row card border-0 m-2">
                                 <div class="card-body">
@@ -184,30 +184,32 @@
                     </div>
                 </div>
             </div>
+        </div>
 
 
-            <div class="container d-none">
-                <h1>Feedbacks</h1>
+        <div class="container d-none">
+            <h1>Feedbacks</h1>
 
-                <div *ngFor="let data of curriculumData">
-                    <h2>Curriculum Version: {{ data.version }}</h2>
-                    <h2>Department: {{ data.department }}</h2>
+            <div *ngFor="let data of curriculumData">
+                <h2>Curriculum Version: {{ data.version }}</h2>
+                <h2>Department: {{ data.department }}</h2>
 
-                    <h3>Report</h3>
-                    <p>No. of Stakeholder Accounts: {{ stakeholderNum }}</p>
-                    <p>No. of Submitted Feedbacks: {{ feedbackNum }}</p>
-                    <p>Status: {{ data.curr_status | titlecase }}</p>
-                </div>
+                <h3>Report</h3>
+                <p>No. of Stakeholder Accounts: {{ stakeholderNum }}</p>
+                <p>No. of Submitted Feedbacks: {{ feedbackNum }}</p>
+                <p>Status: {{ data.curr_status | titlecase }}</p>
+            </div>
 
-                <!-- Display the Feedbacks using a div instead of table -->
-                <div *ngFor="let feedback of feedbacks" style="border: 1px solid black">
-                    <h3>{{ feedback.name }}</h3>
-                    <p>{{ feedback.email }}</p>
+            <!-- Display the Feedbacks using a div instead of table -->
+            <div *ngFor="let feedback of feedbacks" style="border: 1px solid black">
+                <h3>{{ feedback.name }}</h3>
+                <p>{{ feedback.email }}</p>
 
-                    <p *ngIf="feedback.is_approved == 1">Status: Approved</p>
-                    <p *ngIf="feedback.is_approved == 0">Status: Returned</p>
+                <p *ngIf="feedback.is_approved == 1">Status: Approved</p>
+                <p *ngIf="feedback.is_approved == 0">Status: Returned</p>
 
-                    <p>Comments: {{ feedback.comment }}</p>
-                </div>
+                <p>Comments: {{ feedback.comment }}</p>
             </div>
         </div>
+    </div>
+</div>
