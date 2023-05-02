@@ -103,7 +103,7 @@ export class CurriculumComponent implements OnInit {
                         data: null, title: 'Actions', render: (data, type, row) => {
                             return `
                                 <a class="btn btn-primary btn-sm" *ngIf="tempUserType === 'stakeholder'"
-                                    href="/curriculum/${row.id}/${row.version_id}">
+                                    href="curriculum/${row.id}/${row.version_id}">
                                     View
                                 </a>
                             `;

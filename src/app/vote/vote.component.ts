@@ -73,7 +73,7 @@ export class VoteComponent implements OnInit {
             {
                 data: null, title: 'Actions', render: (data, type, row) => {
                     return `
-                        <a class="btn btn-primary btn-sm" href="/status/${row.id}/${row.version_id}">
+                        <a class="btn btn-primary btn-sm" href="status/${row.id}/${row.version_id}">
                             View
                         </a>
                     `;
@@ -108,7 +108,7 @@ export class VoteComponent implements OnInit {
                 data: null, title: 'Actions', render: (data, type, row) => {
                     return `
                         <a class="btn btn-primary btn-sm" *ngIf="tempUserType === 'stakeholder'"
-                            href="/feedback/${row.id}/${row.version_id}">
+                            href="feedback/${row.id}/${row.version_id}">
                             Submit Feedback
                         </a>
                     `;
