@@ -173,11 +173,12 @@ export class CurriculumComponent implements OnInit {
             this.setForm();
             this.isFormSet = true;
         }
-        this.isTableVisible = !this.isTableVisible;
+        this.isTableVisible = false;
     }
 
     onGoBack() {
-        this.isTableVisible = !this.isTableVisible;
+        this.isTableVisible = true;
+        this.setDataTable();
     }
 
     get firstYearFirstSemArray() {
