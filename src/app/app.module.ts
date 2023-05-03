@@ -24,8 +24,6 @@ import { CurrFeedbackComponent } from './curr-feedback/curr-feedback.component';
 import { CurriculumComponent } from './curriculum/curriculum.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { CurriculumViewComponent } from './curriculum-view/curriculum-view.component';
-import { FeedbackPrintComponent } from './feedback-print/feedback-print.component';
-import { CurriculumPrintComponent } from './curriculum-print/curriculum-print.component';
 import { SettingsComponent } from './settings/settings.component';
 
 
@@ -51,8 +49,6 @@ import { SettingsComponent } from './settings/settings.component';
     CurriculumComponent,
     UnauthorizedComponent,
     CurriculumViewComponent,
-    FeedbackPrintComponent,
-    CurriculumPrintComponent,
     SettingsComponent,
   ],
   imports: [

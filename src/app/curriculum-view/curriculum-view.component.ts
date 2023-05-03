@@ -30,6 +30,7 @@ export class CurriculumViewComponent implements OnInit {
     subjectsArray: any;
     isFormSet: boolean = false;
     isSubmitted: boolean = false;
+    isPrint: boolean = false;
     yearSem: any;
     currId!: number;
     currVer!: number;
@@ -79,6 +80,10 @@ export class CurriculumViewComponent implements OnInit {
             fourthYearFirstSemSubjects: this.fb.array([]),
             fourthYearSecondSemSubjects: this.fb.array([]),
         });
+
+        window.onafterprint = (event) => {
+            this.isPrint = false;
+        };
     }
 
     get firstYearFirstSemArray() {
@@ -306,5 +311,12 @@ export class CurriculumViewComponent implements OnInit {
             });
         }
         this.isSubmitted = true;
+    }
+
+    printCurriculum() {
+        this.isPrint = true;
+        setTimeout(() => {
+            window.print();
+        }, 1000);
     }
 }
