@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
+import { authGuard } from './auth-guard';
 import { RouterModule, Routes } from '@angular/router';
+
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AccountComponent } from './account/account.component';
@@ -8,7 +10,6 @@ import { ProfileComponent } from './profile/profile.component';
 import { SubjectComponent } from './subject/subject.component';
 import { DisableUserComponent } from './disable-user/disable-user.component';
 import { EnableUserComponent } from './enable-user/enable-user.component';
-import { authGuard } from './auth-guard';
 import { EditSubjectComponent } from './edit-subject/edit-subject.component';
 import { ElectiveSubjComponent } from './elective-subj/elective-subj.component';
 import { EditElectiveComponent } from './edit-elective/edit-elective.component';
@@ -18,8 +19,6 @@ import { CurrFeedbackComponent } from './curr-feedback/curr-feedback.component';
 import { CurriculumComponent } from './curriculum/curriculum.component';
 import { CurriculumViewComponent } from './curriculum-view/curriculum-view.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
-import { FeedbackPrintComponent } from './feedback-print/feedback-print.component';
-import { CurriculumPrintComponent } from './curriculum-print/curriculum-print.component';
 import { SettingsComponent } from './settings/settings.component';
 
 const routes: Routes = [
@@ -40,8 +39,6 @@ const routes: Routes = [
    { path: "status/:id/:ver", component: CurrFeedbackComponent, title: "Curriculum Status", canActivate: [authGuard], data: { userType: ['admin','chair','member'] }},
    { path: "curriculum", component: CurriculumComponent, title: "Curriculums", canActivate: [authGuard], data: { userType: ['admin','chair','member','stakeholder'] }},
    { path: "curriculum/:id/:ver", component: CurriculumViewComponent, title: "View Curriculum", canActivate: [authGuard], data: { userType: ['admin','chair','member','stakeholder'] } },
-   { path: "curriculum/print/:id/:ver/:year/:semester", component: CurriculumPrintComponent, title: "Print Curriculum", canActivate: [authGuard], data: { userType: ['admin','chair'] }},
-   { path: "feedback/print/:id/:ver", component: FeedbackPrintComponent, title: "Print Feedback", canActivate: [authGuard], data: { userType: ['admin','chair','member'] }},
    { path: "settings", component: SettingsComponent, title: "Settings"},
    { path: "", redirectTo: "login", pathMatch: 'full' },
 ];

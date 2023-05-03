@@ -96,14 +96,6 @@ export class ApiService {
         return this.httpClient.post<any>(this.baseUrl + "/login.php", credentials);
     }
 
-    isLoggedIn(): Observable<boolean> {
-        console.log(this.cookieService.check('email'));
-        if (this.cookieService.check('email')) {
-            return of(true);
-        }
-        return of(false);
-    }
-
     setCookie(name: string, value: string) {
         // Set cookie with expiry time of 1 hour
         const expiryTime = new Date();
@@ -277,7 +269,7 @@ export class ApiService {
     getStakeholderNum() {
         return this.httpClient.get<any>(this.baseUrl + "/getStakeholderNum.php").pipe(
             map(data => {
-                return data["stakeholders"];
+                return data["stakeholdersCount"];
             })
         )
     }
@@ -340,9 +332,8 @@ export class ApiService {
         }
     }
 
-    updateStatus(currID: any, currVer: any, currStatus: any) {
-        const currData = { currID, currVer, currStatus };
-
+    updateStatus(currID: any, currVer: any) {
+        const currData = { currID, currVer};
         return this.httpClient.post<any>(this.baseUrl + "/updateStatus.php", currData).pipe(map(data => {
             return data;
         }));

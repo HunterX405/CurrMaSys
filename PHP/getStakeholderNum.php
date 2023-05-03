@@ -2,13 +2,11 @@
 // Retreving all the data of Stakeholder Accounts
 include_once("database.php");
 
-$query = "SELECT id, name FROM users where userType = 'stakeholder' AND isActive=1";
-
-$result = executeQuery($query);
+$query = "SELECT COUNT(id) FROM users where userType = 'stakeholder' AND isActive=1";
+$result = executeCountQuery($query);
 
 if ($result) {
-    $resultData = $result->fetch_all(MYSQLI_ASSOC);
-    echo json_encode(["stakeholders" => $resultData]);
+    echo json_encode(["stakeholdersCount" => $result]);
 } else {
     http_response_code(404);
 }

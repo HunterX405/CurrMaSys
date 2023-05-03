@@ -46,6 +46,13 @@ export class SubmitFeedbackComponent implements OnInit {
         this.setFormValues(this.curriculumID, this.curriculumVer, this.userID);
     }
 
+    goBack() {
+        this.router.navigate(['/vote']);
+    }
+
+    viewCurriculum() {
+        window.open(`/curriculum/${this.curriculumID}/${this.curriculumVer}`, "_blank");
+    }
 
     setFormValues(curr_id: number, curr_ver: number, user: number) {
         this.apiService.getUserFeedback(curr_id, curr_ver, user).subscribe({
@@ -68,10 +75,10 @@ export class SubmitFeedbackComponent implements OnInit {
             if (feedbackForm.valid) {
                 this.apiService.addFeedback(JSON.stringify(feedbackForm.value)).subscribe({
                     next: (data) => {
-                        console.log("Adding Feedback Successful", data);
-
+                        console.log(data['status'], " Feedback Successfully");
                         alert("Feedback submitted.");
                         this.router.navigate(['/vote']);
+                        this.updateStatus();
                     },
                     error: (err) => {
                         console.log("Adding Feedback Failed", err);
@@ -82,155 +89,16 @@ export class SubmitFeedbackComponent implements OnInit {
         this.isFormSubmitted = true;
     }
 
-    // Submits the Feedback on the Database
-    // addFeedback(feedbackForm: FormGroup) {
-    //     const { comment, isApproved } = feedbackForm.value;
-
-    //     if ((isApproved == 1) || (comment != "" && isApproved == 0)) {
-    // if (this.feedbackForm.valid) {
-    //     this.apiService.addFeedback(comment, isApproved, this.userID, this.curriculumID, this.curriculumVer, this.haveSubmitted).subscribe({
-    //         next: (data) => {
-    //             this.isSuccess = true;
-    //             console.log("Adding Feedback Successful", data);
-
-    //             this.getStakeholderNum();
-    //             this.updateStatus(this.curriculumID, this.curriculumVer);
-
-    //             alert("Feedback submitted.");
-    //             this.router.navigate(['/vote']);
-    //         },
-    //         error: (err) => {
-    //             console.log("Adding Feedback Failed", err);
-    //         }
-    //     });
-    // }
-    //     } else if (isApproved == 1) {
-    //         this.isWrong = false;
-    //     } else {
-    //         this.isWrong = true;
-    //     }
-    //     this.isFormSubmitted = true;
-    // }
-
-    // To validate if the USER have already submitted a FEEDBACK
-    // validateSubmit(curriculumData: any, keys: any, userID: number) {
-    //     for (let i = 0; i < curriculumData.length; i++) {
-    //         // To iterate the keys of the curriculumData Object
-    //         for (let j = 0; j < keys.length; j++) {
-    //             const key = keys[j];
-
-    //             if (key === "fk_vote_user_id") {
-    //                 // To check if the current feedback with an key of "is_approved" has a value of 0
-    //                 if (curriculumData[i][key] == userID) {
-    //                     return true;
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     return false;
-    // }
-
-    // determineUser(currID: number, currVer: number, userID: number) {
-    //     this.apiService.getFeedbacks(currID, currVer).subscribe({
-    //         next: (data) => {
-    //             const feedbacks = data;
-    //             const keys = Object.keys(data[0]);
-    //             console.log(data);
-
-    //             this.haveSubmitted = this.validateSubmit(feedbacks, keys, userID);
-    //             console.log("haveSubmitted", this.haveSubmitted);
-
-    //             if (this.haveSubmitted === true) {
-    //                 this.feedbackForm.get("comment")?.setValue(this.getComment(feedbacks, keys, userID));
-    //                 this.feedbackForm.get("isApproved")?.setValue(this.getRadio(feedbacks, keys, userID));
-    //                 if (this.isApproved == "1") {
-    //                     this.approve = true;
-    //                 } else {
-    //                     this.returned = true;
-    //                 }
-    //             }
-    //         },
-    //         error: (err) => {
-    //             console.log("Failed to validate user", err);
-    //         }
-    //     });
-    // }
-
-    // getStakeholderNum() {
-    //     this.apiService.getStakeholderNum().subscribe({
-    //         next: (data) => {
-    //             this.stakeholders = data;
-    //             this.stakeholderNum = this.stakeholders.length;
-    //         },
-    //         error: (err) => {
-    //             console.log("Failed to get Stakeholder Data", err);
-    //         }
-    //     });
-    // }
-
-    // updateStatus(curriculumID: number, curriculumVer: number) {
-    //     this.apiService.getFeedbacks(curriculumID, curriculumVer).subscribe({
-    //         next: (data) => {
-    //             this.feedbacks = data;
-    //             this.feedbackNum = data.length;
-    //             this.keys = Object.keys(this.feedbacks[0]);
-
-    //             this.curriculumStatus = this.apiService.getCurriculumStatus(this.feedbacks, this.keys, this.stakeholderNum, this.feedbackNum);
-
-    //             this.apiService.updateStatus(curriculumID, curriculumVer, this.curriculumStatus).subscribe({
-    //                 next: (data) => {
-    //                     console.log("Update Success", data);
-    //                 },
-    //                 error: (err) => {
-    //                     console.log("Update Failed", err);
-    //                 }
-    //             });
-    //         },
-    //         error: (err) => {
-    //             console.log("Failed to validate user", err);
-    //         }
-    //     });
-    // }
-
-    // // To get the comment of the USER if they already submitted a FEEDBACK
-    // getComment(curriculumData: any, keys: any, userID: any) {
-    //     for (let i = 0; i < curriculumData.length; i++) {
-    //         // To iterate the keys of the curriculumData Object
-    //         for (let j = 0; j < keys.length; j++) {
-    //             const key = keys[j];
-
-    //             if (key === "fk_vote_user_id") {
-    //                 if (curriculumData[i][key] == userID) {
-    //                     return curriculumData[i]["comment"];
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
-
-    // getRadio(curriculumData: any, keys: any, userID: any) {
-    //     for (let i = 0; i < curriculumData.length; i++) {
-    //         // To iterate the keys of the curriculumData Object
-    //         for (let j = 0; j < keys.length; j++) {
-    //             const key = keys[j];
-
-    //             if (key === "fk_vote_user_id") {
-    //                 if (curriculumData[i][key] == userID) {
-    //                     return curriculumData[i]["is_approved"];
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
-
-    // get comment() { return this.feedbackForm.value.comment }
-    // get isApproved() { return this.feedbackForm.value.isApproved }
-
-    goBack() {
-        this.router.navigate(['/vote']);
+    updateStatus() {
+        console.log("@ updateStatus");
+        this.apiService.updateStatus(this.curriculumID, this.curriculumVer).subscribe({
+            next(data) {
+                console.log('Curriculum Status: ', data['status']);
+            },
+            error(err) {
+                console.log("Failed to update curriculum status", err);
+            }
+        });
     }
 
-    viewCurriculum() {
-        window.open(`/curriculum/${this.curriculumID}/${this.curriculumVer}`, "_blank");
-    }
 }
