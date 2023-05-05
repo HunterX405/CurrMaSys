@@ -115,7 +115,8 @@
 
           <div class="form-group pb-3">
             <label for="subjType">Subject Type &nbsp;&nbsp;&nbsp;</label>
-            <select formControlName="subjType" id="subjType" style="padding: 5px;">
+            <select formControlName="subjType" id="subjType" style="padding: 5px;"
+            [class.invalid]="addSubForm.get('subjType')?.hasError('required') && (addSubForm.get('subjType')?.dirty || addSubForm.get('subjType')?.touched || isFormSubmitted)">
               <option value="GE">General Education</option>
               <option value="CC">Common Course</option>
               <option value="ProfC">Professional Course</option>
@@ -127,7 +128,12 @@
 
           <div class="form-group pb-3">
             <label for="description">Description:</label>
-            <textarea formControlName="description" class="form-control" id="" cols="70" rows="3"></textarea>
+            <textarea formControlName="description" class="form-control" id="" cols="70" rows="3"
+            [class.invalid]="addSubForm.get('description')?.hasError('required') && (addSubForm.get('description')?.dirty || addSubForm.get('description')?.touched || isFormSubmitted)"></textarea>
+            <div class="error"
+              *ngIf="addSubForm.get('description')?.hasError('required') && (addSubForm.get('description')?.dirty || addSubForm.get('description')?.touched || isFormSubmitted)">
+              This field is required.
+            </div>
           </div>
 
           <div class="form-group pb-3">
