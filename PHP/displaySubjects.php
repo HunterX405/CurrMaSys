@@ -1,7 +1,7 @@
 <?php
   include_once("database.php");
 
-  $query = "SELECT s.id, s.course_code, s.title, s.syllabus,
+  $query = "SELECT s.id, s.course_code, s.title, s.syllabus, s.type,
                     GROUP_CONCAT(DISTINCT e.track) AS electives_track,
                     GROUP_CONCAT(DISTINCT e.elective_title) AS electives_title,
                     GROUP_CONCAT(DISTINCT e.elective_syllabus) AS electives_syllabus

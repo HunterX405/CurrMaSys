@@ -22,6 +22,16 @@ export class SubjectComponent {
     apiUrl: string = environment.apiUrl;
     buttons: any = [];
 
+    // For SUBJECT TYPE Display
+    subjectTypes = {
+        "GE": "Gen. Education",
+        "CC": "Common Courses",
+        "ProfC": "Prof. Courses",
+        "ProfE": "Prof. Electives",
+        "PE": "PE",
+        "NSTP": "NSTP"
+    }
+
     onAdd() {
         this.isAddFormVisible = !this.isAddFormVisible;
         this.isTableVisible = !this.isTableVisible;
@@ -33,10 +43,13 @@ export class SubjectComponent {
         this.displaySubject();
     }
 
+    // Remove Validators.required for Syllabus
     addSubForm = this.fb.group({
         course_code: ["", [Validators.required]],
         title: ["", [Validators.required]],
-        syllabus: ["", [Validators.required]]
+        syllabus: [""],
+        subjType: ["", [Validators.required]],
+        description: ["", [Validators.required]]
     })
 
     constructor(private fb: FormBuilder,
@@ -79,16 +92,19 @@ export class SubjectComponent {
 
     addSubject(addSubForm: FormGroup) {
         console.log("@ addSubject");
-        const { course_code, title, syllabus } = addSubForm.value;
+        const { course_code, title, syllabus, subjType, description } = addSubForm.value;
 
         if (addSubForm.valid) {
-            this.apiService.addSubject(course_code, title, syllabus).subscribe({
+            this.apiService.addSubject(course_code, title, syllabus, subjType, description).subscribe({
                 next: (data) => {
                     this.isSuccess = true;
                     console.log("Subject Adding Successful", data);
                     alert("Subject " + data.course_code + ": " + data.title + " added successfully.");
                     // The parameter is the generated number from the addSubject.php
-                    this.apiService.uploadFile(this.file, data.syllabus);
+                    // Will be called if the user uploaded a file
+                    if (this.file) {
+                        this.apiService.uploadFile(this.file, data.syllabus);
+                    }
                     location.reload();
                 },
                 error: (err) => {
