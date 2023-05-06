@@ -126,13 +126,7 @@
 
                     <div class="d-flex justify-content-end col-md-6" style="margin-top: 22.5px;">
 
-                        <div
-                            *ngIf="curriculum && !curriculum.isLatest  && (userType === 'admin' || userType === 'chair')">
-                            <button routerLink="/curriculum/print/{{ currId }}/{{currVer}}/{{paramyear}}/{{paramsem}}"
-                                class="btn btn-primary mx-2"> <strong> TO PDF </strong>
-                            </button>
-                        </div>
-
+                      
                         <div *ngIf="curriculum && curriculum.isLatest">
                             <button (click)="onEdit()" type="button" class="btn btn-primary mx-2">
                                 <span> &nbsp; <strong> EDIT CONTENT</strong> &nbsp;&nbsp; </span>
@@ -140,7 +134,7 @@
                         </div>
 
                         <div
-                            *ngIf="curriculum && curriculum.isLatest && (userType === 'admin' || userType === 'chair')">
+                            *ngIf="curriculum  && (userType === 'admin' || userType === 'chair')">
                             <button (click)="printCurriculum()"
                                 class="btn btn-primary mx-2"> <strong> PDF </strong>
                             </button>
