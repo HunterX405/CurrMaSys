@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormGroup, Validators, FormArray, FormBuilder } from '@angular/forms';
 import { ApiService } from '../api.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,7 +13,7 @@ import 'datatables.net-buttons/js/buttons.print.min.js';
     templateUrl: './curriculum-view.component.html',
     styleUrls: ['./curriculum-view.component.css']
 })
-export class CurriculumViewComponent implements OnInit {
+export class CurriculumViewComponent implements OnInit, AfterViewInit {
 
     constructor(
         private fb: FormBuilder,
@@ -86,6 +86,10 @@ export class CurriculumViewComponent implements OnInit {
         };
     }
 
+    ngAfterViewInit(): void {
+        // this.getCurrTotals();
+    }
+
     get firstYearFirstSemArray() {
         return <FormArray>this.curriculumForm.get('firstYearFirstSemSubjects');
     }
@@ -131,6 +135,7 @@ export class CurriculumViewComponent implements OnInit {
                     { 'yearTitle': 'THIRD', 'year': 3, 'sem1': this.thirdYearFirstSem, 'sem1Array': this.thirdYearFirstSemArray, 'sem2': this.thirdYearSecondSem, 'sem2Array': this.thirdYearSecondSemArray },
                     { 'yearTitle': 'FOURTH', 'year': 4, 'sem1': this.fourthYearFirstSem, 'sem1Array': this.fourthYearFirstSemArray, 'sem2': this.fourthYearSecondSem, 'sem2Array': this.fourthYearSecondSemArray, },
                 ];
+                this.getCurrTotals();
             },
             error: (err) => {
                 console.log("Display Failed", err);
@@ -190,6 +195,8 @@ export class CurriculumViewComponent implements OnInit {
                 this.addExistingSubject(year['sem2Array'], sem);
             });
         });
+
+        this.getCurrTotals();
     }
 
     onEdit() {
@@ -248,10 +255,10 @@ export class CurriculumViewComponent implements OnInit {
     }
 
     getTotalUnits(id: number, subjects: FormArray) {
-        // let subject: any = this.curriculumForm.value.firstYearFirstSemArray[id];
         let lab: number = subjects.at(id).get('lab_units')?.value;
         let lec: number = subjects.at(id).get('lec_units')?.value;
         subjects.at(id).get('total_units')?.setValue(lec + lab);
+        subjects.at(id).get('hrs')?.setValue((lab * 2) + lec);
     }
 
     getTotals(subjects: any) {
@@ -264,7 +271,7 @@ export class CurriculumViewComponent implements OnInit {
             lab += Number(subject.lab_units);
             all += Number(subject.total_units);
             hrs += Number(subject.hrs);
-        })
+        });
         return { 'lec': lec, 'lab': lab, 'all': all, 'hrs': hrs };
     }
 
@@ -278,7 +285,12 @@ export class CurriculumViewComponent implements OnInit {
             lab += Number(subject.lab_units);
             all += Number(subject.total_units);
             hrs += Number(subject.hrs);
-        })
+        });
+        if (all > 30) {
+            subjects.setErrors({ 'invalid': true });
+        } else {
+            subjects.setErrors(null);
+        }
         return { 'lec': lec, 'lab': lab, 'all': all, 'hrs': hrs };
     }
 
@@ -291,6 +303,36 @@ export class CurriculumViewComponent implements OnInit {
         console.log('subject', this.subjectsList.filter(ss => {
             ss.course_code == 'IT 204';
         }));
+    }
+
+    totalForCurr = { "tAll": 0, "tHrs": 0 };
+    getCurrTotals() {
+        let tAll = 0;
+        let tHrs = 0;
+        this.yearSem.forEach(ys => {
+            if (this.isTableVisible) {
+                ys['sem1'].forEach(subject => {
+                    tAll += Number(subject.total_units);
+                    tHrs += Number(subject.hrs);
+                });
+                ys['sem2'].forEach(subject => {
+                    tAll += Number(subject.total_units);
+                    tHrs += Number(subject.hrs);
+                });
+            } else {
+                ys['sem1Array'].value.forEach(subject => {
+                    tAll += subject.total_units;
+                    tHrs += subject.hrs;
+                });
+                ys['sem2Array'].value.forEach(subject => {
+                    tAll += subject.total_units;
+                    tHrs += subject.hrs;
+                });
+            }
+
+        });
+        this.totalForCurr["tAll"] = tAll;
+        this.totalForCurr["tHrs"] = tHrs;
     }
 
     editCurriculum(curriculumForm: FormGroup) {
@@ -309,6 +351,8 @@ export class CurriculumViewComponent implements OnInit {
                     console.log("Curriculum Editing Failed", err);
                 }
             });
+        } else {
+            alert('Form has validation errors. Make sure all data is correct before submitting.');
         }
         this.isSubmitted = true;
     }

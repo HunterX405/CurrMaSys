@@ -58,7 +58,7 @@
 
                 <h2> Add Curriculum </h2>
 
-                <form [formGroup]="curriculumForm" (ngSubmit)="addCurriculum(curriculumForm)" (change)="getCurrTotals(curriculumForm)">
+                <form [formGroup]="curriculumForm" (ngSubmit)="addCurriculum(curriculumForm)" (change)="getCurrTotals()">
 
                     <div class="form-group pb-3">
                         <label for="department">Department</label>
@@ -137,7 +137,7 @@
                                     </td>
                                     <td class="px-1">
                                         <input class="form-control" type="number" min="0" max="99"
-                                            formControlName="hrs" />
+                                            formControlName="hrs" readonly/>
                                     </td>
                                     <td class="px-1">
                                         <select class="form-select" formControlName="pre_req" style="padding: 5px;"
@@ -165,16 +165,16 @@
                                     <td>TOTAL</td>
                                     <td>{{ totals.lec }}</td>
                                     <td>{{ totals.lab }}</td>
-                                    <td>{{ totals.all }}</td>
+                                    <td [class.invalid]="totals.all > 30">{{ totals.all }}</td>
                                     <td>{{ totals.hrs }}</td>
                                 </tr>
                             </tfoot>
                         </table>
+                        <div *ngIf="subjects['array']?.errors.invalid" class="invalid">Each semester can only have a maximum of 30 units.</div>
                     </div>
 
                     <div>
                         Total Units for the Curriculum: {{ totalForCurr.tAll }}
-                        
                     </div>
 
                     <div>
@@ -188,8 +188,8 @@
                     <!-- FOR DEBUGGING ONLY -->
                     <!-- <b>Form's Value:</b>
                     {{ curriculumForm.value | json }}
-                    <br />
-                    <b>Form is Valid ? :</b>
+                    <br /> -->
+                    <!-- <b>Form is Valid ? :</b>
                     {{ curriculumForm.valid }} -->
                 </form>
             </div>
