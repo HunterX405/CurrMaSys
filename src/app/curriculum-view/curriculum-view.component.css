@@ -5,6 +5,10 @@
    height: 15px;
 }
 
+.invalid {
+    border: 1px solid #ee404c;
+}
+
 .container-fluid.mainTable.px-5.py-3 > .hide {
     display: none;
 }
@@ -26,3 +30,5 @@
 .printModule > table > tbody > tr > td {
     color: #212121 !important;
 }
+
+

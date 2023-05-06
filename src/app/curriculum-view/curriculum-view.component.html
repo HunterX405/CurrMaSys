@@ -90,6 +90,13 @@
                 </div>
             </div>
 
+            <div>
+                Total Units for the Curriculum: {{ totalForCurr.tAll }}
+            </div>
+
+            <div>
+                Total Hours for the Curriculum: {{ totalForCurr.tHrs }}
+            </div>
         </div>
 
         <!-- Table for displaying the list of curriculums -->
@@ -126,17 +133,15 @@
 
                     <div class="d-flex justify-content-end col-md-6" style="margin-top: 22.5px;">
 
-                      
+
                         <div *ngIf="curriculum && curriculum.isLatest">
                             <button (click)="onEdit()" type="button" class="btn btn-primary mx-2">
                                 <span> &nbsp; <strong> EDIT CONTENT</strong> &nbsp;&nbsp; </span>
                             </button>
                         </div>
 
-                        <div
-                            *ngIf="curriculum  && (userType === 'admin' || userType === 'chair')">
-                            <button (click)="printCurriculum()"
-                                class="btn btn-primary mx-2"> <strong> PDF </strong>
+                        <div *ngIf="curriculum  && (userType === 'admin' || userType === 'chair')">
+                            <button (click)="printCurriculum()" class="btn btn-primary mx-2"> <strong> PDF </strong>
                             </button>
                         </div>
 
@@ -249,7 +254,6 @@
                                     <td>{{ totals.hrs }}</td>
                                 </tr>
                             </tbody>
-
                         </table>
                     </div>
                 </div>
@@ -299,7 +303,7 @@
 
             <h2> Edit Curriculum </h2>
 
-            <form [formGroup]="curriculumForm" (ngSubmit)="editCurriculum(curriculumForm)">
+            <form [formGroup]="curriculumForm" (ngSubmit)="editCurriculum(curriculumForm)" (change)="getCurrTotals()">
 
                 <div class="form-group pb-3">
                     <label for="department">Department</label>
@@ -355,8 +359,8 @@
                                 class="text-center">
                                 <td class="px-1">
                                     <select class="form-select" formControlName="course" style="padding: 5px;"
-                                        [class.invalid]="subjects['array'].at(i).get('course')?.pristine &&isSubmitted "
-                                        (change)="checkElective(subjects['array'].at(i).get('course'))">
+                                        [class.invalid]="subjects['array'].at(i).get('course')?.value === '' && isSubmitted ">
+                                        <!-- (change)="checkElective(subjects['array'].at(i).get('course'))"> -->
                                         <option value="" selected="true"> Select Course </option>
                                         <option *ngFor="let subject of subjectsList" [value]="subject.id">
                                             {{subject.course_code}} - {{ subject.title }}
@@ -407,11 +411,22 @@
                                 <td>TOTAL</td>
                                 <td>{{ totals.lec }}</td>
                                 <td>{{ totals.lab }}</td>
-                                <td>{{ totals.all }}</td>
+                                <td [class.invalid]="totals.all > 30">{{ totals.all }}</td>
                                 <td>{{ totals.hrs }}</td>
                             </tr>
                         </tfoot>
                     </table>
+                    <ng-container *ngIf="subjects['array'].errors as err">
+                        <div *ngIf="err.invalid" class="invalid">Each semester can only have a maximum of 30 units.</div>
+                    </ng-container>
+                </div>
+
+                <div>
+                    Total Units for the Curriculum: {{ totalForCurr.tAll }}
+                </div>
+
+                <div>
+                    Total Hours for the Curriculum: {{ totalForCurr.tHrs }}
                 </div>
 
                 <div class="d-flex justify-content-end" style="margin: 5px 0;">
@@ -421,8 +436,8 @@
                 <!-- FOR DEBUGGING ONLY -->
                 <!-- <b>Form's Value:</b>
                 {{ curriculumForm.value | json }}
-                <br />
-                <b>Form is Valid ? :</b>
+                <br /> -->
+                <!-- <b>Form is Valid ? :</b>
                 {{ curriculumForm.valid }} -->
             </form>
         </div>
@@ -442,6 +457,13 @@
         <div class="row">
             <h4> <strong> Version: </strong> {{
                 curriculum.version }} </h4>
+        </div>
+        <div>
+            Total Units for the Curriculum: {{ totalForCurr.tAll }}
+        </div>
+
+        <div>
+            Total Hours for the Curriculum: {{ totalForCurr.tHrs }}
         </div>
     </div>
 
