@@ -254,17 +254,21 @@ export class CurriculumComponent implements OnInit {
     }
 
     totalForCurr = { "tAll": 0, "tHrs": 0 };
+    selectedSubjects: number[] = [];
     getCurrTotals() {
         let tAll = 0;
         let tHrs = 0;
+        let subj: number[] = [];
         this.subjectsArray.forEach(yearSem => {
-            yearSem['array'].value.forEach(subjects => {
-                tAll += subjects.total_units;
-                tHrs += subjects.hrs;
+            yearSem['array'].value.forEach(s => {
+                subj.push(Number(s.course));
+                tAll += s.total_units;
+                tHrs += s.hrs;
             });
         });
         this.totalForCurr["tAll"] = tAll;
         this.totalForCurr["tHrs"] = tHrs;
+        this.selectedSubjects = subj;
     }
 
     addCurriculum(curriculumForm: FormGroup) {
