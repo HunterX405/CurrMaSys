@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormArray, FormBuilder } from '@angular/forms';
 import { ApiService } from '../api.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,7 +13,7 @@ import 'datatables.net-buttons/js/buttons.print.min.js';
     templateUrl: './curriculum-view.component.html',
     styleUrls: ['./curriculum-view.component.css']
 })
-export class CurriculumViewComponent implements OnInit, AfterViewInit {
+export class CurriculumViewComponent implements OnInit {
 
     constructor(
         private fb: FormBuilder,
@@ -84,10 +84,6 @@ export class CurriculumViewComponent implements OnInit, AfterViewInit {
         window.onafterprint = (event) => {
             this.isPrint = false;
         };
-    }
-
-    ngAfterViewInit(): void {
-        // this.getCurrTotals();
     }
 
     get firstYearFirstSemArray() {
@@ -306,33 +302,40 @@ export class CurriculumViewComponent implements OnInit, AfterViewInit {
     }
 
     totalForCurr = { "tAll": 0, "tHrs": 0 };
+    selectedSubjects: number[] = [];
     getCurrTotals() {
         let tAll = 0;
         let tHrs = 0;
+        let subj: number[] = [];
         this.yearSem.forEach(ys => {
             if (this.isTableVisible) {
-                ys['sem1'].forEach(subject => {
-                    tAll += Number(subject.total_units);
-                    tHrs += Number(subject.hrs);
+                ys['sem1'].forEach(s => {
+                    subj.push(Number(s.id));
+                    tAll += Number(s.total_units);
+                    tHrs += Number(s.hrs);
                 });
-                ys['sem2'].forEach(subject => {
-                    tAll += Number(subject.total_units);
-                    tHrs += Number(subject.hrs);
+                ys['sem2'].forEach(s => {
+                    subj.push(Number(s.id));
+                    tAll += Number(s.total_units);
+                    tHrs += Number(s.hrs);
                 });
             } else {
-                ys['sem1Array'].value.forEach(subject => {
-                    tAll += subject.total_units;
-                    tHrs += subject.hrs;
+                ys['sem1Array'].value.forEach(s => {
+                    subj.push(Number(s.course));
+                    tAll += s.total_units;
+                    tHrs += s.hrs;
                 });
-                ys['sem2Array'].value.forEach(subject => {
-                    tAll += subject.total_units;
-                    tHrs += subject.hrs;
+                ys['sem2Array'].value.forEach(s => {
+                    subj.push(Number(s.course));
+                    tAll += s.total_units;
+                    tHrs += s.hrs;
                 });
             }
 
         });
         this.totalForCurr["tAll"] = tAll;
         this.totalForCurr["tHrs"] = tHrs;
+        this.selectedSubjects = subj;
     }
 
     editCurriculum(curriculumForm: FormGroup) {

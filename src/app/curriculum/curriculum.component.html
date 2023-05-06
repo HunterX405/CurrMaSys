@@ -115,7 +115,7 @@
                                         <select class="form-select" formControlName="course" style="padding: 5px;"
                                             [class.invalid]="subjects['array'].at(i).get('course')?.pristine &&isSubmitted ">
                                             <option value="" selected="true"> Select Course </option>
-                                            <option *ngFor="let subject of subjectsList" [value]="subject.id">
+                                            <option *ngFor="let subject of subjectsList" [value]="subject.id" [disabled]="selectedSubjects.indexOf(subject.id) !== -1">
                                                 {{subject.course_code}} - {{ subject.title }}
                                             </option>
                                         </select>
