@@ -170,7 +170,9 @@
                                 </tr>
                             </tfoot>
                         </table>
-                        <div *ngIf="subjects['array']?.errors.invalid" class="invalid">Each semester can only have a maximum of 30 units.</div>
+                        <ng-container *ngIf="subjects['array'].errors as err">
+                            <div *ngIf="err.invalid" class="invalid">Each semester can only have a maximum of 30 units.</div>
+                        </ng-container>
                     </div>
 
                     <div>
