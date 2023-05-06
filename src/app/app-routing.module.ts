@@ -20,6 +20,7 @@ import { CurriculumComponent } from './curriculum/curriculum.component';
 import { CurriculumViewComponent } from './curriculum-view/curriculum-view.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { SettingsComponent } from './settings/settings.component';
+import { ViewSubjectComponent } from './view-subject/view-subject.component';
 
 const routes: Routes = [
    { path: "login", component: LoginComponent, title: "Login" },
@@ -28,6 +29,7 @@ const routes: Routes = [
    { path: "dashboard", component: DashboardComponent, title: "Dashboard", canActivate: [authGuard], data: { userType: ['admin','chair','member','stakeholder'] }},
    { path: "subject", component: SubjectComponent, title: "Subjects", canActivate: [authGuard],data: { userType: ['admin','chair','member'] }},
    { path: "subject-edit/:id", component: EditSubjectComponent, title: "Edit Subject", canActivate: [authGuard], data: { userType: ['admin','chair','member'] }},
+   { path: "subject-view/:id", component: ViewSubjectComponent, title: "View Subject", canActivate: [authGuard], data: { userType: ['admin','chair','member'] }},
    { path: "elective", component: ElectiveSubjComponent, title: "Elective", canActivate: [authGuard], data: { userType: ['admin','chair','member'] }},
    { path: "elective-edit/:id", component: EditElectiveComponent, title: "Edit Elective", canActivate: [authGuard], data: { userType: ['admin','chair','member'] }},
    { path: "account", component: AccountComponent, title: "Accounts", canActivate: [authGuard], data: { userType: ['admin']}},

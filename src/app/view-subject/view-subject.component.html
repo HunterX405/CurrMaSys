@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="d-flex justify-content-start" style="margin: 10px 0;">
+    <button (click)="goBack()" type="button" class="btn p-0">
+      <img class="logoImg " src="./assets/images/icon_back_btn.png" alt="BACK BUTTON">
+      <strong class="go_back"> GO BACK </strong>
+    </button>
+  </div>
+
+  <h1> Course Code: {{ subjectData.course_code }} </h1>
+  <h3> Title: {{ subjectData.title}} </h3>
+
+  <p> Type: {{ subjectTypes[subjectData.type] }}</p>
+  <p> Description: {{ subjectData.description }} </p>
+
+  <p *ngIf="subjectData.syllabus"> 
+    Syllabus File Name: {{ subjectData.syllabus }} 
+  </p>
+  <p *ngIf="!subjectData.syllabus"> 
+    Syllabus File Name: No Syllabus Submitted
+  </p>
+</div>

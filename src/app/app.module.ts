@@ -25,6 +25,7 @@ import { CurriculumComponent } from './curriculum/curriculum.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { CurriculumViewComponent } from './curriculum-view/curriculum-view.component';
 import { SettingsComponent } from './settings/settings.component';
+import { ViewSubjectComponent } from './view-subject/view-subject.component';
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import { SettingsComponent } from './settings/settings.component';
     UnauthorizedComponent,
     CurriculumViewComponent,
     SettingsComponent,
+    ViewSubjectComponent,
   ],
   imports: [
     BrowserModule,

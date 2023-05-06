@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../api.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,7 +10,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 
 export class EditSubjectComponent implements OnInit {
-
   subjectID: any;
   file!: Blob;
   oldFileName: string = '';
@@ -19,6 +18,8 @@ export class EditSubjectComponent implements OnInit {
     course_code: ["", [Validators.required]],
     title: ["", [Validators.required]],
     syllabus: [""],
+    subjType: ["", [Validators.required]],
+    description: ["", [Validators.required]]
   });
 
   constructor(private fb: FormBuilder,
@@ -50,6 +51,8 @@ export class EditSubjectComponent implements OnInit {
     // Setting-up the value of the form from the specific subject data
     this.editSubForm.get('course_code')?.setValue(data.course_code);
     this.editSubForm.get('title')?.setValue(data.title);
+    this.editSubForm.get('subjType')?.setValue(data.type);
+    this.editSubForm.get('description')?.setValue(data.description);
   }
 
   onFileSelect(event: any) {
@@ -57,10 +60,10 @@ export class EditSubjectComponent implements OnInit {
   }
 
   editSubject(editSubForm: FormGroup) {
-    let { course_code, title, syllabus } = editSubForm.value;
+    let { course_code, title, syllabus, subjType, description } = editSubForm.value;
 
     if (this.editSubForm.valid) {
-      this.apiService.editSubject(this.subjectID, course_code, title, syllabus).subscribe({
+      this.apiService.editSubject(this.subjectID, course_code, title, syllabus, subjType, description).subscribe({
         next: (data) => {
           console.log("Subject Editing Successful", data);
           // If the user uploaded a new file it will upload the new file
@@ -79,8 +82,7 @@ export class EditSubjectComponent implements OnInit {
     this.isFormSubmitted = true;
   }
 
-  goBack(){
+  goBack() {
     this.router.navigate(['/subject']);
   }
-  
 }

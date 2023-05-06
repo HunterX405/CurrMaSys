@@ -14,16 +14,21 @@
 
         <div class="col-8 d-flex justify-content-start">
           <div class="d-flex justify-content-start">
-            <div style="padding-right: 30px;"> <a class="subCategory subCategoryActive" routerLink="/subject"> <h3 class="subCategoryTitle"> Base </h3> </a></div>
-            <div style="padding-right: 30px;"> <a class="subCategory" routerLink="/elective"> <h3 class="subCategoryTitle"> Elective </h3></a></div>
+            <div style="padding-right: 30px;"> <a class="subCategory subCategoryActive" routerLink="/subject">
+                <h3 class="subCategoryTitle"> Core </h3>
+              </a></div>
+            <div style="padding-right: 30px;"> <a class="subCategory" routerLink="/elective">
+                <h3 class="subCategoryTitle"> Elective </h3>
+              </a></div>
           </div>
 
         </div>
 
         <div class="col-4 d-flex justify-content-end">
           <button (click)="onAdd()" type="button" class="btn btn-primary">
-            <img src="./assets/images/icon_add.png" style="width: 20px; height: 20px; margin-bottom: 2px;" alt="Plus Button">
-            <span> &nbsp; <strong> ADD </strong>  &nbsp;&nbsp; </span>
+            <img src="./assets/images/icon_add.png" style="width: 20px; height: 20px; margin-bottom: 2px;"
+              alt="Plus Button">
+            <span> &nbsp; <strong> ADD </strong> &nbsp;&nbsp; </span>
           </button>
         </div>
 
@@ -51,6 +56,7 @@
               <tr>
                 <th>Course Code</th>
                 <th>Title</th>
+                <th>Type</th>
                 <th>Syllabus</th>
                 <th>Actions</th>
               </tr>
@@ -59,11 +65,20 @@
               <tr *ngFor="let subject of subjects">
                 <td>{{ subject.course_code }}</td>
                 <td>{{ subject.title }}</td>
-                <td>  <a href="{{apiUrl}}/PDF/{{ subject.syllabus }}" target="_blank">{{ subject.syllabus }}</a></td>
+                <td>{{ subjectTypes[subject.type] }}</td>
+                <td *ngIf="subject.syllabus">
+                  <a href="{{apiUrl}}/PDF/{{ subject.syllabus }}" target="_blank">{{ subject.syllabus }}</a>
+                </td>
+                <td *ngIf="!subject.syllabus">
+                  No Syllabus Submitted
+                </td>
 
 
                 <td>
-                  <button class="btn btn-primary btn-sm" routerLink="/subject-edit/{{subject.id}}">
+                  <button class="btn btn-primary btn-sm mx-1" routerLink="/subject-view/{{subject.id}}">
+                    View
+                  </button>
+                  <button class="btn btn-primary btn-sm mx-1" routerLink="/subject-edit/{{subject.id}}">
                     Edit
                   </button>
                 </td>
@@ -99,12 +114,38 @@
           </div>
 
           <div class="form-group pb-3">
-            <label for="syllabus">Syllabus</label> <br>
-            <input type="File" formControlName="syllabus" class="form-control" name="syllabus" accept=".pdf" (change)="onFileSelect($event)"
-              [class.error]="addSubForm.get('syllabus')?.hasError('required') && (isFormSubmitted)">
-            <div class="error" *ngIf="addSubForm.get('syllabus')?.hasError('required') && (isFormSubmitted)">
+            <label for="subjType">Subject Type &nbsp;&nbsp;&nbsp;</label>
+            <select formControlName="subjType" id="subjType" style="padding: 5px;"
+            [class.invalid]="addSubForm.get('subjType')?.hasError('required') && (addSubForm.get('subjType')?.dirty || addSubForm.get('subjType')?.touched || isFormSubmitted)">
+              <option value="GE">General Education</option>
+              <option value="CC">Common Course</option>
+              <option value="ProfC">Professional Course</option>
+              <option value="ProfE">Professional Electives</option>
+              <option value="PE">Physical Education</option>
+              <option value="NSTP">National Training Service Program</option>
+            </select>
+          </div>
+
+          <div class="form-group pb-3">
+            <label for="description">Description:</label>
+            <textarea formControlName="description" class="form-control" id="" cols="70" rows="3"
+            [class.invalid]="addSubForm.get('description')?.hasError('required') && (addSubForm.get('description')?.dirty || addSubForm.get('description')?.touched || isFormSubmitted)"></textarea>
+            <div class="error"
+              *ngIf="addSubForm.get('description')?.hasError('required') && (addSubForm.get('description')?.dirty || addSubForm.get('description')?.touched || isFormSubmitted)">
               This field is required.
             </div>
+          </div>
+
+          <div class="form-group pb-3">
+            <label for="syllabus">Syllabus</label> <br>
+            <!-- Remove [class.error] AND class='error' (DIV) -->
+            <input type="File" formControlName="syllabus" class="form-control" name="syllabus" accept=".pdf"
+              (change)="onFileSelect($event)">
+            <!-- Error Trapping for Syllabus  -->
+            <!-- [class.error]="addSubForm.get('syllabus')?.hasError('required') && (isFormSubmitted)" -->
+            <!-- <div class="error" *ngIf="addSubForm.get('syllabus')?.hasError('required') && (isFormSubmitted)">
+              This field is required.
+            </div> -->
           </div>
 
           <div class="success" *ngIf="isSuccess">
