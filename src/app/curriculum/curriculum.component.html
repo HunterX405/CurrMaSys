@@ -58,7 +58,7 @@
 
                 <h2> Add Curriculum </h2>
 
-                <form [formGroup]="curriculumForm" (ngSubmit)="addCurriculum(curriculumForm)">
+                <form [formGroup]="curriculumForm" (ngSubmit)="addCurriculum(curriculumForm)" (change)="getCurrTotals(curriculumForm)">
 
                     <div class="form-group pb-3">
                         <label for="department">Department</label>
@@ -170,6 +170,15 @@
                                 </tr>
                             </tfoot>
                         </table>
+                    </div>
+
+                    <div>
+                        Total Units for the Curriculum: {{ totalForCurr.tAll }}
+                        
+                    </div>
+
+                    <div>
+                        Total Hours for the Curriculum: {{ totalForCurr.tHrs }}
                     </div>
 
                     <div class="d-flex justify-content-end" style="margin: 5px 0;">

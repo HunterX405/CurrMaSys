@@ -232,7 +232,10 @@ export class CurriculumComponent implements OnInit {
         let lab = subjects.at(id).get('lab_units')?.value;
         let lec = subjects.at(id).get('lec_units')?.value;
         subjects.at(id).get('total_units')?.setValue(lab + lec);
+        subjects.at(id).get('hrs')?.setValue((lab * 2) + lec);
     }
+
+    totalForCurr = { "tLec": 0, "tLab": 0, "tAll": 0, "tHrs": 0 };
 
     getFormTotals(subjects: FormArray) {
         let lec: number = 0;
@@ -246,6 +249,25 @@ export class CurriculumComponent implements OnInit {
             hrs += subject.hrs;
         })
         return { 'lec': lec, 'lab': lab, 'all': all, 'hrs': hrs };
+    }
+
+
+    getCurrTotals(cf: FormGroup) {
+        const keys = ["firstYearFirstSemSubjects", "firstYearSecondSemSubjects", "secondYearFirstSemSubjects", "secondYearSecondSemSubjects", "thirdYearFirstSemSubjects", "thirdYearSecondSemSubjects", "fourthYearFirstSemSubjects", "fourthYearSecondSemSubjects"];
+
+        let curr = cf.value;
+        let tAll = 0;
+        let tHrs = 0;
+        
+        for (let i = 0; i < keys.length; i++) {
+            for (let c of curr[keys[i]]) {
+                tAll += c.total_units;
+                tHrs += c.hrs;
+            }
+        }
+
+        this.totalForCurr["tAll"] = tAll;
+        this.totalForCurr["tHrs"] = tHrs;
     }
 
     addCurriculum(curriculumForm: FormGroup) {
