@@ -119,29 +119,44 @@ export class SubjectComponent {
 
     displaySubject() {
         this.apiService.displaySubjects().subscribe({
-            next: (data) => {
-                console.log("Display Successful", data);
-                this.subjects = data;
-                let btn = this.buttons;
-                setTimeout(() => {
-                    // jQuery $(document).ready(function({})) is deprecated, Use $(function() {} instead.
-                    $(function () {
-                        $('#subjectsTable').DataTable({
-                            dom: '<"row"<"top-left col-sm-6" f><"top-right d-flex justify-content-end col-sm-6"B>rt<"bottom"ip><"clear">',
-                            buttons: btn,
-                            "ordering": false,
-                            language: {
-                                searchPlaceholder: "Find records..."
-                            },
-                            "pageLength": 10,
-                        });
-                    });
-                }, 0);
-            },
-            error: (err) => {
-                console.log("Display Failed");
-                console.log(err);
-            }
+          next: (data) => {
+            console.log("Display Successful", data);
+            this.subjects = data;
+            let btn = this.buttons;
+            setTimeout(() => {
+              // jQuery $(document).ready(function({})) is deprecated, Use $(function() {} instead.
+              $(function () {
+                const table = $('#subjectsTable').DataTable({
+                  dom: '<"row"<"top-left col-sm-6" f><"top-right d-flex justify-content-end col-sm-6"B>rt<"bottom"ip><"clear">',
+                  buttons: btn,
+                  "ordering": false,
+                  language: {
+                    searchPlaceholder: "Find records..."
+                  },
+                  "pageLength": 10,
+                });
+      
+                // Create the dropdown filter
+                const select = $('<select id="subjectType" class="mx-2 p-2"><option value="">All</option></select>')
+                  .on('change', function() {
+                    const val = $(this).val();
+                    table.column(2).search(val ? '^' + val + '$' : '', true, false).draw();
+                  });
+      
+                // Populate the dropdown with options from the "Subject Type" column
+                table.column(2).data().unique().sort().each(function (d, j) {
+                  select.append('<option value="' + d + '">' + d + '</option>');
+                });
+      
+                // Add the label and filter to the DataTable DOM
+                $('#subjectsTable_filter').append('<label for="subjectType" style="margin-right:10px; margin-left:15px;"><strong>Subject Type:</strong></label>').append(select);
+              });
+            }, 0);
+          },
+          error: (err) => {
+            console.log("Display Failed");
+            console.log(err);
+          }
         });
-    }
+      }
 }
