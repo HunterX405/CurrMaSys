@@ -8,9 +8,9 @@ $theme-colors: (
 );
 
 //THEMES
-:root{
+:root {
     --bg-color: #eef1f2;
-    --bg-foreground:#ffffff;
+    --bg-foreground: #ffffff;
     --text-color: #212121;
     --primary: #182850;
     --input-label: #ffffff;
@@ -18,9 +18,9 @@ $theme-colors: (
     --add-sub-curr: #182850;
 }
 
-[data-theme="dark"]{
+[data-theme="dark"] {
     --bg-color: #18191a;
-    --bg-foreground:#242526;
+    --bg-foreground: #242526;
     --text-color: #ffffff;
     --primary: #ffffff;
     --input-label: #3a3b3c;
@@ -28,15 +28,15 @@ $theme-colors: (
     --add-sub-curr: #ffaa28;
 }
 
-//COMMON TYPOGRAPHY 
+//COMMON TYPOGRAPHY
 * {
-    font-family: 'Lato';
+    font-family: "Lato";
 }
 
 h1,
 h2,
 .customized_header {
-    font-family: 'Outfit';
+    font-family: "Outfit";
 }
 
 h1 {
@@ -47,7 +47,10 @@ h2 {
     color: #ffaa28;
 }
 
-h4,h5,h6,p{
+h4,
+h5,
+h6,
+p {
     color: var(--text-color);
 }
 
@@ -56,15 +59,15 @@ h4,h5,h6,p{
     color: map-get($theme-colors, "danger");
 }
 
-.loginContainer{
+.loginContainer {
     background-color: var(--bg-foreground);
 }
 
-.logoName{
-    color: var(--add-sub-curr); 
+.logoName {
+    color: var(--add-sub-curr);
 }
 
-.mainContent {  
+.mainContent {
     margin-left: 200px;
     background-color: var(--bg-foreground);
 }
@@ -77,7 +80,8 @@ h4,h5,h6,p{
 
 //TABLE AND FORM BACKGROUND COLOR
 .mainTable,
-.addForm {
+.addForm,
+.editForm {
     background-color: var(--bg-foreground);
 }
 
@@ -88,7 +92,7 @@ h4,h5,h6,p{
 }
 
 .subCategoryTitle {
-    font-family: 'Outfit';
+    font-family: "Outfit";
 }
 
 .subCategoryActive,
@@ -98,7 +102,7 @@ h4,h5,h6,p{
 
 //FOR SCREEN ADAPTABILITY
 @media screen and (max-width: 1250px) {
-    .mainContent {  
+    .mainContent {
         margin-left: 80px;
     }
 }
@@ -112,15 +116,14 @@ h4,h5,h6,p{
     width: max-content;
 }
 
-.dataTables_filter>label {
+.dataTables_filter > label {
     font-weight: bolder;
 }
 
-.dataTables_filter>label>input {
+.dataTables_filter > label > input {
     width: 30vh;
     padding: 0.7vh;
     margin-left: 1.7vh;
-
 }
 
 .top-left {
@@ -138,95 +141,159 @@ h4,h5,h6,p{
 }
 
 //PAGINATION
-.bottom>.dataTables_paginate>a,
-.bottom>.dataTables_paginate>span>a {
+.bottom > .dataTables_paginate > a,
+.bottom > .dataTables_paginate > span > a {
     color: var(--text-color);
     float: left;
-    transition: background-color .3s;
+    transition: background-color 0.3s;
     padding: 8px 16px;
     text-decoration: none;
     border: 1px solid #ddd;
 }
 
-.bottom>.dataTables_paginate>span>.current,
-.bottom>.dataTables_paginate>a:hover:not(.active),
-.bottom>.dataTables_paginate>span>a:hover:not(.active) {
+.bottom > .dataTables_paginate > span > .current,
+.bottom > .dataTables_paginate > a:hover:not(.active),
+.bottom > .dataTables_paginate > span > a:hover:not(.active) {
     background-color: map-get($theme-colors, "primary");
     color: white;
 }
 
-.dataTables_info{
-    color: var(--text-color); 
+.dataTables_info {
+    color: var(--text-color);
 }
 
 //CARD AND CARD BODIES
-.card-body{
+.card-body {
     background-color: var(--bg-foreground);
     color: var(--text-color);
 }
 
-.card-subtitle{
+.card-subtitle {
     color: var(--text-color);
 }
 
 //TABLES
-th, td{
-    color: var(--text-color);    
+th,
+td {
+    color: var(--text-color);
 }
 
 //DATA TABLES
-.dataTables_filter{
-    color: var(--text-color); 
+.dataTables_filter {
+    color: var(--text-color);
 }
 
 //LABELS
-label{
-    color: var(--text-color); 
+label {
+    color: var(--text-color);
 }
 
-input{
-    color: var(--text-color); 
+input {
+    color: var(--text-color);
     background-color: var(--input-label);
 }
 
 //FORM CONTROLS
-.form-control, .form-select{
-    color: var(--text-color) !important; 
+.form-control,
+.form-select {
+    color: var(--text-color) !important;
     background-color: var(--input-label) !important;
 }
 
 //ADD SUBJECT CURRICULUM BUTTON IN CURRICULUM PAGE
-.addSub{
-    color: var(--add-sub-curr);
+.addSub {
+    border: 0.5px solid var(--add-sub-curr) !important;
+    color: var(--add-sub-curr) !important;
     font-weight: bold;
 }
-  
-.addSub:hover{
-    text-decoration: underline;
+
+.addSub:hover {
+    background-color: var(--add-sub-curr) !important;
+    color: #ffffff !important;
     font-weight: bolder;
 }
 
-//EXTRA CLASSES THAT NEEDS TO BE ADJUSTED TO THE THEME
-.go_back, 
-.fPass{
-    color: var(--text-color);
-};
+.addSubRow {
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 0.2px solid rgba(104, 104, 104, 0.5);
+}
 
+//EXTRA CLASSES THAT NEEDS TO BE ADJUSTED TO THE THEME
+.go_back,
+.fPass {
+    color: var(--text-color);
+}
 
 //DROPDOWN ON PROFILE ICON
-.sidebar-dropdown{
+.sidebar-dropdown {
     background-color: var(--bg-foreground) !important;
 }
 
-.dropdown-label{
-    color: var(--text-color) !important; 
+.dropdown-label {
+    color: var(--text-color) !important;
 }
 
-.dropdown-item:hover{
-    background-color: var(--bg-color) !important; 
+.dropdown-item:hover {
+    background-color: var(--bg-color) !important;
 }
 
+//TOOLTIPS
+.tooltips {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltips .tooltipstext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #18191a;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 150%;
+    left: 50%;
+    margin-left: -60px;
+}
+
+.tooltips .tooltipstext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #18191a transparent transparent transparent;
+}
+
+.tooltips:hover .tooltipstext {
+    visibility: visible;
+}
+
+//ANIMATIONS
+.addForm, .editForm, .dataTables_filter, .mainTable, table, .contAnimation{
+    opacity: 1;
+    animation: fade 0.1s linear;
+}
+
+.contAnimationDelayed{
+    opacity: 1;
+    animation: fade 1.5s linear;
+}
+
+@keyframes fade {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+     }
+}
 
 //@import "../../node_modules/bootstrap/scss/bootstrap.scss";
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Outfit:wght@700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Outfit:wght@700&display=swap");
 @import "../node_modules/bootstrap/scss/bootstrap.scss";

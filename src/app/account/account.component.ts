@@ -142,9 +142,9 @@ export class AccountComponent implements OnInit {
                     {
                         data: null, title: 'Actions', render: (data, type, row) => {
                             if (row.isActive) {
-                                return `<a href="deactivate/${row.id}" class="btn btn-primary btn-sm">Deactivate</a>`;
+                                return `<a href="deactivate/${row.id}" class="btn btn-danger btn-sm text-white">Deactivate</a>`;
                             }
-                            return `<a href="activate/${row.id}" class="btn btn-primary btn-sm">Activate</a>`;
+                            return `<a href="activate/${row.id}" class="btn btn-primary btn-sm px-3">Activate</a>`;
                         }
                     }
                 ]

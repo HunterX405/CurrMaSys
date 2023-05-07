@@ -2,7 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Outfit:wght@700&display=swap");
 :root {
   --bg-color: #eef1f2;
-  --bg-foreground:#ffffff;
+  --bg-foreground: #ffffff;
   --text-color: #212121;
   --primary: #182850;
   --input-label: #ffffff;
@@ -12,7 +12,7 @@
 
 [data-theme=dark] {
   --bg-color: #18191a;
-  --bg-foreground:#242526;
+  --bg-foreground: #242526;
   --text-color: #ffffff;
   --primary: #ffffff;
   --input-label: #3a3b3c;
@@ -39,7 +39,12 @@ h2, .h2 {
   color: #ffaa28;
 }
 
-h4, .h4, h5, .h5, h6, .h6, p {
+h4, .h4,
+h5,
+.h5,
+h6,
+.h6,
+p {
   color: var(--text-color);
 }
 
@@ -67,7 +72,8 @@ h4, .h4, h5, .h5, h6, .h6, p {
 }
 
 .mainTable,
-.addForm {
+.addForm,
+.editForm {
   background-color: var(--bg-foreground);
 }
 
@@ -153,7 +159,8 @@ h4, .h4, h5, .h5, h6, .h6, p {
   color: var(--text-color);
 }
 
-th, td {
+th,
+td {
   color: var(--text-color);
 }
 
@@ -170,19 +177,28 @@ input {
   background-color: var(--input-label);
 }
 
-.form-control, .form-select {
+.form-control,
+.form-select {
   color: var(--text-color) !important;
   background-color: var(--input-label) !important;
 }
 
 .addSub {
-  color: var(--add-sub-curr);
+  border: 0.5px solid var(--add-sub-curr) !important;
+  color: var(--add-sub-curr) !important;
   font-weight: bold;
 }
 
 .addSub:hover {
-  text-decoration: underline;
+  background-color: var(--add-sub-curr) !important;
+  color: #ffffff !important;
   font-weight: bolder;
+}
+
+.addSubRow {
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+  border-bottom: 0.2px solid rgba(104, 104, 104, 0.5);
 }
 
 .go_back,
@@ -202,6 +218,59 @@ input {
   background-color: var(--bg-color) !important;
 }
 
+.tooltips {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltips .tooltipstext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #18191a;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+.tooltips .tooltipstext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #18191a transparent transparent transparent;
+}
+
+.tooltips:hover .tooltipstext {
+  visibility: visible;
+}
+
+.addForm, .editForm, .dataTables_filter, .mainTable, table, .contAnimation {
+  opacity: 1;
+  animation: fade 0.1s linear;
+}
+
+.contAnimationDelayed {
+  opacity: 1;
+  animation: fade 1.5s linear;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 /*!
  * Bootstrap  v5.2.3 (https://getbootstrap.com/)
  * Copyright 2011-2022 The Bootstrap Authors

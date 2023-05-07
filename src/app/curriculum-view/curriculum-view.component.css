@@ -6,13 +6,26 @@
 }
 
 .invalid {
-    border: 1px solid #ee404c;
+    color: #ee404c;
+    font-weight: bold;
+    /* border: 1px solid #ee404c; */
+}
+
+.maxInvalid{
+    color: #ee404c !important;
 }
 
 .container-fluid.mainTable.px-5.py-3 > .hide {
     display: none;
 }
 
+.tableCurrPadding > :not(caption) > * > *{
+    padding: 0.2rem 0.5rem;
+}
+
+
+
+/* FOR PRINTING CLASS */
 .printModule{
     background-color: #ffffff !important;
 }
@@ -26,9 +39,46 @@
 .printModule > table > thead > tr > td,
 .printModule > table > thead > tr > th > h4,
 .printModule > table > thead > tr > th > h5,
+.printModule > table > thead > tr > th > h6,
 .printModule > table > tbody > td,
 .printModule > table > tbody > tr > td {
     color: #212121 !important;
 }
+
+.tablePrintPadding > :not(caption) > * > *{
+    padding: 0.1rem 0.5rem;
+}
+
+.printLink{
+    text-decoration: none;
+    color:#212121;
+}
+
+
+.printSmallTxt > table > thead > tr > th,
+.printSmallTxt > table > tbody > tr > td {
+    font-size: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.printSmallTxt > table  {
+    border: 0.3px solid #212121;
+    
+}
+
+.printSmallTxt > table > thead > tr > th,
+.printSmallTxt > table > tbody > tr > th,
+.printSmallTxt > table > tfoot > tr > th,
+.printSmallTxt > table > thead > tr > td,
+.printSmallTxt > table > tbody > tr > td,
+.printSmallTxt > table > tfoot > tr > td {
+     border: 0.3px solid #212121;
+}
+
+
+
+
+
+
 
 

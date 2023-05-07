@@ -6,7 +6,13 @@
 }
 
 .invalid {
-  border: 1px solid #ee404c;
+  color: #ee404c;
+  font-weight: bold;
+  /* border: 1px solid #ee404c; */
+}
+
+.maxInvalid{
+  color: #ee404c !important;
 }
 
 

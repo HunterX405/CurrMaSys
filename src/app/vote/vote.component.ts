@@ -94,13 +94,11 @@ export class VoteComponent implements OnInit {
             { data: 'version_id', title: 'Version ID' },
             { data: 'date_and_time', title: 'Submission Date' },
             {
-                data: 'is_approved', title: 'Feedbacks', render: function (data, type, row, meta) {
-                    if (data === 1) {
-                        return 'Approved';
-                    } else if (data === 0) {
-                        return 'Returned';
+                data: 'is_approved', title: 'Feedback', render: function (data, type, row, meta) {
+                    if (data === 1 || data === 0) {
+                        return 'Submitted';
                     } else {
-                        return 'Pending';
+                        return 'Not Submitted';
                     }
                 }
             },

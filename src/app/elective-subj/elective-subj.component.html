@@ -14,7 +14,7 @@
 
                     <div class="d-flex justify-content-start">
                         <div style="padding-right: 30px;"> <a class="subCategory" routerLink="/subject">
-                                <h3 class="subCategoryTitle"> Base </h3>
+                                <h3 class="subCategoryTitle"> All </h3>
                             </a></div>
                         <div style="padding-right: 30px;"> <a class="subCategory subCategoryActive"
                                 routerLink="/elective">
@@ -66,19 +66,16 @@
                                 <td> {{ elective.title }} </td>
                                 <td>
                                     <!-- To access the specific page using ID -->
-                                    <a routerLink="/elective-edit/{{elective.SMID}}">
-                                        {{ elective.SM }}
-                                    </a>
+                                    <a routerLink="/elective-edit/{{elective.SMID}}" class="tooltips">{{ elective.SM }} 
+                                        <span class="tooltipstext"> Edit Elective </span></a>
                                 </td>
                                 <td>
-                                    <a routerLink="/elective-edit/{{elective.BAID}}">
-                                        {{ elective.BA }}
-                                    </a>
+                                    <a routerLink="/elective-edit/{{elective.BAID}}" class="tooltips">{{ elective.BA }} 
+                                        <span class="tooltipstext"> Edit Elective</span> </a>
                                 </td>
                                 <td>
-                                    <a routerLink="/elective-edit/{{elective.WEBID}}">
-                                        {{ elective.WEB }}
-                                    </a>
+                                    <a routerLink="/elective-edit/{{elective.WEBID}}"> {{ elective.WEB }}
+                                        <span class="tooltipstext"> Edit Elective </span> </a>
                                 </td>
                             </tr>
                         </tbody>

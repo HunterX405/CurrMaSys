@@ -2,7 +2,7 @@
 
 <div *ngIf="!isPrint" class="mainContent">
 
-    <h1 style="padding: 15px 32px; height: 8%;"> Curriculums </h1>
+    <h1 style="padding: 15px 32px; height: 8%;"> Curriculum</h1>
 
     <div class="lowerMainContent">
 
@@ -52,52 +52,84 @@
                 </div>
             </div>
 
+            <!-- CURRICULUM DATA AND STATISTICS -->
             <div class="row">
-                <div class="col-md-6">
-                    <div class="row card border-0 m-2">
+                <div class="col-lg-6 col-xl-3">
+                    <div class="row card border-0 m-1">
                         <div class="card-body">
                             <div class="row">
                                 <div class="d-flex justify-content-center col-2">
-                                    <img src="./assets/images/icon_department.png" style="width:60px; height:60px;"
-                                        alt="DASHBOARD">
+                                    <img src="./assets/images/icon_department.png" style="width:50px; height:50px;"
+                                        alt="DEPARTMENT">
                                 </div>
                                 <div class="col-10">
                                     <h6 class="card-title"> <strong> Department: </strong> </h6>
-                                    <h3 *ngIf="curriculum" class="card-subtitle mb-2" style="font-weight:bolder;">{{
-                                        curriculum.department }} </h3>
+                                    <h5 *ngIf="curriculum" class="card-subtitle mb-2" style="font-weight:bolder;">{{
+                                        curriculum.department }} </h5>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6">
-                    <div class="row card border-0 m-2">
+                <div class="col-lg-6 col-xl-3">
+                    <div class="row card border-0 m-1">
                         <div class="card-body">
                             <div class="row">
                                 <div class="d-flex justify-content-center col-2">
-                                    <img src="./assets/images/icon_paper.png" style="width:60px; height:60px;"
-                                        alt="BASE SUBJECT">
+                                    <img src="./assets/images/icon_paper.png" style="width:50px; height:50px;"
+                                        alt="VERSION">
                                 </div>
                                 <div class="col-10">
                                     <h6 class="card-title"> <strong> Version: </strong> </h6>
-                                    <h3 *ngIf="curriculum" class="card-subtitle mb-2" style="font-weight:bolder;">{{
-                                        curriculum.version }} - {{ curriculum.version_id }} </h3>
+                                    <h5 *ngIf="curriculum" class="card-subtitle mb-2" style="font-weight:bolder;">{{
+                                        curriculum.version }} - {{ curriculum.version_id }} </h5>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <div class="col-lg-6 col-xl-3">
+                    <div class="row card border-0 m-1">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="d-flex justify-content-center col-2">
+                                    <img src="../../assets/images/icon_curr_units.png" style="width:50px; height:50px;"
+                                        alt="TOTAL UNITS">
+                                </div>
+                                <div class="col-10">
+                                    <h6 class="card-title"> <strong> Curriculum Total Units: </strong></h6>      
+                                    <h5 class="card-subtitle mb-2" style="font-weight:bolder;"> {{ totalForCurr.tAll }} </h5>                             
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-xl-3">
+                    <div class="row card border-0 m-1">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="d-flex justify-content-center col-2">
+                                    <img src="../../assets/images/icon_curr_hours.png" style="width:50px; height:50px;"
+                                        alt="BASE SUBJECT">
+                                </div>
+                                <div class="col-10">
+                                    <h6 class="card-title"> <strong> Curriculum Total Hours: </strong> </h6>
+                                    <h5 class="card-subtitle mb-2" style="font-weight:bolder;"> {{ totalForCurr.tHrs }} </h5>                                                  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
-            <div>
-                Total Units for the Curriculum: {{ totalForCurr.tAll }}
-            </div>
-
-            <div>
-                Total Hours for the Curriculum: {{ totalForCurr.tHrs }}
-            </div>
+          
+         
         </div>
+
 
         <!-- Table for displaying the list of curriculums -->
         <div *ngIf="isTableVisible">
@@ -149,24 +181,24 @@
                 </div>
             </form>
 
-
+            <!-- CURRICULUM TABLE -->
             <div *ngFor="let subjects of yearSem">
                 <div class="mx-5 py-2">
-                    <div class="container-fluid mainTable px-5 py-3"
+                    <div class="container-fluid mainTable px-4 py-3"
                         *ngIf="paramyear === 'all' || subjects['year'] == paramyear">
 
-                        <table class="table">
+                        <table class="table tableCurrPadding">
                             <thead>
                                 <tr class="text-center">
                                     <th colspan="8">
-                                        <h4 style="font-family:'Outfit'"> {{subjects['yearTitle']}} YEAR</h4>
+                                        <h5 style="font-family:'Outfit'"> {{subjects['yearTitle']}} YEAR</h5>
                                     </th>
                                 </tr>
                             </thead>
                             <thead *ngIf="paramsem === 'all' || paramsem === '1'">
                                 <tr class="text-left">
                                     <th colspan="8">
-                                        <h5 style="margin-top: 25px;"> <strong> FIRST SEMESTER: </strong> </h5>
+                                        <h6 style="margin-top: 5px;"> <strong> FIRST SEMESTER: </strong> </h6>
                                     </th>
                                 </tr>
                                 <tr *ngIf="subjects['sem1'].length" class="text-center">
@@ -186,8 +218,8 @@
                             <tbody *ngIf="paramsem === 'all' || paramsem === '1'" class="text-center">
                                 <tr *ngFor="let subject of subjects['sem1']">
                                     <td>{{ subject.course_code }}</td>
-                                    <td><a href="{{apiUrl}}/PDF/{{subject.syllabus}}" target="blank">{{ subject.title
-                                            }}</a>
+                                    <td> <a href="{{apiUrl}}/PDF/{{subject.syllabus}}" target="blank" class="tooltips"> {{ subject.title }} 
+                                        <span class="tooltipstext"> Open Syllabus </span></a>                                     
                                     </td>
                                     <td>{{ subject.lec_units }}</td>
                                     <td>{{ subject.lab_units }}</td>
@@ -213,7 +245,7 @@
                             <thead *ngIf="paramsem === 'all' || paramsem === '2'">
                                 <tr class="text-left">
                                     <th colspan="8">
-                                        <h5 style="margin-top: 25px;"> <strong> SECOND SEMESTER: </strong> </h5>
+                                        <h6 style="margin-top: 5px;"> <strong> SECOND SEMESTER: </strong> </h6>
                                     </th>
                                 </tr>
                                 <tr *ngIf="subjects['sem2'].length" class="text-center">
@@ -233,8 +265,9 @@
                             <tbody *ngIf="paramsem === 'all' || paramsem === '2'" class="text-center">
                                 <tr *ngFor="let subject of subjects['sem2']">
                                     <td>{{ subject.course_code }}</td>
-                                    <td><a href="{{apiUrl}}/PDF/{{subject.syllabus}}" target="blank">{{ subject.title
-                                            }}</a>
+                                    <td><a href="{{apiUrl}}/PDF/{{subject.syllabus}}" target="blank" class="tooltips">{{ subject.title }}
+                                        <span class="tooltipstext"> Open Syllabus </span>
+                                    </a>
                                     </td>
                                     <td>{{ subject.lec_units }}</td>
                                     <td>{{ subject.lab_units }}</td>
@@ -272,14 +305,14 @@
                         <thead>
                             <tr class="text-center">
                                 <th colspan="8">
-                                    <h4 style="font-family:'Outfit'"> SPECIALIZATION </h4>
+                                    <h5 style="font-family:'Outfit'"> SPECIALIZATION </h5>
                                 </th>
                             </tr>
                             <tr *ngIf="electives && electives.length">
                                 <th></th>
                                 <th>Service Management Specialization Track</th>
                                 <th>Business Analytics Specialization Track</th>
-                                <th>Web and Mobile Development Specialization Track</th>
+                                <th>Web and Mobile Application Development Specialization Track</th>
                             </tr>
                         </thead>
                         <tbody *ngIf="electives && electives.length">
@@ -302,11 +335,10 @@
             </div>
         </div>
 
-
+        <!-- EDIT CURRICULUM -->
+        <div class="mx-5 py-2">
         <div *ngIf="!isTableVisible" class="addForm p-5">
-
-            <h2> Edit Curriculum </h2>
-
+            
             <form [formGroup]="curriculumForm" (ngSubmit)="editCurriculum(curriculumForm)" (change)="getCurrTotals()">
 
                 <div class="form-group pb-3">
@@ -324,23 +356,13 @@
                 <div class="pb-3" *ngFor="let subjects of subjectsArray" formArrayName="{{subjects['form']}}">
                     <table class="container-fluid mainTable px-5 py-3" style="margin-bottom: 30px">
                         <thead>
-                            <tr style="width:35%;">
+                            <tr style="width:38%;">
                                 <th>
-                                    <div class="row">
-                                        <span>
-                                            <h6
-                                                style="margin-bottom:15px; padding-bottom:5px; border-bottom: 0.2px solid rgba(104, 104, 104, 0.5);">
-                                                <strong> {{subjects['yearTitle']}} YEAR - {{subjects['semTitle']}}
-                                                    SEMESTER
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </strong>
-                                                <span class="addSub"> <a (click)="addNewSubject(subjects['array'])">
-                                                        + ADD
-                                                        SUBJECT
-                                                    </a> </span>
-                                            </h6>
-                                        </span>
-
-
+                                    <div class="row">                                  
+                                            <span class="addSubRow">
+                                                <strong> {{subjects['yearTitle']}} YEAR - {{subjects['semTitle']}} SEMESTER &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </strong>
+                                                <a (click)="addNewSubject(subjects['array'])" class="btn btn-outline-primary btn-sm px-3 addSub" style="margin-bottom: 3.5px;"> <strong>  + &nbsp; ADD </strong> </a> 
+                                            </span>                                  
                                     </div>
                                 </th>
                             </tr>
@@ -384,7 +406,7 @@
                                     <input class="form-control" type="number" min="0" max="5"
                                         formControlName="total_units" readonly
                                         [class.invalid]="subjects['array'].at(i).get('total_units').value > 5" />
-                                    <p *ngIf="subjects['array'].at(i).get('total_units').value > 5">Max of 5 only
+                                    <p *ngIf="subjects['array'].at(i).get('total_units').value > 5" class="maxInvalid">Max of 5 only
                                     </p>
                                 </td>
                                 <td class="px-1">
@@ -414,29 +436,31 @@
                         <tfoot *ngIf="subjects['array'].length">
                             <tr *ngIf="getFormTotals(subjects['array']) as totals">
                                 <td>TOTAL</td>
-                                <td>{{ totals.lec }}</td>
-                                <td>{{ totals.lab }}</td>
-                                <td [class.invalid]="totals.all > 30">{{ totals.all }}</td>
-                                <td>{{ totals.hrs }}</td>
+                                <td>&nbsp;&nbsp;&nbsp;&nbsp;{{ totals.lec }}</td>
+                                <td>&nbsp;&nbsp;&nbsp;&nbsp;{{ totals.lab }}</td>
+                                <td [class.invalid]="totals.all > 30">&nbsp;&nbsp;&nbsp;&nbsp;{{ totals.all }}</td>
+                                <td>&nbsp;&nbsp;&nbsp;&nbsp;{{ totals.hrs }}</td>
                             </tr>
                         </tfoot>
                     </table>
                     <ng-container *ngIf="subjects['array'].errors as err">
-                        <div *ngIf="err.invalid" class="invalid">Each semester can only have a maximum of 30 units.
+                        <div *ngIf="err.invalid" class="invalid">
+                            <img src="../../assets/images/icon_danger.png" style="width: 25px; height: 25px; margin-top: 2px;" alt="WARNING">
+                            <span>  &nbsp; Each semester can only have a maximum of 30 units. </span>                        
                         </div>
                     </ng-container>
                 </div>
 
                 <div>
-                    Total Units for the Curriculum: {{ totalForCurr.tAll }}
+                    <span> Total Units for the Curriculum: <strong>  {{ totalForCurr.tAll }} </strong> </span> 
                 </div>
 
                 <div>
-                    Total Hours for the Curriculum: {{ totalForCurr.tHrs }}
+                    <span> Total Hours for the Curriculum: <strong> {{ totalForCurr.tHrs }} </strong> </span> 
                 </div>
 
                 <div class="d-flex justify-content-end" style="margin: 5px 0;">
-                    <button class="btn btn-primary">Edit Curriculum</button>
+                    <button class="btn btn-primary px-4"> <strong> Confirm Changes </strong> </button>
                 </div>
 
                 <!-- FOR DEBUGGING ONLY -->
@@ -446,14 +470,48 @@
                 <!-- <b>Form is Valid ? :</b>
                 {{ curriculumForm.valid }} -->
             </form>
+            </div>
         </div>
     </div>
 </div>
 
-
+<!-- PRINT MODULE -->
 <div *ngIf="isPrint" class="print">
     <div *ngIf="curriculum" class="printModule">
-        <div class="row">
+
+        <!-- HEADER -->
+        <div class="row d-flex justify-content-center" style="margin-top: 10px;">
+            <div class="col d-flex justify-content-end">
+                <img src="../../assets/images/logoBSU.png" alt="BSU LOGO" style="width: 75px; height: 75px;">
+            </div>
+            <div class="col d-flex justify-content-center text-center">
+                <span>
+                    <strong> Republic of the Philippines </strong> <br>
+                    <strong> Bulacan State University </strong> <br>
+                    City of Malolos, Bulacan <br>
+                    Tel/Fax (044) 791-0153
+                </span>
+            </div>
+            <div class="col d-flex justify-content-start">
+                <img src="../../assets/images/logoCICT.png" alt="BSU LOGO" style="width: 75px; height: 75px;">
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center text-center">
+            <span><strong> College of Information and Communications Technology </strong></span>
+        </div>
+        <hr>
+
+        <div class="row d-flex justify-content-center text-center">
+            <span><strong> {{ curriculum.department }} </strong></span>
+        </div>
+        <div class="row d-flex justify-content-center text-center" style="padding-bottom: 15px;">
+            <span> Version: <strong> {{ curriculum.version }} </strong></span>
+        </div>
+        <div class="row d-flex justify-content-center text-center d-none" style="padding-bottom: 15px;">
+            <span> (Based on CMO No. 25 s 2015) </span>
+        </div>
+
+        <!-- <div class="row">
             <h1> <strong> CurrMS </strong></h1>
         </div>
         <div class="row">
@@ -470,35 +528,39 @@
 
         <div>
             Total Hours for the Curriculum: {{ totalForCurr.tHrs }}
-        </div>
+        </div> -->
+
     </div>
 
     <div *ngFor="let subjects of yearSem">
-        <div class="container-fluid mainTable printModule" *ngIf="paramyear === 'all' || subjects['year'] == paramyear">
+        <div class="container-fluid mainTable printModule printSmallTxt"
+            *ngIf="paramyear === 'all' || subjects['year'] == paramyear">
 
-            <table class="table">
+            <table class="table table-bordered tablePrintPadding">
                 <thead>
                     <tr class="text-center">
-                        <th colspan="8">
-                            <h4 style="font-family:'Outfit'"> {{subjects['yearTitle']}} YEAR</h4>
+                        <th colspan="8" style="background-color: #bfbfbf;">
+                            <h6> <strong style="font-family: Arial, Helvetica, sans-serif; font-size: 10px;">
+                                    {{subjects['yearTitle']}} YEAR </strong></h6>
                         </th>
                     </tr>
                 </thead>
                 <thead *ngIf="paramsem === 'all' || paramsem === '1'">
                     <tr class="text-left">
                         <th colspan="8">
-                            <h5 style="margin-top: 25px;"> <strong> FIRST SEMESTER: </strong> </h5>
+                            <h6> <strong style="font-family: Arial, Helvetica, sans-serif; font-size: 10px;"> FIRST
+                                    SEMESTER: </strong> </h6>
                         </th>
                     </tr>
                     <tr *ngIf="subjects['sem1'].length" class="text-center">
-                        <th>COURSE CODE</th>
-                        <th>DESCRIPTIVE TITLE</th>
-                        <th>LEC UNITS</th>
-                        <th>LAB UNITS</th>
-                        <th>TOTAL UNITS</th>
-                        <th>HRS / WEEK</th>
-                        <th>PREREQ.</th>
-                        <th>CO-REQ.</th>
+                        <th> COURSE CODE </th>
+                        <th> DESCRIPTIVE TITLE </th>
+                        <th> LEC UNITS </th>
+                        <th> LAB UNITS </th>
+                        <th> TOTAL UNITS </th>
+                        <th> HRS / WEEK </th>
+                        <th> PREREQ. </th>
+                        <th> CO-REQ. </th>
                     </tr>
                     <tr *ngIf="!subjects['sem1'].length" class="text-center">
                         <th colspan="8s"> <em class="text-muted"> NO SUBJECTS/NO DATA RETRIEVED </em> </th>
@@ -507,7 +569,8 @@
                 <tbody *ngIf="paramsem === 'all' || paramsem === '1'" class="text-center">
                     <tr *ngFor="let subject of subjects['sem1']">
                         <td>{{ subject.course_code }}</td>
-                        <td><a href="{{apiUrl}}/PDF/{{subject.syllabus}}" target="blank">{{ subject.title
+                        <td><a href="{{apiUrl}}/PDF/{{subject.syllabus}}" target="blank" class="printLink">{{
+                                subject.title
                                 }}</a>
                         </td>
                         <td>{{ subject.lec_units }}</td>
@@ -534,7 +597,8 @@
                 <thead *ngIf="paramsem === 'all' || paramsem === '2'">
                     <tr class="text-left">
                         <th colspan="8">
-                            <h5 style="margin-top: 25px;"> <strong> SECOND SEMESTER: </strong> </h5>
+                            <h6> <strong style="font-family: Arial, Helvetica, sans-serif; font-size: 10px;"> SECOND
+                                    SEMESTER: </strong> </h6>
                         </th>
                     </tr>
                     <tr *ngIf="subjects['sem2'].length" class="text-center">
@@ -554,7 +618,8 @@
                 <tbody *ngIf="paramsem === 'all' || paramsem === '2'" class="text-center">
                     <tr *ngFor="let subject of subjects['sem2']">
                         <td>{{ subject.course_code }}</td>
-                        <td><a href="{{apiUrl}}/PDF/{{subject.syllabus}}" target="blank">{{ subject.title
+                        <td><a href="{{apiUrl}}/PDF/{{subject.syllabus}}" target="blank" class="printLink">{{
+                                subject.title
                                 }}</a>
                         </td>
                         <td>{{ subject.lec_units }}</td>
@@ -583,19 +648,21 @@
         </div>
     </div>
 
-    <div class="container-fluid mainTable printModule" style="margin-top: 25px;">
-        <table class="table text-center">
+    <!-- SPECIALIZATION -->
+    <div class="container-fluid mainTable printModule printSmallTxt" style="margin-top: 25px;">
+        <table class="table text-center tablePrintPadding">
             <thead>
                 <tr class="text-center">
-                    <th colspan="8">
-                        <h4 style="font-family:'Outfit'"> SPECIALIZATION </h4>
+                    <th colspan="8" style="background-color: #bfbfbf;">
+                        <h6> <strong style="font-family: Arial, Helvetica, sans-serif; font-size: 10px;"> SPECIALIZATION
+                            </strong></h6>
                     </th>
                 </tr>
                 <tr *ngIf="electives && electives.length">
                     <th></th>
                     <th>Service Management Specialization Track</th>
                     <th>Business Analytics Specialization Track</th>
-                    <th>Web and Mobile Development Specialization Track</th>
+                    <th>Web and Mobile Application Development Specialization Track</th>
                 </tr>
             </thead>
             <tbody *ngIf="electives && electives.length">
@@ -615,4 +682,15 @@
             </tbody>
         </table>
     </div>
+
+    <!-- TOTAL HOURS -->
+    <div class="row d-flex justify-content-end text-end mx-2">
+        <span>
+            <span> <strong> Curriculum Details </strong> </span> <br>
+            <span> Total Units: <strong> {{ totalForCurr.tAll }} </strong> </span> <br>
+            <span> Total Hours: <strong> {{ totalForCurr.tHrs }} </strong> </span>
+        </span>
+    </div>
+
+
 </div>

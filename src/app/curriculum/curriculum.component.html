@@ -2,7 +2,7 @@
 
 <div class="mainContent">
 
-    <h1 style="padding: 15px 32px; height: 8%;"> Curriculums </h1>
+    <h1 style="padding: 15px 32px; height: 8%;"> Curriculum </h1>
 
     <div class="lowerMainContent">
 
@@ -75,23 +75,14 @@
                     <div class="pb-3" *ngFor="let subjects of subjectsArray" formArrayName="{{subjects['form']}}">
                         <table class="container-fluid mainTable px-5 py-3" style="margin-bottom: 30px">
                             <thead>
-                                <tr style="width:35%;">
+                                <tr style="width:38%;">
                                     <th>
                                         <div class="row">
-                                            <span>
-                                                <h6
-                                                    style="margin-bottom:15px; padding-bottom:5px; border-bottom: 0.2px solid rgba(104, 104, 104, 0.5);">
-                                                    <strong> {{subjects['yearTitle']}} YEAR - {{subjects['semTitle']}}
-                                                        SEMESTER
-                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </strong>
-                                                    <span class="addSub"> <a (click)="addNewSubject(subjects['array'])">
-                                                            + ADD
-                                                            SUBJECT
-                                                        </a> </span>
-                                                </h6>
+                                            <span class="addSubRow">
+                                                <strong> {{subjects['yearTitle']}} YEAR - {{subjects['semTitle']}} SEMESTER &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </strong>
+                                                <a (click)="addNewSubject(subjects['array'])" class="btn btn-outline-primary btn-sm px-3 addSub" style="margin-bottom: 3.5px;"> <strong> + &nbsp; ADD </strong> </a>
+
                                             </span>
-
-
                                         </div>
                                     </th>
                                 </tr>
@@ -132,7 +123,7 @@
                                         <input class="form-control" type="number" min="0" max="5"
                                             formControlName="total_units" readonly
                                             [class.invalid]="subjects['array'].at(i).get('total_units').value > 5" />
-                                        <p *ngIf="subjects['array'].at(i).get('total_units').value > 5">Max of 5 only
+                                        <p *ngIf="subjects['array'].at(i).get('total_units').value > 5" class="maxInvalid">Max of 5 only
                                         </p>
                                     </td>
                                     <td class="px-1">
@@ -163,15 +154,18 @@
                             <tfoot *ngIf="subjects['array'].length">
                                 <tr *ngIf="getFormTotals(subjects['array']) as totals">
                                     <td>TOTAL</td>
-                                    <td>{{ totals.lec }}</td>
-                                    <td>{{ totals.lab }}</td>
-                                    <td [class.invalid]="totals.all > 30">{{ totals.all }}</td>
-                                    <td>{{ totals.hrs }}</td>
+                                    <td> &nbsp;&nbsp;&nbsp;&nbsp;{{ totals.lec }}</td>
+                                    <td> &nbsp;&nbsp;&nbsp;&nbsp;{{ totals.lab }}</td>
+                                    <td [class.invalid]="totals.all > 30"> &nbsp;&nbsp;&nbsp;&nbsp;{{ totals.all }}</td>
+                                    <td> &nbsp;&nbsp;&nbsp;&nbsp;{{ totals.hrs }}</td>
                                 </tr>
                             </tfoot>
                         </table>
                         <ng-container *ngIf="subjects['array'].errors as err">
-                            <div *ngIf="err.invalid" class="invalid">Each semester can only have a maximum of 30 units.</div>
+                            <div *ngIf="err.invalid" class="invalid">
+                                <img src="../../assets/images/icon_danger.png" style="width: 25px; height: 25px; margin-top: 2px;" alt="WARNING">
+                                <span>  &nbsp; Each semester can only have a maximum of 30 units. </span>   
+                            </div>
                         </ng-container>
                     </div>
 
