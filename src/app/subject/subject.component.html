@@ -16,7 +16,7 @@
                     <div class="d-flex justify-content-start">
                         <div style="padding-right: 30px;"> <a class="subCategory subCategoryActive"
                                 routerLink="/subject">
-                                <h3 class="subCategoryTitle"> Core </h3>
+                                <h3 class="subCategoryTitle"> All </h3>
                             </a></div>
                         <div style="padding-right: 30px;"> <a class="subCategory" routerLink="/elective">
                                 <h3 class="subCategoryTitle"> Elective </h3>
@@ -68,8 +68,8 @@
                                 <td>{{ subject.title }}</td>
                                 <td>{{ subjectTypes[subject.type] }}</td>
                                 <td *ngIf="subject.syllabus">
-                                    <a href="{{apiUrl}}/PDF/{{ subject.syllabus }}" target="_blank">{{ subject.syllabus
-                                        }}</a>
+                                    <a href="{{apiUrl}}/PDF/{{ subject.syllabus }}" target="_blank" class="tooltips">{{ subject.syllabus }}
+                                        <span class="tooltipstext"> Open Syllabus </span></a>
                                 </td>
                                 <td *ngIf="!subject.syllabus">
                                     No Syllabus Submitted
