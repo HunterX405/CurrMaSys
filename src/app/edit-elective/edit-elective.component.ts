@@ -26,6 +26,7 @@ export class EditElectiveComponent implements OnInit {
   editEleForm = this.fb.group({
     title: ["", [Validators.required]],
     syllabus: [""],
+    description: ["", [Validators.required]]
   });
 
   constructor(private fb: FormBuilder,
@@ -56,6 +57,7 @@ export class EditElectiveComponent implements OnInit {
   setFormValue(data: any) {
     // Setting-up the value of the form from the specific subject data
     this.editEleForm.get('title')?.setValue(data.elective_title);
+    this.editEleForm.get('description')?.setValue(data.description);
   }
 
   onFileSelect(event: any) {
@@ -63,10 +65,10 @@ export class EditElectiveComponent implements OnInit {
   }
 
   editSubject(editSubForm: FormGroup) {
-    let { title, syllabus } = editSubForm.value;
+    let { title, syllabus, description } = editSubForm.value;
 
     if (this.editEleForm.valid) {
-      this.apiService.editElective(this.electiveID, title, syllabus).subscribe({
+      this.apiService.editElective(this.electiveID, title, syllabus, description).subscribe({
         next: (data) => {
           this.isSuccess = true;
           console.log("Elective Editing Successful", data);

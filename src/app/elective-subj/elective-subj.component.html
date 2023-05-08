@@ -74,7 +74,7 @@
                                         <span class="tooltipstext"> Edit Elective</span> </a>
                                 </td>
                                 <td>
-                                    <a routerLink="/elective-edit/{{elective.WEBID}}"> {{ elective.WEB }}
+                                    <a routerLink="/elective-edit/{{elective.WEBID}}" class="tooltips"> {{ elective.WEB }}
                                         <span class="tooltipstext"> Edit Elective </span> </a>
                                 </td>
                             </tr>
@@ -120,10 +120,23 @@
                         </div>
 
                         <div class="my-2">
+                            <label for="description">Description:</label>
+                            <textarea formControlName="description" class="form-control" id="" cols="70" rows="3" [class.invalid]="addEleForm.get('el1Data.description')?.hasError('required') && (addEleForm.get('el1Data.description')?.dirty || addEleForm.get('el1Data.description')?.touched || isFormSubmitted)">
+
+                            </textarea>
+                        </div>
+
+                        <div class="error"
+                            *ngIf="addEleForm.get('el1Data.description')?.hasError('required') && (addEleForm.get('el1Data.description')?.dirty || addEleForm.get('el1Data.description')?.touched || isFormSubmitted)">
+                            This field is required.
+                        </div>
+
+                        <div class="my-2">
                             <label for="el-syllabus1">Syllabus</label> <br>
                             <input type="File" formControlName="syllabus" id="el-syllabus1" name="el-syllabus1"
                                 class="form-control" accept=".pdf" (change)="onFileSelect($event)"
-                                [class.error]="addEleForm.get('el1Data.syllabus')?.hasError('required') && (addEleForm.get('el1Data.syllabus')?.dirty || addEleForm.get('el1Data.syllabus')?.touched || isFormSubmitted)">
+                                >
+                                <!-- [class.error]="addEleForm.get('el1Data.syllabus')?.hasError('required') && (addEleForm.get('el1Data.syllabus')?.dirty || addEleForm.get('el1Data.syllabus')?.touched || isFormSubmitted)" -->
                         </div>
                     </div>
 
@@ -143,10 +156,21 @@
                         </div>
 
                         <div class="my-2">
+                            <label for="description">Description:</label>
+                            <textarea formControlName="description" class="form-control" id="" cols="70" rows="3" [class.invalid]="addEleForm.get('el2Data.description')?.hasError('required') && (addEleForm.get('el2Data.description')?.dirty || addEleForm.get('el2Data.description')?.touched || isFormSubmitted)">
+                            </textarea>
+                        </div>
+                        <div class="error"
+                            *ngIf="addEleForm.get('el3Data.description')?.hasError('required') && (addEleForm.get('el2Data.description')?.dirty || addEleForm.get('el2Data.description')?.touched || isFormSubmitted)">
+                            This field is required.
+                        </div>
+
+                        <div class="my-2">
                             <label for="el-syllabus2">Sylllabus</label> <br>
                             <input type="File" formControlName="syllabus" id="el-syllabus2" name="el-syllabus2"
                                 class="form-control" accept=".pdf" (change)="onFileSelect($event)"
-                                [class.error]="addEleForm.get('el2Data.syllabus')?.hasError('required') && (addEleForm.get('el2Data.syllabus')?.dirty || addEleForm.get('el2Data.syllabus')?.touched || isFormSubmitted)">
+                                >
+                                <!-- [class.error]="addEleForm.get('el2Data.syllabus')?.hasError('required') && (addEleForm.get('el2Data.syllabus')?.dirty || addEleForm.get('el2Data.syllabus')?.touched || isFormSubmitted)" -->
                         </div>
                     </div>
 
@@ -166,10 +190,23 @@
                         </div>
 
                         <div class="my-2">
+                            <label for="description">Description:</label>
+                            <textarea formControlName="description" class="form-control" id="" cols="70" rows="3" [class.invalid]="addEleForm.get('el3Data.description')?.hasError('required') && (addEleForm.get('el3Data.description')?.dirty || addEleForm.get('el3Data.description')?.touched || isFormSubmitted)">
+                                
+                            </textarea>
+                        </div>
+
+                        <div class="error"
+                            *ngIf="addEleForm.get('el3Data.description')?.hasError('required') && (addEleForm.get('el3Data.description')?.dirty || addEleForm.get('el3Data.description')?.touched || isFormSubmitted)">
+                            This field is required.
+                        </div>
+
+                        <div class="my-2">
                             <label for="el-syllabus3">Syllabus</label> <br>
                             <input type="File" formControlName="syllabus" id="el-syllabus3" name="el-syllabus3"
                                 class="form-control" accept=".pdf" (change)="onFileSelect($event)"
-                                [class.error]="addEleForm.get('el3Data.syllabus')?.hasError('required') && (addEleForm.get('el3Data.syllabus')?.dirty || addEleForm.get('el3Data.syllabus')?.touched || isFormSubmitted)">
+                                >
+                                <!-- [class.error]="addEleForm.get('el3Data.syllabus')?.hasError('required') && (addEleForm.get('el3Data.syllabus')?.dirty || addEleForm.get('el3Data.syllabus')?.touched || isFormSubmitted)" -->
                         </div>
                     </div>
 
