@@ -94,8 +94,8 @@
                         <label for="subject">Choose Subject Title &nbsp;&nbsp;&nbsp;</label>
                         <select style="padding: 5px;" name="subject" class="form-select" id="subject" formControlName="fkSubjID"
                             [class.invalid]="addEleForm.get('fkSubjID')?.hasError('required') && (addEleForm.get('fkSubjID')?.dirty || addEleForm.get('el2Data.title')?.touched || isFormSubmitted)">
-                            <option value="{{ subject.id }}" *ngFor="let subject of subjects">
-                                {{ subject.title }}
+                            <option value="{{ elective.id }}" *ngFor="let elective of profE">
+                                {{ elective.title }}
                             </option>
                         </select>
                         <div class="error"

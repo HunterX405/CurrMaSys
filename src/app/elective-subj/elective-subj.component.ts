@@ -15,6 +15,7 @@ import 'datatables.net-buttons/js/buttons.print.min.js';
 export class ElectiveSubjComponent implements OnInit {
     // Used for the selection input field in the template
     subjects: any;
+    profE: any;
     // Used for holding the data on the ELECTIVE table
     electives: any;
     // Used for holding the new Array using transformArray()
@@ -79,6 +80,7 @@ export class ElectiveSubjComponent implements OnInit {
             }
         });
         this.getSubjects();
+        this.getProfE();
         this.displayElectives();
     }
 
@@ -94,6 +96,19 @@ export class ElectiveSubjComponent implements OnInit {
             next: (data) => {
                 console.log("Get Subjects Successful");
                 this.subjects = data;
+            },
+            error: (err) => {
+                console.log("Display Failed");
+                console.log(err);
+            }
+        });
+    }
+
+    getProfE() {
+        this.apiService.getProfE().subscribe({
+            next: (data) => {
+                console.log("Get Electives Successful", data);
+                this.profE = data;
             },
             error: (err) => {
                 console.log("Display Failed");

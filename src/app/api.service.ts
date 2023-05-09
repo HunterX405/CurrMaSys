@@ -211,6 +211,14 @@ export class ApiService {
         )
     }
 
+    getProfE() {
+        return this.httpClient.get<any>(this.baseUrl + "/getProfE.php").pipe(
+            map(data => {
+                return data["electives"];
+            })
+        )
+    }
+
     // Gets spefic data for an elective subject from ELECTIVE table
     getElectiveInfo(electiveID: any) {
         const credentials = { electiveID };
