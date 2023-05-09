@@ -15,6 +15,7 @@ import 'datatables.net-buttons/js/buttons.print.min.js';
 export class ElectiveSubjComponent implements OnInit {
     // Used for the selection input field in the template
     subjects: any;
+    profE: any;
     // Used for holding the data on the ELECTIVE table
     electives: any;
     // Used for holding the new Array using transformArray()
@@ -36,15 +37,18 @@ export class ElectiveSubjComponent implements OnInit {
         fkSubjID: ["", [Validators.required]],
         el1Data: this.fb.group({
             title: ["", [Validators.required]],
-            syllabus: ["", [Validators.required]]
+            syllabus: [""],
+            description: ["", [Validators.required]]
         }),
         el2Data: this.fb.group({
             title: ["", [Validators.required]],
-            syllabus: ["", [Validators.required]]
+            syllabus: [""],
+            description: ["", [Validators.required]]
         }),
         el3Data: this.fb.group({
             title: ['', [Validators.required]],
-            syllabus: ['', [Validators.required]]
+            syllabus: [""],
+            description: ["", [Validators.required]]
         })
     });
 
@@ -76,12 +80,14 @@ export class ElectiveSubjComponent implements OnInit {
             }
         });
         this.getSubjects();
+        this.getProfE();
         this.displayElectives();
     }
 
     onFileSelect(event: any) {
         this.file = event.target.files[0];
     }
+
     isFormSubmitted: boolean = false;
     isSuccess: boolean = false;
     // Getting data from the SUBJECT Table for SELECT input field on the template
@@ -90,6 +96,19 @@ export class ElectiveSubjComponent implements OnInit {
             next: (data) => {
                 console.log("Get Subjects Successful");
                 this.subjects = data;
+            },
+            error: (err) => {
+                console.log("Display Failed");
+                console.log(err);
+            }
+        });
+    }
+
+    getProfE() {
+        this.apiService.getProfE().subscribe({
+            next: (data) => {
+                console.log("Get Electives Successful", data);
+                this.profE = data;
             },
             error: (err) => {
                 console.log("Display Failed");
@@ -144,7 +163,9 @@ export class ElectiveSubjComponent implements OnInit {
                     location.reload();
                     // Loop is used to uploadFile because it returned 3 FileName
                     for (let i = 0; i < data.length; i++) {
-                        this.apiService.uploadFile(this.file, data[i]);
+                        if (data[i] !== "") {
+                            this.apiService.uploadFile(this.file, data[i]);
+                        }   
                     }
                 },
                 error: (err) => {

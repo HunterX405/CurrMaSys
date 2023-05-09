@@ -211,6 +211,14 @@ export class ApiService {
         )
     }
 
+    getProfE() {
+        return this.httpClient.get<any>(this.baseUrl + "/getProfE.php").pipe(
+            map(data => {
+                return data["electives"];
+            })
+        )
+    }
+
     // Gets spefic data for an elective subject from ELECTIVE table
     getElectiveInfo(electiveID: any) {
         const credentials = { electiveID };
@@ -221,9 +229,9 @@ export class ApiService {
     }
 
     // Updates an spefic data on the ELECTIVE table
-    editElective(electiveID: any, title: string, syllabus: string) {
+    editElective(electiveID: any, title: string, syllabus: string, description: string) {
         syllabus = syllabus.replace(/^C:\\fakepath\\/i, '');
-        const subData = { electiveID, title, syllabus };
+        const subData = { electiveID, title, syllabus, description };
         return this.httpClient.post<any>(this.baseUrl + "/editElective.php", subData).pipe(map(data => {
             return data;
         }));

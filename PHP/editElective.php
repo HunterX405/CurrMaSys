@@ -10,17 +10,18 @@ if (isset($postData) && !empty($postData)) {
   $electiveID = trim($request->electiveID);
   $title = trim($request->title);
   $fileName = trim($request->syllabus);
+  $description = trim($request->description);
 
   // To create a new file based on the $randomNumber
   // If false the $fileName will maintain its value or will not be updated
   if ($fileName) {
     $randomNumber = rand(1000, 10000);
     $fileName = $randomNumber . "-" . $fileName;
-    $query = "UPDATE elective SET elective_title=?, elective_syllabus=? WHERE id=?";
-    $params = [$title, $fileName, $electiveID];
+    $query = "UPDATE elective SET elective_title=?, elective_syllabus=?, description=? WHERE id=?";
+    $params = [$title, $fileName, $description, $electiveID];
   } else {
-    $query = "UPDATE elective SET elective_title=? WHERE id=?";
-    $params = [$title, $electiveID];
+    $query = "UPDATE elective SET elective_title=?, description=? WHERE id=?";
+    $params = [$title, $description, $electiveID];
   }
 
   try {
