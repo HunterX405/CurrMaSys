@@ -28,9 +28,9 @@ export class VoteComponent implements OnInit {
         this.apiService.getUserDetails().subscribe(response => {
             this.tempUserType = response.userType;
 
-            if (response.userType === 'admin' || response.userType === 'chair') {
+            if (response.userType === 'admin' || response.userType === 'chair' || response.userType === 'member') {
                 this.curriculumStatus();
-            } else if (response.userType === 'stakeholder' || response.userType === 'member') {
+            } else if (response.userType === 'stakeholder') {
                 this.curriulumFeedback(Number(response.id));
             }
         });
@@ -67,7 +67,14 @@ export class VoteComponent implements OnInit {
             { data: 'date_and_time', title: 'Submission Date' },
             {
                 data: 'curr_status', title: 'Status', render: function (data, type, row, meta) {
-                    return data.toLowerCase().replace(/\b(\w)/g, function (s) { return s.toUpperCase(); });
+                    if (data === 'approved') {
+                        return `<strong style="color: #31a24c;"> Approved </strong>`
+                    }
+                    else if (data === 'returned') {
+                        return `<strong style="color: #ee404c;"> Returned </strong>`
+                    } else {
+                        return `<strong style="color: #686868;"> Pending </strong>`
+                    }
                 }
             },
             {
