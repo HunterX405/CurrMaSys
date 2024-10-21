@@ -1,6 +1,6 @@
 export const environment = {
    production: true,
-   apiUrl: 'https://www.slarenasitsolutions.com/4hgaman/php',
-   assetsUrl: 'https://www.slarenasitsolutions.com/4hgaman/assets',
+   apiUrl: 'http://localhost/CurrMaSys/php',
+   assetsUrl: 'http://localhost/CurrMaSys/php',
    skey: 'OwH=aL2tURnL3c!XS.c2'
 };
